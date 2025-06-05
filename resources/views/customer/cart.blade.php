@@ -1,4 +1,4 @@
-@extends('layouts.customer')
+@extends('customer.layouts.customer')
 
 @section('title', 'About Us')
 
@@ -12,7 +12,7 @@
                     <div class="ri-text">
                         <div class="row">
                             <div class="col-md-5">
-                                <img src="img/room/room-1.jpg" alt="" />
+                                <img src="img/room/room-1.jpg" alt=""/>
                             </div>
                             <div class="col-md-7">
                                 <div class="ri-text">

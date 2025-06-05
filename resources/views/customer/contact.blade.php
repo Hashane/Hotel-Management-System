@@ -1,4 +1,4 @@
-@extends('layouts.customer')
+@extends('customer.layouts.customer')
 
 @section('title', 'About Us')
 
@@ -110,16 +110,16 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" placeholder="First Name" />
+                                <input type="text" placeholder="First Name"/>
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" placeholder="Last Name" />
+                                <input type="text" placeholder="Last Name"/>
                             </div>
                             <div class="col-lg-7">
-                                <input type="text" placeholder="Your Email" />
+                                <input type="text" placeholder="Your Email"/>
                             </div>
                             <div class="col-lg-5">
-                                <input type="text" placeholder="Phone" />
+                                <input type="text" placeholder="Phone"/>
                             </div>
                             <div class="col-lg-12">
                                 <textarea placeholder="Your Message"></textarea>
@@ -133,13 +133,13 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" placeholder="Card Number" />
+                                <input type="text" placeholder="Card Number"/>
                             </div>
                             <div class="col-lg-3">
-                                <input type="text" placeholder="Exp Date" />
+                                <input type="text" placeholder="Exp Date"/>
                             </div>
                             <div class="col-lg-3">
-                                <input type="text" placeholder="CVC" />
+                                <input type="text" placeholder="CVC"/>
                             </div>
 
                             <div class="col-lg-12">

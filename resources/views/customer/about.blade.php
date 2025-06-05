@@ -1,4 +1,4 @@
-@extends('layouts.customer')
+@extends('customer.layouts.customer')
 
 @section('title', 'About Us')
 
@@ -47,21 +47,24 @@
             <div class="about-page-services">
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="ap-service-item set-bg" x-data x-init="$el.style.backgroundImage = `url('{{ asset('images/about/about-p1.jpg') }}`">
+                        <div class="ap-service-item set-bg" x-data
+                             x-init="$el.style.backgroundImage = `url('{{ asset('images/about/about-p1.jpg') }}`">
                             <div class="api-text">
                                 <h3>Restaurants Services</h3>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="ap-service-item set-bg" x-data x-init="$el.style.backgroundImage = `url('{{ asset('images/about/about-p2.jpg') }}`">
+                        <div class="ap-service-item set-bg" x-data
+                             x-init="$el.style.backgroundImage = `url('{{ asset('images/about/about-p2.jpg') }}`">
                             <div class="api-text">
                                 <h3>Travel & Camping</h3>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="ap-service-item" x-data x-init="$el.style.backgroundImage = `url('{{ asset('images/about/about-p3.jpg') }}`">
+                        <div class="ap-service-item" x-data
+                             x-init="$el.style.backgroundImage = `url('{{ asset('images/about/about-p3.jpg') }}`">
                             <div class="api-text">
                                 <h3>Event & Party</h3>
                             </div>
@@ -86,21 +89,24 @@
             </div>
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="gallery-item set-bg" x-data x-init="$el.style.backgroundImage = `url('{{ asset('images/gallery/gallery-1.jpg') }}`">
+                    <div class="gallery-item set-bg" x-data
+                         x-init="$el.style.backgroundImage = `url('{{ asset('images/gallery/gallery-1.jpg') }}`">
                         <div class="gi-text">
                             <h3>Room Luxury</h3>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="gallery-item set-bg" x-data x-init="$el.style.backgroundImage = `url('{{ asset('images/gallery/gallery-2.jpg') }}`">
+                            <div class="gallery-item set-bg" x-data
+                                 x-init="$el.style.backgroundImage = `url('{{ asset('images/gallery/gallery-2.jpg') }}`">
                                 <div class="gi-text">
                                     <h3>Room Luxury</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="gallery-item set-bg" x-data x-init="$el.style.backgroundImage = `url('{{ asset('images/gallery/gallery-3.jpg') }}`">
+                            <div class="gallery-item set-bg" x-data
+                                 x-init="$el.style.backgroundImage = `url('{{ asset('images/gallery/gallery-3.jpg') }}`">
                                 <div class="gi-text">
                                     <h3>Room Luxury</h3>
                                 </div>
@@ -109,7 +115,8 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="gallery-item large-item set-bg" x-data x-init="$el.style.backgroundImage = `url('{{ asset('images/gallery/gallery-2.jpg') }}`">
+                    <div class="gallery-item large-item set-bg" x-data
+                         x-init="$el.style.backgroundImage = `url('{{ asset('images/gallery/gallery-2.jpg') }}`">
                         <div class="gi-text">
                             <h3>Room Luxury</h3>
                         </div>
