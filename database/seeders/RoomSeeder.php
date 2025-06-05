@@ -14,9 +14,9 @@ class RoomSeeder extends Seeder
     public function run(): void
     {
         $standardImages = [
-            'https://images.unsplash.com/photo-1560448071-7a03e5a45e6d?auto=format&fit=crop&w=800&q=80',
-            'https://images.unsplash.com/photo-1501117716987-c8e69bf92d02?auto=format&fit=crop&w=800&q=80',
-            'https://images.unsplash.com/photo-1560449754-15a6c3a03b84?auto=format&fit=crop&w=800&q=80',
+            'https://unsplash.com/photos/a-classic-cream-colored-vespa-scooter-is-parked-8C50DR33-LI',
+            'https://unsplash.com/photos/a-classic-cream-colored-vespa-scooter-is-parked-8C50DR33-LI',
+            'https://images.unsplash.com/photo-1748989431517-89991935135b?auto=format&fit=crop&w=800&q=80',
             'https://images.unsplash.com/photo-1472220625704-91e1462799b2?auto=format&fit=crop&w=800&q=80',
             'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=800&q=80',
         ];
@@ -25,16 +25,17 @@ class RoomSeeder extends Seeder
             'https://images.unsplash.com/photo-1502672023488-70e25813eb80?auto=format&fit=crop&w=800&q=80',
             'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80',
             'https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80',
-            'https://images.unsplash.com/photo-1486308510493-cb6e98aeb3a1?auto=format&fit=crop&w=800&q=80',
+            'https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80',
             'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=800&q=80',
         ];
 
         $suiteImages = [
-            'https://images.unsplash.com/photo-1505692952046-59db4d891f86?auto=format&fit=crop&w=800&q=80',
+            'https://images.unsplash.com/photo-1748989431517-89991935135b?auto=format&fit=crop&w=800&q=80',
             'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=800&q=80',
-            'https://images.unsplash.com/photo-1486308510493-cb6e98aeb3a1?auto=format&fit=crop&w=800&q=80',
+            'https://images.unsplash.com/photo-1745906482461-f40ab661a456??auto=format&fit=crop&w=800&q=80',
             'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80',
             'https://images.unsplash.com/photo-1472220625704-91e1462799b2?auto=format&fit=crop&w=800&q=80',
+
         ];
 
 
