@@ -277,7 +277,7 @@
                 </div>
 
                 <div class="col-lg-12">
-                    <div class="room-pagination">
+                    <div class="room-pagination" style="margin-bottom: 20px;">
                         <a href="#">1</a>
                         <a href="#">2</a>
                         <a href="#">Next <i class="fa fa-long-arrow-right"></i></a>

@@ -10,9 +10,9 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="hero-text">
-                        <h1>Sharon’s – A Luxury Residence</h1>
+                        <h1>Four Seasons – A Luxury Residence</h1>
                         <p>
-                            Discover refined living at Sharon’s, a luxury residence designed for comfort and elegance.
+                            Discover refined living at Four Seasons, a luxury residence designed for comfort and elegance.
                             Perfect for travelers seeking a peaceful, home-like stay with upscale amenities and
                             personalized service.
                         </p>
@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-5 offset-xl-2 offset-lg-1">
-                    <div class="booking-form">
+                    <div class="booking-form" style="padding: 30px 40px 50px 40px;">
                         <h3>Booking Your Hotel</h3>
                         <form action="#">
                             <div class="select-option">

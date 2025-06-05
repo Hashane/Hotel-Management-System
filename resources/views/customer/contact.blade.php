@@ -66,7 +66,7 @@
                                     <tbody>
                                     <tr>
                                         <td class="c-o">Address:</td>
-                                        <td>856 Cordia Extension Apt. 356, Lake, US</td>
+                                        <td>432 Dambaduraya, Seeduwa, Sri Lanka</td>
                                     </tr>
                                     <tr>
                                         <td class="c-o">Phone:</td>
@@ -74,7 +74,7 @@
                                     </tr>
                                     <tr>
                                         <td class="c-o">Email:</td>
-                                        <td>info.colorlib@gmail.com</td>
+                                        <td>FourSeasons@gmail.com</td>
                                     </tr>
                                     <tr>
                                         <td class="c-o">Fax:</td>
@@ -92,7 +92,6 @@
                         <div class="col-lg-12 payment-card">
                             <div class="contact-text">
                                 <h3 style="margin-top: 20px">Cancelation Policy</h3>
-                                <p style="font-weight: bolder">Free Cancellation</p>
                                 <p>
                                     Cancel /Rebook No Later Than 24 Hours Before, Otherwise You
                                     Pay 80% Of The Cost.
@@ -143,7 +142,7 @@
                             </div>
 
                             <div class="col-lg-12">
-                                <button type="submit">Make Payment</button>
+                                <button type="submit">Make Reservation</button>
                             </div>
                         </div>
                     </form>

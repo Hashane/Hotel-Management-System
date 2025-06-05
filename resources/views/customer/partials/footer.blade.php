@@ -7,11 +7,11 @@
                     <div class="ft-about">
                         <div class="logo">
                             <a href="#">
-                                <img src="{{ asset('images/footer-logo.png') }}" alt="" />
+                                <img class="logo-header" src="{{ asset('images/logo5.png') }}" alt="" />
                             </a>
                         </div>
                         <p>
-                            Sharon’s Residence offers comfort, elegance, and exceptional service in the heart of the city.
+                            Four Seasons Residence offers comfort, elegance, and exceptional service in the heart of the city.
                         </p>
                         <div class="fa-social">
                             <a href="#"><i class="fab fa-facebook"></i></a>
@@ -25,8 +25,8 @@
                         <h6>Contact Us</h6>
                         <ul>
                             <li>(+94) 74 137 5941</li>
-                            <li>sharons@gmail.comm</li>
-                            <li>856 Cordia Extension Apt. 356, Lake, United State</li>
+                            <li>FourSeasons@gmail.comm</li>
+                            <li>432 Dambaduraya, Seeduwa, Sri Lanka</li>
                         </ul>
                     </div>
                 </div>
