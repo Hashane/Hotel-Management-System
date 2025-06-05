@@ -19,28 +19,8 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::middleware('guest')->group(function () {
-    Route::get('/', function () {
-        return view('index');
-    })->name('home');
-
-    Route::get('/about', function () {
-        return view('about');
-    })->name('about');
-
-    Route::get('/cart', function () {
-        return view('cart');
-    });
-
-    Route::get('/rooms', function () {
-        return view('rooms');
-    })->name('rooms');
-
-    Route::get('/room-details', function () {
-        return view('room-details');
-    });
-
-    Route::get('/contact', function () {
-        return view('contact');
-    })->name('contact');
-});
+Route::view('/home', 'customer.index')->name('home');
+Route::view('/about', 'customer.about')->name('about');
+Route::view('/rooms', 'customer.rooms')->name('rooms');
+Route::view('/room-details', 'customer.room-details')->name('room.details');
+Route::view('/contact', 'customer.contact')->name('contact');

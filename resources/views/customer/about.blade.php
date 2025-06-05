@@ -1,4 +1,4 @@
-@extends('layouts.guest')
+@extends('layouts.customer')
 
 @section('title', 'About Us')
 
