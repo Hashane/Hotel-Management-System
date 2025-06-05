@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Sharons Template" />
-    <meta name="keywords" content="Sharons, unica, creative, html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta charset="UTF-8"/>
+    <meta name="description" content="Sharons Template"/>
+    <meta name="keywords" content="Sharons, unica, creative, html"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>@yield('title', 'My App')</title>
     @vite('resources/css/app.css')
 
@@ -20,13 +20,13 @@
     />
 </head>
 <body>
-@include('partials.header')
+@include('customer.partials.header')
 
 <main>
     @yield('content')
 </main>
 
-@include('partials.footer')
+@include('customer.partials.footer')
 @vite('resources/js/app.js')
 </body>
 </html>

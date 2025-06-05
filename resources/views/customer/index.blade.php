@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('customer.layouts.customer')
 
 @section('title', 'About Us')
 
@@ -13,7 +13,8 @@
                         <h1>Sharon’s – A Luxury Residence</h1>
                         <p>
                             Discover refined living at Sharon’s, a luxury residence designed for comfort and elegance.
-                            Perfect for travelers seeking a peaceful, home-like stay with upscale amenities and personalized service.
+                            Perfect for travelers seeking a peaceful, home-like stay with upscale amenities and
+                            personalized service.
                         </p>
                         <a href="#" class="primary-btn">Discover Now</a>
                     </div>
@@ -31,12 +32,12 @@
                             </div>
                             <div class="check-date">
                                 <label for="date-in">Check In:</label>
-                                <input type="text" class="date-input" id="date-in" />
+                                <input type="text" class="date-input" id="date-in"/>
                                 <i class="icon_calendar"></i>
                             </div>
                             <div class="check-date">
                                 <label for="date-out">Check Out:</label>
-                                <input type="text" class="date-input" id="date-out" />
+                                <input type="text" class="date-input" id="date-out"/>
                                 <i class="icon_calendar"></i>
                             </div>
 
@@ -46,9 +47,10 @@
                 </div>
             </div>
         </div>
-        <div x-data="{ active: 0, slides: ['{{ asset('images/hero/hero-2.jpg') }}', '{{ asset('images/hero/hero-3.jpg') }}'] }"
-             x-init="setInterval(() => active = (active + 1) % slides.length, 5000)"
-             class="hero-slider">
+        <div
+            x-data="{ active: 0, slides: ['{{ asset('images/hero/hero-2.jpg') }}', '{{ asset('images/hero/hero-3.jpg') }}'] }"
+            x-init="setInterval(() => active = (active + 1) % slides.length, 5000)"
+            class="hero-slider">
 
             <!-- Slides -->
             <template x-for="(slide, index) in slides" :key="index">
@@ -82,7 +84,7 @@
                     <div class="about-text">
                         <div class="section-title">
                             <span>About Us</span>
-                            <h2>Intercontinental LA <br />Westlake Hotel</h2>
+                            <h2>Intercontinental LA <br/>Westlake Hotel</h2>
                         </div>
                         <p class="f-para">
                             Sharon’s Residence is a leading residence passionate about travel and comfort.
@@ -99,10 +101,10 @@
                     <div class="about-pic">
                         <div class="row">
                             <div class="col-sm-6">
-                                <img src="{{ asset('images/about/about-1.jpg') }} " alt="" />
+                                <img src="{{ asset('images/about/about-1.jpg') }} " alt=""/>
                             </div>
                             <div class="col-sm-6">
-                                <img src="{{ asset('images/about/about-2.jpg') }} " alt="" />
+                                <img src="{{ asset('images/about/about-2.jpg') }} " alt=""/>
                             </div>
                         </div>
                     </div>

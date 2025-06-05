@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('customer.layouts.customer')
 
 @section('title', 'About Us')
 
@@ -37,12 +37,12 @@
                         </div>
                         <div class="check-date">
                             <label for="date-in">Check In:</label>
-                            <input type="text" class="date-input" id="date-in" />
+                            <input type="text" class="date-input" id="date-in"/>
                             <i class="icon_calendar"></i>
                         </div>
                         <div class="check-date">
                             <label for="date-out">Check Out:</label>
-                            <input type="text" class="date-input" id="date-out" />
+                            <input type="text" class="date-input" id="date-out"/>
                             <i class="icon_calendar"></i>
                         </div>
 
@@ -58,7 +58,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="room-item">
-                            <img src="{{ asset('images/room/room-1.jpg') }}" alt="" />
+                            <img src="{{ asset('images/room/room-1.jpg') }}" alt=""/>
                             <div class="ri-text">
                                 <h4>Premium King Room</h4>
                                 <h3>159$<span>/Pernight</span></h3>
@@ -92,7 +92,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="room-item">
-                            <img src="{{ asset('images/room/room-2.jpg') }}" alt="" />
+                            <img src="{{ asset('images/room/room-2.jpg') }}" alt=""/>
                             <div class="ri-text">
                                 <h4>Deluxe Room</h4>
                                 <h3>159$<span>/Pernight</span></h3>
@@ -118,7 +118,9 @@
                                 </table>
                                 <a href="#" class="primary-btn">More Details</a>
                                 <div class="row">
-                                    <button type="button" class="col-sm-7 r-o-button" style="margin-right: 20px;">Select Ocupancy</button>
+                                    <button type="button" class="col-sm-7 r-o-button" style="margin-right: 20px;">Select
+                                        Ocupancy
+                                    </button>
                                     <button class="col-sm-4 r-o-button2">Book Now</button>
                                 </div>
                             </div>
@@ -131,7 +133,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="room-item">
-                            <img src="{{ asset('images/room/room-3.jpg') }}" alt="" />
+                            <img src="{{ asset('images/room/room-3.jpg') }}" alt=""/>
                             <div class="ri-text">
                                 <h4>Double Room</h4>
                                 <h3>159$<span>/Pernight</span></h3>
@@ -157,7 +159,8 @@
                                 </table>
                                 <a href="#" class="primary-btn">More Details</a>
                                 <div class="row">
-                                    <button class="col-sm-7 r-o-button" style="margin-right: 20px;">Select Ocupancy</button>
+                                    <button class="col-sm-7 r-o-button" style="margin-right: 20px;">Select Ocupancy
+                                    </button>
                                     <button class="col-sm-4 r-o-button2">Book Now</button>
                                 </div>
                             </div>
@@ -165,7 +168,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="room-item">
-                            <img src="{{ asset('images/room/room-4.jpg') }}" alt="" />
+                            <img src="{{ asset('images/room/room-4.jpg') }}" alt=""/>
                             <div class="ri-text">
                                 <h4>Luxury Room</h4>
                                 <h3>159$<span>/Pernight</span></h3>
@@ -191,7 +194,8 @@
                                 </table>
                                 <a href="#" class="primary-btn">More Details</a>
                                 <div class="row">
-                                    <button class="col-sm-7 r-o-button" style="margin-right: 20px;">Select Ocupancy</button>
+                                    <button class="col-sm-7 r-o-button" style="margin-right: 20px;">Select Ocupancy
+                                    </button>
                                     <button class="col-sm-4 r-o-button2">Book Now</button>
                                 </div>
                             </div>
@@ -202,7 +206,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="room-item">
-                            <img src="{{ asset('images/room/room-5.jpg') }}" alt="" />
+                            <img src="{{ asset('images/room/room-5.jpg') }}" alt=""/>
                             <div class="ri-text">
                                 <h4>Room With View</h4>
                                 <h3>159$<span>/Pernight</span></h3>
@@ -228,7 +232,8 @@
                                 </table>
                                 <a href="#" class="primary-btn">More Details</a>
                                 <div class="row">
-                                    <button class="col-sm-7 r-o-button" style="margin-right: 20px;">Select Ocupancy</button>
+                                    <button class="col-sm-7 r-o-button" style="margin-right: 20px;">Select Ocupancy
+                                    </button>
                                     <button class="col-sm-4 r-o-button2">Book Now</button>
                                 </div>
                             </div>
@@ -236,7 +241,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="room-item">
-                            <img src="{{ asset('images/room/room-6.jpg') }}" alt="" />
+                            <img src="{{ asset('images/room/room-6.jpg') }}" alt=""/>
                             <div class="ri-text">
                                 <h4>Small View</h4>
                                 <h3>159$<span>/Pernight</span></h3>
@@ -262,7 +267,8 @@
                                 </table>
                                 <a href="#" class="primary-btn">More Details</a>
                                 <div class="row">
-                                    <button class="col-sm-7 r-o-button" style="margin-right: 20px;">Select Ocupancy</button>
+                                    <button class="col-sm-7 r-o-button" style="margin-right: 20px;">Select Ocupancy
+                                    </button>
                                     <button class="col-sm-4 r-o-button2">Book Now</button>
                                 </div>
                             </div>
