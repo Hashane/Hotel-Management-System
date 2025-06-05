@@ -12,7 +12,7 @@ class RoomController
      */
     public function index()
     {
-        $rooms = Room::paginate(10);
+        $rooms = Room::with(['roomType.facilities','roomType.rateTypes'])->paginate(10);; //dd($rooms->roomType->rateTypes->first()->pivot->price);
         return view('customer.rooms', compact('rooms'));
     }
 

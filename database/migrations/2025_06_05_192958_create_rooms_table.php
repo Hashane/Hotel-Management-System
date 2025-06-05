@@ -17,9 +17,9 @@ return new class extends Migration
             $table->unsignedTinyInteger('floor');
             $table->string('room_no');
             $table->string('name');
+            $table->string('image_url')->nullable();
             $table->tinyInteger('status')->default(1)->comment('0 = inactive, 1 = active');
             $table->timestamps();
-
             $table->unique(['floor', 'room_no']);
         });
     }

@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('room_type_pricing_plans', function (Blueprint $table) {
+        Schema::create('room_type_rate_types', function (Blueprint $table) {
             $table->id();
             $table->foreignId('room_type_id')->constrained()->onDelete('cascade');
-            $table->foreignId('pricing_plan_id')->constrained()->onDelete('cascade');
+            $table->foreignId('rate_type_id')->constrained()->onDelete('cascade');
+            $table->decimal('price', 8, 2);
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('room_type_pricing_plans');
+        Schema::dropIfExists('room_type_rate_types');
     }
 };

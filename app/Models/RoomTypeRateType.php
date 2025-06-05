@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PricingPlan extends Model
+class RoomTypeRateType extends Model
 {
-    protected $guarded = [];
+    //
 }
