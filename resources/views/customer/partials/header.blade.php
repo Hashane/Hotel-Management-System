@@ -37,7 +37,7 @@
                 <div class="col-lg-6">
                     <ul class="tn-left">
                         <li><i class="fas fa-phone"></i> (+94) 74 137 5941</li>
-                        <li><i class="fas fa-envelope"></i> sharons@gmail.comm</li>
+                        <li><i class="fas fa-envelope"></i> FourSeasons@gmail.comm</li>
                     </ul>
                 </div>
                 <div class="col-lg-6">
@@ -59,7 +59,7 @@
                 <div class="col-lg-2">
                     <div class="logo">
                         <a href="{{ route('home') }}">
-                            <img src="{{ asset('images/logo.png') }}" alt="" />
+                            <img class="logo-header" src="{{ asset('images/logo5.png') }}" alt="" />
                         </a>
                     </div>
                 </div>

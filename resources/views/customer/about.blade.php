@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="ap-title">
-                            <h2>Welcome To Sharons.</h2>
+                            <h2>Welcome To Four Seasons.</h2>
                             <p>Built in 1910 during the Belle Epoque period, this hotel is located in the center of
                                 Paris, with easy access to the city’s tourist attractions. It offers tastefully
                                 decorated rooms.</p>
