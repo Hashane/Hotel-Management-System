@@ -4,8 +4,8 @@
 
 @section('content_header')
     <h1>Dashboard</h1>
-@stop
+@endsection
 
 @section('content')
     <p>Welcome to the admin panel!</p>
-@stop
+@endsection
