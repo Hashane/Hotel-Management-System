@@ -711,6 +711,12 @@ ol {
 /*------------------------
   Home Page Room Section
 -------------------------*/
+.room-img{
+    object-fit: cover;
+    max-height: 600px;
+    max-width: 100%;
+
+}
 
 .hp-room-items {
     margin-left: -15px;
@@ -769,6 +775,10 @@ ol {
 }
 .hp-room-items .hp-room-item .hr-text .primary-btn:after {
     background: #ffffff;
+}
+
+.hp-room-items .hp-room-item .room-img{
+    
 }
 
 .r-o-button {
