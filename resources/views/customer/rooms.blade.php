@@ -53,237 +53,54 @@
             </div>
 
             <div class="col-lg-10">
-                <!-- <section class="rooms-section"> -->
-                <!-- <div class="container"> -->
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="room-item">
-                            <img class="room-img" src="{{ asset('images/room/room-1.jpg') }}" alt=""/>
-                            <div class="ri-text">
-                                <h4>Premium King Room</h4>
-                                <h3>159$<span>/Pernight</span></h3>
-                                <table>
-                                    <tbody>
-                                    <tr>
-                                        <td class="r-o">Size:</td>
-                                        <td>30 ft</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Capacity:</td>
-                                        <td>Max persion 3</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Bed:</td>
-                                        <td>King Beds</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Services:</td>
-                                        <td>Wifi, Television, Bathroom,...</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <a href="#" class="primary-btn">More Details</a>
-                                <div class="row">
-                                    <button class="col-7 r-o-button">Select Ocupancy</button>
-                                    <button class="col-4 r-o-button2">Book Now</button>
+                @foreach ($rooms->chunk(2) as $roomChunk)
+                    <div class="row">
+                        @foreach ($roomChunk as $room)
+                            <div class="col-lg-6">
+                                <div class="room-item">
+                                    <img class="room-img" src="{{ $room->image_url }}" alt="{{ $room->name }}" />
+                                    <div class="ri-text">
+                                        <h4>{{ $room->name }}</h4>
+                                        <h3>{{ 2 }}$<span>/Per night</span></h3>
+                                        <table>
+                                            <tbody>
+                                            <tr>
+                                                <td class="r-o">Size:</td>
+                                                <td>{{ $room->size ?? '30 ft' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="r-o">Capacity:</td>
+                                                <td>Max person {{ $room->roomType->capacity ?? 2 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="r-o">Bed:</td>
+                                                <td>{{ $room->bed_type ?? 'King Beds' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="r-o">Services:</td>
+                                                <td>{{ implode(', ',(json_decode($room->roomType->facilities()->pluck('name'),true))) ?? 'Wifi, Television, Bathroom,...' }}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <a href="#" class="primary-btn">More Details</a>
+                                        <div class="row">
+                                            <button class="col-sm-7 r-o-button" style="margin-right: 20px;">Select Occupancy</button>
+                                            <button class="col-sm-4 r-o-button2">Book Now</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
-                    <div class="col-lg-6">
-                        <div class="room-item">
-                            <img class="room-img" src="{{ asset('images/room/room-2.jpg') }}" alt=""/>
-                            <div class="ri-text">
-                                <h4>Deluxe Room</h4>
-                                <h3>159$<span>/Pernight</span></h3>
-                                <table>
-                                    <tbody>
-                                    <tr>
-                                        <td class="r-o">Size:</td>
-                                        <td>30 ft</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Capacity:</td>
-                                        <td>Max persion 5</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Bed:</td>
-                                        <td>King Beds</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Services:</td>
-                                        <td>Wifi, Television, Bathroom,...</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <a href="#" class="primary-btn">More Details</a>
-                                <div class="row">
-                                    <button type="button" class="col-sm-7 r-o-button" style="margin-right: 20px;">Select
-                                        Ocupancy
-                                    </button>
-                                    <button class="col-sm-4 r-o-button2">Book Now</button>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="room-item">
-                            <img class="room-img" src="{{ asset('images/room/room-3.jpg') }}" alt=""/>
-                            <div class="ri-text">
-                                <h4>Double Room</h4>
-                                <h3>159$<span>/Pernight</span></h3>
-                                <table>
-                                    <tbody>
-                                    <tr>
-                                        <td class="r-o">Size:</td>
-                                        <td>30 ft</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Capacity:</td>
-                                        <td>Max persion 2</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Bed:</td>
-                                        <td>King Beds</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Services:</td>
-                                        <td>Wifi, Television, Bathroom,...</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <a href="#" class="primary-btn">More Details</a>
-                                <div class="row">
-                                    <button class="col-sm-7 r-o-button" style="margin-right: 20px;">Select Ocupancy
-                                    </button>
-                                    <button class="col-sm-4 r-o-button2">Book Now</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="room-item">
-                            <img class="room-img" src="{{ asset('images/room/room-4.jpg') }}" alt=""/>
-                            <div class="ri-text">
-                                <h4>Luxury Room</h4>
-                                <h3>159$<span>/Pernight</span></h3>
-                                <table>
-                                    <tbody>
-                                    <tr>
-                                        <td class="r-o">Size:</td>
-                                        <td>30 ft</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Capacity:</td>
-                                        <td>Max persion 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Bed:</td>
-                                        <td>King Beds</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Services:</td>
-                                        <td>Wifi, Television, Bathroom,...</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <a href="#" class="primary-btn">More Details</a>
-                                <div class="row">
-                                    <button class="col-sm-7 r-o-button" style="margin-right: 20px;">Select Ocupancy
-                                    </button>
-                                    <button class="col-sm-4 r-o-button2">Book Now</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="room-item">
-                            <img class="room-img" src="{{ asset('images/room/room-5.jpg') }}" alt=""/>
-                            <div class="ri-text">
-                                <h4>Room With View</h4>
-                                <h3>159$<span>/Pernight</span></h3>
-                                <table>
-                                    <tbody>
-                                    <tr>
-                                        <td class="r-o">Size:</td>
-                                        <td>30 ft</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Capacity:</td>
-                                        <td>Max persion 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Bed:</td>
-                                        <td>King Beds</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Services:</td>
-                                        <td>Wifi, Television, Bathroom,...</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <a href="#" class="primary-btn">More Details</a>
-                                <div class="row">
-                                    <button class="col-sm-7 r-o-button" style="margin-right: 20px;">Select Ocupancy
-                                    </button>
-                                    <button class="col-sm-4 r-o-button2">Book Now</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="room-item">
-                            <img class="room-img" src="{{ asset('images/room/room-6.jpg') }}" alt=""/>
-                            <div class="ri-text">
-                                <h4>Small View</h4>
-                                <h3>159$<span>/Pernight</span></h3>
-                                <table>
-                                    <tbody>
-                                    <tr>
-                                        <td class="r-o">Size:</td>
-                                        <td>30 ft</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Capacity:</td>
-                                        <td>Max persion 2</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Bed:</td>
-                                        <td>King Beds</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Services:</td>
-                                        <td>Wifi, Television, Bathroom,...</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <a href="#" class="primary-btn">More Details</a>
-                                <div class="row">
-                                    <button class="col-sm-7 r-o-button" style="margin-right: 20px;">Select Ocupancy
-                                    </button>
-                                    <button class="col-sm-4 r-o-button2">Book Now</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
 
                 <div class="col-lg-12">
                     <div class="room-pagination" style="margin-bottom: 20px;">
-                        <a href="#">1</a>
-                        <a href="#">2</a>
-                        <a href="#">Next <i class="fa fa-long-arrow-right"></i></a>
+                        {{ $rooms->links() }}
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <!-- Rooms Section End -->
