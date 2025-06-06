@@ -64,10 +64,7 @@
                                     <img class="room-img" src="{{ $room->image_url }}" alt="{{ $room->name }}" />
                                     <div class="ri-text">
                                         <h4>{{ $room->name }}</h4>
-                                        @php
-                                            $rateType = $room->roomType->rateTypes->first();
-                                        @endphp
-                                        <h3>{{ $rateType->pivot->price ?? 'N/A' }}$<span>/Per night</span></h3>
+                                        <h3>{{ $room->default_rate->pivot->price ?? 'N/A' }}$<span>/Per night</span></h3>
                                         <table>
                                             <tbody>
                                             <tr>
