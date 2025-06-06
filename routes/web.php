@@ -31,6 +31,7 @@ Route::controller(RoomController::class)->group(function (){
 
 Route::view('/', 'customer.index')->name('home');
 Route::view('/about', 'customer.about')->name('about');
+Route::view('/cart', 'customer.cart')->name('cart');
 
 Route::view('/room-details', 'customer.room-details')->name('room.details');
 Route::view('/contact', 'customer.contact')->name('contact');
