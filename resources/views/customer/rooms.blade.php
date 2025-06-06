@@ -30,7 +30,7 @@
                     <form action="{{ route('rooms') }}" method="GET">
                         <div class="select-option">
                             <label for="room_type">Room Type:</label>
-                            <select id="room_type" name="room_type">
+                            <select id="room_type" name="room_type" class="r-o-select">
                                 <option value="" {{ request('room_type') == '' ? 'selected' : '' }}>Any</option>
                                 <option value="1" {{ request('room_type') == '1' ? 'selected' : '' }}>Standard</option>
                                 <option value="2" {{ request('room_type') == '2' ? 'selected' : '' }}>Deluxe</option>
@@ -64,11 +64,7 @@
                                     <img class="room-img" src="{{ $room->image_url }}" alt="{{ $room->name }}" />
                                     <div class="ri-text">
                                         <h4>{{ $room->name }}</h4>
-                                        @php
-
-                                            $rateType = $room->roomType->rateTypes->first();
-                                        @endphp
-                                        <h3>{{ $rateType->pivot->price ?? 'N/A' }}$<span>/Per night</span></h3>
+                                        <h3>{{ $room->default_rate->pivot->price ?? 'N/A' }}$<span>/Per night</span></h3>
                                         <table>
                                             <tbody>
                                             <tr>
@@ -91,8 +87,22 @@
                                         </table>
                                         <a href="#" class="primary-btn">More Details</a>
                                         <div class="row">
-                                            <button class="col-sm-7 r-o-button" style="margin-right: 20px;">Select Occupancy</button>
-                                            <button class="col-sm-4 r-o-button2">Book Now</button>
+                                            <form action="{{ route('cart.add', $room) }}" method="POST" class="d-flex justify-content-between w-100 gap-3">
+                                                @csrf
+
+                                                <div class="w-50">
+                                                    <select name="quantity" class="r-o-select w-100" required>
+                                                        <option value="">Select Occupancy</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="w-50">
+                                                    <button type="submit" class="r-o-button3 w-100">Book Now</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

@@ -31,13 +31,8 @@ class RoomController
             }
         }
 
-        $rooms = Room::with(['roomType.facilities',
-            'roomType.rateTypes' => function ($query) use ($rateTypeId) {
-                if ($rateTypeId) {
-                    $query->where('rate_type_id', $rateTypeId);
-                }
-        }
-        ])->filterBy(request()->all())->paginate(10); //dd($rooms->roomType->rateTypes->first()->pivot->price);
+        $rooms = Room::withRateTypeAndFacilities($rateTypeId)->filterBy(request()->all())->paginate(10);//dd($rooms->roomType->rateTypes->first()->pivot->price);
+
         return view('customer.rooms', compact('rooms'));
     }
 

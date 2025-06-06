@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\ProfileController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +32,14 @@ Route::controller(RoomController::class)->group(function (){
 
 Route::view('/', 'customer.index')->name('home');
 Route::view('/about', 'customer.about')->name('about');
-Route::view('/cart', 'customer.cart')->name('cart');
+//Route::view('/cart', 'customer.cart')->name('cart');
 
 Route::view('/room-details', 'customer.room-details')->name('room.details');
 Route::view('/contact', 'customer.contact')->name('contact');
+
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add/{room}', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/update/{room}', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/remove/{room}', [CartController::class, 'remove'])->name('cart.remove');
+Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');

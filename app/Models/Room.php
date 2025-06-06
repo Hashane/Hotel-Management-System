@@ -17,6 +17,25 @@ class Room extends Model
         return $filter->apply();
     }
 
+    public static function withRateTypeAndFacilities($rateTypeId = null)
+    {
+        return static::with([
+            'roomType.facilities',
+            'roomType.rateTypes' => function ($query) use ($rateTypeId) {
+                if ($rateTypeId) {
+                    $query->where('rate_type_id', $rateTypeId);
+                }
+            },
+        ]);
+    }
+
+
+    // accessor
+    public function getDefaultRateAttribute()
+    {
+        return $this->roomType->rateTypes()->first();
+    }
+
     public function reservations()
     {
         return $this->belongsToMany(Reservation::class, 'room_reservation')
