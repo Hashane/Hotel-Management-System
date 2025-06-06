@@ -778,7 +778,7 @@ ol {
 }
 
 .hp-room-items .hp-room-item .room-img{
-    
+
 }
 
 .r-o-button {
@@ -813,6 +813,49 @@ ol {
     height: 46px;
     margin-top: 30px;
     align-content: flex-end;
+}
+
+.r-o-button3 {
+    /* display: block; */
+    padding: 0;
+    margin-right: 0;
+    font-size: 14px;
+    text-transform: uppercase;
+    border: 1px solid #dfa974;
+    border-radius: 2px;
+    color: white;
+    font-weight: 500;
+    background: #dfa974;
+    width: 30%;
+    height: 46px;
+    margin-top: 0px;
+    align-content: flex-end;
+}
+
+.r-o-button3:hover {
+    outline: none;
+    border-color: #dfa974;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+.r-o-select {
+    background: transparent;
+    border: 1px solid #dfa974;
+    color: #dfa974;
+    padding: 8px 16px;
+    font-size: 16px;
+    border-radius: 4px;
+    appearance: none;
+    -webkit-appearance: none;   /* Safari */
+    -moz-appearance: none;      /* Firefox */
+    cursor: pointer;
+    width: 100%;
+}
+
+.r-o-select:focus {
+    outline: none;
+    border-color: #dfa974;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
 }
 
 /*---------------------
