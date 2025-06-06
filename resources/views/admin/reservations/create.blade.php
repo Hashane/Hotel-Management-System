@@ -30,7 +30,7 @@
     <section class="content">
           <!-- Cart Button -->
     
-    <div class="">
+    <div class="card">
         <div>
             <button type="button" class="btn btn-primary position-relative float-end me-3" data-bs-toggle="modal" data-bs-target="#cartModal">
                 <i class="bi bi-cart3"></i>
