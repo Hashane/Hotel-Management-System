@@ -569,6 +569,7 @@ ol {
     bottom: 17px;
 }
 .booking-form form .select-option {
+    position: relative;
     margin-bottom: 15px;
 }
 .booking-form form .select-option label {
@@ -716,6 +717,7 @@ ol {
     max-height: 600px;
     max-width: 100%;
 
+
 }
 
 .hp-room-items {
@@ -778,6 +780,9 @@ ol {
 }
 
 .hp-room-items .hp-room-item .room-img{
+    object-fit: cover;
+    max-height: 600px;
+    max-width: 100%;
     
 }
 
@@ -1187,6 +1192,9 @@ ol {
     margin-bottom: 30px;
 }
 .room-item img {
+    object-fit: cover;
+    max-height: 600px;
+    max-width: 100%;
     min-width: 100%;
 }
 .room-item .ri-text {
