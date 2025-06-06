@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\RateType;
 use App\Models\Room;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class RoomController
@@ -12,7 +14,30 @@ class RoomController
      */
     public function index()
     {
-        $rooms = Room::with(['roomType.facilities','roomType.rateTypes'])->paginate(10);; //dd($rooms->roomType->rateTypes->first()->pivot->price);
+        $checkIn = request('check_in');
+        $checkOut = request('check_out');
+
+        $rateTypeId = RateType::PER_NIGHT->value;
+
+        if ($checkIn && $checkOut) {
+            $startDate = Carbon::parse($checkIn);
+            $endDate = Carbon::parse($checkOut);
+            $dateCount = $startDate->diffInDays($endDate);
+
+            if ($dateCount >= 7 && $dateCount < 14) {
+                $rateTypeId = RateType::WEEKLY->value;
+            } elseif ($dateCount >= 14) {
+                $rateTypeId = RateType::MONTHLY->value;
+            }
+        }
+
+        $rooms = Room::with(['roomType.facilities',
+            'roomType.rateTypes' => function ($query) use ($rateTypeId) {
+                if ($rateTypeId) {
+                    $query->where('rate_type_id', $rateTypeId);
+                }
+        }
+        ])->filterBy(request()->all())->paginate(10); //dd($rooms->roomType->rateTypes->first()->pivot->price);
         return view('customer.rooms', compact('rooms'));
     }
 

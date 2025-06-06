@@ -27,25 +27,28 @@
             <div class="col-lg-2">
                 <div class="booking-form">
                     <h3>Booking Your Hotel</h3>
-                    <form action="#">
+                    <form action="{{ route('rooms') }}" method="GET">
                         <div class="select-option">
-                            <label for="guest">Accommodation Type:</label>
-                            <select id="guest">
-                                <option value="">Standard</option>
-                                <option value="">Long Stay Residence</option>
+                            <label for="room_type">Room Type:</label>
+                            <select id="room_type" name="room_type">
+                                <option value="" {{ request('room_type') == '' ? 'selected' : '' }}>Any</option>
+                                <option value="1" {{ request('room_type') == '1' ? 'selected' : '' }}>Standard</option>
+                                <option value="2" {{ request('room_type') == '2' ? 'selected' : '' }}>Deluxe</option>
+                                <option value="3" {{ request('room_type') == '3' ? 'selected' : '' }}>Suite</option>
                             </select>
                         </div>
+
                         <div class="check-date">
                             <label for="date-in">Check In:</label>
-                            <input type="text" class="date-input" id="date-in"/>
-                            <i class="icon_calendar"></i>
-                        </div>
-                        <div class="check-date">
-                            <label for="date-out">Check Out:</label>
-                            <input type="text" class="date-input" id="date-out"/>
+                            <input type="date" class="date-input" id="date-in" name="check_in" value="{{ request('check_in') }}" />
                             <i class="icon_calendar"></i>
                         </div>
 
+                        <div class="check-date">
+                            <label for="date-out">Check Out:</label>
+                            <input type="date" class="date-input" id="date-out" name="check_out" value="{{ request('check_out') }}" />
+                            <i class="icon_calendar"></i>
+                        </div>
 
                         <button type="submit">Check Availability</button>
                     </form>
@@ -61,7 +64,11 @@
                                     <img class="room-img" src="{{ $room->image_url }}" alt="{{ $room->name }}" />
                                     <div class="ri-text">
                                         <h4>{{ $room->name }}</h4>
-                                        <h3>{{ 2 }}$<span>/Per night</span></h3>
+                                        @php
+
+                                            $rateType = $room->roomType->rateTypes->first();
+                                        @endphp
+                                        <h3>{{ $rateType->pivot->price ?? 'N/A' }}$<span>/Per night</span></h3>
                                         <table>
                                             <tbody>
                                             <tr>
