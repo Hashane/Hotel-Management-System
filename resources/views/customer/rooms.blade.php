@@ -58,7 +58,7 @@
                         @foreach ($roomChunk as $room)
                             <div class="col-lg-6">
                                 <div class="room-item">
-                                    <img src="{{ $room->image_url }}" alt="{{ $room->name }}" />
+                                    <img class="room-img" src="{{ $room->image_url }}" alt="{{ $room->name }}" />
                                     <div class="ri-text">
                                         <h4>{{ $room->name }}</h4>
                                         <h3>{{ 2 }}$<span>/Per night</span></h3>
