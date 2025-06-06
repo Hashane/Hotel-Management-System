@@ -6,18 +6,19 @@
     <!-- cart Section Begin -->
     <div class="container" style="margin-top: 40px">
         <div class="row">
+            @foreach($items as $item)
             <!-- room detail card section -->
             <div class="col-lg-8">
                 <div class="room-item">
                     <div class="ri-text">
                         <div class="row">
                             <div class="col-md-5">
-                                <img src="img/room/room-1.jpg" alt=""/>
+                                <img src="{{ $item['room']->image_url }}" alt="{{ $item['room']->name }}"/>
                             </div>
                             <div class="col-md-7">
                                 <div class="ri-text">
                                     <h4>Premium King Room</h4>
-                                    <h3>159$<span>/Pernight</span></h3>
+                                    <h3><span>{{ $item['room']->default_rate->pivot->price }}$/Pernight</span></h3>
                                     <table>
                                         <tbody>
                                         <tr>
@@ -26,7 +27,7 @@
                                         </tr>
                                         <tr>
                                             <td class="r-o">Capacity:</td>
-                                            <td>Max persion 3</td>
+                                            <td>Max persons {{ $item['room']->roomType->capacity }}</td>
                                         </tr>
                                         <tr>
                                             <td class="r-o">Bed:</td>
@@ -34,7 +35,7 @@
                                         </tr>
                                         <tr>
                                             <td class="r-o">Services:</td>
-                                            <td>Wifi, Television, Bathroom,...</td>
+                                            <td>{{ implode(', ',(json_decode($item['room']->roomType->facilities()->pluck('name'),true))) ?? 'Wifi, Television, Bathroom,...' }}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -81,6 +82,7 @@
                     </div>
                 </div>
             </div>
+            @endforeach
 
             <div class="col-lg-4">
                 <div class="row">

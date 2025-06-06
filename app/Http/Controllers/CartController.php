@@ -23,7 +23,8 @@ class CartController
         $cartItems = $this->cart->getCart();
 
         // Retrieve full room info for each item in the cart
-        $rooms = Room::whereIn('id', array_keys($cartItems))->get();
+        $rooms = Room::with('roomType.facilities',
+            'roomType.rateTypes')->whereIn('id', array_keys($cartItems))->get();
 
         $items = $rooms->map(function($room) use ($cartItems) {
             return [
