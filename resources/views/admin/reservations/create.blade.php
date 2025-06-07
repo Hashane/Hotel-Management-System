@@ -36,7 +36,7 @@
  <div class="row g-4 mt-4">
     <div class="col-12">
       <div class="card shadow-sm p-4">
-        <h3 class=" mb-4">Cart Details</h3>
+        <h5 class=" mb-4">Cart Details</h5>
   
         <!-- Header Row -->
         <div class="row fw-bold text-center border-bottom pb-2 mb-3">
@@ -94,128 +94,78 @@
   
 
 <!-- Customer Card -->
+<!-- Customer Card -->
 <div class="card shadow-sm mt-4">
-<div class="card-header ">
-<h3 class=" mb-4">Customer</h3>
-
-</div>
-<div class="card-body text-center4">
-<div class="d-flex justify-content-center align-items-center gap-2 flex-wrap">
-    <label class="fw-semibold mb-0">Search for customer:</label>
-    <input type="text" class="form-control w-auto" placeholder="Enter name or ID" style="min-width: 200px;">
-    <button class="btn btn-primary">Search</button>
-    <span class="mx-2">or</span>
-    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCustomerModal">Add Customer</button>
-</div>
-<div class="card-body">
-    <table class="table table-bordered table-striped">
+    <div class="card-header">
+        <!-- Title Row -->
+        <div class="mb-3">
+          <h5 class="mb-0">Customer</h5>
+        </div>
+      
+        <!-- Search + Buttons Row aligned right -->
+        <div class="d-flex justify-content-end align-items-center flex-nowrap" style="gap: 0.5rem; max-width: 600px; margin-left: auto;">
+          <input type="text" class="form-control" placeholder="Enter name or ID" style="min-width: 220px; max-width: 220px; white-space: nowrap;">
+          <button class="btn btn-primary flex-shrink-0">Search</button>
+          <span class="mx-2 flex-shrink-0">or</span>
+          <button class="btn btn-success flex-shrink-0" data-bs-toggle="modal" data-bs-target="#addCustomerModal">Add Customer</button>
+        </div>
+      </div>
+      
+      
+      
+      
+  
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
         <thead class="table-light">
-            <tr>
-                <th>Customer Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Notes</th>
-                <th class="text-center">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Example rows (to be populated dynamically later) -->
-            <tr>
-                <td>John Doe</td>
-                <td>john@example.com</td>
-                <td>+1 234 567 8901</td>
-                <td>VIP guest, prefers quiet rooms.</td>
-                <td class="text-center">
-                    <button class="btn btn-sm btn-warning px-3" data-bs-toggle="modal" data-bs-target="#assignModal">
-                        <i class="bi bi-person-plus"></i> Assign
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>Jane Smith</td>
-                <td>jane@example.com</td>
-                <td>+1 987 654 3210</td>
-                <td>Allergic to pets, needs early check-in.</td>
-                <td class="text-center">
-                    <button class="btn btn-sm btn-warning px-3" data-bs-toggle="modal" data-bs-target="#assignModal">
-                        <i class="bi bi-person-plus"></i> Assign
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>Michael Lee</td>
-                <td>michael@example.com</td>
-                <td>+1 456 789 1234</td>
-                <td>Late check-out requested.</td>
-                <td class="text-center">
-                    <button class="btn btn-sm btn-warning px-3" data-bs-toggle="modal" data-bs-target="#assignModal">
-                        <i class="bi bi-person-plus"></i> Assign
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    </div>
-    
-</div>
-</div>
-
-<!-- Customer Details Table -->
-<div class="card shadow-sm mt-4">
-<div class="card-header">
-    <h3 class=" mb-4">Customer Details</h3>
-
-</div>
-<div class="card-body">
-<table class="table table-bordered table-striped">
-    <thead class="table-light">
-        <tr>
+          <tr>
             <th>Customer Name</th>
             <th>Email</th>
             <th>Phone</th>
             <th>Notes</th>
             <th class="text-center">Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Example rows (to be populated dynamically later) -->
-        <tr>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Example rows -->
+          <tr>
             <td>John Doe</td>
             <td>john@example.com</td>
             <td>+1 234 567 8901</td>
             <td>VIP guest, prefers quiet rooms.</td>
             <td class="text-center">
-                <button class="btn btn-sm btn-warning px-3" data-bs-toggle="modal" data-bs-target="#assignModal">
-                    <i class="bi bi-person-plus"></i> Assign
-                </button>
+              <button class="btn btn-sm btn-warning px-3" data-bs-toggle="modal" data-bs-target="#assignModal">
+                <i class="bi bi-person-plus"></i> Assign
+              </button>
             </td>
-        </tr>
-        <tr>
+          </tr>
+          <tr>
             <td>Jane Smith</td>
             <td>jane@example.com</td>
             <td>+1 987 654 3210</td>
             <td>Allergic to pets, needs early check-in.</td>
             <td class="text-center">
-                <button class="btn btn-sm btn-warning px-3" data-bs-toggle="modal" data-bs-target="#assignModal">
-                    <i class="bi bi-person-plus"></i> Assign
-                </button>
+              <button class="btn btn-sm btn-warning px-3" data-bs-toggle="modal" data-bs-target="#assignModal">
+                <i class="bi bi-person-plus"></i> Assign
+              </button>
             </td>
-        </tr>
-        <tr>
+          </tr>
+          <tr>
             <td>Michael Lee</td>
             <td>michael@example.com</td>
             <td>+1 456 789 1234</td>
             <td>Late check-out requested.</td>
             <td class="text-center">
-                <button class="btn btn-sm btn-warning px-3" data-bs-toggle="modal" data-bs-target="#assignModal">
-                    <i class="bi bi-person-plus"></i> Assign
-                </button>
+              <button class="btn btn-sm btn-warning px-3" data-bs-toggle="modal" data-bs-target="#assignModal">
+                <i class="bi bi-person-plus"></i> Assign
+              </button>
             </td>
-        </tr>
-    </tbody>
-</table>
-</div>
-</div>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
 
 
 
