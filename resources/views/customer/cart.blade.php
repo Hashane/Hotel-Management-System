@@ -23,7 +23,7 @@
                                         <tbody>
                                         <tr>
                                             <td class="r-o">Size:</td>
-                                            <td>30 ft</td>
+                                            <td>30z</td>
                                         </tr>
                                         <tr>
                                             <td class="r-o">Capacity:</td>
@@ -46,15 +46,15 @@
                         <div class="summary-card">
                             <div class="row">
                                 <div class="col-md-3" style="margin-top: 10px">
-                                    <h4>14 Mar 2025</h4>
+                                    <h4>{{ $item['check-in'] }}</h4>
                                     <p class="cart-detail">Check In</p>
                                 </div>
                                 <div class="col-md-3" style="margin-top: 10px">
-                                    <h4>14 Mar 2025</h4>
+                                    <h4>{{ $item['check-out'] }}</h4>
                                     <p class="cart-detail">Check Out</p>
                                 </div>
                                 <div class="col-md-3" style="margin-top: 10px">
-                                    <h4>14 Mar 2025</h4>
+                                    <h4>{{ $item['occupants'] }}</h4>
                                     <p class="cart-detail">Occupancy</p>
                                 </div>
                             </div>

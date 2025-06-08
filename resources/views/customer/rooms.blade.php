@@ -29,7 +29,7 @@
                     <h3>Booking Your Hotel</h3>
                     <form action="{{ route('rooms') }}" method="GET">
                         <div class="select-option">
-                            <label for="room_type">Room Type:</label>
+                            <label for="room_type">Accommodation Type:</label>
                             <select id="room_type" name="room_type" class="r-o-select">
                                 <option value="" {{ request('room_type') == '' ? 'selected' : '' }}>Any</option>
                                 <option value="1" {{ request('room_type') == '1' ? 'selected' : '' }}>Standard</option>
