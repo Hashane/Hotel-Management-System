@@ -26,7 +26,7 @@
                             <div class="select-option">
                                 <label for="room_type">Accommodation Type:</label>
                                 <select id="room_type" name="room_type" class="r-o-select">
-                                    <option value="" {{ request('room_type') == '' ? 'selected' : '' }}>Any</option>
+                                    <option value="any" {{ request('room_type') == '' ? 'selected' : '' }}>Any</option>
                                     <option value="1" {{ request('room_type') == '1' ? 'selected' : '' }}>Standard</option>
                                     <option value="2" {{ request('room_type') == '2' ? 'selected' : '' }}>Deluxe</option>
                                     <option value="3" {{ request('room_type') == '3' ? 'selected' : '' }}>Suite</option>
