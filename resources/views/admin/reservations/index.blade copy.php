@@ -25,17 +25,17 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header d-flex justify-content vertical-align-items-center">
-                    <div class="container" style="max-width: 100%">
+                    <div class="container" style="max-width: 90%">
                         <div class="row">
                             <div class="col-md-4">
                                 <h3 class="card-title">Reservations List</h3>
                             </div>
                             <div class="col-md-8">
                                 <div class="row">
-                                    <div class="col-md-3" style="text-align: right;">
-                                        <div class="dropdown d-inline-block">
+                                    <div class="col-md-3">
+                                        <div class="dropdown">
                                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Status 
+                                                Status
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                 <li><a class="dropdown-item" href="#">Action</a></li>
@@ -44,16 +44,12 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    
-                                                                    
-
                                     <div class="col-md-7">
                                         <input class="form-control" type="search" placeholder="Search" aria-label="Search">
                                     </div>
                                     <div class="col-md-2">
-                                        <button class="btn btn-outline-success w-100" type="submit">Search</button>
+                                        <button class="btn btn-outline-success" type="submit">Search</button>
                                     </div>
-                                    
                                 </div>
                             </div>
                         </div>

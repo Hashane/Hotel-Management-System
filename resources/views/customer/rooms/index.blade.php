@@ -50,7 +50,7 @@
                             <i class="icon_calendar"></i>
                         </div>
 
-                        <button type="submit">Check <Availa></Availa>bility</button>
+                        <button type="submit">Check Availability</button>
                     </form>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <a href="#" class="primary-btn">More Details</a>
+                                        <a href="#" class="primary-btn mb-3">More Details</a>
                                         <div class="row">
                                             <form action="{{ route('cart.add', $room) }}" method="POST" class="d-flex justify-content-between w-100 gap-3">
                                                 @csrf
