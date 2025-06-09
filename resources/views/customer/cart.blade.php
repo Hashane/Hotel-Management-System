@@ -169,7 +169,7 @@
                     <!-- end of promotion section -->
                 </div>
             </div>
-            <button class="proceed-btn btn-sm px-3 bg-primary" onclick="window.location='{{ route('reservation.create') }}'">Proceed</button>
+            <button class="proceed-btn btn-sm px-3 bg-primary" onclick="window.location='{{ route('reservations.create') }}'">Proceed</button>
         </div>
     </div>
 

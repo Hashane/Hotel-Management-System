@@ -103,18 +103,18 @@
                 </div>
 
                 <div class="col-lg-7 offset-lg-1">
-                    <form action="{{ route('reservation.store') }}" method="POST" class="contact-form">
+                    <form action="{{ route('reservations.store') }}" method="POST" class="contact-form">
                         @csrf
 
-{{--                        @if ($errors->any())--}}
-{{--                            <div class="alert alert-danger">--}}
-{{--                                <ul class="mb-0">--}}
-{{--                                    @foreach ($errors->all() as $error)--}}
-{{--                                        <li>{{ $error }}</li>--}}
-{{--                                    @endforeach--}}
-{{--                                </ul>--}}
-{{--                            </div>--}}
-{{--                        @endif--}}
+                        {{--                        @if ($errors->any())--}}
+                        {{--                            <div class="alert alert-danger">--}}
+                        {{--                                <ul class="mb-0">--}}
+                        {{--                                    @foreach ($errors->all() as $error)--}}
+                        {{--                                        <li>{{ $error }}</li>--}}
+                        {{--                                    @endforeach--}}
+                        {{--                                </ul>--}}
+                        {{--                            </div>--}}
+                        {{--                        @endif--}}
 
                         <div class="row">
                             <h3>Enter your Information</h3>

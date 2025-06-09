@@ -28,14 +28,15 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::controller(RoomController::class)->group(function (){
-    Route::get('/rooms', 'index')->name('rooms');
+    Route::get('/rooms', 'index')->name('rooms.index');
+    Route::view('/room-details', 'customer.rooms.show')->name('rooms.show');
 });
 
 Route::view('/', 'customer.index')->name('home');
 Route::view('/about', 'customer.about')->name('about');
 //Route::view('/cart', 'customer.cart')->name('cart');
 
-Route::view('/room-details', 'customer.room-details')->name('room.details');
+
 Route::view('/contact', 'customer.contact')->name('contact');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
@@ -44,7 +45,17 @@ Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.
 Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
-Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation.index');
-Route::get('/reservation/create', [ReservationController::class, 'create'])->name('reservation.create');
-Route::post('/reservation/store', [ReservationController::class, 'store'])->name('reservation.store');
-Route::view('reservation/confirmation', 'customer.confirmation')->name('reservation.confirmation');
+
+Route::prefix('reservations')
+    ->name('reservations.')
+    ->controller(ReservationController::class)
+    ->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/{reservation}', 'show')->name('show');
+        Route::put('/{reservation}', 'update')->name('update');
+        Route::delete('/{reservation}', 'destroy')->name('destroy');
+    });
+
+Route::view('/confirmation', 'customer.reservations.confirmation')->name('confirmation');

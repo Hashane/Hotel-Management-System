@@ -33,7 +33,7 @@ class RoomController
 
         $rooms = Room::withRateTypeAndFacilities($rateTypeId)->filterBy(request()->all())->paginate(10);//dd($rooms->roomType->rateTypes->first()->pivot->price);
 
-        return view('customer.rooms', compact('rooms'));
+        return view('customer.rooms.index', compact('rooms'));
     }
 
     /**
