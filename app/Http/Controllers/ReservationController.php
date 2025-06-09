@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Customer\ReservationRequest;
 use App\Models\Reservation;
-use App\Models\Room;
 use App\Services\Customer\CartService;
 use App\Services\Customer\ReservationService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
 
 class ReservationController
 {
@@ -59,22 +56,6 @@ class ReservationController
             return redirect()->route('reservations.create')
                 ->with('error', $exception->getMessage());
         }
-    }
-
-    private function getCartItems():array{
-        if (empty($this->cartItems)) {
-            redirect()->route('cart.index')->with('error', 'Cart is empty.')->send();
-            exit;
-        }
-        return $this->cartItems;
-    }
-
-    private function getRoomsFromCart(array $cartItems)
-    {
-        $roomIds = array_unique(Arr::pluck($cartItems, 'room-id'));
-        return Room::with('roomType.facilities', 'roomType.rateTypes')
-            ->whereIn('id', $roomIds)
-            ->get();
     }
 
     /**
