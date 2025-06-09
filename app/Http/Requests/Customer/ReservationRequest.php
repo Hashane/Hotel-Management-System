@@ -29,7 +29,7 @@ class ReservationRequest extends FormRequest
             'message' => ['required','string','max:255'],
 
             'card' => ['nullable', 'string', 'digits_between:13,19'],
-            'expiry' => ['required', 'regex:/^(0[1-9]|1[0-2])\/(\d{2}|\d{4})$/'],
+            'expiry' => ['required', 'regex:/^(0[1-9]|1[0-2])\/(\d{2})$/'],
             'cvv' => ['required_with:card_number', 'digits_between:3,4'],
         ];
     }
