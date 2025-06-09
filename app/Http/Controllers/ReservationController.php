@@ -10,11 +10,8 @@ use Illuminate\Http\Request;
 
 class ReservationController
 {
-    public array $cartItems = [];
-    public function __construct(public CartService $cartService,public ReservationService $reservationService)
-    {
-        $this->cartItems = $this->cartService->getCart();
-    }
+    public function __construct(public ReservationService $reservationService)
+    {}
 
     /**
      * Display a listing of the resource.
