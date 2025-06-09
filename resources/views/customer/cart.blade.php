@@ -23,7 +23,7 @@
                                     <div class="ri-text">
                                         <div class="row">
                                             <div class="col-10">
-                                                <h4>Premium King Room</h4>
+                                                <h4>{{ $item['room']->name }}</h4>
                                             </div>
                                             <div class="col-2 text-end">
                                                 <form action="{{ route('cart.remove', $key) }}" method="POST" class="d-flex justify-content-between w-100 gap-3">
