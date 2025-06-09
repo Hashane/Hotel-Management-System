@@ -30,7 +30,7 @@
                                                     @method('delete')
                                                     @csrf
                                                     <div class="w-50">
-                                                        <button type="submit"><i class="fas fa-trash px-2 py-2 border rounded" style="color: #6c757d;"></i></button>
+                                                        <button type="submit"><i class="fas fa-trash px-2 py-2 border rounded" style="color: red;"></i></button>
                                                     </div>
                                                 </form>
                                             </div>
