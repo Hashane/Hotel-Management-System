@@ -88,7 +88,10 @@
                     </div>
                 </div>
                     @empty
-                    <p>Cart Empty</p>
+                    <div class="row">
+                        <h2 class="text-center text-muted fst-italic">Cart Empty</h2>
+                    </div>
+                    
                 @endforelse
             </div>
         </div>
@@ -171,7 +174,12 @@
                     <!-- end of promotion section -->
                 </div>
             </div>
-            <button class="proceed-btn btn-sm px-3 bg-primary" onclick="window.location='{{ route('reservation.index') }}'">Proceed</button>
+            <div class="row">
+                <div class="col-lg-12 ">
+                    <button class="proceed-btn btn-sm px-3 bg-primary mb-2 " onclick="window.location='{{ route('reservation.index') }}'">Proceed</button>
+
+                </div>
+            </div>
         </div>
     </div>
 

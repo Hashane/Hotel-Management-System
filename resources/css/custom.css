@@ -1079,6 +1079,9 @@ height: 350px;
      height: 60px;
      margin-top: 30px;
      align-content: flex-start;
+     border: 1px solid #ebebeb;
+
+
  }
 
 
@@ -1120,7 +1123,7 @@ height: 350px;
 .payment-card {
     border: 1px solid #ebebeb;
     width: 100%;
-    padding: 24px 24px 30px 28px;
+    /* padding: 24px 24px 30px 28px; */
 }
 
 .payment-detail-row {
