@@ -29,7 +29,7 @@
                                             </div>
                                             <div class="col-2 text-end">
                                                 <i class="fas fa-trash px-2 py-2 border rounded" style="color: #6c757d;"></i>                                            </div>
-                                        </div>
+                                            </div>
                                         
                                         <h3><span>{{ $item['room']->default_rate->pivot->price }}$/Pernight</span></h3>
                                         <table>
