@@ -100,9 +100,10 @@
   <div class="card" style="background-color: transparent; border: none; box-shadow: none;">
     <div>
       <button type="button" class="btn btn-primary position-relative float-end me-3" data-bs-toggle="modal" data-bs-target="#cartModal">
-        <i class="bi bi-cart3"></i>
+        <i class="fas fa-shopping-cart"></i>
         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-count">0</span>
       </button>
+
     </div>
   </div>
   
