@@ -71,7 +71,7 @@ class CartController
     {
         $this->cart->remove($id);
 
-        return redirect()->route('cart.index')->with('success', 'Item removed!');
+        return redirect()->route('cart.index')->with('success', 'Room removed from cart!');
     }
 
     public function clear()
