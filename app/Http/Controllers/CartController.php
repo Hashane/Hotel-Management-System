@@ -50,8 +50,15 @@ class CartController
                 'check-out' => $cartItem['check-out'],
             ];
         }
+        $settings = Helper::getSettings(['accommodation_tax','room_service_fee']);
+        $taxPercentage = $settings['accommodation_tax'];
+        $serviceCharges =  $settings['room_service_fee'];
 
-        return view('customer.cart', compact(['items','totalRoomCost']));
+        $tax = ($totalRoomCost * $taxPercentage)/100;
+
+        $totalAmount = $totalRoomCost + $tax + $serviceCharges;
+
+        return view('customer.cart', compact(['items','totalRoomCost','serviceCharges', 'taxPercentage', 'tax','totalAmount']));
     }
 
 
