@@ -88,14 +88,14 @@
                     <div class="about-text">
                         <div class="section-title">
                             <span>About Us</span>
-                            <h2>Intercontinental LA <br/>Westlake Hotel</h2>
+                            <h2>Intercontinental <br/>Four Seasons</h2>
                         </div>
                         <p class="f-para">
-                            Sharon’s Residence is a leading residence passionate about travel and comfort.
+                            Four Seasons is a leading residence passionate about travel and comfort.
                         </p>
                         <p class="s-para">
                             So when it comes to booking the perfect hotel, vacation rental,
-                            resort, apartment, guest house, or tree house, we’ve got you
+                            resort, apartment, guest house, or tree house, we've got you
                             covered.
                         </p>
                         <a href="#" class="primary-btn about-btn">Read More</a>
@@ -135,8 +135,7 @@
                         <i class="flaticon-036-parking"></i>
                         <h4>Travel Plan</h4>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna.
+                            Let us take care of your journey. From transportation to sightseeing, we offer customized travel itineraries to ensure a stress-free and enjoyable trip for individuals and families.
                         </p>
                     </div>
                 </div>
@@ -145,8 +144,7 @@
                         <i class="flaticon-033-dinner"></i>
                         <h4>Catering Service</h4>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna.
+                            Enjoy gourmet meals without stepping out. Our catering team delivers fresh, delicious food directly to your room or event space, prepared with the finest ingredients.
                         </p>
                     </div>
                 </div>
@@ -155,8 +153,7 @@
                         <i class="flaticon-026-bed"></i>
                         <h4>Babysitting</h4>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna.
+                            Our trusted and trained babysitters offer safe and engaging care for your little ones, giving you the peace of mind to enjoy your time while they're in good hands.
                         </p>
                     </div>
                 </div>
@@ -165,8 +162,7 @@
                         <i class="flaticon-024-towel"></i>
                         <h4>Laundry</h4>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna.
+                            We provide convenient laundry and dry-cleaning services with quick turnaround times, ensuring your clothes are clean, fresh, and ready when you need them.
                         </p>
                     </div>
                 </div>
@@ -175,8 +171,7 @@
                         <i class="flaticon-044-clock-1"></i>
                         <h4>Hire Driver</h4>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna.
+                            Need a ride? Our professional drivers are available on demand, offering safe and comfortable transportation for city tours, airport transfers, or personal errands.
                         </p>
                     </div>
                 </div>
@@ -185,13 +180,13 @@
                         <i class="flaticon-012-cocktail"></i>
                         <h4>Bar & Drink</h4>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna.
+                            Relax and unwind at our well-stocked bar offering a wide selection of cocktails, wines, and premium spirits served in a stylish and welcoming atmosphere.
                         </p>
                     </div>
                 </div>
             </div>
         </div>
+        
     </section>
     <!-- Services Section End -->
 
