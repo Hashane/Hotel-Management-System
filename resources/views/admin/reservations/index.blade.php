@@ -95,8 +95,14 @@
                             <td>3</td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-center align-items-center gap-3 py-1">
-                                    <a href="#" class="btn btn-sm btn-warning px-3">Check In</a>
-                                    <i class="fas fa-pencil-alt text-primary fs-5" data-bs-toggle="modal" data-bs-target="#editReservationModal" style="cursor: pointer;"></i>
+                                    <a href="#" 
+                                    class="btn btn-sm btn-warning px-3" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#checkInModal" 
+                                    onclick="setCheckInReservationId(1001)">
+                                    Check In
+                                 </a>
+                                                                     <i class="fas fa-pencil-alt text-primary fs-5" data-bs-toggle="modal" data-bs-target="#editReservationModal" style="cursor: pointer;"></i>
                                     <i class="fas fa-plus text-success fs-5" data-bs-toggle="modal" data-bs-target="#addChargesModal" style="cursor: pointer;"></i>
                                 </div>
                             </td>
@@ -106,6 +112,31 @@
                 </div>
             </div>
         </div>
+
+
+        <!-- Check-In Confirmation Modal -->
+<div class="modal fade" id="checkInModal" tabindex="-1" aria-labelledby="checkInModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="checkInModalLabel">Confirm Check-In</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="checkInForm" method="POST" action="/check-in-route"> <!-- change action accordingly -->
+          @csrf
+          <div class="modal-body">
+            <p>Are you sure you want to check in this customer?</p>
+            <!-- Optionally, add more details or hidden inputs -->
+            <input type="hidden" name="reservation_id" id="checkInReservationId" value="">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-success">Yes, Check In</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
         <!-- Edit Reservation Modal -->
         <div class="modal fade" id="editReservationModal" tabindex="-1" aria-labelledby="editReservationModalLabel" aria-hidden="true">
@@ -208,6 +239,7 @@
                 </div>
             </div>
         </div>
+
     </section>
 
     {{--    {{ $reservations->links() }} --}}{{-- Laravel pagination links --}}
