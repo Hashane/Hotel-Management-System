@@ -89,9 +89,10 @@
                                         <div class="row">
                                             <form action="{{ route('cart.add', $room) }}" method="POST" class="d-flex justify-content-between w-100 gap-3">
                                                 @csrf
-
+                                                <input type="hidden" name="check_in" value="{{ request('check_in') }}">
+                                                <input type="hidden" name="check_out" value="{{ request('check_out') }}">
                                                 <div class="w-50">
-                                                    <select name="quantity" class="r-o-select w-100" required>
+                                                    <select name="occupants" class="r-o-select w-100" required>
                                                         <option value="">Select Occupancy</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
