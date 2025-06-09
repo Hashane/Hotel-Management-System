@@ -34,6 +34,10 @@ class CartController
         $items=[];
 
         $totalRoomCost = 0.00;
+        $totalAmount = 0.00;
+        $serviceCharges = 0.00;
+        $tax = 0.00;
+        $taxPercentage = 0;
 
         foreach ($cartItems as $key => $cartItem) {
             $room = $rooms->firstWhere('id', $cartItem['room-id']);
@@ -50,13 +54,15 @@ class CartController
                 'check-out' => $cartItem['check-out'],
             ];
         }
+
         $settings = Helper::getSettings(['accommodation_tax','room_service_fee']);
-        $taxPercentage = $settings['accommodation_tax'];
-        $serviceCharges =  $settings['room_service_fee'];
+        if(!empty($settings)){
+            $taxPercentage = $settings['accommodation_tax'];
+            $serviceCharges =  $settings['room_service_fee'];
 
-        $tax = ($totalRoomCost * $taxPercentage)/100;
-
-        $totalAmount = $totalRoomCost + $tax + $serviceCharges;
+            $tax = ($totalRoomCost * $taxPercentage)/100;
+            $totalAmount = $totalRoomCost + $tax + $serviceCharges;
+        }
 
         return view('customer.cart', compact(['items','totalRoomCost','serviceCharges', 'taxPercentage', 'tax','totalAmount']));
     }
