@@ -5,11 +5,11 @@
 @section('content')
     <!-- cart Section Begin -->
     {{-- <div class="container" style="margin-top: 40px", style="display: inline-flex" > --}}
-   
+
         <div class="container d-flex" style="gap: 20px; align-items: flex-start; margin-top: 40px;">
         <div  style="width: 60%;">
             <div class="row">
-                @foreach($items as $item)
+                @foreach($items as $key => $item)
                 <!-- room detail card section -->
                 <div class="col-lg-12">
                     <div class="room-item">
@@ -20,17 +20,21 @@
                                 </div>
 
                                 <div class="col-lg-7 mb-2">
-                                   
-
                                     <div class="ri-text">
                                         <div class="row">
                                             <div class="col-10">
                                                 <h4>Premium King Room</h4>
                                             </div>
                                             <div class="col-2 text-end">
-                                                <i class="fas fa-trash px-2 py-2 border rounded" style="color: #6c757d;"></i>                                            </div>
+                                                <form action="{{ route('cart.remove', $key) }}" method="POST" class="d-flex justify-content-between w-100 gap-3">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <div class="w-50">
+                                                        <button type="submit"><i class="fas fa-trash px-2 py-2 border rounded" style="color: #6c757d;"></i></button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
-                                        
                                         <h3><span>{{ $item['room']->default_rate->pivot->price }}$/Pernight</span></h3>
                                         <table>
                                             <tbody>
@@ -55,7 +59,7 @@
                                     </div>
                                 </div>
                             </div>
-    
+
 
 
                             <div class="summary-card">
@@ -78,23 +82,23 @@
                                     </div>
                                 </div>
                             </div>
-    
-                           
+
+
                         </div>
                     </div>
                 </div>
                 @endforeach
-    
+
 
             </div>
         </div>
-       
+
 
 
         <div style="width: 35%; position: sticky; top: 40px; align-self: flex-start;">
             <div class="row">
                 <div class="col-lg-12" style="position: sticky; top: 40px; align-self: flex-start; z-index: 100;">
-                    
+
                     <div class="row">
                         <!-- payment section -->
                         <div class="col-lg-12 payment-card">
@@ -138,21 +142,21 @@
                         </div>
                         <!-- end payment section -->
                     </div>
-    
+
                     <!-- promotion section -->
                     <div class="row" style="margin-top: 20px">
                         <div class="col-lg-12 payment-card">
                             <div class="row">
                                 <h6 style="font-weight: bolder">APPLY COUPON</h6>
                             </div>
-    
+
                             <div class="row">
                                 <p>Have a Coupnon</p>
                             </div>
-    
+
                             <div class="row">
                             <div class="col-lg-7">
-                                <button class="payment-btn-payment"> 
+                                <button class="payment-btn-payment">
                                 </button>
                             </div>
 
@@ -161,26 +165,19 @@
                                     Apply
 
                                 </button>
-                                
-                            </div>
-    
-                        
-                           
 
+                            </div>
                          </div>
                         </div>
                     </div>
                     <!-- end of promotion section -->
-                
                 </div>
             </div>
-            <button type="button" class="proceed-btn btn-sm px-3 bg-primary">proceed</button>
-
+            <button class="proceed-btn btn-sm px-3 bg-primary" onclick="window.location='{{ route('reservation.index') }}'">Proceed</button>
         </div>
-     
     </div>
-        
-        
+
+
     </div>
     <!-- cart Section End -->
 @endsection
