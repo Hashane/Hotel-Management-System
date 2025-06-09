@@ -23,6 +23,7 @@
                 <li><a href="#" class="hover:underline">Rooms</a></li>
                 <li><a href="#" class="hover:underline">About Us</a></li>
                 <li><a href="#" class="hover:underline">Contact</a></li>
+
             </ul>
         </nav>
     </div>
@@ -78,6 +79,9 @@
                                 </li>
                                 <li class="{{ request()->routeIs('contact') ? 'active' : '' }}">
                                     <a href="{{ route('contact') }}">Contact</a>
+                                </li>
+                                <li class="{{ request()->routeIs('contact') ? 'active' : '' }}">
+                                    <a href="{{ route('contact') }}">Reservations</a>
                                 </li>
                                 <li class="{{ request()->routeIs('contact') ? 'active' : '' }}">
                                     <a href="{{ route('cart.index') }}">
