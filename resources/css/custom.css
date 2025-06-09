@@ -1056,6 +1056,30 @@ ol {
     font-size: 18px;
     color: #aaaab3;
 }
+
+/*------------------------
+  Confirmation Page 
+-------------------------*/
+.confirmation-text{
+    color: #005A9C;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+
+.confirm-text {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+.confirm-text h1 {
+    font-size: 50px;
+    line-height: 90px;
+    color: #ffffff;
+    margin-bottom: 16px;
+}
+
+
+
 /*------------------------
   Cart Page Room Section
 -------------------------*/
@@ -1079,6 +1103,9 @@ height: 350px;
      height: 60px;
      margin-top: 30px;
      align-content: flex-start;
+     border: 1px solid #ebebeb;
+
+
  }
 
 
