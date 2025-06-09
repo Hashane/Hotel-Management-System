@@ -17,12 +17,20 @@
                             <div class="row mb-2">
                                 <div class="col-lg-5">
                                     <img class="cart-room-img" src="{{ $item['room']->image_url }}" alt="{{ $item['room']->name }}"/>
-                                    <button type="button" class="delete-btn btn-sm px-3">Delete</button>
                                 </div>
 
                                 <div class="col-lg-7 mb-2">
+                                   
+
                                     <div class="ri-text">
-                                        <h4>Premium King Room</h4>
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <h4>Premium King Room</h4>
+                                            </div>
+                                            <div class="col-2 text-end">
+                                                <i class="fas fa-trash px-2 py-2 border rounded" style="color: #6c757d;"></i>                                            </div>
+                                        </div>
+                                        
                                         <h3><span>{{ $item['room']->default_rate->pivot->price }}$/Pernight</span></h3>
                                         <table>
                                             <tbody>
@@ -166,7 +174,7 @@
                 
                 </div>
             </div>
-            <button type="button" class="delete-btn btn-sm px-3">Update</button>
+            <button type="button" class="proceed-btn btn-sm px-3 bg-primary">proceed</button>
 
         </div>
      
