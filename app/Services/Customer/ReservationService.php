@@ -20,16 +20,8 @@ class ReservationService
     {
         DB::beginTransaction();
 
-        $checkIns = [];
-        $checkOuts = [];
-
         $cartItems = $this->getCartItems();
         $rooms = $this->getRoomsFromCart($cartItems);
-
-        foreach ($cartItems as $cartItem) {
-            $checkIns [] = $cartItem['check-in'];
-            $checkOuts [] = $cartItem['check-out'];
-        }
 
         $customer = Customer::updateOrCreate(
             ['email' => $data['email']],
@@ -41,17 +33,19 @@ class ReservationService
 
         $reservation = Reservation::create([
             'customer_id' => $customer->id,
-            'check_in' => min($checkIns),
-            'check_out' => max($checkOuts),
             'status' => ReservationStatus::CONFIRMED->value,
             'amount' => $result['totalAmount'],
             'booking_number' => $this->generateBookingNumber(),
         ]);
 
+        $roomDateMap = $this->mapRoomToDate();
+
         foreach ($rooms as $room) {
             $reservation->roomReservations()->create([
                 'room_id' => $room->id,
                 'price' => $room->default_rate->pivot->price,
+                'check_in' => $roomDateMap[$room->id]['check_in'],
+                'check_out' => $roomDateMap[$room->id]['check_out'],
             ]);
         }
 
@@ -95,6 +89,23 @@ class ReservationService
         $booking_number = $prefix . $date_time . $random_number;
 
         return $booking_number;
+    }
+
+    private function mapRoomToDate(): array
+    {
+        $cartItems = $this->getCartItems();
+
+        $map = [];
+
+        foreach ($cartItems as $item) {
+            $roomId = (int) $item['room-id'];
+            $map[$roomId] = [
+                'check_in' => $item['check-in'],
+                'check_out' => $item['check-out'],
+            ];
+        }
+
+        return $map;
     }
 
 }

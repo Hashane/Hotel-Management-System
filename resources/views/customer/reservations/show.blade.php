@@ -46,27 +46,27 @@
 
     <div class="container mt-4">
         <table class="table">
-            <thead class="table-secondary"> <!-- Bootstrap class for light grey background -->
+            <thead class="table-secondary">
             <tr>
-                <th scope="col">Stays</th>
                 <th scope="col">Check In</th>
                 <th scope="col">Check Out</th>
-                <th scope="col">No. of Rooms</th>
+                <th scope="col">Room No.</th>
                 <th scope="col">Room Type</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>{{ $reservation->check_in }}</td>
-                <td>{{ $reservation->check_out }}</td>
-                <td></td>
-                <td>Deluxe</td>
-            </tr>
-            <!-- Add more rows here -->
+            @foreach($reservation->roomReservations as $res)
+                <tr>
+                    <td>{{ $res->check_in }}</td>
+                    <td>{{ $res->check_out }}</td>
+                    <td>{{ $res->room->room_no }}</td>
+                    <td>{{ $res->room->roomType->name }}</td>
+                </tr>
+            @endforeach
             </tbody>
         </table>
     </div>
+
 
 
     <div class="container">

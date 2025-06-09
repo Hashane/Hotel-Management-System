@@ -50,9 +50,11 @@ class ReservationController
             $validated = $request->validated();
             $result = $this->reservationService->prepareReservation();
             $reservation = $this->reservationService->store($validated, $result);
+            $reservation = $reservation->load('roomReservations');
 
-            return redirect()->route('reservations.show',compact('reservation'))
+            return redirect()->route('reservations.show',$reservation)
                 ->with('success', 'Reservation confirmed!');
+
         } catch (\Exception $exception) {
             return redirect()->route('reservations.create')
                 ->with('error', $exception->getMessage());
