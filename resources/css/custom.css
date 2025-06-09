@@ -842,6 +842,41 @@ ol {
     box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
 }
 
+
+.payment-btn-payment {
+    /* display: block; */
+    font-size: 14px;
+    padding: 0;
+    margin-right: 10px;
+    text-transform: uppercase;
+    border: 1px solid #dfa974;
+    border-radius: 2px;
+    color: #dfa974;
+    font-weight: 500;
+    background: transparent;
+    width: 100%;
+    height: 46px;
+    margin-top: 30px;
+    align-content: flex-start;
+}
+
+.payment-btn-promotion {
+    /* display: block; */
+    padding: 0;
+    margin-right: 0;
+    font-size: 14px;
+    text-transform: uppercase;
+    border: 1px solid #dfa974;
+    border-radius: 2px;
+    color: white;
+    font-weight: 500;
+    background: #dfa974;
+    width: 100%;
+    height: 46px;
+    margin-top: 30px;
+    align-content: flex-end;
+}
+
 .r-o-select {
     background: transparent;
     border: 1px solid #dfa974;
@@ -1024,17 +1059,58 @@ ol {
 /*------------------------
   Cart Page Room Section
 -------------------------*/
+.cart-room-img{
+height: 350px;
+}
+
+.proceed-btn{
+     /* display: block; */
+     font-size: 14px;
+     text-align: center;
+     padding: 0;
+     margin-right: 10px;
+     text-transform: uppercase;
+     /* border: 1px solid #dfa974; */
+     border-radius: 2px;
+     color: white;
+     font-weight: 500;
+     background: #dfa974;
+     width: 100%;
+     height: 60px;
+     margin-top: 30px;
+     align-content: flex-start;
+ }
+
+
+.delete-btn {
+    /* display: block; */
+    font-size: 14px;
+    text-align: center;
+    padding: 0;
+    margin-right: 10px;
+    text-transform: uppercase;
+    border: 1px solid #dfa974;
+    border-radius: 2px;
+    color: #dfa974;
+    font-weight: 500;
+    background: transparent;
+    width: 40%;
+    height: 60px;
+    margin-top: 30px;
+    align-content: flex-start;
+}
 
 .summary-card {
     background-color: #cbe1fa;
+    padding: 10px;
 }
+
 
 .cart-info {
     font-weight: bolder;
     font-size: medium;
 }
-.cart-detail {
-}
+
 
 .payment-price {
     font-weight: bolder;
@@ -1563,12 +1639,13 @@ ol {
         bottom: -288px;
     }
 }
-@media only screen and (min-width: 1200px) {
-    .container {
-        max-width: 90%;
-    }
-}
-/* Medium Device: 1200px */
+/* @media only screen and (min-width: 1200px) { */
+.container {
+    max-width: 90% !important;
+    width: 90% !important;
+  }
+
+
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
     .hp-room-items .hp-room-item .hr-text {
