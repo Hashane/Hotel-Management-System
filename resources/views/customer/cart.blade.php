@@ -89,7 +89,7 @@
                     <div class="row">
                         <h2 class="text-center text-muted fst-italic">Cart Empty</h2>
                     </div>
-                    
+
                 @endforelse
             </div>
         </div>
@@ -174,14 +174,11 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 ">
-                    <button class="proceed-btn btn-sm px-3 bg-primary mb-2 " onclick="window.location='{{ route('reservation.index') }}'">Proceed</button>
+                    <button class="proceed-btn btn-sm px-3 bg-primary mb-2 " onclick="window.location='{{ route('reservations.create') }}'">Proceed</button>
 
                 </div>
             </div>
         </div>
-    </div>
-
-
     </div>
     <!-- cart Section End -->
 @endsection

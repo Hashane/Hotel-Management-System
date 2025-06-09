@@ -27,7 +27,7 @@
             <div class="col-lg-2">
                 <div class="booking-form">
                     <h3>Booking Your Hotel</h3>
-                    <form action="{{ route('rooms') }}" method="GET">
+                    <form action="{{ route('rooms.index') }}" method="GET">
                         <div class="select-option">
                             <label for="room_type">Accommodation Type:</label>
                             <select id="room_type" name="room_type" class="r-o-select">
@@ -50,7 +50,7 @@
                             <i class="icon_calendar"></i>
                         </div>
 
-                        <button type="submit">Check Availability</button>
+                        <button type="submit">Check <Availa></Availa>bility</button>
                     </form>
                 </div>
             </div>

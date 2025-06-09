@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Customer\ReservationRequest;
+use App\Models\Reservation;
 use App\Services\Customer\CartService;
 use Illuminate\Http\Request;
 
@@ -16,13 +18,7 @@ class ReservationController
      */
     public function index()
     {
-        $cart = $this->cartService->getCart();
-
-        if (empty($cart)) {
-            return redirect()->route('cart.index')->with('error', 'Cart is empty.');
-        }
-
-        return view('customer.reservation', compact('cart'));
+        return view('customer.reservations.index');
     }
 
     /**
@@ -30,29 +26,36 @@ class ReservationController
      */
     public function create()
     {
-        //
+        $cart = $this->cartService->getCart();
+
+        if (empty($cart)) {
+            return redirect()->route('cart.index')->with('error', 'Cart is empty.');
+        }
+
+        return view('customer.reservations.create', compact('cart'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ReservationRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $cart = $this->cartService->getCart();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Reservation $reservation)
     {
-        //
+        return view('customer.reservations.show', compact('reservation'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Reservation $reservation)
     {
         //
     }
@@ -60,7 +63,7 @@ class ReservationController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Reservation $reservation)
     {
         //
     }
@@ -68,7 +71,7 @@ class ReservationController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Reservation $reservation)
     {
         //
     }

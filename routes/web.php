@@ -20,22 +20,23 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::view('/cart','admin.cart.index')->name('cart.index');
-Route::view('/reservations','admin.reservations.index')->name('reservations.index');
-Route::view('/reservations/create','admin.reservations.create')->name('reservations.create');
+    Route::view('/reservations','admin.reservations.index')->name('reservations.index');
+    Route::view('/reservations/create','admin.reservations.create')->name('reservations.create');
 
 });
 
 require __DIR__.'/auth.php';
 
 Route::controller(RoomController::class)->group(function (){
-    Route::get('/rooms', 'index')->name('rooms');
+    Route::get('/rooms', 'index')->name('rooms.index');
+    Route::view('/rooms/{room}', 'customer.rooms.show')->name('rooms.show');
 });
 
 Route::view('/', 'customer.index')->name('home');
 Route::view('/about', 'customer.about')->name('about');
 //Route::view('/cart', 'customer.cart')->name('cart');
 
-Route::view('/room-details', 'customer.room-details')->name('room.details');
+
 Route::view('/contact', 'customer.contact')->name('contact');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
@@ -44,5 +45,17 @@ Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.
 Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
-Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation.index');
-Route::view('reservation/confirmation', 'customer.confirmation')->name('reservation.confirmation');
+
+Route::prefix('reservations')
+    ->name('reservations.')
+    ->controller(ReservationController::class)
+    ->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/{reservation}', 'show')->name('show');
+        Route::put('/{reservation}', 'update')->name('update');
+        Route::delete('/{reservation}', 'destroy')->name('destroy');
+    });
+
+Route::view('/confirmation', 'customer.reservations.confirmation')->name('confirmation');

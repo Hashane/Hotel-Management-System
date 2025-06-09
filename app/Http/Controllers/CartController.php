@@ -76,7 +76,7 @@ class CartController
 
         $this->cart->add($room->id, $occupants, $checkIn, $checkOut);
 
-        return redirect()->route('rooms')->with('success', 'Room added to cart!');
+        return redirect()->route('rooms.index')->with('success', 'Room added to cart!');
     }
 
     public function update(Room $room, Request $request)
