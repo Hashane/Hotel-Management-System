@@ -2,7 +2,7 @@
 
 namespace App\Services\Customer;
 
-use Illuminate\Support\Carbon;
+use App\Helpers\Helper;
 use Illuminate\Support\Facades\Session;
 
 class CartService
@@ -12,6 +12,52 @@ class CartService
     public function getCart()
     {
         return Session::get($this->sessionKey, []);
+    }
+
+    public function calculateCosts(array $cartItems, $rooms, bool $withItems = false): array
+    {
+        $totalRoomCost = 0.00;
+        $items = [];
+
+        foreach ($cartItems as $key => $cartItem) {
+            $room = $rooms->firstWhere('id', $cartItem['room-id']);
+
+            $perNightCost = $room->default_rate->pivot->price;
+            $roomCost = Helper::calculateRoomCost(
+                $perNightCost,
+                $cartItem['check-in'],
+                $cartItem['check-out']
+            );
+
+            $totalRoomCost += $roomCost;
+
+            if ($withItems) {
+                $items[$key] = [
+                    'room-cost' => $roomCost,
+                    'room' => $room,
+                    'occupants' => $cartItem['occupants'],
+                    'check-in' => $cartItem['check-in'],
+                    'check-out' => $cartItem['check-out'],
+                ];
+            }
+        }
+
+        $settings = Helper::getSettings(['accommodation_tax', 'room_service_fee']);
+
+        $taxPercentage = $settings['accommodation_tax'] ?? 0;
+        $serviceCharges = $settings['room_service_fee'] ?? 0;
+
+        $tax = ($totalRoomCost * $taxPercentage) / 100;
+        $totalAmount = $totalRoomCost + $tax + $serviceCharges;
+
+        return [
+            'totalRoomCost' => $totalRoomCost,
+            'serviceCharges' => $serviceCharges,
+            'tax' => $tax,
+            'taxPercentage' => $taxPercentage,
+            'totalAmount' => $totalAmount,
+            'items' => $items,
+        ];
     }
 
     public function add($roomId, $occupants = 1,$checkIn, $checkOut):void

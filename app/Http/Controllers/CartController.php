@@ -31,40 +31,9 @@ class CartController
             ->whereIn('id', $roomIds)
             ->get();
 
-        $items=[];
+        $result = $this->cart->calculateCosts($cartItems, $rooms, true);
 
-        $totalRoomCost = 0.00;
-        $totalAmount = 0.00;
-        $serviceCharges = 0.00;
-        $tax = 0.00;
-        $taxPercentage = 0;
-
-        foreach ($cartItems as $key => $cartItem) {
-            $room = $rooms->firstWhere('id', $cartItem['room-id']);
-
-            $perNightCost = $room->default_rate->pivot->price;
-            $roomCost = Helper::calculateRoomCost($perNightCost, $cartItem['check-in'], $cartItem['check-out']);
-            $totalRoomCost += $roomCost;
-
-            $items[$key] = [
-                'room-cost' => $roomCost,
-                'room' => $room,
-                'occupants' => $cartItem['occupants'],
-                'check-in' => $cartItem['check-in'],
-                'check-out' => $cartItem['check-out'],
-            ];
-        }
-
-        $settings = Helper::getSettings(['accommodation_tax','room_service_fee']);
-        if(!empty($settings)){
-            $taxPercentage = $settings['accommodation_tax'];
-            $serviceCharges =  $settings['room_service_fee'];
-
-            $tax = ($totalRoomCost * $taxPercentage)/100;
-            $totalAmount = $totalRoomCost + $tax + $serviceCharges;
-        }
-
-        return view('customer.cart', compact(['items','totalRoomCost','serviceCharges', 'taxPercentage', 'tax','totalAmount']));
+        return view('customer.cart',$result);
     }
 
 
