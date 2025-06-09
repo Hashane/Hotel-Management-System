@@ -20,4 +20,9 @@ class Reservation extends Model
             ->withPivot('price')
             ->withTimestamps();
     }
+
+    public function roomReservations()
+    {
+        return $this->hasMany(RoomReservation::class);
+    }
 }

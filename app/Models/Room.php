@@ -43,6 +43,12 @@ class Room extends Model
             ->withTimestamps();
     }
 
+    public function roomReservations()
+    {
+        return $this->hasMany(RoomReservation::class);
+    }
+
+
     public function users()
     {
         return $this->belongsToMany(User::class);
