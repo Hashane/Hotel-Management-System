@@ -4,13 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Customer\ReservationRequest;
 use App\Models\Reservation;
+use App\Models\Room;
 use App\Services\Customer\CartService;
+use App\Services\Customer\ReservationService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class ReservationController
 {
-    public function __construct(public CartService $cartService)
+    public array $cartItems = [];
+    public function __construct(public CartService $cartService,public ReservationService $reservationService)
     {
+        $this->cartItems = $this->cartService->getCart();
     }
 
     /**
@@ -26,13 +32,8 @@ class ReservationController
      */
     public function create()
     {
-        $cart = $this->cartService->getCart();
-
-        if (empty($cart)) {
-            return redirect()->route('cart.index')->with('error', 'Cart is empty.');
-        }
-
-        return view('customer.reservations.create', compact('cart'));
+        $result = $this->reservationService->prepareReservation();
+        return view('customer.reservations.create', $result);
     }
 
     /**
@@ -40,8 +41,33 @@ class ReservationController
      */
     public function store(ReservationRequest $request)
     {
-        $validated = $request->validated();
-        $cart = $this->cartService->getCart();
+        try {
+            $validated = $request->validated();
+            $result = $this->reservationService->prepareReservation();
+            $reservation = $this->reservationService->store($validated, $result);
+
+            return view('customer.reservations.show', compact('reservation'))
+                ->with('success', 'Reservation confirmed!');
+        } catch (\Exception $exception) {
+            return redirect()->route('reservations.create')
+                ->with('error', $exception->getMessage());
+        }
+    }
+
+    private function getCartItems():array{
+        if (empty($this->cartItems)) {
+            redirect()->route('cart.index')->with('error', 'Cart is empty.')->send();
+            exit;
+        }
+        return $this->cartItems;
+    }
+
+    private function getRoomsFromCart(array $cartItems)
+    {
+        $roomIds = array_unique(Arr::pluck($cartItems, 'room-id'));
+        return Room::with('roomType.facilities', 'roomType.rateTypes')
+            ->whereIn('id', $roomIds)
+            ->get();
     }
 
     /**
