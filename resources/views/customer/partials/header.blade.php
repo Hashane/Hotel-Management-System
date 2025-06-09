@@ -80,11 +80,11 @@
                                     <a href="{{ route('contact') }}">Contact</a>
                                 </li>
                                 <li class="{{ request()->routeIs('contact') ? 'active' : '' }}">
-                                    <a href="{{ route('cart.index') }}">        
+                                    <a href="{{ route('cart.index') }}">
                                         <button type="button" class="position-relative">
                                             <i class="fas fa-shopping-cart"></i>
                                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-count">
-                                                3
+                                               {{ $cartItemCount }}
                                             </span>
                                         </button>                                    </a>
                                 </li>
