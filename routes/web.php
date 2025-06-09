@@ -20,8 +20,8 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::view('/cart','admin.cart.index')->name('cart.index');
-Route::view('/reservations','admin.reservations.index')->name('reservations.index');
-Route::view('/reservations/create','admin.reservations.create')->name('reservations.create');
+    Route::view('/reservations','admin.reservations.index')->name('reservations.index');
+    Route::view('/reservations/create','admin.reservations.create')->name('reservations.create');
 
 });
 
@@ -45,4 +45,6 @@ Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('car
 Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation.index');
+Route::get('/reservation/create', [ReservationController::class, 'create'])->name('reservation.create');
+Route::post('/reservation/store', [ReservationController::class, 'store'])->name('reservation.store');
 Route::view('reservation/confirmation', 'customer.confirmation')->name('reservation.confirmation');

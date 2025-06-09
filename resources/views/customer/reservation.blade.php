@@ -103,46 +103,76 @@
                 </div>
 
                 <div class="col-lg-7 offset-lg-1">
-                    <form action="{{ route('cart.index') }}" method="POST" class="contact-form">
+                    <form action="{{ route('reservation.store') }}" method="POST" class="contact-form">
                         @csrf
+
+{{--                        @if ($errors->any())--}}
+{{--                            <div class="alert alert-danger">--}}
+{{--                                <ul class="mb-0">--}}
+{{--                                    @foreach ($errors->all() as $error)--}}
+{{--                                        <li>{{ $error }}</li>--}}
+{{--                                    @endforeach--}}
+{{--                                </ul>--}}
+{{--                            </div>--}}
+{{--                        @endif--}}
+
                         <div class="row">
                             <h3>Enter your Information</h3>
                         </div>
+
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" name="first" placeholder="First Name" required/>
+                                <input type="text" name="first_name" value="{{ old('first_name') }}" placeholder="First Name" required/>
+                                @error('first_name') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
+
                             <div class="col-lg-6">
-                                <input type="text" name="last" placeholder="Last Name" required/>
+                                <input type="text" name="last_name" value="{{ old('last_name') }}" placeholder="Last Name" required/>
+                                @error('last_name') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
+
                             <div class="col-lg-7">
-                                <input type="text" name="email" placeholder="Your Email" required/>
+                                <input type="text" name="email" value="{{ old('email') }}" placeholder="Your Email" required/>
+                                @error('email') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
+
                             <div class="col-lg-5">
-                                <input type="text" name="phone" placeholder="Phone" required/>
+                                <input type="text" name="phone" value="{{ old('phone') }}" placeholder="Phone" required/>
+                                @error('phone') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
+
                             <div class="col-lg-12">
-                                <textarea  name="message" placeholder="Your Message"></textarea>
+                                <textarea name="message" placeholder="Your Message">{{ old('message') }}</textarea>
+                                @error('message') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                         </div>
+
                         <div class="row">
                             <h3>Bank Card Information</h3>
                         </div>
+
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" name="card" placeholder="Card Number"/>
+                                <input type="text" name="card" value="{{ old('card') }}" placeholder="Card Number"/>
+                                @error('card') <small class="text-danger d-block mt-1">{{ $message }}</small> @enderror
                             </div>
+
                             <div class="col-lg-3">
-                                <input type="text" name="expiry" placeholder="Exp Date"/>
+                                <input type="text" name="expiry" value="{{ old('expiry') }}" placeholder="MM/YY or MM/YYYY"/>
+                                @error('expiry') <small class="text-danger d-block mt-1">{{ $message }}</small> @enderror
                             </div>
+
                             <div class="col-lg-3">
-                                <input type="text" name="cvc" placeholder="CVC"/>
+                                <input type="text" name="cvc" value="{{ old('cvc') }}" placeholder="CVC"/>
+                                @error('cvc') <small class="text-danger d-block mt-1">{{ $message }}</small> @enderror
                             </div>
+
                             <div class="col-lg-12">
                                 <button type="submit">Make Reservation</button>
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

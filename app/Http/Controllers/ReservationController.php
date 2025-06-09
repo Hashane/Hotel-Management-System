@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Customer\ReservationRequest;
 use App\Services\Customer\CartService;
 use Illuminate\Http\Request;
 
@@ -36,9 +37,10 @@ class ReservationController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ReservationRequest $request)
     {
-        //
+        $validated = $request->validated();
+        dd($validated);
     }
 
     /**

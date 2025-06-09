@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Http\Requests\Customer;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class ReservationRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'first_name' => ['required','string','max:50'],
+            'last_name' => ['required','string','max:50'],
+            'phone' => ['required','string','max:50'],
+            'email' => ['required','string','email','max:50','unique:customers,email'],
+            'message' => ['required','string','max:255'],
+
+            'card' => ['nullable', 'string', 'digits_between:13,19'],
+            'expiry' => ['required', 'regex:/^(0[1-9]|1[0-2])\/(\d{2}|\d{4})$/'],
+            'cvv' => ['required_with:card_number', 'digits_between:3,4'],
+        ];
+    }
+}
