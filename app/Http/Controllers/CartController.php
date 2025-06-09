@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Models\Room;
 use App\Services\Customer\CartService;
 use Illuminate\Http\Request;
@@ -31,9 +32,18 @@ class CartController
             ->get();
 
         $items=[];
+
+        $totalRoomCost = 0.00;
+
         foreach ($cartItems as $key => $cartItem) {
             $room = $rooms->firstWhere('id', $cartItem['room-id']);
+
+            $perNightCost = $room->default_rate->pivot->price;
+            $roomCost = Helper::calculateRoomCost($perNightCost, $cartItem['check-in'], $cartItem['check-out']);
+            $totalRoomCost += $roomCost;
+
             $items[$key] = [
+                'room-cost' => $roomCost,
                 'room' => $room,
                 'occupants' => $cartItem['occupants'],
                 'check-in' => $cartItem['check-in'],
@@ -41,7 +51,7 @@ class CartController
             ];
         }
 
-        return view('customer.cart', compact('items'));
+        return view('customer.cart', compact(['items','totalRoomCost']));
     }
 
 

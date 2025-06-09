@@ -77,13 +77,11 @@
                                         <p class="cart-detail">Occupancy</p>
                                     </div>
                                     <div class="col-lg-3" style="margin-top: 10px">
-                                        <h4>Rs. 2200</h4>
+                                        <h4>Rs.{{ $item['room-cost'] }}.00</h4>
                                         <p class="cart-detail">Total Room Price</p>
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -108,7 +106,7 @@
                                     <p>Total Room Cost</p>
                                 </div>
                                 <div class="col-lg-7">
-                                    <h6 class="payment-price">Rs. 0.00</h6>
+                                    <h6 class="payment-price">Rs. {{$totalRoomCost}}.00</h6>
                                 </div>
                             </div>
                             <div class="row payment-detail-row">
