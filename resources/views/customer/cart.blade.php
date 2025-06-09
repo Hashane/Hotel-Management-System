@@ -77,13 +77,11 @@
                                         <p class="cart-detail">Occupancy</p>
                                     </div>
                                     <div class="col-lg-3" style="margin-top: 10px">
-                                        <h4>Rs. 2200</h4>
+                                        <h4>Rs.{{ $item['room-cost'] }}.00</h4>
                                         <p class="cart-detail">Total Room Price</p>
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -108,15 +106,15 @@
                                     <p>Total Room Cost</p>
                                 </div>
                                 <div class="col-lg-7">
-                                    <h6 class="payment-price">Rs. 0.00</h6>
+                                    <h6 class="payment-price">Rs. {{$totalRoomCost}}.00</h6>
                                 </div>
                             </div>
                             <div class="row payment-detail-row">
                                 <div class="col-lg-5">
-                                    <p>Tax</p>
+                                    <p>Tax {{$taxPercentage}}%</p>
                                 </div>
                                 <div class="col-lg-7">
-                                    <h6 class="payment-price">Rs. 0.00</h6>
+                                    <h6 class="payment-price">Rs. {{$tax}}.00</h6>
                                 </div>
                             </div>
                             <div class="row payment-detail-row">
@@ -124,7 +122,7 @@
                                     <p>Service Charges</p>
                                 </div>
                                 <div class="col-lg-7">
-                                    <h6 class="payment-price">Rs. 0.00</h6>
+                                    <h6 class="payment-price">Rs. {{$serviceCharges}}.00</h6>
                                 </div>
                             </div>
                             <div class="row">
@@ -133,7 +131,7 @@
                                 </div>
                                 <div class="col-lg-7">
                                     <h5 class="payment-price" style="font-size: larger">
-                                        Rs. 0.00
+                                        Rs. {{ $totalAmount }}.00
                                     </h5>
                                 </div>
                             </div>
@@ -149,7 +147,7 @@
                             </div>
 
                             <div class="row">
-                                <p>Have a Coupnon</p>
+                                <p>Have a Coupon?</p>
                             </div>
 
                             <div class="row">
