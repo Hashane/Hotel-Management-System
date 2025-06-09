@@ -9,7 +9,7 @@
         <div class="container d-flex" style="gap: 20px; align-items: flex-start; margin-top: 40px;">
         <div  style="width: 60%;">
             <div class="row">
-                @foreach($items as $key => $item)
+                @forelse($items as $key => $item)
                 <!-- room detail card section -->
                 <div class="col-lg-12">
                     <div class="room-item">
@@ -87,13 +87,11 @@
                         </div>
                     </div>
                 </div>
-                @endforeach
-
-
+                    @empty
+                    <p>Cart Empty</p>
+                @endforelse
             </div>
         </div>
-
-
 
         <div style="width: 35%; position: sticky; top: 40px; align-self: flex-start;">
             <div class="row">
