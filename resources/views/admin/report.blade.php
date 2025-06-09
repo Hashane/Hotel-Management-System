@@ -107,7 +107,6 @@
                       <th>Booked</th>
                       <th>Occupancy (%)</th>
                       <th>Revenue (LKR)</th>
-                      <th class="text-center">Actions</th>
                   </tr>
               </thead>
               <tbody>
@@ -117,12 +116,7 @@
                       <td>40</td>
                       <td>80%</td>
                       <td>100,000</td>
-                      <td class="text-center">
-                          <div class="d-flex justify-content-center align-items-center gap-3 py-1">
-                              <a href="#" class="btn btn-sm btn-info px-3">Details</a>
-                              <i class="fas fa-file-download text-success fs-5" data-bs-toggle="tooltip" title="Download Report" style="cursor: pointer;"></i>
-                          </div>
-                      </td>
+                      
                   </tr>
                   <tr>
                       <td>2025-06-02</td>
@@ -130,18 +124,20 @@
                       <td>35</td>
                       <td>70%</td>
                       <td>87,500</td>
-                      <td class="text-center">
-                          <div class="d-flex justify-content-center align-items-center gap-3 py-1">
-                              <a href="#" class="btn btn-sm btn-info px-3">Details</a>
-                              <i class="fas fa-file-download text-success fs-5" data-bs-toggle="tooltip" title="Download Report" style="cursor: pointer;"></i>
-                          </div>
-                      </td>
+                      
                   </tr>
               </tbody>
           </table>
       </div>
   </div>
   
+
+
+  <div class="mb-3 d-flex justify-content-end">
+    <a href="#" class="btn btn-outline-success me-2">Export to Excel</a>
+    <a href="#" class="btn btn-outline-danger">Export to PDF</a>
+</div>
+
   
   
 
