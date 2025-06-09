@@ -22,7 +22,7 @@
                 <div class="col-xl-4 col-lg-5 offset-xl-2 offset-lg-1">
                     <div class="booking-form" style="padding: 30px 40px 50px 40px;">
                         <h3>Booking Your Hotel</h3>
-                        <form action="{{ route('rooms') }}" method="GET">
+                        <form action="{{ route('rooms.index') }}" method="GET">
                             <div class="select-option">
                                 <label for="room_type">Accommodation Type:</label>
                                 <select id="room_type" name="room_type" class="r-o-select">

@@ -47,7 +47,7 @@
                             <a href="#"><i class="fab fa-twitter"></i></a>
                             <a href="#"><i class="fab fa-instagram"></i></a>
                         </div>
-                        <a href="{{ route('rooms') }}" class="bk-btn">Booking Now</a>
+                        <a href="{{ route('rooms.index') }}" class="bk-btn">Booking Now</a>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
                                     <a href="{{ route('home') }}">Home</a>
                                 </li>
                                 <li class="{{ request()->routeIs('rooms') ? 'active' : '' }}">
-                                    <a href="{{ route('rooms') }}">Rooms</a>
+                                    <a href="{{ route('rooms.index') }}">Rooms</a>
                                 </li>
                                 <li class="{{ request()->routeIs('about') ? 'active' : '' }}">
                                     <a href="{{ route('about') }}">About Us</a>
