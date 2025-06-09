@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,9 +38,11 @@ Route::view('/about', 'customer.about')->name('about');
 Route::view('/room-details', 'customer.room-details')->name('room.details');
 Route::view('/contact', 'customer.contact')->name('contact');
 
-
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add/{room}', [CartController::class, 'add'])->name('cart.add');
-Route::post('/cart/update/{room}', [CartController::class, 'update'])->name('cart.update');
-Route::post('/cart/remove/{room}', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+
+Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation.index');
+Route::view('reservation/confirmation', 'customer.confirmation')->name('reservation.confirmation');
