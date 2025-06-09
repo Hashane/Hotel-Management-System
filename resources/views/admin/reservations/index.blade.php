@@ -95,14 +95,14 @@
                             <td>3</td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-center align-items-center gap-3 py-1">
-                                    <a href="#" 
-                                    class="btn btn-sm btn-warning px-3" 
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#checkInModal" 
-                                    onclick="setCheckInReservationId(1001)">
-                                    Check In
-                                 </a>
-                                                                     <i class="fas fa-pencil-alt text-primary fs-5" data-bs-toggle="modal" data-bs-target="#editReservationModal" style="cursor: pointer;"></i>
+<a href="#" 
+   class="btn btn-sm btn-warning px-3" 
+   data-bs-toggle="modal" 
+   data-bs-target="#checkInModal" 
+   onclick="setCheckInReservationId(1001)">
+   Check In
+</a>
+                                    <i class="fas fa-pencil-alt text-primary fs-5" data-bs-toggle="modal" data-bs-target="#editReservationModal" style="cursor: pointer;"></i>
                                     <i class="fas fa-plus text-success fs-5" data-bs-toggle="modal" data-bs-target="#addChargesModal" style="cursor: pointer;"></i>
                                 </div>
                             </td>
@@ -239,7 +239,10 @@
                 </div>
             </div>
         </div>
-
+        
+        
+       
+        
     </section>
 
     {{--    {{ $reservations->links() }} --}}{{-- Laravel pagination links --}}

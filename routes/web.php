@@ -22,6 +22,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::view('/cart','admin.cart.index')->name('cart.index');
     Route::view('/reservations','admin.reservations.index')->name('reservations.index');
     Route::view('/reservations/create','admin.reservations.create')->name('reservations.create');
+    Route::view('/reports','admin.report');
 
 });
 
