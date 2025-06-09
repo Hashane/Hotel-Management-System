@@ -32,8 +32,13 @@ class ReservationController
      */
     public function create()
     {
-        $result = $this->reservationService->prepareReservation();
-        return view('customer.reservations.create', $result);
+        try {
+            $result = $this->reservationService->prepareReservation();
+            return view('customer.reservations.create', $result);
+        } catch (\Exception $exception) {
+            return redirect()->route('cart.index')
+                ->with('error', $exception->getMessage());
+        }
     }
 
     /**
@@ -46,7 +51,7 @@ class ReservationController
             $result = $this->reservationService->prepareReservation();
             $reservation = $this->reservationService->store($validated, $result);
 
-            return view('customer.reservations.show', compact('reservation'))
+            return redirect()->route('reservations.show',compact('reservation'))
                 ->with('success', 'Reservation confirmed!');
         } catch (\Exception $exception) {
             return redirect()->route('reservations.create')

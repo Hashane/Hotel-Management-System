@@ -15,7 +15,7 @@
 
         <div class="row">
             <div class="col-12">
-                <p class="fst-italic">  Contact FourSeasons If you Need to Change in Basic Information with 1385 Booking Number.
+                <p class="fst-italic">  Contact FourSeasons If you Need to Change in Basic Information with {{ $reservation->booking_number }} Booking Number.
                 </p>
             </div>
         </div>
@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="confirm-text text-white ">
-                            <h1>Booking No. 1385 Details</h1>
+                            <h1>Booking No. {{ $reservation->booking_number }} Details</h1>
                             <p>
                                 Check your Information Here !
                             </p>
@@ -58,9 +58,9 @@
             <tbody>
             <tr>
                 <th scope="row">1</th>
-                <td>2025-06-10</td>
-                <td>2025-06-15</td>
-                <td>2</td>
+                <td>{{ $reservation->check_in }}</td>
+                <td>{{ $reservation->check_out }}</td>
+                <td></td>
                 <td>Deluxe</td>
             </tr>
             <!-- Add more rows here -->

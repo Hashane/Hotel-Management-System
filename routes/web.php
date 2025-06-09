@@ -52,10 +52,11 @@ Route::prefix('reservations')
     ->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
+        Route::get('/{reservation}', 'show')->name('show');
         Route::post('/store', 'store')->name('store');
         Route::get('/{reservation}', 'show')->name('show');
         Route::put('/{reservation}', 'update')->name('update');
         Route::delete('/{reservation}', 'destroy')->name('destroy');
     });
 
-Route::view('/confirmation', 'customer.reservations.confirmation')->name('confirmation');
+Route::view('/confirmation', 'customer.reservations.show')->name('confirmation');

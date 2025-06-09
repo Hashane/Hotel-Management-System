@@ -45,6 +45,7 @@ class ReservationService
             'check_out' => max($checkOuts),
             'status' => ReservationStatus::CONFIRMED->value,
             'amount' => $result['totalAmount'],
+            'booking_number' => $this->generateBookingNumber(),
         ]);
 
         foreach ($rooms as $room) {
@@ -71,9 +72,7 @@ class ReservationService
     }
 
     private function getCartItems():array{
-
         $cartItems = $this->cartService->getCart();
-
         if (empty($cartItems)) {
             throw new \RuntimeException('Cart is empty');
         }
@@ -87,4 +86,15 @@ class ReservationService
             ->whereIn('id', $roomIds)
             ->get();
     }
+
+    private function generateBookingNumber(): string
+    {
+        $prefix = "BK";
+        $date_time = date('YmdHis');
+        $random_number = mt_rand(1000, 9999);
+        $booking_number = $prefix . $date_time . $random_number;
+
+        return $booking_number;
+    }
+
 }
