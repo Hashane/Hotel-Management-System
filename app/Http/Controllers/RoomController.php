@@ -57,7 +57,7 @@ class RoomController
      */
     public function show(Room $room)
     {
-        //
+        return view('customer.rooms.show',compact('room'));
     }
 
     /**

@@ -29,7 +29,7 @@ require __DIR__.'/auth.php';
 
 Route::controller(RoomController::class)->group(function (){
     Route::get('/rooms', 'index')->name('rooms.index');
-    Route::view('/room-details', 'customer.rooms.show')->name('rooms.show');
+    Route::view('/rooms/{room}', 'customer.rooms.show')->name('rooms.show');
 });
 
 Route::view('/', 'customer.index')->name('home');
