@@ -4,9 +4,12 @@ namespace App\Services\Customer;
 
 use App\Enums\ReservationStatus;
 use App\Enums\RoomStatus;
+use App\Helpers\Helper;
 use App\Models\Customer;
 use App\Models\Reservation;
 use App\Models\Room;
+use App\Models\RoomReservation;
+use App\Models\RoomType;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -108,6 +111,61 @@ class ReservationService
         }
 
         return $map;
+    }
+
+    public function update(array $data, Reservation $reservation)
+    {
+        DB::beginTransaction();
+        $customer = Customer::findOrFail($reservation->customer_id);
+
+        $customer->update([
+            'name' => $data['name'],
+        ]);
+
+        $roomType = RoomType::where('id',$data['type'])->first();
+        $room = Room::where('room_type_id',$roomType->id)->where('status',RoomStatus::AVAILABLE->value)->first();
+
+        $perNightCost = $room->default_rate->pivot->price;
+        $totalRoomCost = Helper::calculateRoomCost(
+            $perNightCost,
+            $data['start'],
+            $data['end'],
+        );
+
+        $settings = Helper::getSettings(['accommodation_tax', 'room_service_fee']);
+
+        $taxPercentage = $settings['accommodation_tax'] ?? 0;
+        $serviceCharges = $settings['room_service_fee'] ?? 0;
+
+        $tax = ($totalRoomCost * $taxPercentage) / 100;
+        $totalAmount = $totalRoomCost + $tax + $serviceCharges;
+
+        RoomReservation::where('id',$data['room_reservation_id'])->update([
+            'room_id' => $room->id,
+            'price' => $totalRoomCost,
+            'check_in' => $data['start'],
+            'check_out' => $data['end'],
+            'occupants' => $data['guests'],
+        ]);
+
+        $reservation->update([
+            'amount' => $totalAmount,
+            'status' => ReservationStatus::CONFIRMED->value
+        ]);
+        DB::commit();
+    }
+
+    public function destroy($data, Reservation $reservation)
+    {
+        DB::beginTransaction();
+
+        RoomReservation::findOrFail($data['room_reservation_id'])->delete();
+
+        if(!empty($reservation->roomReservations())){
+            $reservation->delete();
+        }
+
+        DB::commit();
     }
 
 }

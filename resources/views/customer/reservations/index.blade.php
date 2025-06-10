@@ -1,3 +1,6 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 @extends('customer.layouts.customer')
 
 @section('title', 'My Reservations')
@@ -10,7 +13,7 @@
     <div class="row mb-4">
         <form method="GET" action="{{ route('reservations.index') }}">
             <div class="col-md-9">
-                <input class="form-control" name="search" type="search" placeholder="Search reservations by name, room type..." aria-label="Search">
+                <input class="form-control" name="search" type="search" placeholder="Search reservations by Booking Number" value="{{ old('search', request()->search)}}" aria-label="Search">
             </div>
             <div class="col-md-3">
                 <button class="btn btn-outline-success w-100" type="submit">Search</button>
@@ -39,11 +42,12 @@
                                     class="btn btn-sm btn-outline-primary"
                                     data-bs-toggle="modal"
                                     data-bs-target="#editReservationModal"
-                                    data-id="{{ $res->id }}"
+                                    data-id="{{ $reservation->booking_number }}"
+                                    data-roomRes = "{{ $res->id }}"
                                     data-name="{{ $reservation->customer->name }}"
                                     data-checkin="{{ $res->check_in }}"
                                     data-checkout="{{ $res->check_out }}"
-                                    data-roomtype="{{ $res->room->roomType->name }}"
+                                    data-roomtype="{{ $res->room->roomType->id}}"
                                     data-guests="{{ $res->occupants }}"
                                 >
                                     Edit
@@ -75,9 +79,10 @@
                 <h5 class="modal-title mx-auto">Confirm Deletion</h5>
                 <button type="button" class="btn-close position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="deleteReservationForm" method="POST">
+            <form id="deleteReservationForm" action="{{ $reservation ? route('reservations.destroy', ['reservation' => $reservation]) : '#' }}" method="POST">
                 @csrf
                 @method('DELETE')
+                <input type="text" name="room_reservation_id"  value="{{ !empty($res) ? $res->id : ''}}" id="roomRes">
                 <div class="modal-body text-center">
                     <p class="mb-4 fs-5">Are you sure you want to delete this reservation?</p>
                 </div>
@@ -91,7 +96,6 @@
 </div>
 
 <!-- Edit Reservation Modal -->
-<!-- Edit Reservation Modal -->
 <div class="modal fade" id="editReservationModal" tabindex="-1" aria-labelledby="editReservationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content shadow-sm">
@@ -99,32 +103,39 @@
                 <h5 class="modal-title">Edit Reservation</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form id="editReservationForm">
+            <form method="POST" action="{{ $reservation ? route('reservations.update', ['reservation' => $reservation]) : '#' }}" id="editReservationForm">
+                @csrf
+                @method('PUT')
                 <div class="modal-body">
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label for="reservationId" class="form-label">Reservation ID</label>
-                            <input type="text" id="reservationId" class="form-control" readonly>
+                            <label for="reservationId" class="form-label">Reservation No.</label>
+                            <input type="text" id="reservationNo" class="form-control" readonly>
+                            <input type="hidden" name="room_reservation_id" id="roomRes">
                         </div>
                         <div class="col-md-6">
                             <label for="customerName" class="form-label">Name</label>
-                            <input type="text" id="customerName" class="form-control">
+                            <input type="text" name="name" id="customerName" class="form-control">
                         </div>
                         <div class="col-md-6">
                             <label for="startDate" class="form-label">Start Date</label>
-                            <input type="date" id="startDate" class="form-control">
+                            <input type="date" name="start" id="startDate" class="form-control">
                         </div>
                         <div class="col-md-6">
                             <label for="endDate" class="form-label">End Date</label>
-                            <input type="date" id="endDate" class="form-control">
+                            <input type="date" name="end" id="endDate" class="form-control">
                         </div>
                         <div class="col-md-6">
                             <label for="roomType" class="form-label">Room Type</label>
-                            <input type="text" id="roomType" class="form-control">
+                            <select id="roomType" name="type" class="form-control">
+                                <option value="1" {{ !empty($res) ?? $res->room->roomType->id === 1 ? 'selected' : '' }}>Standard</option>
+                                <option value="2" {{ !empty($res) ?? $res->room->roomType->id === 2 ? 'selected' : '' }}>Deluxe</option>
+                                <option value="3" {{ !empty($res) ?? $res->room->roomType->id === 3 ? 'selected' : '' }}>Suite</option>
+                            </select>
                         </div>
                         <div class="col-md-6">
                             <label for="guests" class="form-label">Guests</label>
-                            <input type="number" id="guests" class="form-control">
+                            <input type="number" name="guests" id="guests" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -145,27 +156,20 @@
                 const button = event.relatedTarget;
 
                 const id = button.getAttribute('data-id');
+                const roomRes = button.getAttribute('data-roomRes');
                 const name = button.getAttribute('data-name');
                 const checkin = button.getAttribute('data-checkin');
                 const checkout = button.getAttribute('data-checkout');
                 const roomtype = button.getAttribute('data-roomtype');
                 const guests = button.getAttribute('data-guests');
 
-                document.getElementById('reservationId').value = id;
+                document.getElementById('reservationNo').value = id;
+                document.getElementById('roomRes').value = roomRes;
                 document.getElementById('customerName').value = name;
                 document.getElementById('startDate').value = checkin;
                 document.getElementById('endDate').value = checkout;
                 document.getElementById('roomType').value = roomtype;
                 document.getElementById('guests').value = guests;
-            });
-
-            const deleteModal = document.getElementById('confirmDeleteModal');
-            deleteModal.addEventListener('show.bs.modal', function (event) {
-                const button = event.relatedTarget;
-                const id = button.getAttribute('data-id');
-
-                const form = deleteModal.querySelector('#deleteReservationForm');
-                form.action = `/reservations/${id}`; // Adjust route as needed
             });
         });
     </script>
