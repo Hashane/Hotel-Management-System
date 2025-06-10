@@ -1,6 +1,3 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 @extends('customer.layouts.customer')
 
 @section('title', 'My Reservations')
@@ -11,49 +8,61 @@
     <h2 class="mb-4">Your Reservations</h2>
 
     <div class="row mb-4">
-        <div class="col-md-9">
-            <input class="form-control" type="search" placeholder="Search reservations by name, room type..." aria-label="Search">
-        </div>
-        <div class="col-md-3">
-            <button class="btn btn-outline-success w-100" type="submit">Search</button>
-        </div>
+        <form method="GET" action="{{ route('reservations.index') }}">
+            <div class="col-md-9">
+                <input class="form-control" name="search" type="search" placeholder="Search reservations by name, room type..." aria-label="Search">
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-outline-success w-100" type="submit">Search</button>
+            </div>
+        </form>
     </div>
 
     <!-- Example reservation cards -->
     <div class="row g-4">
-        <!-- Reservation Card -->
-        <div class="col-md-6">
-            <div class="card shadow-sm h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Deluxe Room</h5>
-                    <p class="mb-1"><strong>Name:</strong> John Smith</p>
-                    <p class="mb-1"><strong>Reservation ID:</strong> 1001</p>
-                    <p class="mb-1"><strong>Duration:</strong> June 15 - June 18, 2025</p>
-                    <p class="mb-3"><strong>Guests:</strong> 2</p>
-                    <div class="d-flex justify-content-end gap-2">
-                        <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editReservationModal">Edit</button>
-                        <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteReservationId(1001)">Delete</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @empty($reservation)
+            <p class="mb-1"><strong>No Reservations Found.</strong></p>
+        @else
+            @foreach($reservation->roomReservations as $res)
+                <!-- Reservation Card -->
+                <div class="col-md-6">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $res->room->name }}</h5>
+                            <p class="mb-1"><strong>Name:</strong>  {{ $reservation->customer->name }}</p>
+                            <p class="mb-1"><strong>Room No.:</strong> {{ $res->room->room_no }}</p>
+                            <p class="mb-1"><strong>Guests: {{ $res->occupants }} </strong> </p>
+                            <p class="mb-1"><strong>Check-in: {{ $res->check_in }} </strong> </p>
+                            <p class="mb-3"><strong>Check-out: {{ $res->check_out }} </strong> </p>
+                            <div class="d-flex justify-content-end gap-2">
+                                <button
+                                    class="btn btn-sm btn-outline-primary"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#editReservationModal"
+                                    data-id="{{ $res->id }}"
+                                    data-name="{{ $reservation->customer->name }}"
+                                    data-checkin="{{ $res->check_in }}"
+                                    data-checkout="{{ $res->check_out }}"
+                                    data-roomtype="{{ $res->room->roomType->name }}"
+                                    data-guests="{{ $res->occupants }}"
+                                >
+                                    Edit
+                                </button>
 
-        <!-- Another reservation card -->
-        <div class="col-md-6">
-            <div class="card shadow-sm h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Suite</h5>
-                    <p class="mb-1"><strong>Name:</strong> Sarah Adams</p>
-                    <p class="mb-1"><strong>Reservation ID:</strong> 1002</p>
-                    <p class="mb-1"><strong>Duration:</strong> June 20 - June 25, 2025</p>
-                    <p class="mb-3"><strong>Guests:</strong> 3</p>
-                    <div class="d-flex justify-content-end gap-2">
-                        <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editReservationModal">Edit</button>
-                        <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteReservationId(1002)">Delete</button>
+                                <button
+                                    class="btn btn-sm btn-outline-danger"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#confirmDeleteModal"
+                                    data-id="{{ $res->id }}"
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            @endforeach
+        @endempty
     </div>
 
 </div>
@@ -82,6 +91,7 @@
 </div>
 
 <!-- Edit Reservation Modal -->
+<!-- Edit Reservation Modal -->
 <div class="modal fade" id="editReservationModal" tabindex="-1" aria-labelledby="editReservationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content shadow-sm">
@@ -89,32 +99,32 @@
                 <h5 class="modal-title">Edit Reservation</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form>
+            <form id="editReservationForm">
                 <div class="modal-body">
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label">Reservation ID</label>
-                            <input type="text" class="form-control" placeholder="1001" readonly>
+                            <label for="reservationId" class="form-label">Reservation ID</label>
+                            <input type="text" id="reservationId" class="form-control" readonly>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Name</label>
-                            <input type="text" class="form-control" placeholder="John Smith">
+                            <label for="customerName" class="form-label">Name</label>
+                            <input type="text" id="customerName" class="form-control">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Start Date</label>
-                            <input type="date" class="form-control">
+                            <label for="startDate" class="form-label">Start Date</label>
+                            <input type="date" id="startDate" class="form-control">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">End Date</label>
-                            <input type="date" class="form-control">
+                            <label for="endDate" class="form-label">End Date</label>
+                            <input type="date" id="endDate" class="form-control">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Room Type</label>
-                            <input type="text" class="form-control" placeholder="Deluxe">
+                            <label for="roomType" class="form-label">Room Type</label>
+                            <input type="text" id="roomType" class="form-control">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Guests</label>
-                            <input type="number" class="form-control" placeholder="2">
+                            <label for="guests" class="form-label">Guests</label>
+                            <input type="number" id="guests" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -125,4 +135,39 @@
         </div>
     </div>
 </div>
+
 @endsection
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const editModal = document.getElementById('editReservationModal');
+            editModal.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget;
+
+                const id = button.getAttribute('data-id');
+                const name = button.getAttribute('data-name');
+                const checkin = button.getAttribute('data-checkin');
+                const checkout = button.getAttribute('data-checkout');
+                const roomtype = button.getAttribute('data-roomtype');
+                const guests = button.getAttribute('data-guests');
+
+                document.getElementById('reservationId').value = id;
+                document.getElementById('customerName').value = name;
+                document.getElementById('startDate').value = checkin;
+                document.getElementById('endDate').value = checkout;
+                document.getElementById('roomType').value = roomtype;
+                document.getElementById('guests').value = guests;
+            });
+
+            const deleteModal = document.getElementById('confirmDeleteModal');
+            deleteModal.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget;
+                const id = button.getAttribute('data-id');
+
+                const form = deleteModal.querySelector('#deleteReservationForm');
+                form.action = `/reservations/${id}`; // Adjust route as needed
+            });
+        });
+    </script>
+
+@endpush

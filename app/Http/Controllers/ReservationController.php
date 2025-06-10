@@ -4,27 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Customer\ReservationRequest;
 use App\Models\Reservation;
-use App\Models\Room;
 use App\Services\Customer\CartService;
 use App\Services\Customer\ReservationService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
 
 class ReservationController
 {
-    public array $cartItems = [];
-    public function __construct(public CartService $cartService,public ReservationService $reservationService)
-    {
-        $this->cartItems = $this->cartService->getCart();
-    }
+    public function __construct(public ReservationService $reservationService)
+    {}
 
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('customer.reservations.index');
+        $request->validate([
+            'search' => ['nullable', 'string'],
+        ]);
+
+        $query = Reservation::with(['customer', 'roomReservations','roomReservations.room.roomType']);
+
+        if ($search = $request->input('search')) {
+            $query->where('booking_number', "$search");
+        }
+
+        $reservation = $query->first();
+
+        return view('customer.reservations.index', compact('reservation'));
     }
 
     /**
@@ -59,22 +65,6 @@ class ReservationController
             return redirect()->route('reservations.create')
                 ->with('error', $exception->getMessage());
         }
-    }
-
-    private function getCartItems():array{
-        if (empty($this->cartItems)) {
-            redirect()->route('cart.index')->with('error', 'Cart is empty.')->send();
-            exit;
-        }
-        return $this->cartItems;
-    }
-
-    private function getRoomsFromCart(array $cartItems)
-    {
-        $roomIds = array_unique(Arr::pluck($cartItems, 'room-id'));
-        return Room::with('roomType.facilities', 'roomType.rateTypes')
-            ->whereIn('id', $roomIds)
-            ->get();
     }
 
     /**
