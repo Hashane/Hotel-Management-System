@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ReservationStatus;
+use App\Enums\RoomStatus;
+use App\Helpers\Helper;
 use App\Http\Requests\Customer\ReservationRequest;
+use App\Models\Customer;
 use App\Models\Reservation;
+use App\Models\Room;
+use App\Models\RoomReservation;
+use App\Models\RoomType;
 use App\Services\Customer\CartService;
 use App\Services\Customer\ReservationService;
 use Illuminate\Http\Request;
+use Mockery\Exception;
 
 class ReservationController
 {
@@ -83,9 +91,19 @@ class ReservationController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Reservation $reservation)
+    public function update(ReservationRequest $request, Reservation $reservation)
     {
-        //
+        try {
+            $validated = $request->validated();
+
+            $this->reservationService->update($validated,$reservation);
+
+            return redirect()->back()->with('success', 'Reservation updated!');
+
+        }catch (Exception $exception){
+            return redirect()->route('reservations.edit', $reservation)
+                ->with('error', $exception->getMessage());
+        }
     }
 
     /**
@@ -93,6 +111,6 @@ class ReservationController
      */
     public function destroy(Reservation $reservation)
     {
-        dd("asa");
+        
     }
 }

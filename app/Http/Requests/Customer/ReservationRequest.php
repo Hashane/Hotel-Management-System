@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Customer;
 
+use App\Enums\RoomType;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ReservationRequest extends FormRequest
 {
@@ -21,6 +23,16 @@ class ReservationRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (request()->method() == 'PUT'){
+            return [
+                'name' => ['required','string','max:255'],
+                'start' => ['required','string'],
+                'end' => ['required','string'],
+                'type' => ['required', Rule::Enum(RoomType::class),'string'],
+                'guests' => ['required','string'],
+                'room_reservation_id' => ['required','string','exists:room_reservations,id'],
+            ];
+        }
         return [
             'first_name' => ['required','string','max:50'],
             'last_name' => ['required','string','max:50'],
