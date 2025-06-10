@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Helper;
 use App\Models\Room;
 use App\Services\Customer\CartService;
 use Illuminate\Http\Request;
@@ -33,19 +32,7 @@ class CartController
 
         $result = $this->cart->calculateCosts($cartItems, $rooms, true);
 
-        return view('customer.cart',$result);
-    }
-
-
-    public function add(Room $room, Request $request)
-    {
-        $occupants = $request->input('occupants', 1);
-        $checkIn = $request->input('check_in') ?? Carbon::now()->format('Y-m-d');
-        $checkOut = $request->input('check_out') ?? Carbon::now()->addDay()->format('Y-m-d');
-
-        $this->cart->add($room->id, $occupants, $checkIn, $checkOut);
-
-        return redirect()->route('rooms.index')->with('success', 'Room added to cart!');
+        return view('customer.cart', $result);
     }
 
     public function update(Room $room, Request $request)
@@ -57,6 +44,17 @@ class CartController
         $this->cart->add($room->id, $occupants, $checkIn, $checkOut);
 
         return redirect()->route('rooms.index')->with('success', 'Cart updated!');
+    }
+
+    public function add(Room $room, Request $request)
+    {
+        $occupants = $request->input('occupants', 1);
+        $checkIn = $request->input('check_in') ?? Carbon::now()->format('Y-m-d');
+        $checkOut = $request->input('check_out') ?? Carbon::now()->addDay()->format('Y-m-d');
+
+        $this->cart->add($room->id, $occupants, $checkIn, $checkOut);
+
+        return redirect()->route('rooms.index')->with('success', 'Room added to cart!');
     }
 
     public function remove($id)

@@ -7,11 +7,12 @@
                     <div class="ft-about">
                         <div class="logo">
                             <a href="#">
-                                <img class="logo-header" src="{{ asset('images/logo5.png') }}" alt="" />
+                                <img class="logo-header" src="{{ asset('images/logo5.png') }}" alt=""/>
                             </a>
                         </div>
                         <p>
-                            Four Seasons Residence offers comfort, elegance, and exceptional service in the heart of the city.
+                            Four Seasons Residence offers comfort, elegance, and exceptional service in the heart of the
+                            city.
                         </p>
                         <div class="fa-social">
                             <a href="#"><i class="fab fa-facebook"></i></a>
@@ -35,7 +36,7 @@
                         <h6>New latest</h6>
                         <p>Get the latest updates and offers.</p>
                         <form action="#" class="fn-form">
-                            <input type="text" placeholder="Email" />
+                            <input type="text" placeholder="Email"/>
                             <button type="submit"><i class="fas fa-send"></i></button>
                         </form>
                     </div>

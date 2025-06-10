@@ -12,7 +12,8 @@
                     <div class="hero-text">
                         <h1>Four Seasons – A Luxury Residence</h1>
                         <p>
-                            Discover refined living at Four Seasons, a luxury residence designed for comfort and elegance.
+                            Discover refined living at Four Seasons, a luxury residence designed for comfort and
+                            elegance.
                             Perfect for travelers seeking a peaceful, home-like stay with upscale amenities and
                             personalized service.
                         </p>
@@ -27,21 +28,25 @@
                                 <label for="room_type">Accommodation Type:</label>
                                 <select id="room_type" name="room_type" class="r-o-select">
                                     <option value="any" {{ request('room_type') == '' ? 'selected' : '' }}>Any</option>
-                                    <option value="1" {{ request('room_type') == '1' ? 'selected' : '' }}>Standard</option>
-                                    <option value="2" {{ request('room_type') == '2' ? 'selected' : '' }}>Deluxe</option>
+                                    <option value="1" {{ request('room_type') == '1' ? 'selected' : '' }}>Standard
+                                    </option>
+                                    <option value="2" {{ request('room_type') == '2' ? 'selected' : '' }}>Deluxe
+                                    </option>
                                     <option value="3" {{ request('room_type') == '3' ? 'selected' : '' }}>Suite</option>
                                 </select>
                             </div>
 
                             <div class="check-date">
                                 <label for="date-in">Check In:</label>
-                                <input type="date" class="date-input" id="date-in" name="check_in" value="{{ request('check_in') }}" />
+                                <input type="date" class="date-input" id="date-in" name="check_in"
+                                       value="{{ request('check_in') }}"/>
                                 <i class="icon_calendar"></i>
                             </div>
 
                             <div class="check-date">
                                 <label for="date-out">Check Out:</label>
-                                <input type="date" class="date-input" id="date-out" name="check_out" value="{{ request('check_out') }}" />
+                                <input type="date" class="date-input" id="date-out" name="check_out"
+                                       value="{{ request('check_out') }}"/>
                                 <i class="icon_calendar"></i>
                             </div>
 
@@ -135,7 +140,8 @@
                         <i class="flaticon-036-parking"></i>
                         <h4>Travel Plan</h4>
                         <p>
-                            Let us take care of your journey. From transportation to sightseeing, we offer customized travel itineraries to ensure a stress-free and enjoyable trip for individuals and families.
+                            Let us take care of your journey. From transportation to sightseeing, we offer customized
+                            travel itineraries to ensure a stress-free and enjoyable trip for individuals and families.
                         </p>
                     </div>
                 </div>
@@ -144,7 +150,8 @@
                         <i class="flaticon-033-dinner"></i>
                         <h4>Catering Service</h4>
                         <p>
-                            Enjoy gourmet meals without stepping out. Our catering team delivers fresh, delicious food directly to your room or event space, prepared with the finest ingredients.
+                            Enjoy gourmet meals without stepping out. Our catering team delivers fresh, delicious food
+                            directly to your room or event space, prepared with the finest ingredients.
                         </p>
                     </div>
                 </div>
@@ -153,7 +160,8 @@
                         <i class="flaticon-026-bed"></i>
                         <h4>Babysitting</h4>
                         <p>
-                            Our trusted and trained babysitters offer safe and engaging care for your little ones, giving you the peace of mind to enjoy your time while they're in good hands.
+                            Our trusted and trained babysitters offer safe and engaging care for your little ones,
+                            giving you the peace of mind to enjoy your time while they're in good hands.
                         </p>
                     </div>
                 </div>
@@ -162,7 +170,8 @@
                         <i class="flaticon-024-towel"></i>
                         <h4>Laundry</h4>
                         <p>
-                            We provide convenient laundry and dry-cleaning services with quick turnaround times, ensuring your clothes are clean, fresh, and ready when you need them.
+                            We provide convenient laundry and dry-cleaning services with quick turnaround times,
+                            ensuring your clothes are clean, fresh, and ready when you need them.
                         </p>
                     </div>
                 </div>
@@ -171,7 +180,8 @@
                         <i class="flaticon-044-clock-1"></i>
                         <h4>Hire Driver</h4>
                         <p>
-                            Need a ride? Our professional drivers are available on demand, offering safe and comfortable transportation for city tours, airport transfers, or personal errands.
+                            Need a ride? Our professional drivers are available on demand, offering safe and comfortable
+                            transportation for city tours, airport transfers, or personal errands.
                         </p>
                     </div>
                 </div>
@@ -180,13 +190,14 @@
                         <i class="flaticon-012-cocktail"></i>
                         <h4>Bar & Drink</h4>
                         <p>
-                            Relax and unwind at our well-stocked bar offering a wide selection of cocktails, wines, and premium spirits served in a stylish and welcoming atmosphere.
+                            Relax and unwind at our well-stocked bar offering a wide selection of cocktails, wines, and
+                            premium spirits served in a stylish and welcoming atmosphere.
                         </p>
                     </div>
                 </div>
             </div>
         </div>
-        
+
     </section>
     <!-- Services Section End -->
 

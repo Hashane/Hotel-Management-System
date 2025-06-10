@@ -31,7 +31,7 @@ class RoomController
             }
         }
 
-        $rooms = Room::withRateTypeAndFacilities($rateTypeId)->filterBy(request()->all())->paginate(10);//dd($rooms->roomType->rateTypes->first()->pivot->price);
+        $rooms = Room::withRateTypeAndFacilities($rateTypeId)->filterBy(request()->all())->paginate(10); // dd($rooms->roomType->rateTypes->first()->pivot->price);
 
         return view('customer.rooms.index', compact('rooms'));
     }
@@ -57,7 +57,7 @@ class RoomController
      */
     public function show(Room $room)
     {
-        return view('customer.rooms.show',compact('room'));
+        return view('customer.rooms.show', compact('room'));
     }
 
     /**

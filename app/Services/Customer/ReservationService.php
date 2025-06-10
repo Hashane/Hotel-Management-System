@@ -13,12 +13,12 @@ use App\Models\RoomType;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use RuntimeException;
 
 class ReservationService
 {
-    public function __construct(private CartService $cartService)
-    {
-    }
+    public function __construct(private CartService $cartService) {}
+
     public function store(array $data, $result)
     {
         DB::beginTransaction();
@@ -29,7 +29,7 @@ class ReservationService
         $customer = Customer::updateOrCreate(
             ['email' => $data['email']],
             [
-                'name' => $data['first_name'] . ' ' . $data['last_name'],
+                'name' => $data['first_name'].' '.$data['last_name'],
                 'phone' => $data['email'],
             ]
         );
@@ -62,24 +62,20 @@ class ReservationService
         return $reservation;
     }
 
-    public function prepareReservation(): array
+    private function getCartItems(): array
     {
-        $cartItems = $this->getCartItems();
-        $rooms = $this->getRoomsFromCart($cartItems);
-        return $this->cartService->calculateCosts($cartItems, $rooms, false);
-    }
-
-    private function getCartItems():array{
         $cartItems = $this->cartService->getCart();
         if (empty($cartItems)) {
-            throw new \RuntimeException('Cart is empty');
+            throw new RuntimeException('Cart is empty');
         }
+
         return $cartItems;
     }
 
     private function getRoomsFromCart(array $cartItems): Collection
     {
         $roomIds = array_unique(Arr::pluck($cartItems, 'room-id'));
+
         return Room::with('roomType.facilities', 'roomType.rateTypes')
             ->whereIn('id', $roomIds)
             ->get();
@@ -87,12 +83,11 @@ class ReservationService
 
     private function generateBookingNumber(): string
     {
-        $prefix = "BK";
+        $prefix = 'BK';
         $date_time = date('YmdHis');
         $random_number = mt_rand(1000, 9999);
-        $booking_number = $prefix . $date_time . $random_number;
 
-        return $booking_number;
+        return $prefix.$date_time.$random_number;
     }
 
     private function mapRoomToData(): array
@@ -122,8 +117,8 @@ class ReservationService
             'name' => $data['name'],
         ]);
 
-        $roomType = RoomType::where('id',$data['type'])->first();
-        $room = Room::where('room_type_id',$roomType->id)->where('status',RoomStatus::AVAILABLE->value)->first();
+        $roomType = RoomType::where('id', $data['type'])->first();
+        $room = Room::where('room_type_id', $roomType->id)->where('status', RoomStatus::AVAILABLE->value)->first();
 
         $perNightCost = $room->default_rate->pivot->price;
         $totalRoomCost = Helper::calculateRoomCost(
@@ -140,7 +135,7 @@ class ReservationService
         $tax = ($totalRoomCost * $taxPercentage) / 100;
         $totalAmount = $totalRoomCost + $tax + $serviceCharges;
 
-        RoomReservation::where('id',$data['room_reservation_id'])->update([
+        RoomReservation::where('id', $data['room_reservation_id'])->update([
             'room_id' => $room->id,
             'price' => $totalRoomCost,
             'check_in' => $data['start'],
@@ -150,22 +145,29 @@ class ReservationService
 
         $reservation->update([
             'amount' => $totalAmount,
-            'status' => ReservationStatus::CONFIRMED->value
+            'status' => ReservationStatus::CONFIRMED->value,
         ]);
         DB::commit();
     }
 
-    public function destroy($data, Reservation $reservation)
+    public function prepareReservation(): array
+    {
+        $cartItems = $this->getCartItems();
+        $rooms = $this->getRoomsFromCart($cartItems);
+
+        return $this->cartService->calculateCosts($cartItems, $rooms, false);
+    }
+
+    public function destroy($data, Reservation $reservation): void
     {
         DB::beginTransaction();
 
         RoomReservation::findOrFail($data['room_reservation_id'])->delete();
 
-        if(!empty($reservation->roomReservations())){
+        if (! empty($reservation->roomReservations())) {
             $reservation->delete();
         }
 
         DB::commit();
     }
-
 }

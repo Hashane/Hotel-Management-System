@@ -17,7 +17,7 @@
 <body class="font-sans antialiased">
 <div class="min-h-screen bg-gray-100">
     @include('admin.layouts.navigation')
-
+    
     <!-- Page Heading -->
     @isset($header)
         <header class="bg-white shadow">

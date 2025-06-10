@@ -40,13 +40,15 @@
 
                         <div class="check-date">
                             <label for="date-in">Check In:</label>
-                            <input type="date" class="date-input" id="date-in" name="check_in" value="{{ request('check_in') }}" />
+                            <input type="date" class="date-input" id="date-in" name="check_in"
+                                   value="{{ request('check_in') }}"/>
                             <i class="icon_calendar"></i>
                         </div>
 
                         <div class="check-date">
                             <label for="date-out">Check Out:</label>
-                            <input type="date" class="date-input" id="date-out" name="check_out" value="{{ request('check_out') }}" />
+                            <input type="date" class="date-input" id="date-out" name="check_out"
+                                   value="{{ request('check_out') }}"/>
                             <i class="icon_calendar"></i>
                         </div>
 
@@ -61,10 +63,11 @@
                         @foreach ($roomChunk as $room)
                             <div class="col-lg-6">
                                 <div class="room-item">
-                                    <img class="room-img" src="{{ $room->image_url }}" alt="{{ $room->name }}" />
+                                    <img class="room-img" src="{{ $room->image_url }}" alt="{{ $room->name }}"/>
                                     <div class="ri-text">
                                         <h4>{{ $room->name }}</h4>
-                                        <h3>{{ $room->default_rate->pivot->price ?? 'N/A' }}$<span>/Per night</span></h3>
+                                        <h3>{{ $room->default_rate->pivot->price ?? 'N/A' }}$<span>/Per night</span>
+                                        </h3>
                                         <table>
                                             <tbody>
                                             <tr>
@@ -87,10 +90,12 @@
                                         </table>
                                         <a href="#" class="primary-btn mb-3">More Details</a>
                                         <div class="row">
-                                            <form action="{{ route('cart.add', $room) }}" method="POST" class="d-flex justify-content-between w-100 gap-3">
+                                            <form action="{{ route('cart.add', $room) }}" method="POST"
+                                                  class="d-flex justify-content-between w-100 gap-3">
                                                 @csrf
                                                 <input type="hidden" name="check_in" value="{{ request('check_in') }}">
-                                                <input type="hidden" name="check_out" value="{{ request('check_out') }}">
+                                                <input type="hidden" name="check_out"
+                                                       value="{{ request('check_out') }}">
                                                 <div class="w-50">
                                                     <select name="occupants" class="r-o-select w-100" required>
                                                         <option value="">Select Occupancy</option>
