@@ -22,11 +22,8 @@ class ReservationController
             'search' => ['nullable', 'string'],
         ]);
 
-        $query = Reservation::with(['customer', 'roomReservations','roomReservations.room.roomType']);
-
-        if ($search = $request->input('search')) {
-            $query->where('booking_number', "$search");
-        }
+        $search = $request->input('search');
+        $query = Reservation::with(['customer', 'roomReservations','roomReservations.room.roomType'])->where('booking_number', "$search");;
 
         $reservation = $query->first();
 
@@ -96,6 +93,6 @@ class ReservationController
      */
     public function destroy(Reservation $reservation)
     {
-        //
+        dd("asa");
     }
 }
