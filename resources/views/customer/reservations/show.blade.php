@@ -15,14 +15,16 @@
 
         <div class="row">
             <div class="col-12">
-                <p class="fst-italic">  Contact FourSeasons If you Need to Change in Basic Information with {{ $reservation->booking_number }} Booking Number.
+                <p class="fst-italic"> Contact FourSeasons If you Need to Change in Basic Information
+                    with {{ $reservation->booking_number }} Booking Number.
                 </p>
             </div>
         </div>
 
     </div>
     <div class="container">
-        <div style="background-image: url('{{ asset('images/hero/hero-2.jpg') }}'); background-size: cover; background-position: center; ">
+        <div
+            style="background-image: url('{{ asset('images/hero/hero-2.jpg') }}'); background-size: cover; background-position: center; ">
             <div class="container">
                 <div class="row">
                     <div class="col">
@@ -79,13 +81,15 @@
 
         <div class="row">
             <div class="col mb-2">
-                <h2>  Pay attention </h2>
+                <h2> Pay attention </h2>
             </div>
         </div>
 
         <div class="row">
             <div class="col mb-2">
-                <p>This booking represents the conclusive step in the hotel reservation process. It is considered final and may only be canceled by the hotel in the event of unforeseen circumstances or natural disasters.</p>
+                <p>This booking represents the conclusive step in the hotel reservation process. It is considered final
+                    and may only be canceled by the hotel in the event of unforeseen circumstances or natural
+                    disasters.</p>
 
             </div>
         </div>

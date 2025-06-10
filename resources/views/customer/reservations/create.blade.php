@@ -122,22 +122,26 @@
 
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" name="first_name" value="{{ old('first_name') }}" placeholder="First Name" required/>
+                                <input type="text" name="first_name" value="{{ old('first_name') }}"
+                                       placeholder="First Name" required/>
                                 @error('first_name') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
 
                             <div class="col-lg-6">
-                                <input type="text" name="last_name" value="{{ old('last_name') }}" placeholder="Last Name" required/>
+                                <input type="text" name="last_name" value="{{ old('last_name') }}"
+                                       placeholder="Last Name" required/>
                                 @error('last_name') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
 
                             <div class="col-lg-7">
-                                <input type="text" name="email" value="{{ old('email') }}" placeholder="Your Email" required/>
+                                <input type="text" name="email" value="{{ old('email') }}" placeholder="Your Email"
+                                       required/>
                                 @error('email') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
 
                             <div class="col-lg-5">
-                                <input type="text" name="phone" value="{{ old('phone') }}" placeholder="Phone" required/>
+                                <input type="text" name="phone" value="{{ old('phone') }}" placeholder="Phone"
+                                       required/>
                                 @error('phone') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
 
@@ -158,8 +162,10 @@
                             </div>
 
                             <div class="col-lg-3">
-                                <input type="text" name="expiry" value="{{ old('expiry') }}" placeholder="MM/YY or MM/YYYY"/>
-                                @error('expiry') <small class="text-danger d-block mt-1">{{ $message }}</small> @enderror
+                                <input type="text" name="expiry" value="{{ old('expiry') }}"
+                                       placeholder="MM/YY or MM/YYYY"/>
+                                @error('expiry') <small
+                                    class="text-danger d-block mt-1">{{ $message }}</small> @enderror
                             </div>
 
                             <div class="col-lg-3">

@@ -2,16 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\ReservationStatus;
-use App\Enums\RoomStatus;
-use App\Helpers\Helper;
 use App\Http\Requests\Customer\ReservationRequest;
-use App\Models\Customer;
 use App\Models\Reservation;
-use App\Models\Room;
-use App\Models\RoomReservation;
-use App\Models\RoomType;
-use App\Services\Customer\CartService;
 use App\Services\Customer\ReservationService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -19,8 +11,7 @@ use Mockery\Exception;
 
 class ReservationController
 {
-    public function __construct(public ReservationService $reservationService)
-    {}
+    public function __construct(public ReservationService $reservationService) {}
 
     /**
      * Display a listing of the resource.
@@ -32,7 +23,7 @@ class ReservationController
         ]);
 
         $search = $request->input('search');
-        $query = Reservation::with(['customer', 'roomReservations','roomReservations.room.roomType'])->where('booking_number', "$search");;
+        $query = Reservation::with(['customer', 'roomReservations', 'roomReservations.room.roomType'])->where('booking_number', "$search");
 
         $reservation = $query->first();
 
@@ -46,6 +37,7 @@ class ReservationController
     {
         try {
             $result = $this->reservationService->prepareReservation();
+
             return view('customer.reservations.create', $result);
         } catch (\Exception $exception) {
             return redirect()->route('cart.index')
@@ -64,7 +56,7 @@ class ReservationController
             $reservation = $this->reservationService->store($validated, $result);
             $reservation = $reservation->load('roomReservations');
 
-            return redirect()->route('reservations.show',$reservation)
+            return redirect()->route('reservations.show', $reservation)
                 ->with('success', 'Reservation confirmed!');
 
         } catch (\Exception $exception) {
@@ -97,11 +89,11 @@ class ReservationController
         try {
             $validated = $request->validated();
 
-            $this->reservationService->update($validated,$reservation);
+            $this->reservationService->update($validated, $reservation);
 
             return redirect()->back()->with('success', 'Reservation updated!');
 
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             return redirect()->route('reservations.edit', $reservation)
                 ->with('error', $exception->getMessage());
         }
@@ -113,12 +105,11 @@ class ReservationController
     public function destroy(Reservation $reservation, Request $request)
     {
         $validated = $request->validate([
-            'room_reservation_id' => ['required','string', Rule::exists('room_reservations','id')]
+            'room_reservation_id' => ['required', 'string', Rule::exists('room_reservations', 'id')],
         ]);
 
-        $this->reservationService->destroy($validated,$reservation);
+        $this->reservationService->destroy($validated, $reservation);
 
         return redirect()->back()->with('success', 'Reservation deleted!');
     }
-
 }

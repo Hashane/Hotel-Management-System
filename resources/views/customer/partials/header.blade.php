@@ -60,7 +60,7 @@
                 <div class="col-lg-2">
                     <div class="logo">
                         <a href="{{ route('home') }}">
-                            <img class="logo-header" src="{{ asset('images/logo5.png') }}" alt="" />
+                            <img class="logo-header" src="{{ asset('images/logo5.png') }}" alt=""/>
                         </a>
                     </div>
                 </div>
@@ -87,7 +87,9 @@
                                     <a href="{{ route('cart.index') }}">
                                         <button type="button" class="position-relative">
                                             <i class="fas fa-shopping-cart"></i>
-                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-count">
+                                            <span
+                                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                id="cart-count">
                                                {{ $cartItemCount }}
                                             </span>
                                         </button>

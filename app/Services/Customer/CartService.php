@@ -9,11 +9,6 @@ class CartService
 {
     protected string $sessionKey = 'cart';
 
-    public function getCart()
-    {
-        return Session::get($this->sessionKey, []);
-    }
-
     public function calculateCosts(array $cartItems, $rooms, bool $withItems = false): array
     {
         $totalRoomCost = 0.00;
@@ -60,7 +55,7 @@ class CartService
         ];
     }
 
-    public function add($roomId, $occupants = 1,$checkIn, $checkOut):void
+    public function add($roomId, $occupants, $checkIn, $checkOut): void
     {
         $cart = $this->getCart();
         $uniqueId = uniqid('cart_', true);
@@ -82,7 +77,12 @@ class CartService
         Session::put($this->sessionKey, $cart);
     }
 
-    public function update($roomId, $occupants,$checkIn, $checkOut):void
+    public function getCart()
+    {
+        return Session::get($this->sessionKey, []);
+    }
+
+    public function update($roomId, $occupants, $checkIn, $checkOut): void
     {
         $cart = $this->getCart();
         $uniqueId = uniqid('cart_', true);
@@ -96,7 +96,7 @@ class CartService
         }
     }
 
-    public function remove($id):void
+    public function remove($id): void
     {
         $cart = $this->getCart();
         if (isset($cart[$id])) {
@@ -105,7 +105,7 @@ class CartService
         }
     }
 
-    public function clear():void
+    public function clear(): void
     {
         Session::forget($this->sessionKey);
     }
