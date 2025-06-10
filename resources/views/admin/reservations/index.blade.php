@@ -20,7 +20,7 @@
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-    
+
     <section class="content">
         <div class="container-fluid">
             <div class="card">
@@ -75,44 +75,38 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1001</td>
-                            <td>John Smith</td>
-                            <td>2025-06-15 to 2025-06-18</td>
-                            <td>Deluxe Room</td>
-                            <td>2</td>
-                            <td class="text-center">
-                                <div class="d-flex justify-content-center align-items-center gap-3 py-1">
-                                    <a href="#" class="btn btn-sm btn-warning px-3">Check In</a>
-                                    <i class="fas fa-pencil-alt text-primary fs-5" data-bs-toggle="modal"
-                                       data-bs-target="#editReservationModal" style="cursor: pointer;"></i>
-                                    <i class="fas fa-plus text-success fs-5" data-bs-toggle="modal"
-                                       data-bs-target="#addChargesModal" style="cursor: pointer;"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1002</td>
-                            <td>Sarah Adams</td>
-                            <td>2025-06-20 to 2025-06-25</td>
-                            <td>Suite</td>
-                            <td>3</td>
-                            <td class="text-center">
-                                <div class="d-flex justify-content-center align-items-center gap-3 py-1">
-                                    <a href="#"
-                                       class="btn btn-sm btn-warning px-3"
-                                       data-bs-toggle="modal"
-                                       data-bs-target="#checkInModal"
-                                       onclick="setCheckInReservationId(1001)">
-                                        Check In
-                                    </a>
-                                    <i class="fas fa-pencil-alt text-primary fs-5" data-bs-toggle="modal"
-                                       data-bs-target="#editReservationModal" style="cursor: pointer;"></i>
-                                    <i class="fas fa-plus text-success fs-5" data-bs-toggle="modal"
-                                       data-bs-target="#addChargesModal" style="cursor: pointer;"></i>
-                                </div>
-                            </td>
-                        </tr>
+                        @foreach($reservations as $reservation)
+                            <tr>
+                                <td>{{ $reservation->booking_number }}</td>
+                                <td>{{ $reservation->customer->name }}</td>
+                            @foreach($reservation->roomReservations as $index => $roomReservation)
+                                @if($index === 1)
+                                    <tr></tr>
+                                    <td>{{ $reservation->booking_number }}</td>
+                                    <td>{{ $reservation->customer->name }}</td>
+                                @endif
+                                <td>{{ $roomReservation->check_in }} to {{ $roomReservation->check_out }}</td>
+                                <td>{{ $roomReservation->room->roomType->name }}</td>
+                                <td>{{ $roomReservation->occupants }}</td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center align-items-center gap-3 py-1">
+                                        <a href="#"
+                                           class="btn btn-sm btn-warning px-3"
+                                           data-bs-toggle="modal"
+                                           data-bs-target="#checkInModal"
+                                           data-bs-customer="{{$reservation->customer->id}}"
+                                           onclick="setCheckInReservationId(1001)">
+                                            Check In
+                                        </a>
+                                        <i class="fas fa-pencil-alt text-primary fs-5" data-bs-toggle="modal"
+                                           data-bs-target="#editReservationModal" style="cursor: pointer;"></i>
+                                        <i class="fas fa-plus text-success fs-5" data-bs-toggle="modal"
+                                           data-bs-target="#addChargesModal" style="cursor: pointer;"></i>
+                                    </div>
+                                </td>
+                                @endforeach
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -128,7 +122,7 @@
                         <h5 class="modal-title" id="checkInModalLabel">Confirm Check-In</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form id="checkInForm" method="POST" action="/check-in-route"> <!-- change action accordingly -->
+                    <form id="checkInForm" method="POST" action="{{'admin.r'}}"> <!-- change action accordingly -->
                         @csrf
                         <div class="modal-body">
                             <p>Are you sure you want to check in this customer?</p>

@@ -9,6 +9,23 @@ class Reservation extends Model
 {
     protected $guarded = [];
 
+    public function scopeSearch($query, $search)
+    {
+        $term = strtolower($search);
+        $like = "%$term%";
+
+        return $query->where(function ($query) use ($like, $term) {
+            $query->whereHas('customer', function ($q) use ($like) {
+                $q->whereRaw('LOWER(name) LIKE ?', [$like]);
+            })->where('booking_number', "$term");
+
+            //            if (is_numeric($term)) {
+            //                $query->orWhere('id', $term); // exact ID match if numeric
+            //            }
+        });
+
+    }
+
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);

@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\admin\ProfileController;
+use App\Http\Controllers\admin\CustomerController;
+use App\Http\Controllers\admin\ReservationController as AdminReservationController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RoomController;
@@ -15,12 +16,27 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::controller(RoomController::class)->name('profile.')->group(function () {
+        Route::get('/profile', 'edit')->name('edit');
+        Route::patch('/profile', 'update')->name('update');
+        Route::delete('/profile', 'destroy')->name('destroy');
+    });
+
+    Route::controller(AdminReservationController::class)->prefix('admin')->name('reservations.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        //        Route::patch('/profile', 'update')->name('update');
+        //        Route::delete('/profile', 'destroy')->name('destroy');
+    });
+
+    Route::controller(CustomerController::class)->name('customers.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::patch('/{customer}', 'update')->name('update');
+        Route::patch('/{customer}/check-in', 'checkIn')->name('check-in');
+    });
 
     Route::view('/cart', 'admin.cart.index')->name('cart.index');
-    Route::view('/reservations', 'admin.reservations.index')->name('reservations.index');
+    //    Route::view('/reservations', 'admin.reservations.index')->name('reservations.index');
     Route::view('/reservations/create', 'admin.reservations.create')->name('reservations.create');
     Route::view('/reports', 'admin.report');
 

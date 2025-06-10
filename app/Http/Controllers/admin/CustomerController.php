@@ -55,6 +55,11 @@ class CustomerController extends Controller
         //
     }
 
+    public function checkIn(Request $request, Customer $customer)
+    {
+        //
+    }
+
     /**
      * Remove the specified resource from storage.
      */
