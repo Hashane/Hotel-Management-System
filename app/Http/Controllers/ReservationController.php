@@ -14,6 +14,7 @@ use App\Models\RoomType;
 use App\Services\Customer\CartService;
 use App\Services\Customer\ReservationService;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Mockery\Exception;
 
 class ReservationController
@@ -109,8 +110,15 @@ class ReservationController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Reservation $reservation)
+    public function destroy(Reservation $reservation, Request $request)
     {
-        
+        $validated = $request->validate([
+            'room_reservation_id' => ['required','string', Rule::exists('room_reservations','id')]
+        ]);
+
+        $this->reservationService->destroy($validated,$reservation);
+
+        return redirect()->back()->with('success', 'Reservation deleted!');
     }
+
 }

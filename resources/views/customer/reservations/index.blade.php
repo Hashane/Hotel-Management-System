@@ -13,7 +13,7 @@
     <div class="row mb-4">
         <form method="GET" action="{{ route('reservations.index') }}">
             <div class="col-md-9">
-                <input class="form-control" name="search" type="search" placeholder="Search reservations by Booking Number" aria-label="Search">
+                <input class="form-control" name="search" type="search" placeholder="Search reservations by Booking Number" value="{{ old('search', request()->search)}}" aria-label="Search">
             </div>
             <div class="col-md-3">
                 <button class="btn btn-outline-success w-100" type="submit">Search</button>
@@ -79,9 +79,10 @@
                 <h5 class="modal-title mx-auto">Confirm Deletion</h5>
                 <button type="button" class="btn-close position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="deleteReservationForm" method="POST">
+            <form id="deleteReservationForm" action="{{ $reservation ? route('reservations.destroy', ['reservation' => $reservation]) : '#' }}" method="POST">
                 @csrf
                 @method('DELETE')
+                <input type="text" name="room_reservation_id"  value="{{ !empty($res) ? $res->id : ''}}" id="roomRes">
                 <div class="modal-body text-center">
                     <p class="mb-4 fs-5">Are you sure you want to delete this reservation?</p>
                 </div>
@@ -127,9 +128,9 @@
                         <div class="col-md-6">
                             <label for="roomType" class="form-label">Room Type</label>
                             <select id="roomType" name="type" class="form-control">
-                                <option value="1" {{ $res->room->roomType->id === 1 ? 'selected' : '' }}>Standard</option>
-                                <option value="2" {{ $res->room->roomType->id  === 2 ? 'selected' : '' }}>Deluxe</option>
-                                <option value="3" {{ $res->room->roomType->id  === 3 ? 'selected' : '' }}>Suite</option>
+                                <option value="1" {{ !empty($res) ?? $res->room->roomType->id === 1 ? 'selected' : '' }}>Standard</option>
+                                <option value="2" {{ !empty($res) ?? $res->room->roomType->id === 2 ? 'selected' : '' }}>Deluxe</option>
+                                <option value="3" {{ !empty($res) ?? $res->room->roomType->id === 3 ? 'selected' : '' }}>Suite</option>
                             </select>
                         </div>
                         <div class="col-md-6">
@@ -169,15 +170,6 @@
                 document.getElementById('endDate').value = checkout;
                 document.getElementById('roomType').value = roomtype;
                 document.getElementById('guests').value = guests;
-            });
-
-            const deleteModal = document.getElementById('confirmDeleteModal');
-            deleteModal.addEventListener('show.bs.modal', function (event) {
-                const button = event.relatedTarget;
-                const id = button.getAttribute('data-id');
-
-                const form = deleteModal.querySelector('#deleteReservationForm');
-                form.action = `/reservations/${id}`;
             });
         });
     </script>

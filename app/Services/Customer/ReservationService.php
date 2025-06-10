@@ -155,4 +155,17 @@ class ReservationService
         DB::commit();
     }
 
+    public function destroy($data, Reservation $reservation)
+    {
+        DB::beginTransaction();
+
+        RoomReservation::findOrFail($data['room_reservation_id'])->delete();
+
+        if(!empty($reservation->roomReservations())){
+            $reservation->delete();
+        }
+
+        DB::commit();
+    }
+
 }
