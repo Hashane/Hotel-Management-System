@@ -71,6 +71,7 @@
                             <th>Duration</th>
                             <th>Room Type</th>
                             <th>Guests</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -88,16 +89,22 @@
                                 <td>{{ $roomReservation->check_in }} to {{ $roomReservation->check_out }}</td>
                                 <td>{{ $roomReservation->room->roomType->name }}</td>
                                 <td>{{ $roomReservation->occupants }}</td>
+                                <td> @if($roomReservation->checked_in_at)
+                                        <i class="fas fa-check-circle text-success" title="Checked In"></i>
+                                    @else
+                                        <i class="fas fa-times-circle text-danger" title="Not Checked In"></i>
+                                    @endif
+                                </td>
                                 <td class="text-center">
                                     <div class="d-flex justify-content-center align-items-center gap-3 py-1">
-                                        <a href="#"
-                                           class="btn btn-sm btn-warning px-3"
-                                           data-bs-toggle="modal"
-                                           data-bs-target="#checkInModal"
-                                           data-bs-customer="{{$reservation->customer->id}}"
-                                           onclick="setCheckInReservationId(1001)">
-                                            Check In
-                                        </a>
+                                        <button type="button"
+                                                class="btn btn-sm btn-warning px-3"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#checkInModal"
+                                                data-bs-customer="{{ $reservation->customer->id }}"
+                                                data-bs-roomreservation="{{ $roomReservation->id }}">
+                                            <i class="fas fa-sign-in-alt me-1"></i> Check In
+                                        </button>
                                         <i class="fas fa-pencil-alt text-primary fs-5" data-bs-toggle="modal"
                                            data-bs-target="#editReservationModal" style="cursor: pointer;"></i>
                                         <i class="fas fa-plus text-success fs-5" data-bs-toggle="modal"
@@ -116,22 +123,23 @@
 
         <!-- Check-In Confirmation Modal -->
         <div class="modal fade" id="checkInModal" tabindex="-1" aria-labelledby="checkInModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="checkInModalLabel">Confirm Check-In</h5>
+                        <h5 class="modal-title" id="checkInModalLabel">Check In Guest</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form id="checkInForm" method="POST" action="{{'admin.r'}}"> <!-- change action accordingly -->
+                    <form method="POST" action="{{route('admin.customers.check-in')}}">
                         @csrf
                         <div class="modal-body">
-                            <p>Are you sure you want to check in this customer?</p>
-                            <!-- Optionally, add more details or hidden inputs -->
-                            <input type="hidden" name="reservation_id" id="checkInReservationId" value="">
+                            <input type="hidden" id="customerId" name="customer_id">
+                            <input type="hidden" id="reservationId" name="room_reservation_id">
+
+                            <p>Are you sure you want to check in this guest?</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-success">Yes, Check In</button>
+                            <button type="submit" class="btn btn-primary">Confirm Check-In</button>
                         </div>
                     </form>
                 </div>
@@ -241,9 +249,23 @@
                 </div>
             </div>
         </div>
-
-
     </section>
 
     {{--    {{ $reservations->links() }} --}}{{-- Laravel pagination links --}}
+@endsection
+@section('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const modal = document.getElementById('checkInModal');
+            if (modal) {
+                modal.addEventListener('show.bs.modal', function (event) {
+                    const button = event.relatedTarget;
+                    const customerId = button.dataset.bsCustomer;
+                    const reservationId = button.dataset.bsRoomreservation;
+                    document.getElementById('customerId').value = customerId;
+                    document.getElementById('reservationId').value = reservationId;
+                });
+            }
+        });
+    </script>
 @endsection

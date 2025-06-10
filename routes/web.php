@@ -32,7 +32,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/', 'store')->name('store');
         Route::patch('/{customer}', 'update')->name('update');
-        Route::patch('/{customer}/check-in', 'checkIn')->name('check-in');
+        Route::post('/check-in', 'checkIn')->name('check-in');
     });
 
     Route::view('/cart', 'admin.cart.index')->name('cart.index');
