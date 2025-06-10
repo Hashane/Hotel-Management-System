@@ -28,9 +28,9 @@
                     <div class="col-lg-6">
                         <div class="ap-title">
                             <h2>Welcome To Four Seasons.</h2>
-                            <p>Built in 1910 during the Belle Epoque period, this hotel is located in the center of
-                                Paris, with easy access to the city’s tourist attractions. It offers tastefully
-                                decorated rooms.</p>
+                            <p>Built in 1910 during the Belle Époque period, this hotel echoes the colonial elegance seen in Sri Lanka's own historical hotels such as the Galle Face Hotel in Colombo or the Grand Hotel in Nuwara Eliya, it offers tastefully decorated rooms and provides easy access to the city's iconic tourist attractions, much like how Sri Lanka’s heritage hotels serve as ideal gateways to explore the island’s cultural and scenic landmarks.
+
+                            </p>
                         </div>
                     </div>
                     <div class="col-lg-5 offset-lg-1">
