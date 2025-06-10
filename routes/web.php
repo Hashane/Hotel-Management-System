@@ -14,29 +14,28 @@ Route::get('/dashboard', function () {
     return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->prefix('admin')->group(function () {
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::view('/cart','admin.cart.index')->name('cart.index');
-    Route::view('/reservations','admin.reservations.index')->name('reservations.index');
-    Route::view('/reservations/create','admin.reservations.create')->name('reservations.create');
-    Route::view('/reports','admin.report');
+    Route::view('/cart', 'admin.cart.index')->name('cart.index');
+    Route::view('/reservations', 'admin.reservations.index')->name('reservations.index');
+    Route::view('/reservations/create', 'admin.reservations.create')->name('reservations.create');
+    Route::view('/reports', 'admin.report');
 
 });
 
 require __DIR__.'/auth.php';
 
-Route::controller(RoomController::class)->group(function (){
+Route::controller(RoomController::class)->group(function () {
     Route::get('/rooms', 'index')->name('rooms.index');
     Route::view('/rooms/{room}', 'customer.rooms.show')->name('rooms.show');
 });
 
 Route::view('/', 'customer.index')->name('home');
 Route::view('/about', 'customer.about')->name('about');
-//Route::view('/cart', 'customer.cart')->name('cart');
-
+// Route::view('/cart', 'customer.cart')->name('cart');
 
 Route::view('/contact', 'customer.contact')->name('contact');
 
@@ -45,7 +44,6 @@ Route::post('/cart/add/{room}', [CartController::class, 'add'])->name('cart.add'
 Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
-
 
 Route::prefix('reservations')
     ->name('reservations.')

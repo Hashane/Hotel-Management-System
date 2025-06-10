@@ -263,7 +263,7 @@ return [
     'register_url' => 'register',
     'password_reset_url' => 'password.reset',
     'password_email_url' => 'password.email',
-    'profile_url' => 'profile.edit',
+    'profile_url' => 'admin.profile.edit',
     'disable_darkmode_routes' => false,
 
     /*
@@ -310,87 +310,58 @@ return [
             'topnav_right' => true,
         ],
 
-        // Sidebar items:
+        ['header' => 'RESERVATIONS'],
         [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
+            'text' => 'Reservations',
+            'route' => 'admin.reservations.index',
+            'icon' => 'far fa-fw fa-calendar',
         ],
         [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
+            'text' => 'Add Reservation',
+            'route' => 'admin.reservations.create',
+            'icon' => 'fas fa-fw fa-plus',
         ],
         [
-            'text' => 'pages',
-            'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
+            'text' => 'Cart',
+            'route' => 'admin.cart.index',
+            'icon' => 'fas fa-fw fa-shopping-cart',
         ],
+
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
-            'url' => 'admin/settings',
+            'route' => 'admin.profile.edit',
             'icon' => 'fas fa-fw fa-user',
         ],
+
         [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
+            'header' => 'USER MANAGEMENT',
         ],
         [
-            'text' => 'multilevel',
-            'icon' => 'fas fa-fw fa-share',
+            'text' => 'Users',
+            'icon' => 'fas fa-users',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url' => '#',
+                    'text' => 'All Users',
+                    'route' => 'admin.profile.edit',
+                    'icon' => 'fas fa-list',
                 ],
                 [
-                    'text' => 'level_one',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
+                    'text' => 'Add New User',
+                    'route' => 'admin.profile.edit',
+                    'icon' => 'fas fa-user-plus',
                 ],
                 [
-                    'text' => 'level_one',
-                    'url' => '#',
+                    'text' => 'User Roles',
+                    'route' => 'admin.profile.edit',
+                    'icon' => 'fas fa-user-tag',
+                ],
+                [
+                    'text' => 'Permissions',
+                    'route' => 'admin.profile.edit',
+                    'icon' => 'fas fa-key',
                 ],
             ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
-        ],
-        [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
-        ],
-        [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
         ],
     ],
 
