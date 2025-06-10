@@ -26,5 +26,6 @@
 </main>
 
 @include('customer.partials.footer')
+@stack('scripts')
 </body>
 </html>

@@ -38,14 +38,15 @@ class ReservationService
             'booking_number' => $this->generateBookingNumber(),
         ]);
 
-        $roomDateMap = $this->mapRoomToDate();
+        $roomDataMap = $this->mapRoomToData();
 
         foreach ($rooms as $room) {
             $reservation->roomReservations()->create([
                 'room_id' => $room->id,
                 'price' => $room->default_rate->pivot->price,
-                'check_in' => $roomDateMap[$room->id]['check_in'],
-                'check_out' => $roomDateMap[$room->id]['check_out'],
+                'check_in' => $roomDataMap[$room->id]['check_in'],
+                'check_out' => $roomDataMap[$room->id]['check_out'],
+                'occupants' => $roomDataMap[$room->id]['occupants'],
             ]);
         }
 
@@ -91,7 +92,7 @@ class ReservationService
         return $booking_number;
     }
 
-    private function mapRoomToDate(): array
+    private function mapRoomToData(): array
     {
         $cartItems = $this->getCartItems();
 
@@ -102,6 +103,7 @@ class ReservationService
             $map[$roomId] = [
                 'check_in' => $item['check-in'],
                 'check_out' => $item['check-out'],
+                'occupants' => $item['occupants'],
             ];
         }
 

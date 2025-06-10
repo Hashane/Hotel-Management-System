@@ -16,9 +16,21 @@ class ReservationController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('customer.reservations.index');
+        $request->validate([
+            'search' => ['nullable', 'string'],
+        ]);
+
+        $query = Reservation::with(['customer', 'roomReservations','roomReservations.room.roomType']);
+
+        if ($search = $request->input('search')) {
+            $query->where('booking_number', "$search");
+        }
+
+        $reservation = $query->first();
+
+        return view('customer.reservations.index', compact('reservation'));
     }
 
     /**
