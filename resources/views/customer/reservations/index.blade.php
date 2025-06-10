@@ -13,7 +13,7 @@
     <div class="row mb-4">
         <form method="GET" action="{{ route('reservations.index') }}">
             <div class="col-md-9">
-                <input class="form-control" name="search" type="search" placeholder="Search reservations by name, room type..." aria-label="Search">
+                <input class="form-control" name="search" type="search" placeholder="Search reservations by Booking Number" aria-label="Search">
             </div>
             <div class="col-md-3">
                 <button class="btn btn-outline-success w-100" type="submit">Search</button>
