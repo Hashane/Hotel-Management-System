@@ -6,6 +6,7 @@ use App\Http\Requests\Customer\ReservationRequest;
 use App\Models\Reservation;
 use App\Services\Customer\ReservationService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Mockery\Exception;
 
@@ -51,16 +52,21 @@ class ReservationController
      */
     public function store(ReservationRequest $request)
     {
+        DB::beginTransaction();
         try {
             $validated = $request->validated();
             $result = $this->reservationService->prepareReservation();
             $reservation = $this->reservationService->store($validated, $result);
             $reservation = $reservation->load('roomReservations');
 
+            DB::commit();
+
             return redirect()->route('reservations.show', $reservation)
                 ->with('success', 'Reservation confirmed!');
 
         } catch (\Exception $exception) {
+            DB::rollBack();
+
             return redirect()->route('reservations.create')
                 ->with('error', $exception->getMessage());
         }
@@ -87,14 +93,20 @@ class ReservationController
      */
     public function update(ReservationRequest $request, Reservation $reservation)
     {
+        DB::beginTransaction();
+
         try {
             $validated = $request->validated();
 
             $this->reservationService->update($validated, $reservation);
 
+            DB::commit();
+
             return redirect()->back()->with('success', 'Reservation updated!');
 
         } catch (Exception $exception) {
+            DB::rollBack();
+
             return redirect()->route('reservations.edit', $reservation)
                 ->with('error', $exception->getMessage());
         }
