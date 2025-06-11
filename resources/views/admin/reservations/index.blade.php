@@ -1,3 +1,4 @@
+@php use App\Enums\RoomType; @endphp
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -106,7 +107,16 @@
                                             <i class="fas fa-sign-in-alt me-1"></i> Check In
                                         </button>
                                         <i class="fas fa-pencil-alt text-primary fs-5" data-bs-toggle="modal"
-                                           data-bs-target="#editReservationModal" style="cursor: pointer;"></i>
+                                           data-bs-target="#editReservationModal"
+                                           style="cursor: pointer;"
+                                           data-id="{{ $reservation->booking_number }}"
+                                           data-roomRes="{{ $roomReservation->id }}"
+                                           data-name="{{ $reservation->customer->name }}"
+                                           data-checkin="{{ $roomReservation->check_in }}"
+                                           data-checkout="{{ $roomReservation->check_out }}"
+                                           data-roomtype="{{ $roomReservation->room->roomType->id}}"
+                                           data-guests="{{ $roomReservation->occupants }}">
+                                        </i>
                                         <i class="fas fa-plus text-success fs-5" data-bs-toggle="modal"
                                            data-bs-target="#addChargesModal" style="cursor: pointer;"></i>
                                     </div>
@@ -151,61 +161,52 @@
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit Reservation</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="editReservationModalLabel">Edit Reservation</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                     </div>
 
-                    <form>
+                    <form method="POST"
+                          action="{{ $reservation ? route('admin.reservations.update', ['reservation' => $reservation]) : '#' }}"
+                          id="editReservationForm">
+                        @csrf
+                        @method('PUT')
                         <div class="modal-body">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>Reservation ID</label>
-                                            <input type="text" class="form-control" placeholder="1001">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>Name</label>
-                                            <input type="text" class="form-control" placeholder="John Smith">
-                                        </div>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="reservationId" class="form-label">Reservation No.</label>
+                                    <input type="text" id="reservationNo" class="form-control" readonly>
+                                    <input type="hidden" name="room_reservation_id" id="roomRes">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="customerName" class="form-label">Name</label>
+                                    <input type="text" name="name" id="customerName" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="startDate" class="form-label">Start Date</label>
+                                    <input type="date" name="start" id="startDate" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="endDate" class="form-label">End Date</label>
+                                    <input type="date" name="end" id="endDate" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="roomType" class="form-label">Room Type</label>
+                                        <x-room-type-dropdown
+                                            :selected="$roomReservation->room->roomType->id ?? null"
+                                            name="room_type_id"
+                                            class="custom-class"
+                                        />
                                     </div>
                                 </div>
-
-                                <div class="row mt-2">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>Start Date</label>
-                                            <input type="date" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>End Date</label>
-                                            <input type="date" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row mt-2">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>Room Type</label>
-                                            <input type="text" class="form-control" placeholder="Deluxe">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>Occupancy</label>
-                                            <input type="number" class="form-control" placeholder="2">
-                                        </div>
-                                    </div>
+                                <div class="col-md-6">
+                                    <label for="guests" class="form-label">Guests</label>
+                                    <input type="number" name="guests" id="guests" class="form-control">
                                 </div>
                             </div>
                         </div>
-
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Save Changes</button>
                         </div>
@@ -256,16 +257,52 @@
 @section('js')
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const modal = document.getElementById('checkInModal');
-            if (modal) {
-                modal.addEventListener('show.bs.modal', function (event) {
-                    const button = event.relatedTarget;
-                    const customerId = button.dataset.bsCustomer;
-                    const reservationId = button.dataset.bsRoomreservation;
-                    document.getElementById('customerId').value = customerId;
-                    document.getElementById('reservationId').value = reservationId;
-                });
+                const modal = document.getElementById('checkInModal');
+                if (modal) {
+                    modal.addEventListener('show.bs.modal', function (event) {
+                        const button = event.relatedTarget;
+                        const customerId = button.dataset.bsCustomer;
+                        const reservationId = button.dataset.bsRoomreservation;
+                        document.getElementById('customerId').value = customerId;
+                        document.getElementById('reservationId').value = reservationId;
+                    });
+                }
+
+                const reservationModal = document.getElementById('editReservationModal');
+                if (reservationModal) {
+                    reservationModal.addEventListener('show.bs.modal', function (event) {
+                        const button = event.relatedTarget;
+                        const customerId = button.dataset.bsCustomer;
+                        const reservationId = button.dataset.bsRoomreservation;
+                        document.getElementById('customerId').value = customerId;
+                        document.getElementById('reservationId').value = reservationId;
+                    });
+                }
+
+                const editModal = document.getElementById('editReservationModal');
+                if (editModal) {
+                    editModal.addEventListener('show.bs.modal', function (event) {
+                        const button = event.relatedTarget;
+
+                        const id = button.getAttribute('data-id');
+                        const roomRes = button.getAttribute('data-roomRes');
+                        const name = button.getAttribute('data-name');
+                        const checkin = button.getAttribute('data-checkin');
+                        const checkout = button.getAttribute('data-checkout');
+                        const roomType = button.getAttribute('data-roomtype');
+                        const guests = button.getAttribute('data-guests');
+
+                        document.getElementById('reservationNo').value = id;
+                        document.getElementById('roomRes').value = roomRes;
+                        document.getElementById('customerName').value = name;
+                        document.getElementById('startDate').value = checkin;
+                        document.getElementById('endDate').value = checkout;
+                        document.getElementById('roomType').value = roomType;
+                        document.getElementById('guests').value = guests;
+                    });
+                }
             }
-        });
+        )
+
     </script>
 @endsection

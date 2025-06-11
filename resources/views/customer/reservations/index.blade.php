@@ -87,8 +87,8 @@
                       method="POST">
                     @csrf
                     @method('DELETE')
-                    <input type="text" name="room_reservation_id" value="{{ !empty($res) ? $res->id : ''}}"
-                           id="roomRes">
+                    <input type="hidden" name="room_reservation_id" value="{{ !empty($res) ? $res->id : ''}}"
+                           id="deleteRoomRes">
                     <div class="modal-body text-center">
                         <p class="mb-4 fs-5">Are you sure you want to delete this reservation?</p>
                     </div>
@@ -120,7 +120,7 @@
                             <div class="col-md-6">
                                 <label for="reservationId" class="form-label">Reservation No.</label>
                                 <input type="text" id="reservationNo" class="form-control" readonly>
-                                <input type="hidden" name="room_reservation_id" id="roomRes">
+                                <input type="hidden" name="room_reservation_id" id="editRoomRes">
                             </div>
                             <div class="col-md-6">
                                 <label for="customerName" class="form-label">Name</label>
@@ -136,20 +136,12 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="roomType" class="form-label">Room Type</label>
-                                <select id="roomType" name="type" class="form-control">
-                                    <option
-                                        value="1" {{ !empty($res) ?? $res->room->roomType->id === 1 ? 'selected' : '' }}>
-                                        Standard
-                                    </option>
-                                    <option
-                                        value="2" {{ !empty($res) ?? $res->room->roomType->id === 2 ? 'selected' : '' }}>
-                                        Deluxe
-                                    </option>
-                                    <option
-                                        value="3" {{ !empty($res) ?? $res->room->roomType->id === 3 ? 'selected' : '' }}>
-                                        Suite
-                                    </option>
-                                </select>
+                                <x-room-type-dropdown
+                                    :selected="$roomReservation->room->roomType->id ?? null"
+                                    name="type"
+                                    id="roomType"
+                                    class="custom-class"
+                                />
                             </div>
                             <div class="col-md-6">
                                 <label for="guests" class="form-label">Guests</label>
@@ -182,7 +174,7 @@
                 const guests = button.getAttribute('data-guests');
 
                 document.getElementById('reservationNo').value = id;
-                document.getElementById('roomRes').value = roomRes;
+                document.getElementById('editRoomRes').value = roomRes;
                 document.getElementById('customerName').value = name;
                 document.getElementById('startDate').value = checkin;
                 document.getElementById('endDate').value = checkout;
