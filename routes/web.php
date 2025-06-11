@@ -11,7 +11,7 @@ Route::get('admin/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
+Route::get('admin/dashboard', function () {
     return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -24,7 +24,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     Route::controller(AdminReservationController::class)->prefix('admin')->name('reservations.')->group(function () {
         Route::get('/', 'index')->name('index');
-        //        Route::patch('/profile', 'update')->name('update');
+        Route::put('/{reservation}', 'update')->name('update');
         //        Route::delete('/profile', 'destroy')->name('destroy');
     });
 
