@@ -12,7 +12,6 @@ use App\Models\RoomReservation;
 use App\Models\RoomType;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
 use RuntimeException;
 
 class ReservationService
@@ -21,8 +20,6 @@ class ReservationService
 
     public function store(array $data, $result)
     {
-        DB::beginTransaction();
-
         $cartItems = $this->getCartItems();
         $rooms = $this->getRoomsFromCart($cartItems);
 
@@ -56,8 +53,6 @@ class ReservationService
         $rooms->each->update(['status' => RoomStatus::RESERVED->value]);
 
         $this->cartService->clear();
-
-        DB::commit();
 
         return $reservation;
     }
@@ -110,7 +105,6 @@ class ReservationService
 
     public function update(array $data, Reservation $reservation)
     {
-        DB::beginTransaction();
         $customer = Customer::findOrFail($reservation->customer_id);
 
         $customer->update([
@@ -147,7 +141,6 @@ class ReservationService
             'amount' => $totalAmount,
             'status' => ReservationStatus::CONFIRMED->value,
         ]);
-        DB::commit();
     }
 
     public function prepareReservation(): array
@@ -160,14 +153,10 @@ class ReservationService
 
     public function destroy($data, Reservation $reservation): void
     {
-        DB::beginTransaction();
-
         RoomReservation::findOrFail($data['room_reservation_id'])->delete();
 
         if (! empty($reservation->roomReservations())) {
             $reservation->delete();
         }
-
-        DB::commit();
     }
 }

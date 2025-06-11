@@ -3,10 +3,16 @@
 namespace App\Http\Controllers\admin;
 
 use App\Models\Customer;
+use App\Services\admin\CustomerService;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class CustomerController extends Controller
 {
+    public function __construct(public CustomerService $customerService) {}
+
     /**
      * Display a listing of the resource.
      */
@@ -45,6 +51,27 @@ class CustomerController extends Controller
     public function edit(Customer $customer)
     {
         //
+    }
+
+    public function checkIn(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validated = $request->validate([
+                'customer_id' => ['required', Rule::exists('customers', 'id')],
+                'room_reservation_id' => ['required', Rule::exists('room_reservations', 'id')],
+            ]);
+
+            $this->customerService->checkIn($validated);
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Guest checked in successfully.');
+
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return redirect()->back()->with('success', 'Check-in failed.');
+        }
     }
 
     /**

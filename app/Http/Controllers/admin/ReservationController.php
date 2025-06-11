@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Requests\Customer\ReservationRequest;
 use App\Models\Reservation;
@@ -24,11 +24,12 @@ class ReservationController
         ]);
 
         $search = $request->input('search');
-        $query = Reservation::with(['customer', 'roomReservations', 'roomReservations.room.roomType'])->where('booking_number', "$search");
+        $query = Reservation::with(['customer', 'roomReservations', 'roomReservations.room.roomType'])
+            ->when($search, fn ($query) => $query->search($search));
 
-        $reservation = $query->first();
+        $reservations = $query->paginate(10);
 
-        return view('customer.reservations.index', compact('reservation'));
+        return view('admin.reservations.index', compact('reservations'));
     }
 
     /**
@@ -52,7 +53,6 @@ class ReservationController
     public function store(ReservationRequest $request)
     {
         DB::beginTransaction();
-
         try {
             $validated = $request->validated();
             $result = $this->reservationService->prepareReservation();
@@ -102,7 +102,7 @@ class ReservationController
 
             DB::commit();
 
-            return redirect()->back()->with('success', 'Reservation updated');
+            return redirect()->back()->with('success', 'Reservation updated!');
 
         } catch (Exception $exception) {
             DB::rollBack();
@@ -117,21 +117,12 @@ class ReservationController
      */
     public function destroy(Reservation $reservation, Request $request)
     {
-        DB::beginTransaction();
-        try {
-            $validated = $request->validate([
-                'room_reservation_id' => ['required', 'string', Rule::exists('room_reservations', 'id')],
-            ]);
+        $validated = $request->validate([
+            'room_reservation_id' => ['required', 'string', Rule::exists('room_reservations', 'id')],
+        ]);
 
-            $this->reservationService->destroy($validated, $reservation);
+        $this->reservationService->destroy($validated, $reservation);
 
-            DB::commit();
-
-            return redirect()->back()->with('success', 'Reservation deleted!');
-        } catch (Exception $exception) {
-            DB::rollBack();
-
-            return redirect()->back()->with('error', 'Deletion failed');
-        }
+        return redirect()->back()->with('success', 'Reservation deleted!');
     }
 }
