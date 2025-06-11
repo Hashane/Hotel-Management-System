@@ -177,7 +177,7 @@
                                 <div class="col-md-6">
                                     <label for="reservationId" class="form-label">Reservation No.</label>
                                     <input type="text" id="reservationNo" class="form-control" readonly>
-                                    <input type="hidden" name="room_reservation_id" id="roomRes">
+                                    <input type="hidden" name="room_reservation_id" id="editRoomReservation" readonly>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="customerName" class="form-label">Name</label>
@@ -195,8 +195,8 @@
                                     <div class="mb-3">
                                         <label for="roomType" class="form-label">Room Type</label>
                                         <x-room-type-dropdown
-                                            :selected="$roomReservation->room->roomType->id ?? null"
-                                            name="room_type_id"
+                                            :selected="$roomReservation->room->roomType->id ?? old('room_type_id')"
+                                            name="type"
                                             class="custom-class"
                                         />
                                     </div>
@@ -284,21 +284,20 @@
                     editModal.addEventListener('show.bs.modal', function (event) {
                         const button = event.relatedTarget;
 
-                        const id = button.getAttribute('data-id');
-                        const roomRes = button.getAttribute('data-roomRes');
-                        const name = button.getAttribute('data-name');
-                        const checkin = button.getAttribute('data-checkin');
-                        const checkout = button.getAttribute('data-checkout');
-                        const roomType = button.getAttribute('data-roomtype');
-                        const guests = button.getAttribute('data-guests');
+                        // Set all form values
+                        document.getElementById('reservationNo').value = button.getAttribute('data-id');
+                        document.getElementById('editRoomReservation').value = button.getAttribute('data-roomRes');
+                        document.getElementById('customerName').value = button.getAttribute('data-name');
+                        document.getElementById('startDate').value = button.getAttribute('data-checkin');
+                        document.getElementById('endDate').value = button.getAttribute('data-checkout');
+                        document.getElementById('guests').value = button.getAttribute('data-guests');
 
-                        document.getElementById('reservationNo').value = id;
-                        document.getElementById('roomRes').value = roomRes;
-                        document.getElementById('customerName').value = name;
-                        document.getElementById('startDate').value = checkin;
-                        document.getElementById('endDate').value = checkout;
-                        document.getElementById('roomType').value = roomType;
-                        document.getElementById('guests').value = guests;
+                        // Special handling for room type dropdown
+                        const roomTypeValue = button.getAttribute('data-roomtype');
+                        const roomTypeSelect = document.querySelector('select[name="type"]');
+                        if (roomTypeSelect) {
+                            roomTypeSelect.value = roomTypeValue;
+                        }
                     });
                 }
             }
