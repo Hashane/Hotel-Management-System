@@ -80,6 +80,10 @@ class ReservationController
      */
     public function show(Reservation $reservation)
     {
+        if ($reservation->status === 'cancelled') {
+            abort(404);
+        }
+
         return view('customer.reservations.show', compact('reservation'));
     }
 
