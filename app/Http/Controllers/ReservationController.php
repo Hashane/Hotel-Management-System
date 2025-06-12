@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ReservationStatus;
 use App\Http\Requests\Customer\ReservationRequest;
 use App\Jobs\SendReservationConfirmationEmail;
 use App\Models\Reservation;
@@ -80,7 +81,7 @@ class ReservationController
      */
     public function show(Reservation $reservation)
     {
-        if ($reservation->status === 'cancelled') {
+        if ($reservation->status === ReservationStatus::CANCELLED->value) {
             abort(404);
         }
 
