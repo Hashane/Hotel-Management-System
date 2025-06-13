@@ -217,52 +217,61 @@
 
 
         <!-- Filtered Room Results Table -->
-        <div class="card shadow-sm mt-4">
-            <div class="card-header">
-                <h5 class="card-title mb-0">Filtered Room Results</h5>
+<div class="card shadow-sm mt-4">
+    <div class="card-header">
+        <h5 class="card-title mb-0">Filtered Room Results</h5>
+    </div>
+    <div class="card-body">
+        {{-- Show warning if rooms exist but cannot fulfill occupancy --}}
+        @if(!$data['canBeOccupied'] && $data['filteredRooms']->count())
+            <div class="alert alert-warning mb-3">
+                The hotel cannot accommodate {{ request('occupants_count') }} occupants with the currently
+                available rooms.
             </div>
-            <div class="card-body">
-                {{-- Show warning if rooms exist but cannot fulfill occupancy --}}
-                @if(!$data['canBeOccupied'] && $data['filteredRooms']->count())
-                    <div class="alert alert-warning mb-3">
-                        The hotel cannot accommodate {{ request('occupants_count') }} occupants with the currently
-                        available rooms.
-                    </div>
-                @endif
+        @endif
 
-                <table class="table table-bordered table-striped">
-                    <thead class="table-light">
-                    <tr>
-                        <th>Room Number</th>
-                        <th>Duration</th>
-                        <th>Room Type</th>
-                        <th>Occupancy</th>
-                        <th class="text-center">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @forelse($data['filteredRooms'] as $room)
-                        <tr>
-                            <td>{{ $room->room_no }}</td>
-                            <td>{{ $room->check_in ?? '2025-06-10' }} to {{ $room->check_out ?? '2025-06-14' }}</td>
-                            <td>{{ $room->roomType->name }}</td>
-                            <td>{{ $room->roomType->capacity }}</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-success px-3">Add to Cart</button>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="5" class="text-center">No rooms available.</td>
-                        </tr>
-                    @endforelse
-                    </tbody>
-                </table>
-                <div class="mt-3">
-                    {{ $data['filteredRooms']->links() }}
-                </div>
-            </div>
+        <table class="table table-bordered table-striped">
+            <thead class="table-light">
+            <tr>
+                <th>Room Number</th>
+                <th>Duration</th>
+                <th>Room Type</th>
+                <th>Occupancy</th>
+                <th class="text-center">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            @forelse($data['filteredRooms'] as $room)
+                <tr>
+                    <td>{{ $room->room_no }}</td>
+                    <td>{{ $room->check_in ?? '2025-06-10' }} to {{ $room->check_out ?? '2025-06-14' }}</td>
+                    <td>{{ $room->roomType->name }}</td>
+                    <td>
+                        <input type="number"
+                               name="occupants[{{ $room->id }}]"
+                               value="{{ $room->roomType->capacity }}"
+                               min="1"
+                               max="{{ $room->roomType->capacity }}"
+                               class="form-control form-control-sm"
+                               style="width: 80px;">
+                    </td>
+                    <td class="text-center">
+                        <button class="btn btn-sm btn-success px-3">Add to Cart</button>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="5" class="text-center">No rooms available.</td>
+                </tr>
+            @endforelse
+            </tbody>
+        </table>
+        <div class="mt-3">
+            {{ $data['filteredRooms']->links() }}
         </div>
+    </div>
+</div>
+
 
         <!-- Assign Confirmation Modal -->
         <div class="modal fade" id="assignModal" tabindex="-1" aria-labelledby="assignModalLabel" aria-hidden="true">
