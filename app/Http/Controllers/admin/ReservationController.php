@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Helpers\Helper;
 use App\Http\Requests\admin\FilterReservationRequest;
 use App\Http\Requests\Customer\ReservationRequest;
 use App\Models\Reservation;
-use App\Models\Room;
 use App\Services\Admin\ReservationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -41,20 +39,11 @@ class ReservationController
     {
         try {
             $validated = $request->validated();
+            $data = $this->reservationService->getReservationData($validated);
 
-            $query = Room::filterBy($validated)->with('roomType');
-
-            $canBeOccupied = false;
-            if (isset($validated['occupants_count'])) {
-                $roomsForCheck = (clone $query)->get();
-                $canBeOccupied = Helper::checkIfAbleToOccupy($roomsForCheck, $validated['occupants_count']);
-            }
-
-            $rooms = $query->paginate(10)->appends(request()->except('page'));
-
-            return view('admin.reservations.create', compact('rooms', 'canBeOccupied'));
+            return view('admin.reservations.create', compact('data'));
         } catch (\Exception $exception) {
-            return redirect()->route('cart.index')
+            return redirect()->route('admin.reservations.create')
                 ->with('error', $exception->getMessage());
         }
     }
