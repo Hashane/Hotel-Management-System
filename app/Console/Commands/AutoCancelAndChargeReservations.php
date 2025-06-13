@@ -42,7 +42,7 @@ class AutoCancelAndChargeReservations extends Command
                 $roomReservation->status = ReservationStatus::CANCELLED->value;
                 $roomReservation->save();
 
-                Log::info("Room {$roomReservation->room_id} in Reedservation {$roomReservation->reservation_id} cancelled due to no-show.");
+                Log::info("Room {$roomReservation->room_id} in Reservation {$roomReservation->reservation_id} cancelled due to no-show.");
 
                 $reservation = $roomReservation->reservation()->with('roomReservations')->first();
 
