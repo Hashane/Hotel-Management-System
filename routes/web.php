@@ -22,10 +22,11 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::delete('/profile', 'destroy')->name('destroy');
     });
 
-    Route::controller(AdminReservationController::class)->prefix('admin')->name('reservations.')->group(function () {
+    Route::controller(AdminReservationController::class)->prefix('reservations')->name('reservations.')->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
         Route::put('/{reservation}', 'update')->name('update');
-        //        Route::delete('/profile', 'destroy')->name('destroy');
+        Route::delete('/{reservation}', 'destroy')->name('destroy');
     });
 
     Route::controller(CustomerController::class)->name('customers.')->group(function () {
@@ -37,7 +38,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     Route::view('/cart', 'admin.cart.index')->name('cart.index');
     //    Route::view('/reservations', 'admin.reservations.index')->name('reservations.index');
-    Route::view('/reservations/create', 'admin.reservations.create')->name('reservations.create');
+
     Route::view('/reports', 'admin.report');
 
 });

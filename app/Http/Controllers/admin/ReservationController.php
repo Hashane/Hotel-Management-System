@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Helpers\Helper;
+use App\Http\Requests\admin\FilterReservationRequest;
 use App\Http\Requests\Customer\ReservationRequest;
 use App\Models\Reservation;
-use App\Services\Customer\ReservationService;
+use App\Models\Room;
+use App\Services\Admin\ReservationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rule;
 use Mockery\Exception;
 
 class ReservationController
@@ -35,12 +37,22 @@ class ReservationController
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(FilterReservationRequest $request)
     {
         try {
-            $result = $this->reservationService->prepareReservation();
+            $validated = $request->validated();
 
-            return view('customer.reservations.create', $result);
+            $query = Room::filterBy($validated)->with('roomType');
+
+            $canBeOccupied = false;
+            if (isset($validated['occupants_count'])) {
+                $roomsForCheck = (clone $query)->get();
+                $canBeOccupied = Helper::checkIfAbleToOccupy($roomsForCheck, $validated['occupants_count']);
+            }
+
+            $rooms = $query->paginate(10)->appends(request()->except('page'));
+
+            return view('admin.reservations.create', compact('rooms', 'canBeOccupied'));
         } catch (\Exception $exception) {
             return redirect()->route('cart.index')
                 ->with('error', $exception->getMessage());
@@ -50,27 +62,7 @@ class ReservationController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ReservationRequest $request)
-    {
-        DB::beginTransaction();
-        try {
-            $validated = $request->validated();
-            $result = $this->reservationService->prepareReservation();
-            $reservation = $this->reservationService->store($validated, $result);
-            $reservation = $reservation->load('roomReservations');
-
-            DB::commit();
-
-            return redirect()->route('reservations.show', $reservation)
-                ->with('success', 'Reservation confirmed!');
-
-        } catch (\Exception $exception) {
-            DB::rollBack();
-
-            return redirect()->route('reservations.create')
-                ->with('error', $exception->getMessage());
-        }
-    }
+    public function store(ReservationRequest $request) {}
 
     /**
      * Display the specified resource.
@@ -115,14 +107,5 @@ class ReservationController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Reservation $reservation, Request $request)
-    {
-        $validated = $request->validate([
-            'room_reservation_id' => ['required', 'string', Rule::exists('room_reservations', 'id')],
-        ]);
-
-        $this->reservationService->destroy($validated, $reservation);
-
-        return redirect()->back()->with('success', 'Reservation deleted!');
-    }
+    public function destroy(Reservation $reservation, Request $request) {}
 }
