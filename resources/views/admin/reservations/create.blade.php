@@ -1,19 +1,13 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-
-@extends('adminlte::page')
+@extends('admin.layouts.app')
 
 @section('title', 'Reservations')
 
 @section('content_header')
-    <div class="d-flex justify-content-between align-items-center">
-        <h1>Reservations</h1>
-        <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{-- route('admin.reservations.index') --}}">Home</a></li>
-            <li class="breadcrumb-item active">Reservations</li>
-        </ol>
-    </div>
+    <h1>Reservations</h1>
+    <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active">Reservations</li>
+    </ol>
 @endsection
 
 @section('content')
@@ -32,7 +26,7 @@
                     </div>
 
                     <div class="modal-body py-4">
-                        <!-- Header Row -->
+
                         <div class="row border-bottom pb-2 mb-3 fw-bold text-center">
                             <div class="col">Check-in</div>
                             <div class="col">Check-out</div>
@@ -41,27 +35,16 @@
                             <div class="col">Action</div>
                         </div>
 
-                        <!-- Sample Row 1 -->
-                        <div class="row border-bottom py-3 text-center align-items-center">
-                            <div class="col">2025-06-10</div>
-                            <div class="col">2025-06-15</div>
-                            <div class="col">2 Adults</div>
-                            <div class="col">$500</div>
-                            <div class="col">
-                                <button type="button" class="btn btn-danger btn-sm px-3">Delete</button>
+                        @foreach($cartItems as $cartItem)
+                            <div class="row border-bottom py-3 text-center align-items-center">
+                                <div class="col">{{ $cartItem->check_in }}</div>
+                                <div class="col">{{ $cartItem->check_out }}</div>
+                                <div class="col">{{ $cartItem->occupants_count }}</div>
+                                <div class="col">{{ $cartItem->check_in }}</div>
+                                <div class="col">Action</div>
                             </div>
-                        </div>
 
-                        <!-- Sample Row 2 -->
-                        <div class="row border-bottom py-3 text-center align-items-center">
-                            <div class="col">2025-07-01</div>
-                            <div class="col">2025-07-05</div>
-                            <div class="col">1 Adult</div>
-                            <div class="col">$300</div>
-                            <div class="col">
-                                <button type="button" class="btn btn-danger btn-sm px-3">Delete</button>
-                            </div>
-                        </div>
+                        @endforeach
 
                         <!-- Total Amount -->
                         <div class="d-flex justify-content-end mt-4 mb-4 pe-3">

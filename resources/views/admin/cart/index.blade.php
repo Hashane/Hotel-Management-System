@@ -1,8 +1,4 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-
-@extends('adminlte::page')
+@extends('admin.layouts.app')
 
 @section('title', 'Reservations')
 
@@ -91,11 +87,15 @@
                 </div>
 
                 <!-- Search + Buttons Row aligned right -->
-                <div class="d-flex justify-content-end align-items-center flex-nowrap" style="gap: 0.5rem; max-width: 600px; margin-left: auto;">
-                    <input type="text" class="form-control" placeholder="Enter name or ID" style="min-width: 220px; max-width: 220px; white-space: nowrap;">
+                <div class="d-flex justify-content-end align-items-center flex-nowrap"
+                     style="gap: 0.5rem; max-width: 600px; margin-left: auto;">
+                    <input type="text" class="form-control" placeholder="Enter name or ID"
+                           style="min-width: 220px; max-width: 220px; white-space: nowrap;">
                     <button class="btn btn-primary flex-shrink-0">Search</button>
                     <span class="mx-2 flex-shrink-0">or</span>
-                    <button class="btn btn-success flex-shrink-0" data-bs-toggle="modal" data-bs-target="#addCustomerModal">Add Customer</button>
+                    <button class="btn btn-success flex-shrink-0" data-bs-toggle="modal"
+                            data-bs-target="#addCustomerModal">Add Customer
+                    </button>
                 </div>
             </div>
             <div class="card-body">
@@ -116,7 +116,8 @@
                         <td>+1 234 567 8901</td>
                         <td>VIP guest, prefers quiet rooms.</td>
                         <td class="text-center">
-                            <button class="btn btn-sm btn-warning px-3" data-bs-toggle="modal" data-bs-target="#assignModal">
+                            <button class="btn btn-sm btn-warning px-3" data-bs-toggle="modal"
+                                    data-bs-target="#assignModal">
                                 <i class="bi bi-person-plus"></i> Assign
                             </button>
                         </td>
@@ -127,7 +128,8 @@
                         <td>+1 987 654 3210</td>
                         <td>Allergic to pets, needs early check-in.</td>
                         <td class="text-center">
-                            <button class="btn btn-sm btn-warning px-3" data-bs-toggle="modal" data-bs-target="#assignModal">
+                            <button class="btn btn-sm btn-warning px-3" data-bs-toggle="modal"
+                                    data-bs-target="#assignModal">
                                 <i class="bi bi-person-plus"></i> Assign
                             </button>
                         </td>
@@ -138,7 +140,8 @@
                         <td>+1 456 789 1234</td>
                         <td>Late check-out requested.</td>
                         <td class="text-center">
-                            <button class="btn btn-sm btn-warning px-3" data-bs-toggle="modal" data-bs-target="#assignModal">
+                            <button class="btn btn-sm btn-warning px-3" data-bs-toggle="modal"
+                                    data-bs-target="#assignModal">
                                 <i class="bi bi-person-plus"></i> Assign
                             </button>
                         </td>
@@ -150,7 +153,8 @@
 
         {{-- **** POP UP FORMS**** --}}
         <!-- Add Customer Form -->
-        <div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
 
@@ -266,7 +270,8 @@
 
                         <!-- Action Buttons -->
                         <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-secondary me-3 px-4" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-secondary me-3 px-4" data-bs-dismiss="modal">Cancel
+                            </button>
                             <button type="button" class="btn btn-primary px-4" id="book-now-btn">Book Now</button>
                         </div>
                     </div>

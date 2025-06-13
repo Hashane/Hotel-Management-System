@@ -1,9 +1,6 @@
 @php use App\Enums\RoomType; @endphp
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-
-@extends('adminlte::page')
+@extends('admin.layouts.app')
 
 @section('title', 'Reservations')
 
@@ -195,9 +192,9 @@
                                     <div class="mb-3">
                                         <label for="roomType" class="form-label">Room Type</label>
                                         <x-room-type-dropdown
-                                            :selected="$roomReservation->room->roomType->id ?? old('room_type_id')"
-                                            name="type"
-                                            class="custom-class"
+                                                :selected="$roomReservation->room->roomType->id ?? old('room_type_id')"
+                                                name="type"
+                                                class="custom-class"
                                         />
                                     </div>
                                 </div>
@@ -254,7 +251,7 @@
 
     {{--    {{ $reservations->links() }} --}}{{-- Laravel pagination links --}}
 @endsection
-@section('js')
+@section('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function () {
                 const modal = document.getElementById('checkInModal');
