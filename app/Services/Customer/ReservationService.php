@@ -33,7 +33,7 @@ class ReservationService
 
         $reservation = Reservation::create([
             'customer_id' => $customer->id,
-            'status' => ReservationStatus::CONFIRMED->value,
+            'status' => ReservationStatus::BOOKED->value,
             'amount' => $result['totalAmount'],
             'booking_number' => $this->generateBookingNumber(),
         ]);
@@ -47,6 +47,7 @@ class ReservationService
                 'check_in' => $roomDataMap[$room->id]['check_in'],
                 'check_out' => $roomDataMap[$room->id]['check_out'],
                 'occupants' => $roomDataMap[$room->id]['occupants'],
+                'status' => ReservationStatus::BOOKED->value,
             ]);
         }
 
@@ -153,9 +154,11 @@ class ReservationService
 
     public function destroy($data, Reservation $reservation): void
     {
-        RoomReservation::findOrFail($data['room_reservation_id'])->delete();
+        $roomReservation = RoomReservation::findOrFail($data['room_reservation_id']);
+        $roomReservation->room->status = ReservationStatus::CANCELLED->value;
+        $roomReservation->delete();
 
-        if (! empty($reservation->roomReservations())) {
+        if ($reservation->roomReservations()->count() === 0) {
             $reservation->delete();
         }
     }

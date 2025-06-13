@@ -7,7 +7,7 @@ enum ReservationStatus: int
     case PENDING = 0;
     case CONFIRMED = 1;
     case CANCELLED = 2;
-    case BOOKED = 3;
+    case BOOKED = 3; // booked but not confirmed after payment
     case CHECKED_IN = 4;
     case CHECKED_OUT = 5;
 
