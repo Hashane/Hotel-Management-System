@@ -170,37 +170,37 @@
                                     <div class="col-md-6">
                                         <div class="bg-light border rounded p-3 text-center">
                                             <h6 class="text-muted mb-1">Total Rooms</h6>
-                                            <h4 class="fw-bold text-dark">60</h4>
+                                            <h4 class="fw-bold text-dark">{{ $data['totalRoomsCount'] }}</h4>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="bg-light border rounded p-3 text-center">
                                             <h6 class="text-muted mb-1">Available</h6>
-                                            <h4 class="fw-bold text-success">24</h4>
+                                            <h4 class="fw-bold text-success">{{ $data['availableRoomsCount'] }}</h4>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="bg-light border rounded p-3 text-center">
                                             <h6 class="text-muted mb-1">Partially Available</h6>
-                                            <h4 class="fw-bold text-warning">10</h4>
+                                            <h4 class="fw-bold text-warning">{{ $data['partiallyAvailableRoomsCount'] }}</h4>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="bg-light border rounded p-3 text-center">
                                             <h6 class="text-muted mb-1">Booked</h6>
-                                            <h4 class="fw-bold text-danger">26</h4>
+                                            <h4 class="fw-bold text-danger">{{ $data['confirmedBookingsCount'] }}</h4>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="bg-light border rounded p-3 text-center">
                                             <h6 class="text-muted mb-1">Checked In</h6>
-                                            <h4 class="fw-bold text-primary">12</h4>
+                                            <h4 class="fw-bold text-primary">{{ $data['checkedInRoomsCount'] }}</h4>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="bg-light border rounded p-3 text-center">
                                             <h6 class="text-muted mb-1">Under Maintenance</h6>
-                                            <h4 class="fw-bold text-secondary">3</h4>
+                                            <h4 class="fw-bold text-secondary">{{ $data['underMaintenanceRoomsCount'] }}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -223,7 +223,7 @@
             </div>
             <div class="card-body">
                 {{-- Show warning if rooms exist but cannot fulfill occupancy --}}
-                @if(!$canBeOccupied && $rooms->count())
+                @if(!$data['canBeOccupied'] && $data['filteredRooms']->count())
                     <div class="alert alert-warning mb-3">
                         The hotel cannot accommodate {{ request('occupants_count') }} occupants with the currently
                         available rooms.
@@ -241,7 +241,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @forelse($rooms as $room)
+                    @forelse($data['filteredRooms'] as $room)
                         <tr>
                             <td>{{ $room->room_no }}</td>
                             <td>{{ $room->check_in ?? '2025-06-10' }} to {{ $room->check_out ?? '2025-06-14' }}</td>
@@ -259,7 +259,7 @@
                     </tbody>
                 </table>
                 <div class="mt-3">
-                    {{ $rooms->links() }}
+                    {{ $data['filteredRooms']->links() }}
                 </div>
             </div>
         </div>
