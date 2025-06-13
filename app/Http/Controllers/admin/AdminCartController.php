@@ -4,26 +4,28 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Requests\admin\AdminCartRequest;
 use App\Models\AdminCart;
+use App\Services\admin\AdminCartService;
 
 class AdminCartController
 {
+    public function __construct(public AdminCartService $adminCartService) {}
+
     /**
      * Display a listing of the resource.
      */
     public function index() {}
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(AdminCartRequest $request) {}
+    public function store(AdminCartRequest $request)
+    {
+        $validated = $request->validated();
+        $this->adminCartService->store($validated);
+
+        return redirect()->back()->with('success', 'Added to cart successfully.');
+
+    }
 
     /**
      * Display the specified resource.

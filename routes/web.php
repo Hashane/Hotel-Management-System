@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\AdminCartController;
 use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\admin\ReservationController as AdminReservationController;
 use App\Http\Controllers\CartController;
@@ -34,6 +35,13 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::post('/', 'store')->name('store');
         Route::patch('/{customer}', 'update')->name('update');
         Route::post('/check-in', 'checkIn')->name('check-in');
+    });
+
+    Route::controller(AdminCartController::class)->prefix('carts')->name('carts.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::patch('/{cart}', 'update')->name('update');
+        Route::delete('/{cart}', 'destroy')->name('destroy');
     });
 
     Route::view('/cart', 'admin.cart.index')->name('cart.index');

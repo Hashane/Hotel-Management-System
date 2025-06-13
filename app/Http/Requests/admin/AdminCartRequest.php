@@ -24,11 +24,10 @@ class AdminCartRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required', Rule::exists('users', 'id')],
             'room_id' => ['required', Rule::exists('rooms', 'id')],
             'check_in' => ['required', 'date'],
             'check_out' => ['required', 'date', 'after:check_in'],
-            'occupants_count' => ['required', 'integer', 'min:1'],
+            'occupants' => ['required', 'integer', 'min:1'],
         ];
     }
 }
