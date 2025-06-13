@@ -106,32 +106,42 @@
                                 <h5 class="card-title mb-0">Filter Rooms</h5>
                             </div>
 
-                            <form class="form-horizontal d-flex flex-column flex-grow-1">
+                            <form method='GET' action="{{ route('admin.reservations.create') }}"
+                                  class="form-horizontal d-flex flex-column flex-grow-1">
+                                @csrf
                                 <!-- Card Body: takes remaining height -->
                                 <div class="card-body flex-grow-1">
                                     <div class="mb-3 row">
                                         <label class="col-sm-3 col-form-label">Check In</label>
                                         <div class="col-sm-9">
-                                            <input type="date" class="form-control" placeholder="Check In Date">
+                                            <input type="date" name="check_in" class="form-control"
+                                                   value="{{old('check_in',request()->check_in)}}"
+                                                   placeholder="Check In Date">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label class="col-sm-3 col-form-label">Check Out</label>
                                         <div class="col-sm-9">
-                                            <input type="date" class="form-control" placeholder="Check Out Date">
+                                            <input type="date" name="check_out" class="form-control"
+                                                   value="{{old('check_out',request()->check_out)}}"
+                                                   placeholder="Check Out Date">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label class="col-sm-3 col-form-label">Occupancy</label>
                                         <div class="col-sm-9">
-                                            <input type="number" class="form-control" placeholder="No. of Guests">
+                                            <input type="number" name="occupants_count"
+                                                   value="{{old('occupants_count',request()->occupants_count)}}"
+                                                   class="form-control"
+                                                   placeholder="No. of Guests">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label class="col-sm-3 col-form-label">Room Type</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control"
-                                                   placeholder="Room Type (e.g., Deluxe)">
+                                            <x-room-type-dropdown
+                                                    selected="{{ old('room_type',request()->room_type) }}">
+                                            </x-room-type-dropdown>
                                         </div>
                                     </div>
                                 </div>
@@ -212,6 +222,14 @@
                 <h5 class="card-title mb-0">Filtered Room Results</h5>
             </div>
             <div class="card-body">
+                {{-- Show warning if rooms exist but cannot fulfill occupancy --}}
+                @if(!$canBeOccupied && $rooms->count())
+                    <div class="alert alert-warning mb-3">
+                        The hotel cannot accommodate {{ request('occupants_count') }} occupants with the currently
+                        available rooms.
+                    </div>
+                @endif
+
                 <table class="table table-bordered table-striped">
                     <thead class="table-light">
                     <tr>
@@ -223,37 +241,26 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {{-- Example rows (to be dynamically generated later) --}}
-                    <tr>
-                        <td>101</td>
-                        <td>2025-06-10 to 2025-06-14</td>
-                        <td>Deluxe</td>
-                        <td>2 Guests</td>
-                        <td class="text-center">
-                            <button class="btn btn-sm btn-success px-3">Add to Cart</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>203</td>
-                        <td>2025-06-11 to 2025-06-15</td>
-                        <td>Suite</td>
-                        <td>3 Guests</td>
-                        <td class="text-center">
-                            <button class="btn btn-sm btn-success px-3">Add to Cart</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>405</td>
-                        <td>2025-06-12 to 2025-06-17</td>
-                        <td>Standard</td>
-                        <td>1 Guest</td>
-                        <td class="text-center">
-                            <button class="btn btn-sm btn-success px-3">Add to Cart</button>
-                        </td>
-                    </tr>
-                    {{-- End example rows --}}
+                    @forelse($rooms as $room)
+                        <tr>
+                            <td>{{ $room->room_no }}</td>
+                            <td>{{ $room->check_in ?? '2025-06-10' }} to {{ $room->check_out ?? '2025-06-14' }}</td>
+                            <td>{{ $room->roomType->name }}</td>
+                            <td>{{ $room->roomType->capacity }}</td>
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-success px-3">Add to Cart</button>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center">No rooms available.</td>
+                        </tr>
+                    @endforelse
                     </tbody>
                 </table>
+                <div class="mt-3">
+                    {{ $rooms->links() }}
+                </div>
             </div>
         </div>
 
@@ -280,7 +287,6 @@
             </div>
         </div>
     </section>
-    {{--    {{ $reservations->links() }} --}}{{-- Laravel pagination links --}}
 @endsection
 
 

@@ -11,10 +11,13 @@ use Illuminate\Support\Str;
 class FilterBuilder
 {
     protected Builder $query;
+
     protected array $filters;
+
     protected string $namespace;
 
-    public function __construct($query, $filters, $namespace){
+    public function __construct($query, $filters, $namespace)
+    {
         $this->query = $query;
         $this->filters = $filters;
         $this->namespace = $namespace;
@@ -22,23 +25,22 @@ class FilterBuilder
 
     public function apply(): Builder
     {
-        foreach($this->filters as $name => $value){
+        foreach ($this->filters as $name => $value) {
             $normalizedName = Str::studly($name);
-            $class = $this->namespace . "\\{$normalizedName}";
+            $class = $this->namespace."\\{$normalizedName}";
 
-            if(!class_exists($class)){
+            if (! class_exists($class)) {
                 continue;
             }
 
-
             // If query param has a value (even '0'), pass it
-            if (!is_null($value) && $value !== '') {          // if(strlen($value)){
+            if (! is_null($value) && $value !== '') {          // if(strlen($value)){
                 (new $class($this->query))->handle($value);
-            }
-            else{
+            } else {
                 (new $class($this->query))->handle();
             }
         }
+
         return $this->query;
     }
 }

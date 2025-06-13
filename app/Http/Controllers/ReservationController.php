@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ReservationStatus;
 use App\Http\Requests\Customer\ReservationRequest;
+use App\Jobs\SendReservationConfirmationEmail;
 use App\Models\Reservation;
 use App\Services\Customer\ReservationService;
 use Illuminate\Http\Request;
@@ -57,7 +59,9 @@ class ReservationController
             $validated = $request->validated();
             $result = $this->reservationService->prepareReservation();
             $reservation = $this->reservationService->store($validated, $result);
-            $reservation = $reservation->load('roomReservations');
+
+            $reservation = $reservation->load(['customer', 'roomReservations', 'roomReservations.room']);
+            SendReservationConfirmationEmail::dispatch($reservation);
 
             DB::commit();
 
@@ -77,6 +81,10 @@ class ReservationController
      */
     public function show(Reservation $reservation)
     {
+        if ($reservation->status === ReservationStatus::CANCELLED->value) {
+            abort(404);
+        }
+
         return view('customer.reservations.show', compact('reservation'));
     }
 
