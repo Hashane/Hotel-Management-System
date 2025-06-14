@@ -12,14 +12,17 @@
 
         <div class="row mb-4">
             <form method="GET" action="{{ route('reservations.index') }}">
-                <div class="col-md-9">
-                    <input class="form-control" name="search" type="search"
-                           placeholder="Search reservations by Booking Number"
-                           value="{{ old('search', request()->search)}}" aria-label="Search">
+                <div class="row mb-4">
+                    <div class="col-md-9">
+                        <input class="form-control w-100" name="search" type="search"
+                               placeholder="Search reservations by Booking Number"
+                               value="{{ old('search', request()->search)}}" aria-label="Search">
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-outline-success w-100" type="submit">Search</button>
+                    </div>
                 </div>
-                <div class="col-md-3">
-                    <button class="btn btn-outline-success w-100" type="submit">Search</button>
-                </div>
+                
             </form>
         </div>
 
@@ -87,8 +90,8 @@
                       method="POST">
                     @csrf
                     @method('DELETE')
-                    <input type="hidden" name="room_reservation_id" value="{{ !empty($res) ? $res->id : ''}}"
-                           id="deleteRoomRes">
+                    <input type="text" name="room_reservation_id" value="{{ !empty($res) ? $res->id : ''}}"
+                           id="roomRes">
                     <div class="modal-body text-center">
                         <p class="mb-4 fs-5">Are you sure you want to delete this reservation?</p>
                     </div>
@@ -101,61 +104,67 @@
         </div>
     </div>
 
-    <!-- Edit Reservation Modal -->
-    <div class="modal fade" id="editReservationModal" tabindex="-1" aria-labelledby="editReservationModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content shadow-sm">
-                <div class="modal-header">
-                    <h5 class="modal-title">Edit Reservation</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <form method="POST"
-                      action="{{ $reservation ? route('reservations.update', ['reservation' => $reservation]) : '#' }}"
-                      id="editReservationForm">
-                    @csrf
-                    @method('PUT')
-                    <div class="modal-body">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label for="reservationId" class="form-label">Reservation No.</label>
-                                <input type="text" id="reservationNo" class="form-control" readonly>
-                                <input type="hidden" name="room_reservation_id" id="editRoomRes">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="customerName" class="form-label">Name</label>
-                                <input type="text" name="name" id="customerName" class="form-control">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="startDate" class="form-label">Start Date</label>
-                                <input type="date" name="start" id="startDate" class="form-control">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="endDate" class="form-label">End Date</label>
-                                <input type="date" name="end" id="endDate" class="form-control">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="roomType" class="form-label">Room Type</label>
-                                <x-room-type-dropdown
-                                    :selected="$roomReservation->room->roomType->id ?? null"
-                                    name="type"
-                                    id="roomType"
-                                    class="custom-class"
-                                />
-                            </div>
-                            <div class="col-md-6">
-                                <label for="guests" class="form-label">Guests</label>
-                                <input type="number" name="guests" id="guests" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+   <!-- Edit Reservation Modal -->
+<div class="modal fade" id="editReservationModal" tabindex="-1" aria-labelledby="editReservationModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered modal-lg">
+   <div class="modal-content shadow rounded-4 border-0">
+   
+       <div class="modal-header bg-primary text-white rounded-top">
+           <h5 class="modal-title" id="editReservationModalLabel">Edit Reservation</h5>
+           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+       </div>
+
+       <form method="POST"
+             action="{{ $reservation ? route('reservations.update', ['reservation' => $reservation]) : '#' }}"
+             id="editReservationForm">
+           @csrf
+           @method('PUT')
+
+           <div class="modal-body bg-light px-4 py-3">
+               <div class="row g-4">
+                   <div class="col-md-6">
+                       <label for="reservationId" class="form-label fw-semibold">Reservation No.</label>
+                       <input type="text" id="reservationNo" class="form-control-plaintext bg-white border rounded" readonly>
+                       <input type="hidden" name="room_reservation_id" id="roomRes">
+                   </div>
+                   <div class="col-md-6">
+                       <label for="customerName" class="form-label fw-semibold">Name</label>
+                       <input type="text" name="name" id="customerName" class="form-control" placeholder="Customer Name">
+                   </div>
+                   <div class="col-md-6">
+                       <label for="startDate" class="form-label fw-semibold">Start Date</label>
+                       <input type="date" name="start" id="startDate" class="form-control">
+                   </div>
+                   <div class="col-md-6">
+                       <label for="endDate" class="form-label fw-semibold">End Date</label>
+                       <input type="date" name="end" id="endDate" class="form-control">
+                   </div>
+                   <div class="col-md-6">
+                       <label for="roomType" class="form-label fw-semibold">Room Type</label>
+                       <select id="roomType" name="type" class="form-select">
+                           <option value="1" {{ isset($res) && $res->room->roomType->id == 1 ? 'selected' : '' }}>Standard</option>
+                           <option value="2" {{ isset($res) && $res->room->roomType->id == 2 ? 'selected' : '' }}>Deluxe</option>
+                           <option value="3" {{ isset($res) && $res->room->roomType->id == 3 ? 'selected' : '' }}>Suite</option>
+                       </select>
+                   </div>
+                   <div class="col-md-6">
+                       <label for="guests" class="form-label fw-semibold">Guests</label>
+                       <input type="number" name="guests" id="guests" class="form-control" min="1">
+                   </div>
+               </div>
+           </div>
+
+           <div class="modal-footer bg-white rounded-bottom px-4 py-3">
+               <button type="submit" class="btn btn-success px-4">Save Changes</button>
+               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+           </div>
+       </form>
+
+   </div>
+</div>
+</div>
+
 
 @endsection
 @push('scripts')
@@ -174,7 +183,7 @@
                 const guests = button.getAttribute('data-guests');
 
                 document.getElementById('reservationNo').value = id;
-                document.getElementById('editRoomRes').value = roomRes;
+                document.getElementById('roomRes').value = roomRes;
                 document.getElementById('customerName').value = name;
                 document.getElementById('startDate').value = checkin;
                 document.getElementById('endDate').value = checkout;
