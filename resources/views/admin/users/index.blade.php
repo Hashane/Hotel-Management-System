@@ -73,7 +73,7 @@
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ 'sds'}}</td>
+                                <td>{{ ucfirst($user->roles->first()?->name) ?? 'No Role' }}</td>
                                 <td>{{ $user->created_at }}</td>
                                 <td class="text-center">
                                     <div class="d-flex justify-content-center align-items-center gap-3 py-1">
