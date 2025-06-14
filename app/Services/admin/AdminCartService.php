@@ -3,7 +3,9 @@
 namespace App\Services\admin;
 
 use App\Enums\RoomStatus;
+use App\Helpers\Helper;
 use App\Models\Cart;
+use App\Models\Customer;
 use App\Models\Room;
 use App\Services\CartCostCalculator;
 use Illuminate\Support\Arr;
@@ -25,17 +27,6 @@ class AdminCartService
         ]);
     }
 
-    public function calculateCost(array $cartItems)
-    {
-        $roomIds = array_unique(Arr::pluck($cartItems, 'room_id'));
-
-        $rooms = Room::with('roomType.facilities', 'roomType.rateTypes')
-            ->whereIn('id', $roomIds)
-            ->get();
-
-        return app(CartCostCalculator::class)->calculate($cartItems, $rooms, true);
-    }
-
     public function book(): void
     {
         $cartItems = Cart::all();
@@ -45,5 +36,34 @@ class AdminCartService
             ->update(['status' => RoomStatus::RESERVED->value]);
 
         Cart::query()->update(['status' => 'confirmed']);
+    }
+
+    public function assign(int $customerId): void
+    {
+        $cartItems = Cart::all();
+        $roomIds = $cartItems->pluck('room_id')->unique();
+        $rooms = Room::with('roomType.facilities', 'roomType.rateTypes')
+            ->whereIn('id', $roomIds)
+            ->get();
+
+        $priceBreakDown = $this->calculateCost($cartItems->toArray());
+
+        $customer = Customer::findOrFail($customerId);
+        $reservation = Helper::makeReservation($customer, $priceBreakDown['totalAmount'], Helper::generateBookingNumber());
+        $roomDataMap = Helper::mapRoomToData($cartItems);
+        Helper::makeRoomReservation($rooms, $reservation, $roomDataMap);
+
+        Cart::query()->confirmed()->delete();
+    }
+
+    public function calculateCost(array $cartItems)
+    {
+        $roomIds = array_unique(Arr::pluck($cartItems, 'room_id'));
+
+        $rooms = Room::with('roomType.facilities', 'roomType.rateTypes')
+            ->whereIn('id', $roomIds)
+            ->get();
+
+        return app(CartCostCalculator::class)->calculate($cartItems, $rooms, true);
     }
 }

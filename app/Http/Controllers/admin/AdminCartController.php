@@ -4,7 +4,12 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Requests\admin\AdminCartRequest;
 use App\Models\Cart;
+use App\Models\Customer;
 use App\Services\admin\AdminCartService;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class AdminCartController
 {
@@ -13,12 +18,13 @@ class AdminCartController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $cartItems = Cart::confirmed()->get();
         $priceBreakdown = app(AdminCartService::class)->calculateCost($cartItems->toArray());
+        $customers = Customer::search($request->input('search'))->get();
 
-        return view('admin.cart.index', compact('cartItems', 'priceBreakdown'));
+        return view('admin.cart.index', compact('cartItems', 'priceBreakdown', 'customers'));
     }
 
     /**
@@ -30,6 +36,26 @@ class AdminCartController
         $this->adminCartService->store($validated);
 
         return redirect()->back()->with('success', 'Added to cart successfully.');
+
+    }
+
+    public function assign(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validated = $request->validate([
+                'customer_id' => ['required', Rule::exists('customers', 'id')],
+            ]);
+            $this->adminCartService->assign($validated['customer_id']);
+
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Assigned rooms successfully');
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            return redirect()->back()->with('error', $exception->getMessage());
+        }
 
     }
 

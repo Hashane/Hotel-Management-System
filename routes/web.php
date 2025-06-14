@@ -41,6 +41,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/', 'store')->name('store');
         Route::post('/book', 'book')->name('book');
+        Route::post('/assign', 'assign')->name('assign');
         Route::patch('/{cart}', 'update')->name('update');
         Route::delete('/{cart}', 'destroy')->name('destroy');
     });
