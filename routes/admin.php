@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\AdminCartController;
 use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\admin\ReservationController as AdminReservationController;
+use App\Http\Controllers\admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('admin/', function () {
@@ -44,6 +45,13 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::post('/assign', 'assign')->name('assign');
         Route::patch('/{cart}', 'update')->name('update');
         Route::delete('/{cart}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(UserController::class)->prefix('users')->name('users.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::post('/{user}', 'update')->name('update');
+        Route::put('/{user}/assign-role', 'assignRole')->name('assign-role');
     });
 
     Route::view('/reports', 'admin.report');
