@@ -1,6 +1,6 @@
 @php use App\Enums\RoomType; @endphp
 
-@extends('admin.layouts.app')
+@extends('admin.layouts.admin')
 
 @section('title', 'Reservations')
 
@@ -87,32 +87,61 @@
                                 <td>{{ $roomReservation->check_in }} to {{ $roomReservation->check_out }}</td>
                                 <td>{{ $roomReservation->room->roomType->name }}</td>
                                 <td>{{ $roomReservation->occupants }}</td>
-                                <td> @if($roomReservation->checked_in_at)
-                                        <i class="fas fa-check-circle text-success" title="Checked In"></i>
-                                    @else
-                                        <i class="fas fa-times-circle text-danger" title="Not Checked In"></i>
+                                <td>
+                                    @php
+                                        $status = $reservation->status;
+                                    @endphp
+
+                                    @if($status === 0)
+                                        {{-- PENDING --}}
+                                        <i class="fas fa-hourglass-half text-warning" title="Pending"></i>
+                                    @elseif($status === 1)
+                                        {{-- CONFIRMED --}}
+                                        <i class="fas fa-check-circle text-primary" title="Confirmed"></i>
+                                    @elseif($status === 2)
+                                        {{-- CANCELLED --}}
+                                        <i class="fas fa-times-circle text-danger" title="Cancelled"></i>
+                                    @elseif($status === 3)
+                                        {{-- BOOKED --}}
+                                        <i class="fas fa-book text-info" title="Booked (Pending Payment)"></i>
+                                    @elseif($status === 4)
+                                        {{-- CHECKED IN --}}
+                                        <i class="fas fa-door-open text-success" title="Checked In"></i>
+                                    @elseif($status === 5)
+                                        {{-- CHECKED OUT --}}
+                                        <i class="fas fa-door-closed text-secondary" title="Checked Out"></i>
                                     @endif
                                 </td>
                                 <td class="text-center">
                                     <div class="d-flex justify-content-center align-items-center gap-3 py-1">
-                                        <button type="button"
-                                                class="btn btn-sm btn-warning px-3"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#checkInModal"
-                                                data-bs-customer="{{ $reservation->customer->id }}"
-                                                data-bs-roomreservation="{{ $roomReservation->id }}">
-                                            <i class="fas fa-sign-in-alt me-1"></i> Check In
-                                        </button>
+                                        @if(!$roomReservation->checked_in_at)
+                                            <!-- Not checked in yet -->
+                                            <button type="button"
+                                                    class="btn btn-sm btn-success px-3 w-100" style="max-width: 160px;"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#checkInModal"
+                                                    data-bs-reservation="{{ $reservation->id }}">
+                                                <i class="fas fa-door-open me-1"></i> Check In
+                                            </button>
 
-                                        <button type="button"
-                                               class="btn btn-sm btn-warning px-3"
-                                               data-bs-toggle="modal"
-                                               data-bs-target="#checkOutModal"
-                                               data-bs-customer="{{ $reservation->customer->id }}"
-                                               data-bs-roomreservation="{{ $roomReservation->id }}">
-                                           <i class="fas fa-sign-in-alt me-1"></i> Check Out
-                                       </button>
+                                        @elseif($roomReservation->checked_in_at && !$roomReservation->checked_out_at)
+                                            <!-- Checked in but not yet checked out -->
+                                            <button type="button"
+                                                    class="btn btn-sm btn-danger px-3 w-100" style="max-width: 160px;"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#checkOutModal"
+                                                    data-bs-reservation="{{ $reservation->id }}">
+                                                <i class="fas fa-door-closed me-1"></i> Check Out
+                                            </button>
 
+                                        @else
+                                            <!-- Already checked out -->
+                                            <button type="button"
+                                                    class="btn btn-sm btn-secondary px-3 w-100"
+                                                    style="max-width: 160px;" disabled>
+                                                <i class="fas fa-door-closed me-1"></i> Checked Out
+                                            </button>
+                                        @endif
 
                                         <i class="fas fa-pencil-alt text-primary fs-5" data-bs-toggle="modal"
                                            data-bs-target="#editReservationModal"
@@ -126,7 +155,9 @@
                                            data-guests="{{ $roomReservation->occupants }}">
                                         </i>
                                         <i class="fas fa-plus text-success fs-5" data-bs-toggle="modal"
-                                           data-bs-target="#addChargesModal" style="cursor: pointer;"></i>
+                                           data-bs-target="#addChargesModal"
+                                           data-bs-reservation="{{ $reservation->id }}"
+                                           style="cursor: pointer;"></i>
                                     </div>
                                 </td>
                                 @endforeach
@@ -138,7 +169,6 @@
             </div>
         </div>
 
-
         <!-- Check-In Confirmation Modal -->
         <div class="modal fade" id="checkInModal" tabindex="-1" aria-labelledby="checkInModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -147,12 +177,9 @@
                         <h5 class="modal-title" id="checkInModalLabel">Check In Guest</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="POST" action="{{route('admin.customers.check-in')}}">
+                    <form id="checkInForm" method="POST" action="">
                         @csrf
                         <div class="modal-body">
-                            <input type="hidden" id="customerId" name="customer_id">
-                            <input type="hidden" id="reservationId" name="room_reservation_id">
-
                             <p>Are you sure you want to check in this guest?</p>
                         </div>
                         <div class="modal-footer">
@@ -165,46 +192,42 @@
         </div>
 
         <!-- Check-Out Confirmation Modal -->
-       <!-- Check-Out Modal -->
-<div class="modal fade" id="checkOutModal" tabindex="-1" aria-labelledby="checkOutModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal fade" id="checkOutModal" tabindex="-1" aria-labelledby="checkOutModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
 
-            <div class="modal-header">
-                <h5 class="modal-title" id="checkOutModalLabel">Check Out Guest</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="checkOutModalLabel">Check Out Guest</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <form id="checkOutForm" method="POST" action="">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="checkout_date" class="form-label">Check-Out Date</label>
+                                <input type="date" class="form-control" id="checkout_date" name="checkout_date"
+                                       required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="checkout_time" class="form-label">Check-Out Time</label>
+                                <input type="time" class="form-control" id="checkout_time" name="checkout_time"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-success">Confirm Check-Out</button>
+                        </div>
+                    </form>
+
+                </div>
             </div>
-
-            <form>
-                <div class="modal-body">
-                    <input type="hidden" id="checkoutCustomerId" name="customer_id">
-                    <input type="hidden" id="checkoutReservationId" name="room_reservation_id">
-
-                    <div class="mb-3">
-                        <label for="checkout_date" class="form-label">Check-Out Date</label>
-                        <input type="date" class="form-control" id="checkout_date" name="checkout_date" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="checkout_time" class="form-label">Check-Out Time</label>
-                        <input type="time" class="form-control" id="checkout_time" name="checkout_time" required>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success">Confirm Check-Out</button>
-                </div>
-            </form>
-
         </div>
-    </div>
-</div>
 
-        
- 
-
- 
         <!-- Edit Reservation Modal -->
         <div class="modal fade" id="editReservationModal" tabindex="-1" aria-labelledby="editReservationModalLabel"
              aria-hidden="true">
@@ -274,19 +297,25 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
-                    <form>
+                    <form id="addChargesForm" method="POST" action="">
+                        @csrf
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Service Type</label>
-                                        <input type="text" class="form-control" placeholder="Enter service">
+                                        <select name="service" class="form-control">
+                                            @foreach($serviceTypes as $serviceType)
+                                                <option value="{{$serviceType->id}}">{{$serviceType->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Amount</label>
-                                        <input type="number" class="form-control" placeholder="Enter amount">
+                                        <input type="number" name="amount" class="form-control"
+                                               placeholder="Enter amount">
                                     </div>
                                 </div>
                             </div>
@@ -311,8 +340,40 @@
             if (checkInModal) {
                 checkInModal.addEventListener('show.bs.modal', function (event) {
                     const button = event.relatedTarget;
-                    document.getElementById('customerId').value = button.getAttribute('data-bs-customer');
-                    document.getElementById('reservationId').value = button.getAttribute('data-bs-roomreservation');
+                    const reservationId = button.getAttribute('data-bs-reservation');
+
+                    const form = document.getElementById('checkInForm');
+                    const checkInBaseUrl = "{{ url('admin/reservations') }}";
+
+                    form.action = `${checkInBaseUrl}/${reservationId}/check-in`;
+                });
+            }
+
+            // Check-Out Modal
+            const checkOutModal = document.getElementById('checkOutModal');
+            if (checkOutModal) {
+                checkOutModal.addEventListener('show.bs.modal', function (event) {
+                    const button = event.relatedTarget;
+                    const reservationId = button.getAttribute('data-bs-reservation');
+
+                    const form = document.getElementById('checkOutForm');
+                    const checkOutBaseUrl = "{{ url('admin/reservations') }}";
+
+                    form.action = `${checkOutBaseUrl}/${reservationId}/check-out`;
+                });
+            }
+
+            // Add Charges Modal
+            const addChargesModal = document.getElementById('addChargesModal');
+            if (addChargesModal) {
+                addChargesModal.addEventListener('show.bs.modal', function (event) {
+                    const button = event.relatedTarget;
+                    const reservationId = button.getAttribute('data-bs-reservation');
+
+                    const form = document.getElementById('addChargesForm');
+                    const reservationExtraChargesBaseUrl = "{{ url('admin/reservations') }}";
+
+                    form.action = `${reservationExtraChargesBaseUrl}/${reservationId}/add-charges`;
                 });
             }
 

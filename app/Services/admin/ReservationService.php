@@ -7,15 +7,12 @@ use App\Enums\RoomStatus;
 use App\Helpers\Helper;
 use App\Models\Reservation;
 use App\Models\Room;
+use App\Models\RoomReservation;
+use Carbon\Carbon;
 
 class ReservationService
 {
     public function __construct(private readonly \App\Services\Customer\ReservationService $customerReservationService) {}
-
-    public function update(array $data, Reservation $reservation): void
-    {
-        $this->customerReservationService->update($data, $reservation);
-    }
 
     public function getReservationData(array $validated)
     {
@@ -43,5 +40,47 @@ class ReservationService
             )->count(),
             'underMaintenanceRoomsCount' => $rooms->where('status', RoomStatus::MAINTENANCE->value)->count(),
         ];
+    }
+
+    /**
+     * Process Customer check-in
+     */
+    public function checkIn(Reservation $reservation): void
+    {
+        $roomReservation = RoomReservation::with('room')
+            ->where('reservation_id', $reservation->id)
+            ->firstOrFail();
+
+        $roomReservation->update([
+            'checked_in_at' => now(),
+        ]);
+
+        // Mark room as occupied
+        $roomReservation->room->update([
+            'status' => RoomStatus::OCCUPIED->value,
+        ]);
+    }
+
+    public function update(array $data, Reservation $reservation): void
+    {
+        $this->customerReservationService->update($data, $reservation);
+    }
+
+    public function checkOut(Reservation $reservation, array $data): void
+    {
+        $roomReservation = RoomReservation::with('room')
+            ->where('reservation_id', $reservation->id)
+            ->firstOrFail();
+
+        $checkoutDateTime = Carbon::createFromFormat('Y-m-d H:i', $data['checkout_date'].' '.$data['checkout_time']);
+
+        $roomReservation->update([
+            'check_out' => $checkoutDateTime->toDateString(),
+            'checked_out_at' => $checkoutDateTime,
+        ]);
+
+        $roomReservation->room->update([
+            'status' => RoomStatus::AVAILABLE->value,
+        ]);
     }
 }
