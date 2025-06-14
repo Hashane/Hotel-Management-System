@@ -39,14 +39,14 @@
                             <div class="check-date">
                                 <label for="date-in">Check In:</label>
                                 <input type="date" class="date-input" id="date-in" name="check_in"
-                                       value="{{ request('check_in') }}"/>
+                                       value="{{ request()->check_in ?? now()->toDateString() }}">
                                 <i class="icon_calendar"></i>
                             </div>
 
                             <div class="check-date">
                                 <label for="date-out">Check Out:</label>
                                 <input type="date" class="date-input" id="date-out" name="check_out"
-                                       value="{{ request('check_out') }}"/>
+                                       value="{{ request()->check_out ?? now()->addDay()->toDateString() }}">
                                 <i class="icon_calendar"></i>
                             </div>
 
@@ -57,9 +57,9 @@
             </div>
         </div>
         <div
-            x-data="{ active: 0, slides: ['{{ asset('images/hero/hero-2.jpg') }}', '{{ asset('images/hero/hero-3.jpg') }}'] }"
-            x-init="setInterval(() => active = (active + 1) % slides.length, 5000)"
-            class="hero-slider">
+                x-data="{ active: 0, slides: ['{{ asset('images/hero/hero-2.jpg') }}', '{{ asset('images/hero/hero-3.jpg') }}'] }"
+                x-init="setInterval(() => active = (active + 1) % slides.length, 5000)"
+                class="hero-slider">
 
             <!-- Slides -->
             <template x-for="(slide, index) in slides" :key="index">
@@ -208,9 +208,9 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-6">
                         <div
-                            class="hp-room-item"
-                            x-data
-                            x-init="$el.style.backgroundImage = `url('{{ asset('images/room/room-b1.jpg') }}`"
+                                class="hp-room-item"
+                                x-data
+                                x-init="$el.style.backgroundImage = `url('{{ asset('images/room/room-b1.jpg') }}`"
                         >
                             <div class="hr-text">
                                 <h3>Double Room</h3>
@@ -241,9 +241,9 @@
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <div
-                            class="hp-room-item"
-                            x-data
-                            x-init="$el.style.backgroundImage = `url('{{ asset('images/room/room-b2.jpg') }}`"
+                                class="hp-room-item"
+                                x-data
+                                x-init="$el.style.backgroundImage = `url('{{ asset('images/room/room-b2.jpg') }}`"
                         >
                             <div class="hr-text">
                                 <h3>Premium King Room</h3>
@@ -274,9 +274,9 @@
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <div
-                            class="hp-room-item"
-                            x-data
-                            x-init="$el.style.backgroundImage = `url('{{ asset('images/room/room-b3.jpg') }}`"
+                                class="hp-room-item"
+                                x-data
+                                x-init="$el.style.backgroundImage = `url('{{ asset('images/room/room-b3.jpg') }}`"
                         >
                             <div class="hr-text">
                                 <h3>Deluxe Room</h3>
@@ -307,9 +307,9 @@
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <div
-                            class="hp-room-item"
-                            x-data
-                            x-init="$el.style.backgroundImage = `url('{{ asset('images/room/room-b4.jpg') }}`"
+                                class="hp-room-item"
+                                x-data
+                                x-init="$el.style.backgroundImage = `url('{{ asset('images/room/room-b4.jpg') }}`"
                         >
                             <div class="hr-text">
                                 <h3>Family Room</h3>
