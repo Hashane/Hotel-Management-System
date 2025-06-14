@@ -3,7 +3,9 @@
 namespace App\Services\admin;
 
 use App\Helpers\Helper;
+use App\Jobs\SendInvoiceToCustomer;
 use App\Models\Bill;
+use App\Models\Payment;
 use App\Models\Reservation;
 use App\Models\Room;
 use App\Models\RoomReservation;
@@ -68,5 +70,20 @@ class BillingService
             'lateCheckoutFee' => $data['lateCheckoutFee'],
             'total' => $data['totalAmount'],
         ]);
+    }
+
+    public function pay(Bill $bill, array $data)
+    {
+        $filename = 'invoice_'.$bill->reservation_id.'_'.now()->format('Ymd_His').'.pdf';
+
+        Payment::create([
+            'reservation_id' => $bill->reservation_id,
+            'amount' => $bill->total,
+            'payment_method' => $data['payment_method'],
+            'paid_at' => Carbon::now(),
+            'notes' => $filename, // invoice pdf
+        ]);
+
+        SendInvoiceToCustomer::dispatch($bill);
     }
 }
