@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\customer;
 
 use App\Models\Room;
 use App\Services\CartCostCalculator;
-use App\Services\Customer\CartService;
+use App\Services\customer\CartService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;

@@ -25,8 +25,13 @@ class DatabaseSeeder extends Seeder
             RoomTypeSeeder::class,
             RoomTypeFacilitySeeder::class,
             RoomSeeder::class,
+            RateTypeSeeder::class,
+            RoomTypeRateTypeSeeder::class,
             SettingsSeeder::class,
             ServiceTypeSeeder::class,
+            PermissionSeeder::class,
+            RoleSeeder::class,
+            SuperAdminSeeder::class,
         ]);
     }
 }

@@ -24,5 +24,4 @@ class RoomType extends Model
     {
         return $this->belongsToMany(RateType::class, 'room_type_rate_types')->withPivot('price');
     }
-
 }

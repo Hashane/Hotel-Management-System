@@ -43,8 +43,8 @@ class ReservationRequest extends FormRequest
             'message' => ['required', 'string', 'max:255'],
 
             'card' => ['nullable', 'string', 'digits_between:13,19'],
-            'expiry' => ['required', 'regex:/^(0[1-9]|1[0-2])\/(\d{2})$/'],
-            'cvv' => ['required_with:card_number', 'digits_between:3,4'],
+            'expiry' => ['nullable', 'required_with:card', 'regex:/^(0[1-9]|1[0-2])\/(\d{2})$/'],
+            'cvv' => ['nullable', 'required_with:card', 'digits_between:3,4'],
         ];
     }
 }
