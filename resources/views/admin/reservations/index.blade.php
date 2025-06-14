@@ -120,7 +120,7 @@
                                                     class="btn btn-sm btn-success px-3 w-100" style="max-width: 160px;"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#checkInModal"
-                                                    data-bs-roomreservation="{{ $reservation->id }}">
+                                                    data-bs-reservation="{{ $reservation->id }}">
                                                 <i class="fas fa-door-open me-1"></i> Check In
                                             </button>
 
@@ -130,7 +130,7 @@
                                                     class="btn btn-sm btn-danger px-3 w-100" style="max-width: 160px;"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#checkOutModal"
-                                                    data-bs-roomreservation="{{ $reservation->id }}">
+                                                    data-bs-reservation="{{ $reservation->id }}">
                                                 <i class="fas fa-door-closed me-1"></i> Check Out
                                             </button>
 
@@ -155,7 +155,9 @@
                                            data-guests="{{ $roomReservation->occupants }}">
                                         </i>
                                         <i class="fas fa-plus text-success fs-5" data-bs-toggle="modal"
-                                           data-bs-target="#addChargesModal" style="cursor: pointer;"></i>
+                                           data-bs-target="#addChargesModal"
+                                           data-bs-reservation="{{ $reservation->id }}"
+                                           style="cursor: pointer;"></i>
                                     </div>
                                 </td>
                                 @endforeach
@@ -302,8 +304,11 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Service Type</label>
-                                        <input type="text" name="service" class="form-control"
-                                               placeholder="Enter service">
+                                        <select name="service" class="form-control">
+                                            @foreach($serviceTypes as $serviceType)
+                                                <option value="{{$serviceType->id}}">{{$serviceType->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -335,7 +340,7 @@
             if (checkInModal) {
                 checkInModal.addEventListener('show.bs.modal', function (event) {
                     const button = event.relatedTarget;
-                    const reservationId = button.getAttribute('data-bs-roomreservation');
+                    const reservationId = button.getAttribute('data-bs-reservation');
 
                     const form = document.getElementById('checkInForm');
                     const checkInBaseUrl = "{{ url('admin/reservations') }}";
@@ -349,7 +354,7 @@
             if (checkOutModal) {
                 checkOutModal.addEventListener('show.bs.modal', function (event) {
                     const button = event.relatedTarget;
-                    const reservationId = button.getAttribute('data-bs-roomreservation');
+                    const reservationId = button.getAttribute('data-bs-reservation');
 
                     const form = document.getElementById('checkOutForm');
                     const checkOutBaseUrl = "{{ url('admin/reservations') }}";
@@ -363,12 +368,12 @@
             if (addChargesModal) {
                 addChargesModal.addEventListener('show.bs.modal', function (event) {
                     const button = event.relatedTarget;
-                    const reservationId = button.getAttribute('data-bs-roomreservation');
+                    const reservationId = button.getAttribute('data-bs-reservation');
 
                     const form = document.getElementById('addChargesForm');
-                    const addChargesBaseUrl = "{{ url('admin/reservations') }}";
+                    const reservationExtraChargesBaseUrl = "{{ url('admin/reservations') }}";
 
-                    form.action = `${addChargesBaseUrl}/${reservationId}/add-charges`;
+                    form.action = `${reservationExtraChargesBaseUrl}/${reservationId}/add-charges`;
                 });
             }
 
