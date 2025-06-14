@@ -117,7 +117,7 @@
                                         @if(!$roomReservation->checked_in_at)
                                             <!-- Not checked in yet -->
                                             <button type="button"
-                                                    class="btn btn-sm btn-success px-3"
+                                                    class="btn btn-sm btn-success px-3 w-100" style="max-width: 160px;"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#checkInModal"
                                                     data-bs-roomreservation="{{ $roomReservation->id }}">
@@ -127,7 +127,7 @@
                                         @elseif($roomReservation->checked_in_at && !$roomReservation->checked_out_at)
                                             <!-- Checked in but not yet checked out -->
                                             <button type="button"
-                                                    class="btn btn-sm btn-danger px-3"
+                                                    class="btn btn-sm btn-danger px-3 w-100" style="max-width: 160px;"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#checkOutModal"
                                                     data-bs-roomreservation="{{ $roomReservation->id }}">
@@ -137,7 +137,8 @@
                                         @else
                                             <!-- Already checked out -->
                                             <button type="button"
-                                                    class="btn btn-sm btn-secondary px-3" disabled>
+                                                    class="btn btn-sm btn-secondary px-3 w-100"
+                                                    style="max-width: 160px;" disabled>
                                                 <i class="fas fa-door-closed me-1"></i> Checked Out
                                             </button>
                                         @endif
