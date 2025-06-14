@@ -92,18 +92,18 @@
         </div>
 
 
-       <!-- Cart Button (Bottom Right) -->
+        <!-- Cart Button (Bottom Right) -->
 
-            <div class="card  mt-4" style="background-color: transparent; border: none; box-shadow: none;">
-                <div>
-                    <button type="button" class="btn btn-primary position-relative float-end me-3" data-bs-toggle="modal"
-                            data-bs-target="#cartModal">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                            id="cart-count">0</span>
-                    </button>
-                </div>
+        <div class="card  mt-4" style="background-color: transparent; border: none; box-shadow: none;">
+            <div>
+                <button type="button" class="btn btn-primary position-relative float-end me-3" data-bs-toggle="modal"
+                        data-bs-target="#cartModal">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                          id="cart-count">{{ count($cartItems) }}</span>
+                </button>
             </div>
+        </div>
 
 
         <div class="card shadow-sm mt-4">
@@ -272,7 +272,10 @@
                                            value="{{ request()->check_out ?? now()->addDay()->toDateString() }}">
                                 </td>
                                 <td class="text-center">
-                                    <button type="submit" class="btn btn-sm btn-success px-3">Add to Cart</button>
+                                    <button type="submit"
+                                            class="btn btn-sm btn-success px-3" {{ $cartItems->contains('room_id', $room->id) ? 'disabled' : '' }}>
+                                        Add to Cart
+                                    </button>
                                 </td>
                             </form>
                         </tr>

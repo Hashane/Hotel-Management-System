@@ -33,6 +33,12 @@ class AdminCartController
     public function store(AdminCartRequest $request)
     {
         $validated = $request->validated();
+
+        $cartItems = Cart::all();
+        if ($cartItems->contains('room_id', $validated['room_id'])) {
+            return back()->with('error', 'Room is already in the cart.');
+        }
+
         $this->adminCartService->store($validated);
 
         return redirect()->back()->with('success', 'Added to cart successfully.');
