@@ -59,17 +59,21 @@
                         <div class="d-flex justify-content-end mt-4 mb-4 pe-3">
                             <div class="text-end">
                                 <p class="mb-1"><strong>Room Cost:</strong>
-                                    Rs. {{ number_format($priceBreakdown['totalRoomCost'], 2) }}</p>
+                                    Rs. {{ $cartItems->count() != 0 ? number_format($priceBreakdown['totalRoomCost'], 2) : '' }}
+                                </p>
                                 <p class="mb-1"><strong>Service Charges:</strong>
-                                    Rs. {{ number_format($priceBreakdown['serviceCharges'], 2) }}</p>
+                                    Rs. {{ $cartItems->count() != 0 ? number_format($priceBreakdown['serviceCharges'], 2) : '' }}
+                                </p>
                                 <p class="mb-1"><strong>Tax ({{ $priceBreakdown['taxPercentage'] }}%):</strong>
-                                    Rs. {{ number_format($priceBreakdown['tax'], 2) }}</p>
+                                    Rs. {{ $cartItems->count() != 0 ? number_format($priceBreakdown['tax'], 2) : '' }}
+                                </p>
                                 <hr class="my-2">
                                 <h5 class="mb-0"><strong>Total Amount:</strong> Rs. <span
-                                            id="total-amount">{{ number_format($priceBreakdown['totalAmount'], 2) }}</span>
+                                            id="total-amount">{{ $cartItems->count() != 0 ? number_format($priceBreakdown['totalAmount'], 2) : '' }}</span>
                                 </h5>
                             </div>
                         </div>
+
 
                         <!-- Action Buttons -->
                         <form action="{{ route('admin.carts.book') }}" method="POST">
@@ -77,7 +81,9 @@
                             <div class="d-flex justify-content-end">
                                 <button type="button" class="btn btn-secondary me-3 px-4" data-bs-dismiss="modal">Cancel
                                 </button>
-                                <button type="submit" class="btn btn-primary px-4" id="book-now-btn">Book Now</button>
+                                <button type="submit" class="btn btn-primary px-4"
+                                        id="book-now-btn" {{ $cartItems->count() == 0 ? 'disabled' : '' }}>Book Now
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -281,30 +287,6 @@
                 </table>
                 <div class="mt-3">
                     {{ $data['filteredRooms']->links() }}
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Assign Confirmation Modal -->
-        <div class="modal fade" id="assignModal" tabindex="-1" aria-labelledby="assignModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <h5 class="modal-title fw-bold" id="assignModalLabel">Confirm Assignment</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body">
-                        Are you sure you want to assign this customer?
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-success">Confirm</button>
-                    </div>
-
                 </div>
             </div>
         </div>

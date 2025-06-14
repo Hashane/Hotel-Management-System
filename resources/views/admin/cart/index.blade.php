@@ -65,14 +65,17 @@
                     <div class="d-flex justify-content-end mt-4 mb-4 pe-3">
                         <div class="text-end">
                             <p class="mb-1"><strong>Room Cost:</strong>
-                                Rs. {{ number_format($priceBreakdown['totalRoomCost'], 2) }}</p>
+                                Rs. {{ $cartItems->count() != 0 ? number_format($priceBreakdown['totalRoomCost'], 2) : '' }}
+                            </p>
                             <p class="mb-1"><strong>Service Charges:</strong>
-                                Rs. {{ number_format($priceBreakdown['serviceCharges'], 2) }}</p>
+                                Rs. {{ $cartItems->count() != 0 ? number_format($priceBreakdown['serviceCharges'], 2) : '' }}
+                            </p>
                             <p class="mb-1"><strong>Tax ({{ $priceBreakdown['taxPercentage'] }}%):</strong>
-                                Rs. {{ number_format($priceBreakdown['tax'], 2) }}</p>
+                                Rs. {{ $cartItems->count() != 0 ? number_format($priceBreakdown['tax'], 2) : '' }}
+                            </p>
                             <hr class="my-2">
                             <h5 class="mb-0"><strong>Total Amount:</strong> Rs. <span
-                                        id="total-amount">{{ number_format($priceBreakdown['totalAmount'], 2) }}</span>
+                                        id="total-amount">{{ $cartItems->count() != 0 ? number_format($priceBreakdown['totalAmount'], 2) : '' }}</span>
                             </h5>
                         </div>
                     </div>
