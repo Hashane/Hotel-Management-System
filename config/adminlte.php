@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo' => '<b>Four</b>Seasons',
+    'logo_img' => 'images/logo5.png',
+    'logo_img_class' => 'brand-image elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_alt' => 'Hotel Logo',
 
     /*
     |--------------------------------------------------------------------------
@@ -257,7 +257,7 @@ return [
     */
 
     'use_route_url' => true,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'dashboard',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -343,23 +343,13 @@ return [
             'submenu' => [
                 [
                     'text' => 'All Users',
-                    'route' => 'admin.profile.edit',
+                    'route' => 'admin.users.index',
                     'icon' => 'fas fa-list',
                 ],
                 [
-                    'text' => 'Add New User',
-                    'route' => 'admin.profile.edit',
-                    'icon' => 'fas fa-user-plus',
-                ],
-                [
-                    'text' => 'User Roles',
-                    'route' => 'admin.profile.edit',
+                    'text' => 'User Roles & Permissions',
+                    'route' => 'admin.roles.index',
                     'icon' => 'fas fa-user-tag',
-                ],
-                [
-                    'text' => 'Permissions',
-                    'route' => 'admin.profile.edit',
-                    'icon' => 'fas fa-key',
                 ],
             ],
         ],

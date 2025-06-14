@@ -43,13 +43,14 @@
                             <div class="row border-bottom py-3 text-center align-items-center">
                                 <div class="col">{{ $priceBreakdown['items'][$key]['room']->room_no }}</div>
                                 <div class="col-2">
-                                    <img src="{{ $priceBreakdown['items'][$key]['room']->image }}"
+                                    <img src="{{ $priceBreakdown['items'][$key]['room']->image_url }}"
                                          class="img-fluid rounded" alt="Room Image">
                                 </div>
                                 <div class="col">{{ $cartItem->check_in }}</div>
                                 <div class="col">{{ $cartItem->check_out }}</div>
                                 <div class="col">{{ $cartItem->occupants }}</div>
-                                <div class="col">{{ $priceBreakdown['items'][$key]['room_cost'] }}</div>
+                                <div class="col">
+                                    Rs.{{ number_format($priceBreakdown['items'][$key]['room_cost'],2) }}</div>
                                 <div class="col">
                                     <button type="submit" class="btn btn-sm btn-outline-danger">
                                         <i class="fas fa-trash"></i>

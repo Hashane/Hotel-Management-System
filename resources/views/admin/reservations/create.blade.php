@@ -93,7 +93,6 @@
 
 
         <!-- Cart Button -->
-
         <div class="card" style="background-color: transparent; border: none; box-shadow: none;">
             <div>
                 <button type="button" class="btn btn-primary position-relative float-end me-3" data-bs-toggle="modal"
@@ -127,7 +126,7 @@
                                         <label class="col-sm-3 col-form-label">Check In</label>
                                         <div class="col-sm-9">
                                             <input type="date" name="check_in" class="form-control"
-                                                   value="{{old('check_in',request()->check_in)}}"
+                                                   value="{{ old('check_in', request()->check_in ?? now()->format('Y-m-d')) }}"
                                                    placeholder="Check In Date">
                                         </div>
                                     </div>
@@ -135,7 +134,7 @@
                                         <label class="col-sm-3 col-form-label">Check Out</label>
                                         <div class="col-sm-9">
                                             <input type="date" name="check_out" class="form-control"
-                                                   value="{{old('check_out',request()->check_out)}}"
+                                                   value="{{ old('check_out', request()->check_out ?? now()->addDay()->format('Y-m-d')) }}"
                                                    placeholder="Check Out Date">
                                         </div>
                                     </div>
@@ -143,7 +142,7 @@
                                         <label class="col-sm-3 col-form-label">Occupancy</label>
                                         <div class="col-sm-9">
                                             <input type="number" name="occupants"
-                                                   value="{{old('occupants',request()->occupants)}}"
+                                                   value="{{ old('occupants', request()->occupants ?? 2) }}"
                                                    class="form-control"
                                                    placeholder="No. of Guests">
                                         </div>
@@ -165,8 +164,6 @@
                             </form>
                         </div>
                     </div>
-
-
                     <!-- end of Filter Form -->
 
 
@@ -269,9 +266,10 @@
                                            class="form-control form-control-sm"
                                            style="width: 80px;">
                                     <input type="hidden" name="room_id" value="{{ $room->id }}">
-                                    <input type="hidden" name="check_in" value="{{ request()->check_in }}">
+                                    <input type="hidden" name="check_in"
+                                           value="{{ request()->check_in ?? now()->toDateString() }}">
                                     <input type="hidden" name="check_out"
-                                           value="{{ request()->check_out }}">
+                                           value="{{ request()->check_out ?? now()->addDay()->toDateString() }}">
                                 </td>
                                 <td class="text-center">
                                     <button type="submit" class="btn btn-sm btn-success px-3">Add to Cart</button>
