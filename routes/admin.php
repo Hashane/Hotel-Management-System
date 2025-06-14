@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AdminCartController;
+use App\Http\Controllers\admin\BillController;
 use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\admin\ReservationController as AdminReservationController;
@@ -59,6 +60,10 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::controller(RoleController::class)->prefix('roles')->name('roles.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::put('/{role}/permissions', 'updatePermissions')->name('update-permissions');
+    });
+
+    Route::controller(BillController::class)->prefix('billings')->name('billings.')->group(function () {
+        Route::get('/{bill}', 'show')->name('show');
     });
 
     Route::view('/reports', 'admin.report');

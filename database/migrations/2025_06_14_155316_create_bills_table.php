@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('reservation_id')->constrained()->cascadeOnDelete();
-            $table->decimal('subtotal', 10, 2);  // base + extras sum
-            $table->decimal('tax', 10, 2)->default(0);
+            $table->foreignId('reservation_id')->constrained()->onDelete('cascade');
+            $table->decimal('totalRoomCost', 10, 2);
+            $table->decimal('serviceCharges', 10, 2)->default(0);
+            $table->decimal('subtotal', 10, 2)->default(0); // before tax & discount
             $table->decimal('discount', 10, 2)->default(0);
+            $table->decimal('lateCheckoutFee', 10, 2)->default(0);
+            $table->decimal('tax', 10, 2)->default(0);
             $table->decimal('total', 10, 2); // subtotal + tax - discount
             $table->timestamps();
         });
