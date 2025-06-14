@@ -97,7 +97,8 @@
                     <form action="#" method="GET">
                         @csrf
                         <input type="text" name="search" class="form-control" placeholder="Enter name or ID"
-                               style="min-width: 220px; max-width: 220px; white-space: nowrap;">
+                               style="min-width: 220px; max-width: 220px; white-space: nowrap;"
+                               value="{{old('search', request()->search)}}">
                         <button type="submit" class="btn btn-primary flex-shrink-0">Search</button>
                     </form>
                     <span class="mx-2 flex-shrink-0">or</span>
@@ -141,6 +142,7 @@
                     @endforelse
                     </tbody>
                 </table>
+                {{$customers->links()}}
             </div>
         </div>
 
@@ -157,8 +159,6 @@
                     </div>
 
                     <div class="modal-body">
-
-
                         <!-- Customer Info -->
                         <h6 class="fw-semibold mb-3">Customer Information</h6>
                         <div class="row g-3">

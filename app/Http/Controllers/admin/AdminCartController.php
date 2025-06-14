@@ -22,7 +22,7 @@ class AdminCartController
     {
         $cartItems = Cart::confirmed()->get();
         $priceBreakdown = app(AdminCartService::class)->calculateCost($cartItems->toArray());
-        $customers = Customer::search($request->input('search'))->get();
+        $customers = Customer::search($request->input('search'))->paginate(10)->appends($request->except('page'));
 
         return view('admin.cart.index', compact('cartItems', 'priceBreakdown', 'customers'));
     }
