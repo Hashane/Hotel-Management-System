@@ -4,10 +4,10 @@
 
 @section('content_header')
     <div class="d-flex justify-content-between align-items-center">
-        <h1>Reservations</h1>
+        <h1>Cart</h1>
         <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{-- route('admin.reservations.index') --}}">Home</a></li>
-            <li class="breadcrumb-item active">Reservations</li>
+            <li class="breadcrumb-item active">Cart</li>
         </ol>
     </div>
 @endsection
