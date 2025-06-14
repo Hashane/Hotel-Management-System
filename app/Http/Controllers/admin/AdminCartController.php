@@ -98,8 +98,16 @@ class AdminCartController
      */
     public function destroy(Cart $cart)
     {
-        $cart->delete();
+        DB::beginTransaction();
+        try {
+            $this->adminCartService->destroy($cart);
+            DB::commit();
 
-        return redirect()->back()->with('success', 'Removed from cart successfully.');
+            return redirect()->back()->with('success', 'Removed from cart successfully.');
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            return redirect()->back()->with('error', $exception->getMessage());
+        }
     }
 }
