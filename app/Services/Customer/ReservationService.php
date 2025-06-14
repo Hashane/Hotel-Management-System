@@ -32,25 +32,9 @@ class ReservationService
             ]
         );
 
-        $reservation = Reservation::create([
-            'customer_id' => $customer->id,
-            'status' => ReservationStatus::BOOKED->value,
-            'amount' => $result['totalAmount'],
-            'booking_number' => $this->generateBookingNumber(),
-        ]);
-
-        $roomDataMap = $this->mapRoomToData();
-
-        foreach ($rooms as $room) {
-            $reservation->roomReservations()->create([
-                'room_id' => $room->id,
-                'price' => $room->default_rate->pivot->price,
-                'check_in' => $roomDataMap[$room->id]['check_in'],
-                'check_out' => $roomDataMap[$room->id]['check_out'],
-                'occupants' => $roomDataMap[$room->id]['occupants'],
-                'status' => ReservationStatus::BOOKED->value,
-            ]);
-        }
+        $reservation = Helper::makeReservation($customer, $result['totalAmount'], Helper::generateBookingNumber());
+        $roomDataMap = Helper::mapRoomToData($cartItems);
+        Helper::makeRoomReservation($rooms, $reservation, $roomDataMap);
 
         $rooms->each->update(['status' => RoomStatus::RESERVED->value]);
 
@@ -76,33 +60,6 @@ class ReservationService
         return Room::with('roomType.facilities', 'roomType.rateTypes')
             ->whereIn('id', $roomIds)
             ->get();
-    }
-
-    private function generateBookingNumber(): string
-    {
-        $prefix = 'BK';
-        $date_time = date('YmdHis');
-        $random_number = mt_rand(1000, 9999);
-
-        return $prefix.$date_time.$random_number;
-    }
-
-    private function mapRoomToData(): array
-    {
-        $cartItems = $this->getCartItems();
-
-        $map = [];
-
-        foreach ($cartItems as $item) {
-            $roomId = (int) $item['room_id'];
-            $map[$roomId] = [
-                'check_in' => $item['check_in'],
-                'check_out' => $item['check_out'],
-                'occupants' => $item['occupants'],
-            ];
-        }
-
-        return $map;
     }
 
     public function update(array $data, Reservation $reservation)
