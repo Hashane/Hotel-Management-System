@@ -6,7 +6,7 @@ use App\Enums\ReservationStatus;
 use App\Http\Requests\Customer\ReservationRequest;
 use App\Jobs\SendReservationConfirmationEmail;
 use App\Models\Reservation;
-use App\Services\Customer\ReservationService;
+use App\Services\customer\ReservationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;

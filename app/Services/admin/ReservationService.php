@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
 class ReservationService
 {
-    public function __construct(private readonly \App\Services\Customer\ReservationService $customerReservationService) {}
+    public function __construct(private readonly \App\Services\customer\ReservationService $customerReservationService) {}
 
     public function getReservationData(array $validated)
     {

@@ -6,8 +6,8 @@
 
     <!-- Sidebar -->
     <div
-        class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 z-50"
-        :class="open ? 'translate-x-0' : '-translate-x-full'"
+            class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 z-50"
+            :class="open ? 'translate-x-0' : '-translate-x-full'"
     >
         <div class="p-4 flex justify-between items-center border-b">
             <h2 class="text-lg font-bold">Menu</h2>
@@ -38,7 +38,7 @@
                 <div class="col-lg-6">
                     <ul class="tn-left">
                         <li><i class="fas fa-phone"></i> (+94) 74 137 5941</li>
-                        <li><i class="fas fa-envelope"></i> FourSeasons@gmail.comm</li>
+                        <li><i class="fas fa-envelope"></i> FourSeasons@gmail.com</li>
                     </ul>
                 </div>
                 <div class="col-lg-6">
@@ -88,8 +88,8 @@
                                         <button type="button" class="position-relative">
                                             <i class="fas fa-shopping-cart"></i>
                                             <span
-                                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                                                id="cart-count">
+                                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                    id="cart-count">
                                                {{ $cartItemCount }}
                                             </span>
                                         </button>

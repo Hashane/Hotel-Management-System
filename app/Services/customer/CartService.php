@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Customer;
+namespace App\Services\customer;
 
 use Illuminate\Support\Facades\Session;
 

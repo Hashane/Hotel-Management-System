@@ -26,7 +26,7 @@
                         <h6>Contact Us</h6>
                         <ul>
                             <li>(+94) 74 137 5941</li>
-                            <li>FourSeasons@gmail.comm</li>
+                            <li>FourSeasons@gmail.com</li>
                             <li>432 Dambaduraya, Seeduwa, Sri Lanka</li>
                         </ul>
                     </div>
