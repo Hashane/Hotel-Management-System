@@ -103,6 +103,17 @@
                                                 data-bs-roomreservation="{{ $roomReservation->id }}">
                                             <i class="fas fa-sign-in-alt me-1"></i> Check In
                                         </button>
+
+                                        <button type="button"
+                                               class="btn btn-sm btn-warning px-3"
+                                               data-bs-toggle="modal"
+                                               data-bs-target="#checkOutModal"
+                                               data-bs-customer="{{ $reservation->customer->id }}"
+                                               data-bs-roomreservation="{{ $roomReservation->id }}">
+                                           <i class="fas fa-sign-in-alt me-1"></i> Check Out
+                                       </button>
+
+
                                         <i class="fas fa-pencil-alt text-primary fs-5" data-bs-toggle="modal"
                                            data-bs-target="#editReservationModal"
                                            style="cursor: pointer;"
@@ -153,6 +164,47 @@
             </div>
         </div>
 
+        <!-- Check-Out Confirmation Modal -->
+       <!-- Check-Out Modal -->
+<div class="modal fade" id="checkOutModal" tabindex="-1" aria-labelledby="checkOutModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="checkOutModalLabel">Check Out Guest</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form>
+                <div class="modal-body">
+                    <input type="hidden" id="checkoutCustomerId" name="customer_id">
+                    <input type="hidden" id="checkoutReservationId" name="room_reservation_id">
+
+                    <div class="mb-3">
+                        <label for="checkout_date" class="form-label">Check-Out Date</label>
+                        <input type="date" class="form-control" id="checkout_date" name="checkout_date" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="checkout_time" class="form-label">Check-Out Time</label>
+                        <input type="time" class="form-control" id="checkout_time" name="checkout_time" required>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Confirm Check-Out</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+        
+ 
+
+ 
         <!-- Edit Reservation Modal -->
         <div class="modal fade" id="editReservationModal" tabindex="-1" aria-labelledby="editReservationModalLabel"
              aria-hidden="true">
