@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
-use App\Models\Payment;
+use App\Models\Bill;
 use Illuminate\Http\Request;
 
-class PaymentController
+class BillController
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class PaymentController
     /**
      * Display the specified resource.
      */
-    public function show(Payment $payment)
+    public function show(Bill $bill)
     {
         //
     }
@@ -42,7 +42,7 @@ class PaymentController
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Payment $payment)
+    public function edit(Bill $bill)
     {
         //
     }
@@ -50,7 +50,7 @@ class PaymentController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Payment $payment)
+    public function update(Request $request, Bill $bill)
     {
         //
     }
@@ -58,7 +58,7 @@ class PaymentController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Payment $payment)
+    public function destroy(Bill $bill)
     {
         //
     }
