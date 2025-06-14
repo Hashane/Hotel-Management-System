@@ -120,7 +120,7 @@
                                                     class="btn btn-sm btn-success px-3 w-100" style="max-width: 160px;"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#checkInModal"
-                                                    data-bs-roomreservation="{{ $roomReservation->id }}">
+                                                    data-bs-roomreservation="{{ $reservation->id }}">
                                                 <i class="fas fa-door-open me-1"></i> Check In
                                             </button>
 
@@ -130,7 +130,7 @@
                                                     class="btn btn-sm btn-danger px-3 w-100" style="max-width: 160px;"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#checkOutModal"
-                                                    data-bs-roomreservation="{{ $roomReservation->id }}">
+                                                    data-bs-roomreservation="{{ $reservation->id }}">
                                                 <i class="fas fa-door-closed me-1"></i> Check Out
                                             </button>
 
@@ -167,7 +167,6 @@
             </div>
         </div>
 
-
         <!-- Check-In Confirmation Modal -->
         <div class="modal fade" id="checkInModal" tabindex="-1" aria-labelledby="checkInModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -191,7 +190,6 @@
         </div>
 
         <!-- Check-Out Confirmation Modal -->
-        <!-- Check-Out Modal -->
         <div class="modal fade" id="checkOutModal" tabindex="-1" aria-labelledby="checkOutModalLabel"
              aria-hidden="true">
             <div class="modal-dialog">
@@ -227,7 +225,6 @@
                 </div>
             </div>
         </div>
-
 
         <!-- Edit Reservation Modal -->
         <div class="modal fade" id="editReservationModal" tabindex="-1" aria-labelledby="editReservationModalLabel"
@@ -298,19 +295,22 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
-                    <form>
+                    <form id="addChargesForm" method="POST" action="">
+                        @csrf
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Service Type</label>
-                                        <input type="text" class="form-control" placeholder="Enter service">
+                                        <input type="text" name="service" class="form-control"
+                                               placeholder="Enter service">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Amount</label>
-                                        <input type="number" class="form-control" placeholder="Enter amount">
+                                        <input type="number" name="amount" class="form-control"
+                                               placeholder="Enter amount">
                                     </div>
                                 </div>
                             </div>
@@ -338,9 +338,9 @@
                     const reservationId = button.getAttribute('data-bs-roomreservation');
 
                     const form = document.getElementById('checkInForm');
-                    const routeTemplate = "{{ route('admin.customers.check-in', ['reservation' => '__ID__']) }}";
+                    const checkInBaseUrl = "{{ url('admin/reservations') }}";
 
-                    form.action = routeTemplate.replace('__ID__', reservationId);
+                    form.action = `${checkInBaseUrl}/${reservationId}/check-in`;
                 });
             }
 
@@ -352,9 +352,23 @@
                     const reservationId = button.getAttribute('data-bs-roomreservation');
 
                     const form = document.getElementById('checkOutForm');
-                    const routeTemplate = "{{ route('admin.customers.check-out', ['reservation' => '__ID__']) }}";
+                    const checkOutBaseUrl = "{{ url('admin/reservations') }}";
 
-                    form.action = routeTemplate.replace('__ID__', reservationId);
+                    form.action = `${checkOutBaseUrl}/${reservationId}/check-out`;
+                });
+            }
+
+            // Add Charges Modal
+            const addChargesModal = document.getElementById('addChargesModal');
+            if (addChargesModal) {
+                addChargesModal.addEventListener('show.bs.modal', function (event) {
+                    const button = event.relatedTarget;
+                    const reservationId = button.getAttribute('data-bs-roomreservation');
+
+                    const form = document.getElementById('addChargesForm');
+                    const addChargesBaseUrl = "{{ url('admin/reservations') }}";
+
+                    form.action = `${addChargesBaseUrl}/${reservationId}/add-charges`;
                 });
             }
 

@@ -26,6 +26,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::controller(AdminReservationController::class)->prefix('reservations')->name('reservations.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
+        Route::post('/{reservation}/check-in', 'checkIn')->name('check-in');
+        Route::post('/{reservation}/check-out', 'checkOut')->name('check-out');
+        Route::post('/{reservation}/add-charges', 'addCharges')->name('add-charges');
         Route::put('/{reservation}', 'update')->name('update');
         Route::delete('/{reservation}', 'destroy')->name('destroy');
     });
@@ -34,8 +37,6 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/', 'store')->name('store');
         Route::patch('/{customer}', 'update')->name('update');
-        Route::post('/check-in/{reservation}', 'checkIn')->name('check-in');
-        Route::post('/check-out/{reservation}', 'checkOut')->name('check-out');
     });
 
     Route::controller(AdminCartController::class)->prefix('carts')->name('carts.')->group(function () {

@@ -101,4 +101,58 @@ class ReservationController
      * Remove the specified resource from storage.
      */
     public function destroy(Reservation $reservation, Request $request) {}
+
+    public function checkOut(Reservation $reservation, Request $request)
+    {
+        DB::beginTransaction();
+        try {
+
+            $validated = $request->validate([
+                'checkout_date' => ['required', 'date', 'date_format:Y-m-d'],
+                'checkout_time' => ['required', 'date_format:H:i'],
+            ]);
+
+            $this->reservationService->checkOut($reservation, $validated);
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Guest checked out successfully.');
+
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return redirect()->back()->with('success', 'Check-out failed.');
+        }
+    }
+
+    public function addCharges(Reservation $reservation, Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $this->reservationService->checkIn($reservation);
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Guest checked in successfully.');
+
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return redirect()->back()->with('success', 'Check-in failed.');
+        }
+    }
+
+    public function checkIn(Reservation $reservation)
+    {
+        DB::beginTransaction();
+        try {
+            $this->reservationService->checkIn($reservation);
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Guest checked in successfully.');
+
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return redirect()->back()->with('success', 'Check-in failed.');
+        }
+    }
 }
