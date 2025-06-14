@@ -126,7 +126,8 @@
                                         data-bs-toggle="modal"
                                         data-bs-target="#assignModal"
                                         data-id="{{ $customer->id }}"
-                                        data-name="{{ $customer->name }}">
+                                        data-name="{{ $customer->name }}"
+                                        {{ $cartItems->count() == 0 ? 'disabled' : '' }}>
                                     <i class="fas fa-user-plus"></i> Assign
                                 </button>
                             </td>
@@ -207,63 +208,6 @@
                         <button class="btn btn-primary">Add Customer</button>
                     </div>
 
-                </div>
-            </div>
-        </div>
-
-        <!-- Cart FORM -->
-        <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title w-100 text-center" id="cartModalLabel">Your Selected Rooms</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body py-4">
-                        <!-- Header Row -->
-                        <div class="row border-bottom pb-2 mb-3 fw-bold text-center">
-                            <div class="col">Check-in</div>
-                            <div class="col">Check-out</div>
-                            <div class="col">Occupancy</div>
-                            <div class="col">Amount</div>
-                            <div class="col">Action</div>
-                        </div>
-
-                        <!-- Sample Row 1 -->
-                        <div class="row border-bottom py-3 text-center align-items-center">
-                            <div class="col">2025-06-10</div>
-                            <div class="col">2025-06-15</div>
-                            <div class="col">2 Adults</div>
-                            <div class="col">$500</div>
-                            <div class="col">
-                                <button type="button" class="btn btn-danger btn-sm px-3">Delete</button>
-                            </div>
-                        </div>
-
-                        <!-- Sample Row 2 -->
-                        <div class="row border-bottom py-3 text-center align-items-center">
-                            <div class="col">2025-07-01</div>
-                            <div class="col">2025-07-05</div>
-                            <div class="col">1 Adult</div>
-                            <div class="col">$300</div>
-                            <div class="col">
-                                <button type="button" class="btn btn-danger btn-sm px-3">Delete</button>
-                            </div>
-                        </div>
-
-                        <!-- Total Amount -->
-                        <div class="d-flex justify-content-end mt-4 mb-4 pe-3">
-                            <h5>Total Amount: <span id="total-amount">$800</span></h5>
-                        </div>
-
-                        <!-- Action Buttons -->
-                        <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-secondary me-3 px-4" data-bs-dismiss="modal">Cancel
-                            </button>
-                            <button type="button" class="btn btn-primary px-4" id="book-now-btn">Book Now</button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
