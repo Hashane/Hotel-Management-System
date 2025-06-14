@@ -3,10 +3,10 @@
 @section('title', 'Reservations')
 
 @section('content_header')
-    <h1>Reservations</h1>
+    <h1>Add Reservations</h1>
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item active">Reservations</li>
+        <li class="breadcrumb-item active">Add Reservations</li>
     </ol>
 @endsection
 
@@ -92,18 +92,18 @@
         </div>
 
 
-        <!-- Cart Button -->
-        <div class="card" style="background-color: transparent; border: none; box-shadow: none;">
-            <div>
-                <button type="button" class="btn btn-primary position-relative float-end me-3" data-bs-toggle="modal"
-                        data-bs-target="#cartModal">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                          id="cart-count">0</span>
-                </button>
+       <!-- Cart Button (Bottom Right) -->
 
+            <div class="card  mt-4" style="background-color: transparent; border: none; box-shadow: none;">
+                <div>
+                    <button type="button" class="btn btn-primary position-relative float-end me-3" data-bs-toggle="modal"
+                            data-bs-target="#cartModal">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                            id="cart-count">0</span>
+                    </button>
+                </div>
             </div>
-        </div>
 
 
         <div class="card shadow-sm mt-4">
