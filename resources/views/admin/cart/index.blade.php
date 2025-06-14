@@ -36,15 +36,20 @@
                     </div>
 
                     <!-- Sample Item Rows -->
-                    @forelse ($cartItems as $cartItem)
+                    @forelse ($cartItems as $key => $cartItem)
                         <form action="{{ route('admin.carts.destroy', ['cart' => $cartItem->id]) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <div class="row border-bottom py-3 text-center align-items-center">
+                                <div class="col">{{ $priceBreakdown['items'][$key]['room']->room_no }}</div>
+                                <div class="col-2">
+                                    <img src="{{ $priceBreakdown['items'][$key]['room']->image }}"
+                                         class="img-fluid rounded" alt="Room Image">
+                                </div>
                                 <div class="col">{{ $cartItem->check_in }}</div>
                                 <div class="col">{{ $cartItem->check_out }}</div>
                                 <div class="col">{{ $cartItem->occupants }}</div>
-                                <div class="col">{{ $cartItem->check_in }}</div>
+                                <div class="col">{{ $priceBreakdown['items'][$key]['room_cost'] }}</div>
                                 <div class="col">
                                     <button type="submit" class="btn btn-sm btn-outline-danger">
                                         <i class="fas fa-trash"></i>
@@ -71,30 +76,6 @@
                             </h5>
                         </div>
                     </div>
-
-
-                    <div class="row text-center align-items-center border-bottom py-3">
-                        <div class="col-1">203</div>
-                        <div class="col-2">
-                            <img src="https://via.placeholder.com/60x40" class="img-fluid rounded" alt="Room Image">
-                        </div>
-                        <div class="col">2025-07-01</div>
-                        <div class="col">2025-07-05</div>
-                        <div class="col">1 Adult</div>
-                        <div class="col">$300</div>
-                        <div class="col">
-                            <button class="btn btn-sm btn-outline-danger">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Total -->
-                    <div class="d-flex justify-content-end mt-4">
-                        <h5>Total Amount: <span id="total-amount" class="text-primary">$800</span></h5>
-                    </div>
-
-
                 </div>
             </div>
         </div>
