@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('check_in');
             $table->date('check_out');
             $table->integer('occupants_count')->nullable();
+            $table->enum('status', ['pending', 'confirmed'])->default('pending');
             $table->timestamps();
         });
     }

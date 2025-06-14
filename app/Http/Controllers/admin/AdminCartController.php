@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Requests\admin\AdminCartRequest;
-use App\Models\AdminCart;
+use App\Models\Cart;
 use App\Services\admin\AdminCartService;
 
 class AdminCartController
@@ -30,7 +30,7 @@ class AdminCartController
     /**
      * Display the specified resource.
      */
-    public function show(AdminCart $adminCart)
+    public function show(Cart $adminCart)
     {
         //
     }
@@ -38,7 +38,7 @@ class AdminCartController
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(AdminCart $adminCart)
+    public function edit(Cart $adminCart)
     {
         //
     }
@@ -46,7 +46,7 @@ class AdminCartController
     /**
      * Update the specified resource in storage.
      */
-    public function update(AdminCartRequest $AdminCartRequest, AdminCart $adminCart)
+    public function update(AdminCartRequest $AdminCartRequest, Cart $adminCart)
     {
         //
     }
@@ -54,8 +54,10 @@ class AdminCartController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AdminCart $adminCart)
+    public function destroy(Cart $cart)
     {
-        //
+        $cart->delete();
+
+        return redirect()->back()->with('success', 'Removed from cart successfully.');
     }
 }
