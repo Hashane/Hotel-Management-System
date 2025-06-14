@@ -25,4 +25,19 @@ class CustomerService
             'status' => RoomStatus::OCCUPIED->value,
         ]);
     }
+
+    public function checkOut(array $data): void
+    {
+        $roomReservation = RoomReservation::with('room')
+            ->where('id', $data['room_reservation_id'])
+            ->firstOrFail();
+
+        $roomReservation->update([
+            'checked_out_at' => now(),
+        ]);
+
+        $roomReservation->room->update([
+            'status' => RoomStatus::AVAILABLE->value,
+        ]);
+    }
 }

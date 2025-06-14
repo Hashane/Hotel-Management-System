@@ -2,12 +2,11 @@
 
 namespace App\Http\Requests\admin;
 
-use App\Enums\RoomType;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class FilterReservationRequest extends FormRequest
+class AdminCartRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,15 +24,10 @@ class FilterReservationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'room_type' => ['nullable', Rule::enum(RoomType::class)],
-            'check_in' => ['nullable', 'date'],
-            'check_out' => ['nullable', 'date', 'after_or_equal:check_in'],
-            'occupants' => ['nullable', 'integer', 'min:1'],
+            'room_id' => ['required', Rule::exists('rooms', 'id')],
+            'check_in' => ['required', 'date'],
+            'check_out' => ['required', 'date', 'after:check_in'],
+            'occupants' => ['required', 'integer', 'min:1'],
         ];
-    }
-
-    protected function prepareForValidation(): void
-    {
-        $this->merge(['check_in' => $this->check_in ?? now()->format('Y-m-d')]);
     }
 }

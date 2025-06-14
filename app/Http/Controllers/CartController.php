@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use App\Services\CartCostCalculator;
 use App\Services\Customer\CartService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -24,13 +25,13 @@ class CartController
     {
         $cartItems = $this->cart->getCart();
 
-        $roomIds = array_unique(Arr::pluck($cartItems, 'room-id'));
+        $roomIds = array_unique(Arr::pluck($cartItems, 'room_id'));
 
         $rooms = Room::with('roomType.facilities', 'roomType.rateTypes')
             ->whereIn('id', $roomIds)
             ->get();
 
-        $result = $this->cart->calculateCosts($cartItems, $rooms, true);
+        $result = app(CartCostCalculator::class)->calculate($cartItems, $rooms, true);
 
         return view('customer.cart', $result);
     }

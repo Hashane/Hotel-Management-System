@@ -323,7 +323,7 @@ return [
         ],
         [
             'text' => 'Cart',
-            'route' => 'admin.cart.index',
+            'route' => 'admin.carts.index',
             'icon' => 'fas fa-fw fa-shopping-cart',
         ],
 

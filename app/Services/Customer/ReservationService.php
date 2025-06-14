@@ -10,6 +10,7 @@ use App\Models\Reservation;
 use App\Models\Room;
 use App\Models\RoomReservation;
 use App\Models\RoomType;
+use App\Services\CartCostCalculator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
 use RuntimeException;
@@ -31,25 +32,9 @@ class ReservationService
             ]
         );
 
-        $reservation = Reservation::create([
-            'customer_id' => $customer->id,
-            'status' => ReservationStatus::BOOKED->value,
-            'amount' => $result['totalAmount'],
-            'booking_number' => $this->generateBookingNumber(),
-        ]);
-
-        $roomDataMap = $this->mapRoomToData();
-
-        foreach ($rooms as $room) {
-            $reservation->roomReservations()->create([
-                'room_id' => $room->id,
-                'price' => $room->default_rate->pivot->price,
-                'check_in' => $roomDataMap[$room->id]['check_in'],
-                'check_out' => $roomDataMap[$room->id]['check_out'],
-                'occupants' => $roomDataMap[$room->id]['occupants'],
-                'status' => ReservationStatus::BOOKED->value,
-            ]);
-        }
+        $reservation = Helper::makeReservation($customer, $result['totalAmount'], Helper::generateBookingNumber());
+        $roomDataMap = Helper::mapRoomToData($cartItems);
+        Helper::makeRoomReservation($rooms, $reservation, $roomDataMap);
 
         $rooms->each->update(['status' => RoomStatus::RESERVED->value]);
 
@@ -70,38 +55,11 @@ class ReservationService
 
     private function getRoomsFromCart(array $cartItems): Collection
     {
-        $roomIds = array_unique(Arr::pluck($cartItems, 'room-id'));
+        $roomIds = array_unique(Arr::pluck($cartItems, 'room_id'));
 
         return Room::with('roomType.facilities', 'roomType.rateTypes')
             ->whereIn('id', $roomIds)
             ->get();
-    }
-
-    private function generateBookingNumber(): string
-    {
-        $prefix = 'BK';
-        $date_time = date('YmdHis');
-        $random_number = mt_rand(1000, 9999);
-
-        return $prefix.$date_time.$random_number;
-    }
-
-    private function mapRoomToData(): array
-    {
-        $cartItems = $this->getCartItems();
-
-        $map = [];
-
-        foreach ($cartItems as $item) {
-            $roomId = (int) $item['room-id'];
-            $map[$roomId] = [
-                'check_in' => $item['check-in'],
-                'check_out' => $item['check-out'],
-                'occupants' => $item['occupants'],
-            ];
-        }
-
-        return $map;
     }
 
     public function update(array $data, Reservation $reservation)
@@ -149,7 +107,7 @@ class ReservationService
         $cartItems = $this->getCartItems();
         $rooms = $this->getRoomsFromCart($cartItems);
 
-        return $this->cartService->calculateCosts($cartItems, $rooms, false);
+        return app(CartCostCalculator::class)->calculate($cartItems, $rooms, false);
     }
 
     public function destroy($data, Reservation $reservation): void

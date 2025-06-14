@@ -1,19 +1,13 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-
-@extends('adminlte::page')
+@extends('admin.layouts.app')
 
 @section('title', 'Reservations')
 
 @section('content_header')
-    <div class="d-flex justify-content-between align-items-center">
-        <h1>Reservations</h1>
-        <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{-- route('admin.reservations.index') --}}">Home</a></li>
-            <li class="breadcrumb-item active">Reservations</li>
-        </ol>
-    </div>
+    <h1>Reservations</h1>
+    <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active">Reservations</li>
+    </ol>
 @endsection
 
 @section('content')
@@ -32,7 +26,7 @@
                     </div>
 
                     <div class="modal-body py-4">
-                        <!-- Header Row -->
+
                         <div class="row border-bottom pb-2 mb-3 fw-bold text-center">
                             <div class="col">Check-in</div>
                             <div class="col">Check-out</div>
@@ -41,39 +35,57 @@
                             <div class="col">Action</div>
                         </div>
 
-                        <!-- Sample Row 1 -->
-                        <div class="row border-bottom py-3 text-center align-items-center">
-                            <div class="col">2025-06-10</div>
-                            <div class="col">2025-06-15</div>
-                            <div class="col">2 Adults</div>
-                            <div class="col">$500</div>
-                            <div class="col">
-                                <button type="button" class="btn btn-danger btn-sm px-3">Delete</button>
-                            </div>
-                        </div>
-
-                        <!-- Sample Row 2 -->
-                        <div class="row border-bottom py-3 text-center align-items-center">
-                            <div class="col">2025-07-01</div>
-                            <div class="col">2025-07-05</div>
-                            <div class="col">1 Adult</div>
-                            <div class="col">$300</div>
-                            <div class="col">
-                                <button type="button" class="btn btn-danger btn-sm px-3">Delete</button>
-                            </div>
-                        </div>
+                        @forelse ($cartItems as $cartItem)
+                            <form action="{{ route('admin.carts.destroy', ['cart' => $cartItem->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <div class="row border-bottom py-3 text-center align-items-center">
+                                    <div class="col">{{ $cartItem->check_in }}</div>
+                                    <div class="col">{{ $cartItem->check_out }}</div>
+                                    <div class="col">{{ $cartItem->occupants }}</div>
+                                    <div class="col">{{ $cartItem->check_in }}</div>
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        @empty
+                            <p>Cart is Empty.</p>
+                        @endforelse
 
                         <!-- Total Amount -->
                         <div class="d-flex justify-content-end mt-4 mb-4 pe-3">
-                            <h5>Total Amount: <span id="total-amount">$800</span></h5>
+                            <div class="text-end">
+                                <p class="mb-1"><strong>Room Cost:</strong>
+                                    Rs. {{ $cartItems->count() != 0 ? number_format($priceBreakdown['totalRoomCost'], 2) : '' }}
+                                </p>
+                                <p class="mb-1"><strong>Service Charges:</strong>
+                                    Rs. {{ $cartItems->count() != 0 ? number_format($priceBreakdown['serviceCharges'], 2) : '' }}
+                                </p>
+                                <p class="mb-1"><strong>Tax ({{ $priceBreakdown['taxPercentage'] }}%):</strong>
+                                    Rs. {{ $cartItems->count() != 0 ? number_format($priceBreakdown['tax'], 2) : '' }}
+                                </p>
+                                <hr class="my-2">
+                                <h5 class="mb-0"><strong>Total Amount:</strong> Rs. <span
+                                            id="total-amount">{{ $cartItems->count() != 0 ? number_format($priceBreakdown['totalAmount'], 2) : '' }}</span>
+                                </h5>
+                            </div>
                         </div>
 
+
                         <!-- Action Buttons -->
-                        <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-secondary me-3 px-4" data-bs-dismiss="modal">Cancel
-                            </button>
-                            <button type="button" class="btn btn-primary px-4" id="book-now-btn">Book Now</button>
-                        </div>
+                        <form action="{{ route('admin.carts.book') }}" method="POST">
+                            @csrf
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-secondary me-3 px-4" data-bs-dismiss="modal">Cancel
+                                </button>
+                                <button type="submit" class="btn btn-primary px-4"
+                                        id="book-now-btn" {{ $cartItems->count() == 0 ? 'disabled' : '' }}>Book Now
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -130,8 +142,8 @@
                                     <div class="mb-3 row">
                                         <label class="col-sm-3 col-form-label">Occupancy</label>
                                         <div class="col-sm-9">
-                                            <input type="number" name="occupants_count"
-                                                   value="{{old('occupants_count',request()->occupants_count)}}"
+                                            <input type="number" name="occupants"
+                                                   value="{{old('occupants',request()->occupants)}}"
                                                    class="form-control"
                                                    placeholder="No. of Guests">
                                         </div>
@@ -217,81 +229,64 @@
 
 
         <!-- Filtered Room Results Table -->
-<div class="card shadow-sm mt-4">
-    <div class="card-header">
-        <h5 class="card-title mb-0">Filtered Room Results</h5>
-    </div>
-    <div class="card-body">
-        {{-- Show warning if rooms exist but cannot fulfill occupancy --}}
-        @if(!$data['canBeOccupied'] && $data['filteredRooms']->count())
-            <div class="alert alert-warning mb-3">
-                The hotel cannot accommodate {{ request('occupants_count') }} occupants with the currently
-                available rooms.
+        <div class="card shadow-sm mt-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Filtered Room Results</h5>
             </div>
-        @endif
-
-        <table class="table table-bordered table-striped">
-            <thead class="table-light">
-            <tr>
-                <th>Room Number</th>
-                <th>Duration</th>
-                <th>Room Type</th>
-                <th>Occupancy</th>
-                <th class="text-center">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            @forelse($data['filteredRooms'] as $room)
-                <tr>
-                    <td>{{ $room->room_no }}</td>
-                    <td>{{ $room->check_in ?? '2025-06-10' }} to {{ $room->check_out ?? '2025-06-14' }}</td>
-                    <td>{{ $room->roomType->name }}</td>
-                    <td>
-                        <input type="number"
-                               name="occupants[{{ $room->id }}]"
-                               value="{{ $room->roomType->capacity }}"
-                               min="1"
-                               max="{{ $room->roomType->capacity }}"
-                               class="form-control form-control-sm"
-                               style="width: 80px;">
-                    </td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-success px-3">Add to Cart</button>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="5" class="text-center">No rooms available.</td>
-                </tr>
-            @endforelse
-            </tbody>
-        </table>
-        <div class="mt-3">
-            {{ $data['filteredRooms']->links() }}
-        </div>
-    </div>
-</div>
-
-
-        <!-- Assign Confirmation Modal -->
-        <div class="modal fade" id="assignModal" tabindex="-1" aria-labelledby="assignModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <h5 class="modal-title fw-bold" id="assignModalLabel">Confirm Assignment</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="card-body">
+                {{-- Show warning if rooms exist but cannot fulfill occupancy --}}
+                @if(!$data['canBeOccupied'] && $data['filteredRooms']->count())
+                    <div class="alert alert-warning mb-3">
+                        The hotel cannot accommodate {{ request('occupants') }} occupants with the currently
+                        available rooms.
                     </div>
+                @endif
 
-                    <div class="modal-body">
-                        Are you sure you want to assign this customer?
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-success">Confirm</button>
-                    </div>
-
+                <table class="table table-bordered table-striped">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Room Number</th>
+                        <th>Duration</th>
+                        <th>Room Type</th>
+                        <th>Occupancy</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @forelse($data['filteredRooms'] as $room)
+                        <tr>
+                            <form action="{{ route('admin.carts.store') }}" method="POST">
+                                @csrf
+                                <td>{{ $room->room_no }}</td>
+                                <td>{{ $room->check_in ?? '2025-06-10' }} to {{ $room->check_out ?? '2025-06-14' }}</td>
+                                <td>{{ $room->roomType->name }}</td>
+                                <td>
+                                    <input type="number"
+                                           name="occupants"
+                                           value="{{ $room->roomType->capacity }}"
+                                           min="1"
+                                           max="{{ $room->roomType->capacity }}"
+                                           class="form-control form-control-sm"
+                                           style="width: 80px;">
+                                    <input type="hidden" name="room_id" value="{{ $room->id }}">
+                                    <input type="hidden" name="check_in" value="{{ request()->check_in }}">
+                                    <input type="hidden" name="check_out"
+                                           value="{{ request()->check_out }}">
+                                </td>
+                                <td class="text-center">
+                                    <button type="submit" class="btn btn-sm btn-success px-3">Add to Cart</button>
+                                </td>
+                            </form>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5">No available rooms</td>
+                        </tr>
+                    @endforelse
+                    </tbody>
+                </table>
+                <div class="mt-3">
+                    {{ $data['filteredRooms']->links() }}
                 </div>
             </div>
         </div>

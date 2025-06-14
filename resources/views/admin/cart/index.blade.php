@@ -1,8 +1,4 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-
-@extends('adminlte::page')
+@extends('admin.layouts.app')
 
 @section('title', 'Reservations')
 
@@ -40,44 +36,49 @@
                     </div>
 
                     <!-- Sample Item Rows -->
-                    <div class="row text-center align-items-center border-bottom py-3">
-                        <div class="col-1">101</div>
-                        <div class="col-2">
-                            <img src="https://via.placeholder.com/60x40" class="img-fluid rounded" alt="Room Image">
-                        </div>
-                        <div class="col">2025-06-10</div>
-                        <div class="col">2025-06-15</div>
-                        <div class="col">2 Adults</div>
-                        <div class="col">$500</div>
-                        <div class="col">
-                            <button class="btn btn-sm btn-outline-danger">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                    @forelse ($cartItems as $key => $cartItem)
+                        <form action="{{ route('admin.carts.destroy', ['cart' => $cartItem->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <div class="row border-bottom py-3 text-center align-items-center">
+                                <div class="col">{{ $priceBreakdown['items'][$key]['room']->room_no }}</div>
+                                <div class="col-2">
+                                    <img src="{{ $priceBreakdown['items'][$key]['room']->image }}"
+                                         class="img-fluid rounded" alt="Room Image">
+                                </div>
+                                <div class="col">{{ $cartItem->check_in }}</div>
+                                <div class="col">{{ $cartItem->check_out }}</div>
+                                <div class="col">{{ $cartItem->occupants }}</div>
+                                <div class="col">{{ $priceBreakdown['items'][$key]['room_cost'] }}</div>
+                                <div class="col">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    @empty
+                        <p>Cart is Empty.</p>
+                    @endforelse
+
+                    <!-- Total Amount -->
+                    <div class="d-flex justify-content-end mt-4 mb-4 pe-3">
+                        <div class="text-end">
+                            <p class="mb-1"><strong>Room Cost:</strong>
+                                Rs. {{ $cartItems->count() != 0 ? number_format($priceBreakdown['totalRoomCost'], 2) : '' }}
+                            </p>
+                            <p class="mb-1"><strong>Service Charges:</strong>
+                                Rs. {{ $cartItems->count() != 0 ? number_format($priceBreakdown['serviceCharges'], 2) : '' }}
+                            </p>
+                            <p class="mb-1"><strong>Tax ({{ $priceBreakdown['taxPercentage'] }}%):</strong>
+                                Rs. {{ $cartItems->count() != 0 ? number_format($priceBreakdown['tax'], 2) : '' }}
+                            </p>
+                            <hr class="my-2">
+                            <h5 class="mb-0"><strong>Total Amount:</strong> Rs. <span
+                                        id="total-amount">{{ $cartItems->count() != 0 ? number_format($priceBreakdown['totalAmount'], 2) : '' }}</span>
+                            </h5>
                         </div>
                     </div>
-
-                    <div class="row text-center align-items-center border-bottom py-3">
-                        <div class="col-1">203</div>
-                        <div class="col-2">
-                            <img src="https://via.placeholder.com/60x40" class="img-fluid rounded" alt="Room Image">
-                        </div>
-                        <div class="col">2025-07-01</div>
-                        <div class="col">2025-07-05</div>
-                        <div class="col">1 Adult</div>
-                        <div class="col">$300</div>
-                        <div class="col">
-                            <button class="btn btn-sm btn-outline-danger">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Total -->
-                    <div class="d-flex justify-content-end mt-4">
-                        <h5>Total Amount: <span id="total-amount" class="text-primary">$800</span></h5>
-                    </div>
-
-
                 </div>
             </div>
         </div>
@@ -91,11 +92,19 @@
                 </div>
 
                 <!-- Search + Buttons Row aligned right -->
-                <div class="d-flex justify-content-end align-items-center flex-nowrap" style="gap: 0.5rem; max-width: 600px; margin-left: auto;">
-                    <input type="text" class="form-control" placeholder="Enter name or ID" style="min-width: 220px; max-width: 220px; white-space: nowrap;">
-                    <button class="btn btn-primary flex-shrink-0">Search</button>
+                <div class="d-flex justify-content-end align-items-center flex-nowrap"
+                     style="gap: 0.5rem; max-width: 600px; margin-left: auto;">
+                    <form action="#" method="GET">
+                        @csrf
+                        <input type="text" name="search" class="form-control" placeholder="Enter name or ID"
+                               style="min-width: 220px; max-width: 220px; white-space: nowrap;"
+                               value="{{old('search', request()->search)}}">
+                        <button type="submit" class="btn btn-primary flex-shrink-0">Search</button>
+                    </form>
                     <span class="mx-2 flex-shrink-0">or</span>
-                    <button class="btn btn-success flex-shrink-0" data-bs-toggle="modal" data-bs-target="#addCustomerModal">Add Customer</button>
+                    <button class="btn btn-success flex-shrink-0" data-bs-toggle="modal"
+                            data-bs-target="#addCustomerModal">Add Customer
+                    </button>
                 </div>
             </div>
             <div class="card-body">
@@ -110,47 +119,37 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>john@example.com</td>
-                        <td>+1 234 567 8901</td>
-                        <td>VIP guest, prefers quiet rooms.</td>
-                        <td class="text-center">
-                            <button class="btn btn-sm btn-warning px-3" data-bs-toggle="modal" data-bs-target="#assignModal">
-                                <i class="bi bi-person-plus"></i> Assign
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Jane Smith</td>
-                        <td>jane@example.com</td>
-                        <td>+1 987 654 3210</td>
-                        <td>Allergic to pets, needs early check-in.</td>
-                        <td class="text-center">
-                            <button class="btn btn-sm btn-warning px-3" data-bs-toggle="modal" data-bs-target="#assignModal">
-                                <i class="bi bi-person-plus"></i> Assign
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Michael Lee</td>
-                        <td>michael@example.com</td>
-                        <td>+1 456 789 1234</td>
-                        <td>Late check-out requested.</td>
-                        <td class="text-center">
-                            <button class="btn btn-sm btn-warning px-3" data-bs-toggle="modal" data-bs-target="#assignModal">
-                                <i class="bi bi-person-plus"></i> Assign
-                            </button>
-                        </td>
-                    </tr>
+                    @forelse($customers as $customer)
+                        <tr>
+                            <td>{{ $customer->name }}</td>
+                            <td>{{ $customer->email }}</td>
+                            <td>{{ $customer->phone }}</td>
+                            <td>VIP guest, prefers quiet rooms.</td>
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-warning px-3"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#assignModal"
+                                        data-id="{{ $customer->id }}"
+                                        data-name="{{ $customer->name }}"
+                                        {{ $cartItems->count() == 0 ? 'disabled' : '' }}>
+                                    <i class="fas fa-user-plus"></i> Assign
+                                </button>
+                            </td>
+
+                        </tr>
+                    @empty
+                        <tr> No Customers matching that criteria.</tr>
+                    @endforelse
                     </tbody>
                 </table>
+                {{$customers->links()}}
             </div>
         </div>
 
         {{-- **** POP UP FORMS**** --}}
         <!-- Add Customer Form -->
-        <div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
 
@@ -160,8 +159,6 @@
                     </div>
 
                     <div class="modal-body">
-
-
                         <!-- Customer Info -->
                         <h6 class="fw-semibold mb-3">Customer Information</h6>
                         <div class="row g-3">
@@ -217,63 +214,46 @@
                 </div>
             </div>
         </div>
-
-        <!-- Cart FORM -->
-        <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title w-100 text-center" id="cartModalLabel">Your Selected Rooms</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body py-4">
-                        <!-- Header Row -->
-                        <div class="row border-bottom pb-2 mb-3 fw-bold text-center">
-                            <div class="col">Check-in</div>
-                            <div class="col">Check-out</div>
-                            <div class="col">Occupancy</div>
-                            <div class="col">Amount</div>
-                            <div class="col">Action</div>
-                        </div>
-
-                        <!-- Sample Row 1 -->
-                        <div class="row border-bottom py-3 text-center align-items-center">
-                            <div class="col">2025-06-10</div>
-                            <div class="col">2025-06-15</div>
-                            <div class="col">2 Adults</div>
-                            <div class="col">$500</div>
-                            <div class="col">
-                                <button type="button" class="btn btn-danger btn-sm px-3">Delete</button>
-                            </div>
-                        </div>
-
-                        <!-- Sample Row 2 -->
-                        <div class="row border-bottom py-3 text-center align-items-center">
-                            <div class="col">2025-07-01</div>
-                            <div class="col">2025-07-05</div>
-                            <div class="col">1 Adult</div>
-                            <div class="col">$300</div>
-                            <div class="col">
-                                <button type="button" class="btn btn-danger btn-sm px-3">Delete</button>
-                            </div>
-                        </div>
-
-                        <!-- Total Amount -->
-                        <div class="d-flex justify-content-end mt-4 mb-4 pe-3">
-                            <h5>Total Amount: <span id="total-amount">$800</span></h5>
-                        </div>
-
-                        <!-- Action Buttons -->
-                        <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-secondary me-3 px-4" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary px-4" id="book-now-btn">Book Now</button>
-                        </div>
-                    </div>
+    </section>
+    <div class="modal fade" id="assignModal" tabindex="-1" aria-labelledby="assignModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Assignment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to assign this room to <strong id="assign-customer-name">...</strong>?
+                </div>
+                <div class="modal-footer">
+                    <form id="assign-form" action="{{ route('admin.carts.assign') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="customer_id" id="assign-customer-id">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-warning">Yes, Assign</button>
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+
 @endsection
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const assignModal = document.getElementById('assignModal');
+
+            assignModal.addEventListener('show.bs.modal', event => {
+                const button = event.relatedTarget;
+                const customerId = button.getAttribute('data-id');
+                const customerName = button.getAttribute('data-name');
+
+                assignModal.querySelector('#assign-customer-name').textContent = customerName;
+                assignModal.querySelector('#assign-customer-id').value = customerId;
+            });
+        });
+    </script>
+
+@endpush
 
 

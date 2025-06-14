@@ -53,6 +53,27 @@ class CustomerController extends Controller
         //
     }
 
+    public function checkOut(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validated = $request->validate([
+                'customer_id' => ['required', Rule::exists('customers', 'id')],
+                'room_reservation_id' => ['required', Rule::exists('room_reservations', 'id')],
+            ]);
+
+            $this->customerService->checkOut($validated);
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Guest checked out successfully.');
+
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return redirect()->back()->with('success', 'Check-out failed.');
+        }
+    }
+
     public function checkIn(Request $request)
     {
         DB::beginTransaction();

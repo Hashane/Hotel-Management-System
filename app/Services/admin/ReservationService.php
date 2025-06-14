@@ -22,9 +22,9 @@ class ReservationService
         $query = Room::filterBy($validated)->with('roomType');
 
         $canBeOccupied = false;
-        if (isset($validated['occupants_count'])) {
+        if (isset($validated['occupants'])) {
             $roomsForCheck = (clone $query)->get();
-            $canBeOccupied = Helper::checkIfAbleToOccupy($roomsForCheck, $validated['occupants_count']);
+            $canBeOccupied = Helper::checkIfAbleToOccupy($roomsForCheck, $validated['occupants']);
         }
 
         $rooms = Room::with('roomReservations')->get();

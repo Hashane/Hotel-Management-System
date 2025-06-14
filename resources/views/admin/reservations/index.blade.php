@@ -1,9 +1,6 @@
 @php use App\Enums\RoomType; @endphp
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-
-@extends('adminlte::page')
+@extends('admin.layouts.app')
 
 @section('title', 'Reservations')
 
@@ -195,9 +192,9 @@
                                     <div class="mb-3">
                                         <label for="roomType" class="form-label">Room Type</label>
                                         <x-room-type-dropdown
-                                            :selected="$roomReservation->room->roomType->id ?? old('room_type_id')"
-                                            name="type"
-                                            class="custom-class"
+                                                :selected="$roomReservation->room->roomType->id ?? old('room_type_id')"
+                                                name="type"
+                                                class="custom-class"
                                         />
                                     </div>
                                 </div>
@@ -254,54 +251,41 @@
 
     {{--    {{ $reservations->links() }} --}}{{-- Laravel pagination links --}}
 @endsection
-@section('js')
+@push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-                const modal = document.getElementById('checkInModal');
-                if (modal) {
-                    modal.addEventListener('show.bs.modal', function (event) {
-                        const button = event.relatedTarget;
-                        const customerId = button.dataset.bsCustomer;
-                        const reservationId = button.dataset.bsRoomreservation;
-                        document.getElementById('customerId').value = customerId;
-                        document.getElementById('reservationId').value = reservationId;
-                    });
-                }
-
-                const reservationModal = document.getElementById('editReservationModal');
-                if (reservationModal) {
-                    reservationModal.addEventListener('show.bs.modal', function (event) {
-                        const button = event.relatedTarget;
-                        const customerId = button.dataset.bsCustomer;
-                        const reservationId = button.dataset.bsRoomreservation;
-                        document.getElementById('customerId').value = customerId;
-                        document.getElementById('reservationId').value = reservationId;
-                    });
-                }
-
-                const editModal = document.getElementById('editReservationModal');
-                if (editModal) {
-                    editModal.addEventListener('show.bs.modal', function (event) {
-                        const button = event.relatedTarget;
-
-                        // Set all form values
-                        document.getElementById('reservationNo').value = button.getAttribute('data-id');
-                        document.getElementById('editRoomReservation').value = button.getAttribute('data-roomRes');
-                        document.getElementById('customerName').value = button.getAttribute('data-name');
-                        document.getElementById('startDate').value = button.getAttribute('data-checkin');
-                        document.getElementById('endDate').value = button.getAttribute('data-checkout');
-                        document.getElementById('guests').value = button.getAttribute('data-guests');
-
-                        // Special handling for room type dropdown
-                        const roomTypeValue = button.getAttribute('data-roomtype');
-                        const roomTypeSelect = document.querySelector('select[name="type"]');
-                        if (roomTypeSelect) {
-                            roomTypeSelect.value = roomTypeValue;
-                        }
-                    });
-                }
+            // Check-In Modal
+            const checkInModal = document.getElementById('checkInModal');
+            if (checkInModal) {
+                checkInModal.addEventListener('show.bs.modal', function (event) {
+                    const button = event.relatedTarget;
+                    document.getElementById('customerId').value = button.getAttribute('data-bs-customer');
+                    document.getElementById('reservationId').value = button.getAttribute('data-bs-roomreservation');
+                });
             }
-        )
 
+            // Edit Reservation Modal
+            const editModal = document.getElementById('editReservationModal');
+            if (editModal) {
+                editModal.addEventListener('show.bs.modal', function (event) {
+                    const button = event.relatedTarget;
+
+                    // Set all form values
+                    document.getElementById('reservationNo').value = button.getAttribute('data-id');
+                    document.getElementById('editRoomReservation').value = button.getAttribute('data-roomRes');
+                    document.getElementById('customerName').value = button.getAttribute('data-name');
+                    document.getElementById('startDate').value = button.getAttribute('data-checkin');
+                    document.getElementById('endDate').value = button.getAttribute('data-checkout');
+                    document.getElementById('guests').value = button.getAttribute('data-guests');
+
+                    // Special handling for room type dropdown
+                    const roomTypeValue = button.getAttribute('data-roomtype');
+                    const roomTypeSelect = document.querySelector('select[name="type"]');
+                    if (roomTypeSelect) {
+                        roomTypeSelect.value = roomTypeValue;
+                    }
+                });
+            }
+        });
     </script>
-@endsection
+@endpush

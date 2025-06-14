@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\AdminCartController;
 use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\admin\ReservationController as AdminReservationController;
 use App\Http\Controllers\CartController;
@@ -36,7 +37,14 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::post('/check-in', 'checkIn')->name('check-in');
     });
 
-    Route::view('/cart', 'admin.cart.index')->name('cart.index');
+    Route::controller(AdminCartController::class)->prefix('carts')->name('carts.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::post('/book', 'book')->name('book');
+        Route::post('/assign', 'assign')->name('assign');
+        Route::patch('/{cart}', 'update')->name('update');
+        Route::delete('/{cart}', 'destroy')->name('destroy');
+    });
     //    Route::view('/reservations', 'admin.reservations.index')->name('reservations.index');
 
     Route::view('/reports', 'admin.report');
