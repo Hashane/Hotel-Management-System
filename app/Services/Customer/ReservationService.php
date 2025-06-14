@@ -28,7 +28,7 @@ class ReservationService
             ['email' => $data['email']],
             [
                 'name' => $data['first_name'].' '.$data['last_name'],
-                'phone' => $data['email'],
+                'phone' => $data['phone'],
             ]
         );
 
