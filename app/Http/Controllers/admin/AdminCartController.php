@@ -13,7 +13,13 @@ class AdminCartController
     /**
      * Display a listing of the resource.
      */
-    public function index() {}
+    public function index()
+    {
+        $cartItems = Cart::confirmed()->get();
+        $priceBreakdown = app(AdminCartService::class)->calculateCost();
+
+        return view('admin.cart.index', compact('cartItems', 'priceBreakdown'));
+    }
 
     /**
      * Store a newly created resource in storage.
