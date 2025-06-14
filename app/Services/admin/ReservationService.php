@@ -82,5 +82,9 @@ class ReservationService
         $roomReservation->room->update([
             'status' => RoomStatus::AVAILABLE->value,
         ]);
+
+        $reservation->update([
+            'status' => ReservationStatus::CHECKED_OUT,
+        ]);
     }
 }
