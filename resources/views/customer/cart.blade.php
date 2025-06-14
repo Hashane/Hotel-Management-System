@@ -33,8 +33,8 @@
                                                         @csrf
                                                         <div class="w-50">
                                                             <button type="submit"><i
-                                                                    class="fas fa-trash px-2 py-2 border rounded"
-                                                                    style="color: red;"></i></button>
+                                                                        class="fas fa-trash px-2 py-2 border rounded"
+                                                                        style="color: red;"></i></button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -68,11 +68,11 @@
                                 <div class="summary-card">
                                     <div class="row">
                                         <div class=" col-lg-3" style="margin-top: 10px">
-                                            <h4>{{ $item['check-in'] }}</h4>
+                                            <h4>{{ $item['check_in'] }}</h4>
                                             <p class="cart-detail">Check In</p>
                                         </div>
                                         <div class="col-lg-3" style="margin-top: 10px">
-                                            <h4>{{ $item['check-out'] }}</h4>
+                                            <h4>{{ $item['check_out'] }}</h4>
                                             <p class="cart-detail">Check Out</p>
                                         </div>
                                         <div class="col-lg-3" style="margin-top: 10px">
@@ -80,7 +80,7 @@
                                             <p class="cart-detail">Occupancy</p>
                                         </div>
                                         <div class="col-lg-3" style="margin-top: 10px">
-                                            <h4>Rs.{{ $item['room-cost'] }}.00</h4>
+                                            <h4>Rs.{{ $item['room_cost'] }}.00</h4>
                                             <p class="cart-detail">Total Room Price</p>
                                         </div>
                                     </div>

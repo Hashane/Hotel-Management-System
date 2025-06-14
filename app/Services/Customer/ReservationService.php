@@ -10,6 +10,7 @@ use App\Models\Reservation;
 use App\Models\Room;
 use App\Models\RoomReservation;
 use App\Models\RoomType;
+use App\Services\CartCostCalculator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
 use RuntimeException;
@@ -70,7 +71,7 @@ class ReservationService
 
     private function getRoomsFromCart(array $cartItems): Collection
     {
-        $roomIds = array_unique(Arr::pluck($cartItems, 'room-id'));
+        $roomIds = array_unique(Arr::pluck($cartItems, 'room_id'));
 
         return Room::with('roomType.facilities', 'roomType.rateTypes')
             ->whereIn('id', $roomIds)
@@ -93,10 +94,10 @@ class ReservationService
         $map = [];
 
         foreach ($cartItems as $item) {
-            $roomId = (int) $item['room-id'];
+            $roomId = (int) $item['room_id'];
             $map[$roomId] = [
-                'check_in' => $item['check-in'],
-                'check_out' => $item['check-out'],
+                'check_in' => $item['check_in'],
+                'check_out' => $item['check_out'],
                 'occupants' => $item['occupants'],
             ];
         }
@@ -149,7 +150,7 @@ class ReservationService
         $cartItems = $this->getCartItems();
         $rooms = $this->getRoomsFromCart($cartItems);
 
-        return $this->cartService->calculateCosts($cartItems, $rooms, false);
+        return app(CartCostCalculator::class)->calculate($cartItems, $rooms, false);
     }
 
     public function destroy($data, Reservation $reservation): void

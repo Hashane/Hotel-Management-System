@@ -4,7 +4,9 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Requests\admin\FilterReservationRequest;
 use App\Http\Requests\Customer\ReservationRequest;
+use App\Models\Cart;
 use App\Models\Reservation;
+use App\Services\admin\AdminCartService;
 use App\Services\Admin\ReservationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -40,8 +42,10 @@ class ReservationController
         try {
             $validated = $request->validated();
             $data = $this->reservationService->getReservationData($validated);
+            $cartItems = Cart::unconfirmed()->get();
+            $priceBreakdown = app(AdminCartService::class)->calculateCost();
 
-            return view('admin.reservations.create', compact('data'));
+            return view('admin.reservations.create', compact('data', 'cartItems', 'priceBreakdown'));
         } catch (\Exception $exception) {
             return redirect()->route('admin.reservations.create')
                 ->with('error', $exception->getMessage());
