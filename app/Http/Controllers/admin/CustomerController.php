@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\admin;
 
 use App\Models\Customer;
+use App\Models\Reservation;
 use App\Services\admin\CustomerService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rule;
 
 class CustomerController extends Controller
 {
@@ -53,16 +53,17 @@ class CustomerController extends Controller
         //
     }
 
-    public function checkOut(Request $request)
+    public function checkOut(Reservation $reservation, Request $request)
     {
         DB::beginTransaction();
         try {
+
             $validated = $request->validate([
-                'customer_id' => ['required', Rule::exists('customers', 'id')],
-                'room_reservation_id' => ['required', Rule::exists('room_reservations', 'id')],
+                'checkout_date' => ['required', 'date', 'date_format:Y-m-d'],
+                'checkout_time' => ['required', 'date_format:H:i'],
             ]);
 
-            $this->customerService->checkOut($validated);
+            $this->customerService->checkOut($reservation, $validated);
             DB::commit();
 
             return redirect()->back()->with('success', 'Guest checked out successfully.');
@@ -74,16 +75,11 @@ class CustomerController extends Controller
         }
     }
 
-    public function checkIn(Request $request)
+    public function checkIn(Reservation $reservation)
     {
         DB::beginTransaction();
         try {
-            $validated = $request->validate([
-                'customer_id' => ['required', Rule::exists('customers', 'id')],
-                'room_reservation_id' => ['required', Rule::exists('room_reservations', 'id')],
-            ]);
-
-            $this->customerService->checkIn($validated);
+            $this->customerService->checkIn($reservation);
             DB::commit();
 
             return redirect()->back()->with('success', 'Guest checked in successfully.');

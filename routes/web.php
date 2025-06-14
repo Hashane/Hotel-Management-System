@@ -34,7 +34,8 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/', 'store')->name('store');
         Route::patch('/{customer}', 'update')->name('update');
-        Route::post('/check-in', 'checkIn')->name('check-in');
+        Route::post('/check-in/{reservation}', 'checkIn')->name('check-in');
+        Route::post('/check-out/{reservation}', 'checkOut')->name('check-out');
     });
 
     Route::controller(AdminCartController::class)->prefix('carts')->name('carts.')->group(function () {
