@@ -86,26 +86,40 @@
         <!-- Customer Card -->
         <div class="card shadow-sm mt-4">
             <div class="card-header">
-                <!-- Title Row -->
-                <div class="mb-3">
-                    <h5 class="mb-0">Customer</h5>
-                </div>
+                <div class="row align-items-center justify-content-between">
 
-                <!-- Search + Buttons Row aligned right -->
-                <div class="d-flex justify-content-end align-items-center flex-nowrap"
-                     style="gap: 0.5rem; max-width: 600px; margin-left: auto;">
-                    <form action="#" method="GET">
-                        @csrf
-                        <input type="text" name="search" class="form-control" placeholder="Enter name or ID"
-                               style="min-width: 220px; max-width: 220px; white-space: nowrap;"
-                               value="{{old('search', request()->search)}}">
-                        <button type="submit" class="btn btn-primary flex-shrink-0">Search</button>
-                    </form>
-                    <span class="mx-2 flex-shrink-0">or</span>
-                    <button class="btn btn-success flex-shrink-0" data-bs-toggle="modal"
-                            data-bs-target="#addCustomerModal">Add Customer
-                    </button>
+                    <!-- Title -->
+                    <div class="col-md-3 mb-2 mb-md-0">
+                        <h5 class="mb-0">Customer</h5>
+                    </div>
+                
+                    <!-- Search & Action Buttons -->
+                    <div class="col-md-9">
+                        <div class="d-flex flex-wrap align-items-center justify-content-end gap-2">
+                
+                            <!-- Search Form -->
+                            <form action="#" method="GET" class="d-flex align-items-center gap-2">
+                                @csrf
+                                <input type="text" name="search" class="form-control"
+                                       placeholder="Enter name or ID"
+                                       value="{{ old('search', request()->search) }}"
+                                       style="min-width: 220px;">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </form>
+                
+                            <!-- OR text -->
+                            <span>or</span>
+                
+                            <!-- Add Customer Button -->
+                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+                                Add Customer
+                            </button>
+                        </div>
+                    </div>
+                
                 </div>
+                
+                
             </div>
             <div class="card-body">
                 <table class="table table-bordered table-striped">
