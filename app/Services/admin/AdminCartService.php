@@ -66,4 +66,12 @@ class AdminCartService
 
         return app(CartCostCalculator::class)->calculate($cartItems, $rooms, true);
     }
+
+    public function destroy(Cart $cart): void
+    {
+        Room::firstWhere('id', $cart->room_id)
+            ->update(['status' => RoomStatus::AVAILABLE->value]);
+
+        $cart->delete();
+    }
 }
