@@ -5,7 +5,9 @@ namespace App\Http\Controllers\admin;
 use App\Http\Requests\admin\FilterReservationRequest;
 use App\Http\Requests\Customer\ReservationRequest;
 use App\Models\Cart;
+use App\Models\ExtraCharge;
 use App\Models\Reservation;
+use App\Models\ServiceType;
 use App\Services\admin\AdminCartService;
 use App\Services\Admin\ReservationService;
 use Illuminate\Http\Request;
@@ -31,25 +33,9 @@ class ReservationController
 
         $reservations = $query->paginate(10);
 
-        return view('admin.reservations.index', compact('reservations'));
-    }
+        $serviceTypes = ServiceType::all();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(FilterReservationRequest $request)
-    {
-        try {
-            $validated = $request->validated();
-            $data = $this->reservationService->getReservationData($validated);
-            $cartItems = Cart::unconfirmed()->get();
-            $priceBreakdown = app(AdminCartService::class)->calculateCost($cartItems->toArray());
-
-            return view('admin.reservations.create', compact('data', 'cartItems', 'priceBreakdown'));
-        } catch (\Exception $exception) {
-            return redirect()->route('admin.reservations.create')
-                ->with('error', $exception->getMessage());
-        }
+        return view('admin.reservations.index', compact('reservations', 'serviceTypes'));
     }
 
     /**
@@ -101,4 +87,87 @@ class ReservationController
      * Remove the specified resource from storage.
      */
     public function destroy(Reservation $reservation, Request $request) {}
+
+    public function checkOut(Reservation $reservation, Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validated = $request->validate([
+                'checkout_date' => ['required', 'date', 'date_format:Y-m-d'],
+                'checkout_time' => ['required', 'date_format:H:i'],
+            ]);
+
+            $this->reservationService->checkOut($reservation, $validated);
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Guest checked out successfully.');
+
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return redirect()->back()->with('success', 'Check-out failed.');
+        }
+    }
+
+    public function addCharges(Reservation $reservation, Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validated = $request->validate([
+                'service' => ['required', 'string'],
+                'amount' => ['required', 'numeric', 'min:1'],
+            ]);
+
+            $extraCharge = ExtraCharge::create([
+                'service_type_id' => $validated['service'],
+                'amount' => $validated['amount'],
+            ]);
+
+            // Attach to reservation
+            $reservation->extraCharges()->attach($extraCharge->id);
+
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Charges added successfully.');
+
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return redirect()->back()->with('success', 'Charges adding failed.');
+        }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(FilterReservationRequest $request)
+    {
+        try {
+            $validated = $request->validated();
+            $data = $this->reservationService->getReservationData($validated);
+            $cartItems = Cart::unconfirmed()->get();
+            $priceBreakdown = app(AdminCartService::class)->calculateCost($cartItems->toArray());
+
+            return view('admin.reservations.create', compact('data', 'cartItems', 'priceBreakdown'));
+        } catch (\Exception $exception) {
+            return redirect()->route('admin.reservations.create')
+                ->with('error', $exception->getMessage());
+        }
+    }
+
+    public function checkIn(Reservation $reservation)
+    {
+        DB::beginTransaction();
+        try {
+            $this->reservationService->checkIn($reservation);
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Guest checked in successfully.');
+
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return redirect()->back()->with('success', 'Check-in failed.');
+        }
+    }
 }

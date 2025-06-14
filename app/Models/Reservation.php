@@ -45,4 +45,10 @@ class Reservation extends Model
     {
         return $this->hasMany(RoomReservation::class);
     }
+
+    public function extraCharges()
+    {
+        return $this->belongsToMany(ExtraCharge::class, 'reservation_extra_charges')
+            ->withTimestamps();
+    }
 }
