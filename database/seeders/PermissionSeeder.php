@@ -18,6 +18,7 @@ class PermissionSeeder extends Seeder
             'view customer', 'create customer', 'update customer', 'delete customer',
             'view rooms', 'create rooms', 'update rooms', 'delete rooms',
             'assign roles', 'check in guests', 'check out guests',
+            'view reports',
         ];
 
         foreach ($permissions as $perm) {
