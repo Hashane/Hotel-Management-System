@@ -72,11 +72,14 @@
                         </div>
 
                         <!-- Action Buttons -->
-                        <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-secondary me-3 px-4" data-bs-dismiss="modal">Cancel
-                            </button>
-                            <button type="button" class="btn btn-primary px-4" id="book-now-btn">Book Now</button>
-                        </div>
+                        <form action="{{ route('admin.carts.book') }}" method="POST">
+                            @csrf
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-secondary me-3 px-4" data-bs-dismiss="modal">Cancel
+                                </button>
+                                <button type="submit" class="btn btn-primary px-4" id="book-now-btn">Book Now</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

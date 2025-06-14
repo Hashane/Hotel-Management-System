@@ -28,6 +28,16 @@ class AdminCartController
     }
 
     /**
+     * Store a newly created resource in storage.
+     */
+    public function book()
+    {
+        $this->adminCartService->book();
+
+        return redirect()->back()->with('success', 'Booked rooms successfully');
+    }
+
+    /**
      * Display the specified resource.
      */
     public function show(Cart $adminCart)

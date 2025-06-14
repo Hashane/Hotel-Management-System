@@ -40,6 +40,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::controller(AdminCartController::class)->prefix('carts')->name('carts.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/', 'store')->name('store');
+        Route::post('/book', 'book')->name('book');
         Route::patch('/{cart}', 'update')->name('update');
         Route::delete('/{cart}', 'destroy')->name('destroy');
     });

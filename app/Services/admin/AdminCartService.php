@@ -2,6 +2,7 @@
 
 namespace App\Services\admin;
 
+use App\Enums\RoomStatus;
 use App\Models\Cart;
 use App\Models\Room;
 use App\Services\CartCostCalculator;
@@ -35,5 +36,16 @@ class AdminCartService
             ->get();
 
         return app(CartCostCalculator::class)->calculate($cartItems, $rooms, false);
+    }
+
+    public function book(): void
+    {
+        $cartItems = Cart::all();
+        $roomIds = $cartItems->pluck('room_id')->unique();
+
+        Room::whereIn('id', $roomIds)
+            ->update(['status' => RoomStatus::RESERVED->value]);
+
+        Cart::query()->update(['status' => 'confirmed']);
     }
 }
