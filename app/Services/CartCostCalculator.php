@@ -6,7 +6,7 @@ use App\Helpers\Helper;
 
 class CartCostCalculator
 {
-    public function calculate(array $cartItems, $rooms, bool $withItems = false): array
+    public function calculate(array $cartItems, $rooms, bool $withItems = false, float $discount = 0.00, float $lateCheckoutFee = 0.00): array
     {
         $totalRoomCost = 0.00;
         $items = [];
@@ -40,14 +40,17 @@ class CartCostCalculator
         $serviceCharges = $settings['room_service_fee'] ?? 0;
 
         $tax = ($totalRoomCost * $taxPercentage) / 100;
-        $totalAmount = $totalRoomCost + $tax + $serviceCharges;
+
+        $totalAmount = $totalRoomCost + $tax + $serviceCharges + $lateCheckoutFee - $discount;
 
         return [
             'totalRoomCost' => $totalRoomCost,
             'serviceCharges' => $serviceCharges,
             'tax' => $tax,
             'taxPercentage' => $taxPercentage,
-            'totalAmount' => $totalAmount,
+            'lateCheckoutFee' => $lateCheckoutFee,
+            'discount' => $discount,
+            'totalAmount' => max($totalAmount, 0), // Prevent negative total
             'items' => $items,
         ];
     }
