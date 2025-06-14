@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Models\Bill;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 
 class BillController
@@ -36,7 +37,9 @@ class BillController
      */
     public function show(Bill $bill)
     {
-        //
+        $reservation = Reservation::with(['extraCharges.serviceType', 'roomReservations', 'roomReservations.room', 'customer'])->firstWhere('id', $bill->reservation_id);
+
+        return view('admin.billing.show', compact('reservation', 'bill'));
     }
 
     /**
