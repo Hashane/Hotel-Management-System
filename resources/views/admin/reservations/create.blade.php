@@ -92,18 +92,18 @@
         </div>
 
 
-        <!-- Cart Button -->
-        <div class="card" style="background-color: transparent; border: none; box-shadow: none;">
-            <div>
-                <button type="button" class="btn btn-primary position-relative float-end me-3" data-bs-toggle="modal"
-                        data-bs-target="#cartModal">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                          id="cart-count">0</span>
-                </button>
+       <!-- Cart Button (Bottom Right) -->
 
+            <div class="card  mt-4" style="background-color: transparent; border: none; box-shadow: none;">
+                <div>
+                    <button type="button" class="btn btn-primary position-relative float-end me-3" data-bs-toggle="modal"
+                            data-bs-target="#cartModal">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                            id="cart-count">0</span>
+                    </button>
+                </div>
             </div>
-        </div>
 
 
         <div class="card shadow-sm mt-4">
