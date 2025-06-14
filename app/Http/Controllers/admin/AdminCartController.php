@@ -16,7 +16,7 @@ class AdminCartController
     public function index()
     {
         $cartItems = Cart::confirmed()->get();
-        $priceBreakdown = app(AdminCartService::class)->calculateCost();
+        $priceBreakdown = app(AdminCartService::class)->calculateCost($cartItems->toArray());
 
         return view('admin.cart.index', compact('cartItems', 'priceBreakdown'));
     }

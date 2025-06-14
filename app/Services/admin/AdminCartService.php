@@ -25,10 +25,8 @@ class AdminCartService
         ]);
     }
 
-    public function calculateCost()
+    public function calculateCost(array $cartItems)
     {
-        $cartItems = Cart::all()->toArray();
-
         $roomIds = array_unique(Arr::pluck($cartItems, 'room_id'));
 
         $rooms = Room::with('roomType.facilities', 'roomType.rateTypes')

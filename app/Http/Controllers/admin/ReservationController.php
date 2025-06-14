@@ -43,7 +43,7 @@ class ReservationController
             $validated = $request->validated();
             $data = $this->reservationService->getReservationData($validated);
             $cartItems = Cart::unconfirmed()->get();
-            $priceBreakdown = app(AdminCartService::class)->calculateCost();
+            $priceBreakdown = app(AdminCartService::class)->calculateCost($cartItems->toArray());
 
             return view('admin.reservations.create', compact('data', 'cartItems', 'priceBreakdown'));
         } catch (\Exception $exception) {
