@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AdminCartController;
+use App\Http\Controllers\admin\BillController;
 use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\admin\ReservationController as AdminReservationController;
@@ -21,7 +22,6 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/profile', 'edit')->name('edit');
         Route::patch('/profile', 'update')->name('update');
         Route::delete('/profile', 'destroy')->name('destroy');
-        Route::view('/billing', 'admin.reservations.billing');
     });
 
     Route::controller(AdminReservationController::class)->prefix('reservations')->name('reservations.')->group(function () {
@@ -59,6 +59,11 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::controller(RoleController::class)->prefix('roles')->name('roles.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::put('/{role}/permissions', 'updatePermissions')->name('update-permissions');
+    });
+
+    Route::controller(BillController::class)->prefix('billings')->name('billings.')->group(function () {
+        Route::get('/{bill}', 'show')->name('show');
+        Route::post('/{bill}', 'pay')->name('pay');
     });
 
     Route::view('/reports', 'admin.report');

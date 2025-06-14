@@ -9,6 +9,7 @@ use App\Models\ExtraCharge;
 use App\Models\Reservation;
 use App\Models\ServiceType;
 use App\Services\admin\AdminCartService;
+use App\Services\admin\BillingService;
 use App\Services\Admin\ReservationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -98,9 +99,11 @@ class ReservationController
             ]);
 
             $this->reservationService->checkOut($reservation, $validated);
+
+            $bill = app(BillingService::class)->createBill($reservation);
             DB::commit();
 
-            return redirect()->back()->with('success', 'Guest checked out successfully.');
+            return redirect()->route('admin.billings.show', $bill);
 
         } catch (Exception $e) {
             DB::rollBack();
