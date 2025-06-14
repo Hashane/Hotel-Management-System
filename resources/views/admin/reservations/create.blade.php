@@ -35,20 +35,40 @@
                             <div class="col">Action</div>
                         </div>
 
-                        @foreach($cartItems as $cartItem)
-                            <div class="row border-bottom py-3 text-center align-items-center">
-                                <div class="col">{{ $cartItem->check_in }}</div>
-                                <div class="col">{{ $cartItem->check_out }}</div>
-                                <div class="col">{{ $cartItem->occupants_count }}</div>
-                                <div class="col">{{ $cartItem->check_in }}</div>
-                                <div class="col">Action</div>
-                            </div>
-
-                        @endforeach
+                        @forelse ($cartItems as $cartItem)
+                            <form action="{{ route('admin.carts.destroy', ['cart' => $cartItem->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <div class="row border-bottom py-3 text-center align-items-center">
+                                    <div class="col">{{ $cartItem->check_in }}</div>
+                                    <div class="col">{{ $cartItem->check_out }}</div>
+                                    <div class="col">{{ $cartItem->occupants_count }}</div>
+                                    <div class="col">{{ $cartItem->check_in }}</div>
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        @empty
+                            <p>Cart is Empty.</p>
+                        @endforelse
 
                         <!-- Total Amount -->
                         <div class="d-flex justify-content-end mt-4 mb-4 pe-3">
-                            <h5>Total Amount: <span id="total-amount">$800</span></h5>
+                            <div class="text-end">
+                                <p class="mb-1"><strong>Room Cost:</strong>
+                                    Rs. {{ number_format($priceBreakdown['totalRoomCost'], 2) }}</p>
+                                <p class="mb-1"><strong>Service Charges:</strong>
+                                    Rs. {{ number_format($priceBreakdown['serviceCharges'], 2) }}</p>
+                                <p class="mb-1"><strong>Tax ({{ $priceBreakdown['taxPercentage'] }}%):</strong>
+                                    Rs. {{ number_format($priceBreakdown['tax'], 2) }}</p>
+                                <hr class="my-2">
+                                <h5 class="mb-0"><strong>Total Amount:</strong> Rs. <span
+                                            id="total-amount">{{ number_format($priceBreakdown['totalAmount'], 2) }}</span>
+                                </h5>
+                            </div>
                         </div>
 
                         <!-- Action Buttons -->

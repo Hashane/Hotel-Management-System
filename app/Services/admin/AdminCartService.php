@@ -2,7 +2,10 @@
 
 namespace App\Services\admin;
 
-use App\Models\AdminCart;
+use App\Models\Cart;
+use App\Models\Room;
+use App\Services\CartCostCalculator;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class AdminCartService
@@ -12,12 +15,25 @@ class AdminCartService
      */
     public function store(array $data): void
     {
-        AdminCart::create([
+        Cart::create([
             'user_id' => Auth::user()->id,
             'room_id' => $data['room_id'],
             'check_in' => $data['check_in'],
             'check_out' => $data['check_out'],
             'occupants_count' => $data['occupants'],
         ]);
+    }
+
+    public function calculateCost()
+    {
+        $cartItems = Cart::all()->toArray();
+
+        $roomIds = array_unique(Arr::pluck($cartItems, 'room_id'));
+
+        $rooms = Room::with('roomType.facilities', 'roomType.rateTypes')
+            ->whereIn('id', $roomIds)
+            ->get();
+
+        return app(CartCostCalculator::class)->calculate($cartItems, $rooms, false);
     }
 }
