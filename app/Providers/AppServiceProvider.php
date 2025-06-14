@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\Customer\CartService;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -23,6 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('super admin') ? true : null;
+        });
         View::composer('*', function ($view) {
             if (! Request::is('admin/*')) {
                 $cart = app(CartService::class)->getCart();
