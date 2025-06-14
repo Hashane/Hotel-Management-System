@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\AdminCartController;
 use App\Http\Controllers\admin\BillController;
 use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\admin\ProfileController;
+use App\Http\Controllers\admin\ReportsController;
 use App\Http\Controllers\admin\ReservationController as AdminReservationController;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\admin\UserController;
@@ -66,6 +67,6 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::post('/{bill}', 'pay')->name('pay');
     });
 
-    Route::view('/reports', 'admin.report');
-
+    Route::get('/reports', [ReportsController::class, 'dailyReport'])->name('reports.daily');
+    Route::get('/reports/export', [ReportsController::class, 'export'])->name('reports.export');
 });
