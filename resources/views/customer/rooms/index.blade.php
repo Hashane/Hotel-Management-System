@@ -41,14 +41,14 @@
                         <div class="check-date">
                             <label for="date-in">Check In:</label>
                             <input type="date" class="date-input" id="date-in" name="check_in"
-                                   value="{{ request('check_in') }}"/>
+                                   value="{{ request()->check_in ?? now()->toDateString() }}">
                             <i class="icon_calendar"></i>
                         </div>
 
                         <div class="check-date">
                             <label for="date-out">Check Out:</label>
                             <input type="date" class="date-input" id="date-out" name="check_out"
-                                   value="{{ request('check_out') }}"/>
+                                   value="{{ request()->check_out ?? now()->addDay()->toDateString() }}">
                             <i class="icon_calendar"></i>
                         </div>
 
