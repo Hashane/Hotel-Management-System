@@ -28,7 +28,7 @@ class FilterReservationRequest extends FormRequest
             'room_type' => ['nullable', Rule::enum(RoomType::class)],
             'check_in' => ['nullable', 'date'],
             'check_out' => ['nullable', 'date', 'after_or_equal:check_in'],
-            'occupants_count' => ['nullable', 'integer', 'min:1'],
+            'occupants' => ['nullable', 'integer', 'min:1'],
         ];
     }
 

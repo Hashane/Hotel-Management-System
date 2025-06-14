@@ -44,8 +44,6 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::patch('/{cart}', 'update')->name('update');
         Route::delete('/{cart}', 'destroy')->name('destroy');
     });
-
-    Route::view('/cart', 'admin.cart.index')->name('cart.index');
     //    Route::view('/reservations', 'admin.reservations.index')->name('reservations.index');
 
     Route::view('/reports', 'admin.report');

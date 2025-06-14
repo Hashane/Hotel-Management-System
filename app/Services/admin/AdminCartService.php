@@ -21,7 +21,7 @@ class AdminCartService
             'room_id' => $data['room_id'],
             'check_in' => $data['check_in'],
             'check_out' => $data['check_out'],
-            'occupants_count' => $data['occupants'],
+            'occupants' => $data['occupants'],
         ]);
     }
 
@@ -35,7 +35,7 @@ class AdminCartService
             ->whereIn('id', $roomIds)
             ->get();
 
-        return app(CartCostCalculator::class)->calculate($cartItems, $rooms, false);
+        return app(CartCostCalculator::class)->calculate($cartItems, $rooms, true);
     }
 
     public function book(): void

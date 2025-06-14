@@ -42,7 +42,7 @@
                                 <div class="row border-bottom py-3 text-center align-items-center">
                                     <div class="col">{{ $cartItem->check_in }}</div>
                                     <div class="col">{{ $cartItem->check_out }}</div>
-                                    <div class="col">{{ $cartItem->occupants_count }}</div>
+                                    <div class="col">{{ $cartItem->occupants }}</div>
                                     <div class="col">{{ $cartItem->check_in }}</div>
                                     <div class="col">
                                         <button type="submit" class="btn btn-sm btn-outline-danger">
@@ -136,8 +136,8 @@
                                     <div class="mb-3 row">
                                         <label class="col-sm-3 col-form-label">Occupancy</label>
                                         <div class="col-sm-9">
-                                            <input type="number" name="occupants_count"
-                                                   value="{{old('occupants_count',request()->occupants_count)}}"
+                                            <input type="number" name="occupants"
+                                                   value="{{old('occupants',request()->occupants)}}"
                                                    class="form-control"
                                                    placeholder="No. of Guests">
                                         </div>
@@ -231,7 +231,7 @@
                 {{-- Show warning if rooms exist but cannot fulfill occupancy --}}
                 @if(!$data['canBeOccupied'] && $data['filteredRooms']->count())
                     <div class="alert alert-warning mb-3">
-                        The hotel cannot accommodate {{ request('occupants_count') }} occupants with the currently
+                        The hotel cannot accommodate {{ request('occupants') }} occupants with the currently
                         available rooms.
                     </div>
                 @endif
