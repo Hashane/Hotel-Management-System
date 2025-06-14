@@ -343,23 +343,13 @@ return [
             'submenu' => [
                 [
                     'text' => 'All Users',
-                    'route' => 'admin.profile.edit',
+                    'route' => 'admin.users.index',
                     'icon' => 'fas fa-list',
                 ],
                 [
-                    'text' => 'Add New User',
-                    'route' => 'admin.profile.edit',
-                    'icon' => 'fas fa-user-plus',
-                ],
-                [
-                    'text' => 'User Roles',
-                    'route' => 'admin.profile.edit',
+                    'text' => 'User Roles & Permissions',
+                    'route' => 'admin.roles.index',
                     'icon' => 'fas fa-user-tag',
-                ],
-                [
-                    'text' => 'Permissions',
-                    'route' => 'admin.profile.edit',
-                    'icon' => 'fas fa-key',
                 ],
             ],
         ],
