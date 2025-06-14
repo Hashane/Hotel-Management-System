@@ -57,7 +57,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::put('/{user}/assign-role', 'assignRole')->name('assign-role');
     });
 
-    Route::controller(RoleController::class)->prefix('roles')->name('roles.')->group(function () {
+    Route::controller(RoleController::class)->middleware(['permission:create_users'])->prefix('roles')->name('roles.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::put('/{role}/permissions', 'updatePermissions')->name('update-permissions');
     });

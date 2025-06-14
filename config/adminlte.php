@@ -315,16 +315,25 @@ return [
             'text' => 'Reservations',
             'route' => 'admin.reservations.index',
             'icon' => 'far fa-fw fa-calendar',
+            'can' => 'view reservations',
         ],
         [
             'text' => 'Add Reservation',
             'route' => 'admin.reservations.create',
             'icon' => 'fas fa-fw fa-plus',
+            'can' => 'create reservations',
         ],
         [
             'text' => 'Cart',
             'route' => 'admin.carts.index',
             'icon' => 'fas fa-fw fa-shopping-cart',
+            'can' => 'create reservations',
+        ],
+        [
+            'text' => 'Reports',
+            'route' => 'admin.reports.daily',
+            'icon' => 'fas fa-fw fa-book',
+            'can' => 'view-reports',
         ],
 
         ['header' => 'account_settings'],
@@ -352,6 +361,7 @@ return [
                     'icon' => 'fas fa-user-tag',
                 ],
             ],
+            'can' => 'create users',
         ],
     ],
 
