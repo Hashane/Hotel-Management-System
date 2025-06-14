@@ -1,6 +1,6 @@
 @php use App\Enums\RoomType; @endphp
 
-@extends('admin.layouts.app')
+@extends('admin.layouts.admin')
 
 @section('title', 'Reservations')
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\AdminCartController;
 use App\Http\Controllers\admin\CustomerController;
+use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\admin\ReservationController as AdminReservationController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ReservationController;
@@ -17,7 +18,7 @@ Route::get('admin/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
-    Route::controller(RoomController::class)->name('profile.')->group(function () {
+    Route::controller(ProfileController::class)->name('profile.')->group(function () {
         Route::get('/profile', 'edit')->name('edit');
         Route::patch('/profile', 'update')->name('update');
         Route::delete('/profile', 'destroy')->name('destroy');
@@ -47,7 +48,6 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::patch('/{cart}', 'update')->name('update');
         Route::delete('/{cart}', 'destroy')->name('destroy');
     });
-    //    Route::view('/reservations', 'admin.reservations.index')->name('reservations.index');
 
     Route::view('/reports', 'admin.report');
 
@@ -62,8 +62,6 @@ Route::controller(RoomController::class)->group(function () {
 
 Route::view('/', 'customer.index')->name('home');
 Route::view('/about', 'customer.about')->name('about');
-// Route::view('/cart', 'customer.cart')->name('cart');
-
 Route::view('/contact', 'customer.contact')->name('contact');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
