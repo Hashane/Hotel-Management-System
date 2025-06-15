@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Services\customer\CartService;
+use App\Services\Customer\CartService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;

@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\customer\CartController;
-use App\Http\Controllers\customer\ReservationController;
-use App\Http\Controllers\customer\RoomController;
+use App\Http\Controllers\Customer\CartController;
+use App\Http\Controllers\Customer\ReservationController;
+use App\Http\Controllers\Customer\RoomController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(RoomController::class)->group(function () {
