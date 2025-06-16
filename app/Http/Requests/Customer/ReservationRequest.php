@@ -4,6 +4,7 @@ namespace App\Http\Requests\Customer;
 
 use App\Enums\RoomType;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -43,9 +44,24 @@ class ReservationRequest extends FormRequest
             'message' => ['required', 'string', 'max:255'],
 
             'card' => ['nullable', 'string', 'digits_between:13,19'],
-            'expiry' => ['sometimes', 'required_with:card', 'regex:/^(0[1-9]|1[0-2])\/(\d{2})$/'],
-            'cvv' => ['sometimes', 'required_with:card', 'digits_between:3,4'],
-
+            'expiry' => [
+                Rule::requiredIf(fn () => ! empty($this->card)),
+                'nullable',
+                'regex:/^(0[1-9]|1[0-2])\/(\d{2})$/',
+            ],
+            'cvv' => [
+                Rule::requiredIf(fn () => ! empty($this->card)),
+                'nullable',
+                'digits_between:3,4',
+            ],
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        // Preserve cart data before validation redirect
+        session()->keep(['cart']);
+
+        parent::failedValidation($validator);
     }
 }
