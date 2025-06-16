@@ -13,3 +13,11 @@ Route::get('/set-session', function () {
 Route::get('/get-session', function () {
     return session('test') ?? 'No session value';
 });
+
+Route::get('/session-debug', function () {
+    return [
+        'id' => session()->getId(),
+        'all' => session()->all(),
+        'config' => config('session'),
+    ];
+});
