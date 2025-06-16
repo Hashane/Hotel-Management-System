@@ -4,20 +4,12 @@ require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';
 require __DIR__.'/customer.php';
 
-Route::get('/set-session', function () {
-    session(['test' => '123']);
+Route::get('/session-test', function () {
+    session(['test' => now()]);
 
-    return 'Session set!';
-});
-
-Route::get('/get-session', function () {
-    return session('test') ?? 'No session value';
-});
-
-Route::get('/session-debug', function () {
-    return [
+    return response()->json([
         'id' => session()->getId(),
-        'all' => session()->all(),
-        'config' => config('session'),
-    ];
+        'test_value' => session('test'),
+        'cart' => session('cart', []),
+    ]);
 });
