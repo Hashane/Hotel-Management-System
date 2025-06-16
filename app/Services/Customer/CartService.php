@@ -2,6 +2,8 @@
 
 namespace App\Services\Customer;
 
+use Exception;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class CartService
@@ -10,29 +12,39 @@ class CartService
 
     public function add($roomId, $occupants, $checkIn, $checkOut): void
     {
-        $cart = $this->getCart();
-        $uniqueId = uniqid('cart_', true);
+        try {
+            $cart = $this->getCart();
+            $uniqueId = uniqid('cart_', true);
 
-        if (isset($cart[$uniqueId])) {
-            $cart[$uniqueId]['room_id'] = $roomId;
-            $cart[$uniqueId]['occupants'] = $occupants;
-            $cart[$uniqueId]['check_in'] = $checkIn;
-            $cart[$uniqueId]['check_out'] = $checkOut;
-        } else {
             $cart[$uniqueId] = [
                 'room_id' => $roomId,
                 'occupants' => $occupants,
                 'check_in' => $checkIn,
                 'check_out' => $checkOut,
             ];
-        }
 
-        Session::put($this->sessionKey, $cart);
+            Session::put($this->sessionKey, $cart);
+            Session::save(); // Explicitly save the session
+
+            Log::debug('Cart after add:', ['cart' => $cart, 'session' => session()->all()]);
+        } catch (Exception $e) {
+            Log::error('Cart add error:', ['error' => $e->getMessage()]);
+            throw $e;
+        }
     }
 
-    public function getCart()
+    public function getCart(): array
     {
-        return Session::get($this->sessionKey, []);
+        try {
+            $cart = Session::get($this->sessionKey, []);
+            Log::debug('Cart retrieved:', ['cart' => $cart]);
+
+            return $cart;
+        } catch (Exception $e) {
+            Log::error('Cart get error:', ['error' => $e->getMessage()]);
+
+            return [];
+        }
     }
 
     public function update($roomId, $occupants, $checkIn, $checkOut): void
