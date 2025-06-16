@@ -60,7 +60,11 @@ class ReservationRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         // Preserve cart data before validation redirect
-        session()->keep(['cart']);
+        $newInput = $this->except('_token');
+        $preservedData = array_merge($newInput, ['cart' => session('cart', [])]);
+
+        // Replace all flashed data
+        $this->session()->replace($preservedData);
 
         parent::failedValidation($validator);
     }
