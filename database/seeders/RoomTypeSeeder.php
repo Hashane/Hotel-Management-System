@@ -49,7 +49,7 @@ class RoomTypeSeeder extends Seeder
                 'name' => 'Deluxe Room',
                 'description' => 'Spacious room with a city view and king-size bed.',
                 'capacity' => 3,
-
+                'image_urls' => '',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -57,6 +57,7 @@ class RoomTypeSeeder extends Seeder
                 'name' => 'Suite',
                 'description' => 'Luxury suite with separate living area and amenities.',
                 'capacity' => 4,
+                'image_urls' => '',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
