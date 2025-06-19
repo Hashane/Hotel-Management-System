@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Enums\ReservationStatus;
 use App\Models\RoomReservation;
-use App\Services\admin\PaymentService;
+use App\Services\Admin\PaymentService;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;

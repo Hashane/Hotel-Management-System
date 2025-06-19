@@ -4,6 +4,7 @@ namespace App\Http\Requests\Customer;
 
 use App\Enums\RoomType;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -40,12 +41,19 @@ class ReservationRequest extends FormRequest
             'last_name' => ['required', 'string', 'max:50'],
             'phone' => ['required', 'string', 'max:50'],
             'email' => ['required', 'string', 'email', 'max:50', 'unique:customers,email'],
-            'message' => ['required', 'string', 'max:255'],
-
-            'card' => ['nullable', 'string', 'digits_between:13,19'],
-            'expiry' => ['sometimes', 'required_with:card', 'regex:/^(0[1-9]|1[0-2])\/(\d{2})$/'],
-            'cvv' => ['sometimes', 'required_with:card', 'digits_between:3,4'],
-
+            'message' => ['nullable', 'string', 'max:255'],
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        // Preserve cart data before validation redirect
+        //        $newInput = $this->except('_token');
+        //        $preservedData = array_merge($newInput, ['cart' => session('cart', [])]);
+        //
+        //        // Replace all flashed data
+        //        $this->session()->replace($preservedData);
+        //
+        //        parent::failedValidation($validator);
     }
 }

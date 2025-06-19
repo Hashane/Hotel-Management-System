@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\admin\AdminCartController;
-use App\Http\Controllers\admin\BillController;
-use App\Http\Controllers\admin\CustomerController;
-use App\Http\Controllers\admin\ProfileController;
-use App\Http\Controllers\admin\ReportsController;
-use App\Http\Controllers\admin\ReservationController as AdminReservationController;
-use App\Http\Controllers\admin\RoleController;
-use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\Admin\AdminCartController;
+use App\Http\Controllers\Admin\BillController;
+use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\ReportsController;
+use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('admin/', function () {
