@@ -41,31 +41,19 @@ class ReservationRequest extends FormRequest
             'last_name' => ['required', 'string', 'max:50'],
             'phone' => ['required', 'string', 'max:50'],
             'email' => ['required', 'string', 'email', 'max:50', 'unique:customers,email'],
-            'message' => ['required', 'string', 'max:255'],
-
-            'card' => ['nullable', 'string', 'digits_between:13,19'],
-            'expiry' => [
-                Rule::requiredIf(fn () => ! empty($this->card)),
-                'nullable',
-                'regex:/^(0[1-9]|1[0-2])\/(\d{2})$/',
-            ],
-            'cvv' => [
-                Rule::requiredIf(fn () => ! empty($this->card)),
-                'nullable',
-                'digits_between:3,4',
-            ],
+            'message' => ['nullable', 'string', 'max:255'],
         ];
     }
 
     protected function failedValidation(Validator $validator)
     {
         // Preserve cart data before validation redirect
-        $newInput = $this->except('_token');
-        $preservedData = array_merge($newInput, ['cart' => session('cart', [])]);
-
-        // Replace all flashed data
-        $this->session()->replace($preservedData);
-
-        parent::failedValidation($validator);
+        //        $newInput = $this->except('_token');
+        //        $preservedData = array_merge($newInput, ['cart' => session('cart', [])]);
+        //
+        //        // Replace all flashed data
+        //        $this->session()->replace($preservedData);
+        //
+        //        parent::failedValidation($validator);
     }
 }

@@ -6,7 +6,6 @@ use App\Enums\ReservationStatus;
 use App\Http\Requests\Customer\ReservationRequest;
 use App\Jobs\SendReservationConfirmationEmail;
 use App\Models\Reservation;
-use App\Services\Admin\BillingService;
 use App\Services\Customer\ReservationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -60,10 +59,6 @@ class ReservationController
             $validated = $request->validated();
             $result = $this->reservationService->prepareReservation();
             $reservation = $this->reservationService->store($validated, $result);
-
-            if ($request->filled('card')) {
-                app(BillingService::class)->storeMockPaymentMethod($validated);
-            }
 
             $reservation = $reservation->load(['customer', 'roomReservations', 'roomReservations.room']);
             SendReservationConfirmationEmail::dispatch($reservation);

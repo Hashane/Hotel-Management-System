@@ -6,13 +6,11 @@ use App\Helpers\Helper;
 use App\Jobs\SendInvoiceToCustomer;
 use App\Models\Bill;
 use App\Models\Payment;
-use App\Models\PaymentMethod;
 use App\Models\Reservation;
 use App\Models\Room;
 use App\Models\RoomReservation;
 use App\Services\CartCostCalculator;
 use Carbon\Carbon;
-use Illuminate\Support\Str;
 
 class BillingService
 {
@@ -87,28 +85,5 @@ class BillingService
         ]);
 
         SendInvoiceToCustomer::dispatch($bill);
-    }
-
-    public function storeMockPaymentMethod(array $data)
-    {
-        $cardNumber = preg_replace('/\D/', '', $data['card']);
-        $last4 = substr($cardNumber, -4);
-
-        $expiry = $data['expiry'];
-        [$expMonth, $expYear] = explode('/', $expiry);
-        $expYearFull = '20'.$expYear;
-
-        $mockId = 'pm_mock_'.Str::random(24); // Stripe-like mock payment method ID
-
-        $paymentMethod = PaymentMethod::create([
-            'user_id' => auth()->id(),
-            'provider' => 'mock',
-            'provider_id' => $mockId,
-            'card_brand' => 'Unknown', // Todo brand detection
-            'card_last4' => $last4,
-            'card_exp_month' => $expMonth,
-            'card_exp_year' => $expYearFull,
-            'is_default' => true,
-        ]);
     }
 }
