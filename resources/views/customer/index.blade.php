@@ -4,6 +4,7 @@
 
 @section('content')
     <body>
+
     <!-- Hero Section Begin -->
     <section class="hero-section">
         <div class="container">
@@ -85,6 +86,7 @@
     </section>
     <!-- Hero Section End -->
 
+
     <!-- About Us Section Begin -->
     <section class="aboutus-section spad">
         <div class="container">
@@ -123,6 +125,7 @@
     </section>
     <!-- About Us Section End -->
 
+
     <!-- Services Section End -->
     <section class="services-section spad">
         <div class="container">
@@ -155,6 +158,8 @@
                         </p>
                     </div>
                 </div>
+
+                
                 <div class="col-lg-4 col-sm-6">
                     <div class="service-item">
                         <i class="flaticon-026-bed"></i>
@@ -200,6 +205,7 @@
 
     </section>
     <!-- Services Section End -->
+
 
     <!-- Home Room Section Begin -->
     <section class="hp-room-section">
