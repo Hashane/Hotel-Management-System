@@ -2,65 +2,96 @@
 
 namespace Database\Seeders;
 
+use App\Models\RoomCategory;
+use App\Models\RoomType;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class RoomTypeSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run()
     {
-        $standardImages = [
-            'https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            'https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            'https://images.unsplash.com/photo-1621891334481-5c14b369d9d7?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            'https://images.unsplash.com/flagged/photo-1556438758-8d49568ce18e?q=80&w=2948&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            'https://images.unsplash.com/photo-1631049421450-348ccd7f8949?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        ];
-
-        $deluxeImages = [
-            'https://images.unsplash.com/photo-1590490359854-dfba19688d70?q=80&w=3174&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            'https://images.unsplash.com/photo-1631049307290-bb947b114627?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            'https://plus.unsplash.com/premium_photo-1661962495669-d72424626bdc?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            'https://images.unsplash.com/photo-1713762523087-41019a875741?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        ];
-
-        $suiteImages = [
-            'https://plus.unsplash.com/premium_photo-1661875135365-16aab794632f?q=80&w=3053&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            'https://plus.unsplash.com/premium_photo-1675616563084-63d1f129623d?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            'https://images.unsplash.com/photo-1667125095636-dce94dcbdd96?q=80&w=2904&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            'https://images.unsplash.com/photo-1540518614846-7eded433c457?q=80&w=2914&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        ];
-
-        DB::table('room_types')->insert([
+        RoomCategory::factory()->count(3)->create();
+        $roomTypes = [
             [
-                'name' => 'Standard Room',
-                'description' => 'A basic room with essential amenities.',
+                'room_category_id' => 1, // Standard
+                'name' => 'Standard Queen',
+                'bed_type' => 'Queen',
                 'capacity' => 2,
-                'image_urls' => '',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'size' => 22.0,
+                'description' => 'Comfortable room with queen bed and city view.',
+                'image_urls' => [
+                    'https://images.unsplash.com/photo-1590490359854-dfba19688d70?q=80&w=3174&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?q=80&w=2940&auto=format&fit=crop',
+                ],
             ],
             [
-                'name' => 'Deluxe Room',
-                'description' => 'Spacious room with a city view and king-size bed.',
+                'room_category_id' => 1,
+                'name' => 'Standard Twin',
+                'bed_type' => 'Twin',
+                'capacity' => 2,
+                'size' => 21.0,
+                'description' => 'Twin bed standard room ideal for two guests.',
+                'image_urls' => [
+                    'https://images.unsplash.com/photo-1631049307290-bb947b114627?q=80&w=2940&auto=format&fit=crop',
+                ],
+            ],
+            [
+                'room_category_id' => 2, // Deluxe
+                'name' => 'Deluxe King',
+                'bed_type' => 'King',
+                'capacity' => 2,
+                'size' => 28.5,
+                'description' => 'Spacious deluxe room with king bed and modern decor.',
+                'image_urls' => [
+                    'https://plus.unsplash.com/premium_photo-1661962495669-d72424626bdc?q=80&w=2942&auto=format&fit=crop',
+                ],
+            ],
+            [
+                'room_category_id' => 2,
+                'name' => 'Deluxe Twin',
+                'bed_type' => 'Twin',
+                'capacity' => 2,
+                'size' => 27.0,
+                'description' => 'Deluxe twin bed room with modern facilities.',
+                'image_urls' => [
+                    'https://images.unsplash.com/photo-1713762523087-41019a875741?q=80&w=2940&auto=format&fit=crop',
+                ],
+            ],
+            [
+                'room_category_id' => 3, // Suite
+                'name' => 'Junior Suite King',
+                'bed_type' => 'King',
                 'capacity' => 3,
-                'image_urls' => '',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'size' => 35.0,
+                'description' => 'Elegant junior suite with king bed and seating area.',
+                'image_urls' => [
+                    'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?q=80&w=2940&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1590490359854-dfba19688d70?q=80&w=3174&auto=format&fit=crop',
+                ],
             ],
             [
-                'name' => 'Suite',
-                'description' => 'Luxury suite with separate living area and amenities.',
-                'capacity' => 4,
-                'image_urls' => '',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'room_category_id' => 3,
+                'name' => 'Executive Suite Queen',
+                'bed_type' => 'Queen',
+                'capacity' => 3,
+                'size' => 38.0,
+                'description' => 'Luxury executive suite with queen bed and lounge.',
+                'image_urls' => [
+                    'https://images.unsplash.com/photo-1631049307290-bb947b114627?q=80&w=2940&auto=format&fit=crop',
+                ],
             ],
-        ]);
+        ];
+
+        foreach ($roomTypes as $type) {
+            RoomType::create([
+                'room_category_id' => $type['room_category_id'],
+                'name' => $type['name'],
+                'bed_type' => $type['bed_type'],
+                'capacity' => $type['capacity'],
+                'size' => $type['size'],
+                'description' => $type['description'],
+                'image_urls' => json_encode($type['image_urls']),
+            ]);
+        }
     }
 }
