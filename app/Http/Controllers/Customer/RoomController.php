@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Enums\RateType;
+use App\Http\Requests\Customer\RoomRequest;
 use App\Models\Room;
+use App\Models\RoomType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -12,10 +14,12 @@ class RoomController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(RoomRequest $request)
     {
-        $checkIn = request('check_in');
-        $checkOut = request('check_out');
+        $validated = $request->validated();
+
+        $checkIn = $validated['check_in'] ?? now()->toDateString();
+        $checkOut = $validated['check_out'] ?? now()->addDay()->toDateString();
 
         $rateTypeId = RateType::PER_NIGHT->value;
 
@@ -31,9 +35,17 @@ class RoomController
             }
         }
 
-        $rooms = Room::withRateTypeAndFacilities($rateTypeId)->filterBy(request()->all())->paginate(10)->appends(request()->except('page')); // dd($rooms->roomType->rateTypes->first()->pivot->price);
+        $roomTypes = RoomType::withCount(['rooms as roomCount'])
+            ->filterBy($validated)->with([
+                'facilities',
+                'rateTypes' => function ($query) use ($rateTypeId) {
+                    if ($rateTypeId) {
+                        $query->where('rate_type_id', $rateTypeId);
+                    }
+                },
+            ])->paginate(10)->appends(request()->except('page'));
 
-        return view('customer.rooms.index', compact('rooms'));
+        return view('customer.rooms.index', compact('roomTypes'));
     }
 
     /**

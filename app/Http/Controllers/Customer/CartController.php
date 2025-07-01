@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Models\Room;
+use App\Models\RoomType;
 use App\Services\CartCostCalculator;
 use App\Services\Customer\CartService;
 use Illuminate\Http\Request;
@@ -47,15 +48,16 @@ class CartController
         return redirect()->route('rooms.index')->with('success', 'Cart updated!');
     }
 
-    public function add(Room $room, Request $request)
+    public function add(RoomType $roomType, Request $request)
     {
         $occupants = $request->input('occupants', 1);
         $checkIn = $request->input('check_in') ?? Carbon::now()->format('Y-m-d');
         $checkOut = $request->input('check_out') ?? Carbon::now()->addDay()->format('Y-m-d');
 
-        $this->cart->add($room->id, $occupants, $checkIn, $checkOut);
+        $this->cart->add($roomType, $occupants, $checkIn, $checkOut);
 
-        return redirect()->route('rooms.index')->with('success', 'Room added to cart!');
+        return redirect()->back()->withInput()->with('success', 'Room added to cart!');
+
     }
 
     public function remove($id)

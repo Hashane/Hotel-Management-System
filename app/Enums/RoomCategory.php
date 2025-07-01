@@ -2,11 +2,11 @@
 
 namespace App\Enums;
 
-enum RoomType: int
+enum RoomCategory: int
 {
     case STANDARD = 1;
-    case DELUXE= 2;
-    case SUITE= 3;
+    case DELUXE = 2;
+    case SUITE = 3;
 
     public function label(): string
     {

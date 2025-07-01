@@ -29,26 +29,30 @@
                     <h3>Booking Your Hotel</h3>
                     <form action="{{ route('rooms.index') }}" method="GET">
                         <div class="select-option">
-                            <label for="room_type">Accommodation Type:</label>
-                            <select id="room_type" name="room_type" class="r-o-select">
-                                <option value="any" {{ request('room_type') == '' ? 'selected' : '' }}>Any</option>
-                                <option value="1" {{ request('room_type') == '1' ? 'selected' : '' }}>Standard</option>
-                                <option value="2" {{ request('room_type') == '2' ? 'selected' : '' }}>Deluxe</option>
-                                <option value="3" {{ request('room_type') == '3' ? 'selected' : '' }}>Suite</option>
+                            <label for="room_category">Accommodation Category:</label>
+                            <select id="room_category" name="room_category" class="r-o-select">
+                                @php
+                                    $selectedRoomType = old('room_category', request('room_category', 'any'));
+                                @endphp
+
+                                <option value="any" {{ $selectedRoomType == 'any' ? 'selected' : '' }}>Any</option>
+                                <option value="1" {{ $selectedRoomType == '1' ? 'selected' : '' }}>Standard</option>
+                                <option value="2" {{ $selectedRoomType == '2' ? 'selected' : '' }}>Deluxe</option>
+                                <option value="3" {{ $selectedRoomType == '3' ? 'selected' : '' }}>Suite</option>
                             </select>
                         </div>
 
                         <div class="check-date">
                             <label for="date-in">Check In:</label>
                             <input type="date" class="date-input" id="date-in" name="check_in"
-                                   value="{{ request()->check_in ?? now()->toDateString() }}">
+                                   value="{{ old('check_in', request('check_in', now()->toDateString())) }}">
                             <i class="icon_calendar"></i>
                         </div>
 
                         <div class="check-date">
                             <label for="date-out">Check Out:</label>
                             <input type="date" class="date-input" id="date-out" name="check_out"
-                                   value="{{ request()->check_out ?? now()->addDay()->toDateString() }}">
+                                   value="{{ old('check_out', request('check_out', now()->toDateString())) }}">
                             <i class="icon_calendar"></i>
                         </div>
 
@@ -58,39 +62,42 @@
             </div>
 
             <div class="col-lg-10">
-                @foreach ($rooms->chunk(2) as $roomChunk)
+                @foreach ($roomTypes->chunk(2) as $roomChunk)
                     <div class="row">
-                        @foreach ($roomChunk as $room)
+                        @foreach ($roomChunk as $roomType)
                             <div class="col-lg-6">
                                 <div class="room-item">
-                                    <img class="room-img" src="{{ $room->image_url }}" alt="{{ $room->name }}"/>
+                                    <img class="room-img" src="{{ $roomType->image_urls[0] }}"
+                                         alt="{{ $roomType->name }}"/>
                                     <div class="ri-text">
-                                        <h4>{{ $room->name }}</h4>
-                                        <h3>{{ $room->default_rate->pivot->price ?? 'N/A' }}$<span>/Per night</span>
+                                        <h4>{{ $roomType->name }}</h4>
+                                        <h3>{{ $roomType->rateTypes[0]->pivot->price ?? 'N/A' }}$<span>/Per night</span>
                                         </h3>
                                         <table>
                                             <tbody>
                                             <tr>
                                                 <td class="r-o">Size:</td>
-                                                <td>{{ $room->size ?? '30 ft' }}</td>
+                                                <td>{{ $roomType->size ?? '30 ft' }}</td>
                                             </tr>
                                             <tr>
                                                 <td class="r-o">Capacity:</td>
-                                                <td>Max person {{ $room->roomType->capacity ?? 2 }}</td>
+                                                <td>Max person {{ $roomType->capacity ?? 2 }}</td>
                                             </tr>
                                             <tr>
                                                 <td class="r-o">Bed:</td>
-                                                <td>{{ $room->bed_type ?? 'King Beds' }}</td>
+                                                <td>{{ $roomType->bed_type ?? 'King Beds' }}</td>
                                             </tr>
                                             <tr>
                                                 <td class="r-o">Services:</td>
-                                                <td>{{ implode(', ',(json_decode($room->roomType->facilities()->pluck('name'),true))) ?? 'Wifi, Television, Bathroom,...' }}</td>
+                                                <td>{{ implode(', ',(json_decode($roomType->facilities()->pluck('name'),true))) ?? 'Wifi, Television, Bathroom,...' }}</td>
                                             </tr>
                                             </tbody>
                                         </table>
                                         <a href="#" class="primary-btn mb-3">More Details</a>
                                         <div class="row">
-                                            <form action="{{ route('cart.add', $room) }}" method="POST"
+
+                                            <form action="{{ route('cart.add', ['roomType' => $roomType]) }}"
+                                                  method="POST"
                                                   class="d-flex justify-content-between w-100 gap-3">
                                                 @csrf
                                                 <input type="hidden" name="check_in" value="{{ request('check_in') }}">
@@ -111,6 +118,7 @@
                                             </form>
                                         </div>
                                     </div>
+                                    <div><i class="icon_calendar"></i></div>
                                 </div>
                             </div>
                         @endforeach
@@ -119,7 +127,7 @@
 
                 <div class="col-lg-12">
                     <div class="room-pagination" style="margin-bottom: 20px;">
-                        {{ $rooms->links() }}
+                        {{ $roomTypes->links() }}
                     </div>
                 </div>
             </div>

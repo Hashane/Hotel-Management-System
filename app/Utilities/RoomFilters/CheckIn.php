@@ -17,7 +17,7 @@ class CheckIn extends QueryFilter implements FilterContract
             return;
         }
 
-        $this->query->whereDoesntHave('roomReservations', function ($query) use ($checkIn, $checkOut) {
+        $this->query->whereDoesntHave('rooms.roomReservations', function ($query) use ($checkIn, $checkOut) {
             $query->where(function ($query) use ($checkIn, $checkOut) {
                 $query->where('check_in', '<', $checkOut)
                     ->where('check_out', '>', $checkIn);
