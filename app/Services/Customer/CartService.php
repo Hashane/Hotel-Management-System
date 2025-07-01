@@ -2,6 +2,8 @@
 
 namespace App\Services\Customer;
 
+use App\Models\Room;
+use App\Models\RoomType;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -10,14 +12,23 @@ class CartService
 {
     protected string $sessionKey = 'cart';
 
-    public function add($roomId, $occupants, $checkIn, $checkOut): void
+    public function add(RoomType $roomType, $occupants, $checkIn, $checkOut): void
     {
         try {
             $cart = $this->getCart();
             $uniqueId = uniqid('cart_', true);
 
+            // Todo make it helper func
+            $room = Room::where('room_type_id', $roomType->id)
+                ->whereDoesntHave('roomReservations', function ($q) use ($checkIn, $checkOut) {
+                    $q->where('check_in', '<', $checkOut)
+                        ->where('check_out', '>', $checkIn);
+                })
+                ->inRandomOrder()
+                ->first();
+
             $cart[$uniqueId] = [
-                'room_id' => $roomId,
+                'room_id' => $room->id,
                 'occupants' => $occupants,
                 'check_in' => $checkIn,
                 'check_out' => $checkOut,

@@ -2,13 +2,30 @@
 
 namespace App\Models;
 
+use App\Utilities\FilterBuilder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class RoomType extends Model
 {
+    use HasFactory;
+
     protected $guarded = [];
+
+    protected $casts = [
+        'image_urls' => 'array',
+    ];
+
+    public function scopeFilterBy($query, array $filters)
+    {
+        $namespace = 'App\\Utilities\\RoomFilters';
+        $filter = new FilterBuilder($query, $filters, $namespace);
+
+        return $filter->apply();
+    }
 
     public function facilities(): BelongsToMany
     {
@@ -18,6 +35,11 @@ class RoomType extends Model
     public function rooms(): HasMany
     {
         return $this->hasMany(Room::class);
+    }
+
+    public function roomCategory(): BelongsTo
+    {
+        return $this->belongsTo(RoomCategory::class);
     }
 
     public function rateTypes(): BelongsToMany

@@ -16,7 +16,7 @@ Route::middleware('web')->group(function () {
     Route::view('/contact', 'customer.contact')->name('contact');
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::post('/cart/add/{room}', [CartController::class, 'add'])->name('cart.add');
+    Route::post('/cart/add/{roomType}', [CartController::class, 'add'])->name('cart.add');
     Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
     Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');

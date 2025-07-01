@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer;
 
 use App\Enums\RateType;
 use App\Models\Room;
+use App\Models\RoomType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -31,9 +32,17 @@ class RoomController
             }
         }
 
-        $rooms = Room::withRateTypeAndFacilities($rateTypeId)->filterBy(request()->all())->paginate(10)->appends(request()->except('page')); // dd($rooms->roomType->rateTypes->first()->pivot->price);
+        $roomTypes = RoomType::withCount(['rooms as roomCount'])
+            ->filterBy(request()->all())->with([
+                'facilities',
+                'rateTypes' => function ($query) use ($rateTypeId) {
+                    if ($rateTypeId) {
+                        $query->where('rate_type_id', $rateTypeId);
+                    }
+                },
+            ])->paginate(10)->appends(request()->except('page'));
 
-        return view('customer.rooms.index', compact('rooms'));
+        return view('customer.rooms.index', compact('roomTypes'));
     }
 
     /**

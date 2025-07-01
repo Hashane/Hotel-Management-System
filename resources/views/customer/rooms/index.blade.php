@@ -58,39 +58,42 @@
             </div>
 
             <div class="col-lg-10">
-                @foreach ($rooms->chunk(2) as $roomChunk)
+                @foreach ($roomTypes->chunk(2) as $roomChunk)
                     <div class="row">
-                        @foreach ($roomChunk as $room)
+                        @foreach ($roomChunk as $roomType)
                             <div class="col-lg-6">
                                 <div class="room-item">
-                                    <img class="room-img" src="{{ $room->image_url }}" alt="{{ $room->name }}"/>
+                                    <img class="room-img" src="{{ $roomType->image_urls[0] }}"
+                                         alt="{{ $roomType->name }}"/>
                                     <div class="ri-text">
-                                        <h4>{{ $room->name }}</h4>
-                                        <h3>{{ $room->default_rate->pivot->price ?? 'N/A' }}$<span>/Per night</span>
+                                        <h4>{{ $roomType->name }}</h4>
+                                        <h3>{{ $roomType->rateTypes[0]->pivot->price ?? 'N/A' }}$<span>/Per night</span>
                                         </h3>
                                         <table>
                                             <tbody>
                                             <tr>
                                                 <td class="r-o">Size:</td>
-                                                <td>{{ $room->size ?? '30 ft' }}</td>
+                                                <td>{{ $roomType->size ?? '30 ft' }}</td>
                                             </tr>
                                             <tr>
                                                 <td class="r-o">Capacity:</td>
-                                                <td>Max person {{ $room->roomType->capacity ?? 2 }}</td>
+                                                <td>Max person {{ $roomType->capacity ?? 2 }}</td>
                                             </tr>
                                             <tr>
                                                 <td class="r-o">Bed:</td>
-                                                <td>{{ $room->bed_type ?? 'King Beds' }}</td>
+                                                <td>{{ $roomType->bed_type ?? 'King Beds' }}</td>
                                             </tr>
                                             <tr>
                                                 <td class="r-o">Services:</td>
-                                                <td>{{ implode(', ',(json_decode($room->roomType->facilities()->pluck('name'),true))) ?? 'Wifi, Television, Bathroom,...' }}</td>
+                                                <td>{{ implode(', ',(json_decode($roomType->facilities()->pluck('name'),true))) ?? 'Wifi, Television, Bathroom,...' }}</td>
                                             </tr>
                                             </tbody>
                                         </table>
                                         <a href="#" class="primary-btn mb-3">More Details</a>
                                         <div class="row">
-                                            <form action="{{ route('cart.add', $room) }}" method="POST"
+
+                                            <form action="{{ route('cart.add', ['roomType' => $roomType]) }}"
+                                                  method="POST"
                                                   class="d-flex justify-content-between w-100 gap-3">
                                                 @csrf
                                                 <input type="hidden" name="check_in" value="{{ request('check_in') }}">
@@ -111,6 +114,7 @@
                                             </form>
                                         </div>
                                     </div>
+                                    <div><i class="icon_calendar"></i></div>
                                 </div>
                             </div>
                         @endforeach
@@ -119,7 +123,7 @@
 
                 <div class="col-lg-12">
                     <div class="room-pagination" style="margin-bottom: 20px;">
-                        {{ $rooms->links() }}
+                        {{ $roomTypes->links() }}
                     </div>
                 </div>
             </div>
