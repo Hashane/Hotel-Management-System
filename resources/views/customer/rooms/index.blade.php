@@ -31,24 +31,28 @@
                         <div class="select-option">
                             <label for="room_type">Accommodation Type:</label>
                             <select id="room_type" name="room_type" class="r-o-select">
-                                <option value="any" {{ request('room_type') == '' ? 'selected' : '' }}>Any</option>
-                                <option value="1" {{ request('room_type') == '1' ? 'selected' : '' }}>Standard</option>
-                                <option value="2" {{ request('room_type') == '2' ? 'selected' : '' }}>Deluxe</option>
-                                <option value="3" {{ request('room_type') == '3' ? 'selected' : '' }}>Suite</option>
+                                @php
+                                    $selectedRoomType = old('room_type', request('room_type', 'any'));
+                                @endphp
+
+                                <option value="any" {{ $selectedRoomType == 'any' ? 'selected' : '' }}>Any</option>
+                                <option value="1" {{ $selectedRoomType == '1' ? 'selected' : '' }}>Standard</option>
+                                <option value="2" {{ $selectedRoomType == '2' ? 'selected' : '' }}>Deluxe</option>
+                                <option value="3" {{ $selectedRoomType == '3' ? 'selected' : '' }}>Suite</option>
                             </select>
                         </div>
 
                         <div class="check-date">
                             <label for="date-in">Check In:</label>
                             <input type="date" class="date-input" id="date-in" name="check_in"
-                                   value="{{ request()->check_in ?? now()->toDateString() }}">
+                                   value="{{ old('check_in', request('check_in', now()->toDateString())) }}">
                             <i class="icon_calendar"></i>
                         </div>
 
                         <div class="check-date">
                             <label for="date-out">Check Out:</label>
                             <input type="date" class="date-input" id="date-out" name="check_out"
-                                   value="{{ request()->check_out ?? now()->addDay()->toDateString() }}">
+                                   value="{{ old('check_out', request('check_out', now()->toDateString())) }}">
                             <i class="icon_calendar"></i>
                         </div>
 

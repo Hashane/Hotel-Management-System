@@ -56,7 +56,8 @@ class CartController
 
         $this->cart->add($roomType, $occupants, $checkIn, $checkOut);
 
-        return redirect()->route('rooms.index')->with('success', 'Room added to cart!');
+        return redirect()->back()->withInput()->with('success', 'Room added to cart!');
+
     }
 
     public function remove($id)
