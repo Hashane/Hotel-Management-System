@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class RoomTypeDropdown extends Component
+class RoomCategoryDropdown extends Component
 {
     public $selected;
 
@@ -29,6 +29,6 @@ class RoomTypeDropdown extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.room-type-dropdown');
+        return view('components.room-category-dropdown');
     }
 }
