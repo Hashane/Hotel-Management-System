@@ -150,29 +150,7 @@
                                 @error('message') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                         </div>
-
                         <div class="row">
-                            <h3>Bank Card Information</h3>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <input type="text" name="card" value="{{ old('card') }}" placeholder="Card Number"/>
-                                @error('card') <small class="text-danger d-block mt-1">{{ $message }}</small> @enderror
-                            </div>
-
-                            <div class="col-lg-3">
-                                <input type="text" name="expiry" value="{{ old('expiry') }}"
-                                       placeholder="MM/YY or MM/YYYY"/>
-                                @error('expiry') <small
-                                    class="text-danger d-block mt-1">{{ $message }}</small> @enderror
-                            </div>
-
-                            <div class="col-lg-3">
-                                <input type="text" name="cvc" value="{{ old('cvc') }}" placeholder="CVC"/>
-                                @error('cvc') <small class="text-danger d-block mt-1">{{ $message }}</small> @enderror
-                            </div>
-
                             <div class="col-lg-12">
                                 <button type="submit">Make Reservation</button>
                             </div>

@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use App\Utilities\FilterBuilder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Room extends Model
 {
+    use HasFactory;
+
     protected $guarded = [];
 
     public static function withRateTypeAndFacilities($rateTypeId = null)
@@ -23,16 +25,7 @@ class Room extends Model
         ]);
     }
 
-    public function scopeFilterBy($query, array $filters)
-    {
-        $namespace = 'App\\Utilities\\RoomFilters';
-        $filter = new FilterBuilder($query, $filters, $namespace);
-
-        return $filter->apply();
-    }
-
     // accessor
-
     public function getDefaultRateAttribute()
     {
         return $this->roomType->rateTypes()->first();
