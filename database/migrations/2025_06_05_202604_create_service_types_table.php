@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('service_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->decimal('base_price',10,2); // for laundry, bar fixed base prices. To be automatically filled when recording extra charges
+            $table->decimal('base_price', 10, 2); // for laundry, bar fixed base prices. To be automatically filled when recording extra charges
             $table->timestamps();
         });
     }
