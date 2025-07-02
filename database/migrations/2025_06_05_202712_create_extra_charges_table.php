@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('extra_charges', function (Blueprint $table) {
             $table->id();
             $table->foreignId('service_type_id')->constrained()->onDelete('cascade');
-            $table->decimal('amount',10,2);
+            $table->decimal('amount', 10, 2);
             $table->timestamps();
         });
     }

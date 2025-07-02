@@ -1,4 +1,4 @@
-@php use App\Enums\RoomType; @endphp
+@php use App\Enums\RoomCategory; @endphp
 
 @extends('admin.layouts.admin')
 
