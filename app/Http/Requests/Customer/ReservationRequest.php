@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Customer;
 
-use App\Enums\RoomType;
+use App\Enums\RoomCategory;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -30,7 +30,7 @@ class ReservationRequest extends FormRequest
                 'name' => ['required', 'string', 'max:255'],
                 'start' => ['required', 'string'],
                 'end' => ['required', 'string'],
-                'type' => ['required', Rule::Enum(RoomType::class), 'string'],
+                'type' => ['required', Rule::Enum(RoomCategory::class), 'string'],
                 'guests' => ['required', 'string'],
                 'room_reservation_id' => ['required', 'string', 'exists:room_reservations,id'],
             ];
