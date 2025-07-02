@@ -71,7 +71,7 @@
                                 <div class="room-item">
                                     <img class="room-img" src="{{ $roomType->image_url }}" alt="{{ $roomType->name }}"/>
                                     <div class="ri-text">
-                                        <h4>{{ $roomType->name }}</h4>
+                                        <h4>{{ $roomType->name }} - {{$roomType->available_rooms_count }}</h4>
                                         <h3>{{ $roomType->rateTypes[0]->pivot->price ?? 'N/A' }}$<span>/Per night</span>
                                         </h3>
                                         <table>

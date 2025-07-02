@@ -148,11 +148,13 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label class="col-sm-3 col-form-label">Room Type</label>
+                                        <label class="col-sm-3 col-form-label">Category</label>
                                         <div class="col-sm-9">
-                                            <x-room-type-dropdown
-                                                    selected="{{ old('room_type',request()->room_type) }}">
-                                            </x-room-type-dropdown>
+                                            <x-room-category-dropdown
+                                                    :selected="old('room_category',request()->room_category)"
+                                                    name="room_category"
+                                                    class="custom-class"
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -243,42 +245,44 @@
                     <thead class="table-light">
                     <tr>
                         <th>Room Number</th>
-                        <th>Duration</th>
                         <th>Room Type</th>
+                        <th>Max Capacity</th>
                         <th>Occupancy</th>
                         <th class="text-center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @forelse($data['filteredRooms'] as $room)
-                        <tr>
-                            <form action="{{ route('admin.carts.store') }}" method="POST">
-                                @csrf
-                                <td>{{ $room->room_no }}</td>
-                                <td>{{ $room->check_in ?? '2025-06-10' }} to {{ $room->check_out ?? '2025-06-14' }}</td>
-                                <td>{{ $room->roomType->name }}</td>
-                                <td>
-                                    <input type="number"
-                                           name="occupants"
-                                           value="{{ $room->roomType->capacity }}"
-                                           min="1"
-                                           max="{{ $room->roomType->capacity }}"
-                                           class="form-control form-control-sm"
-                                           style="width: 80px;">
-                                    <input type="hidden" name="room_id" value="{{ $room->id }}">
-                                    <input type="hidden" name="check_in"
-                                           value="{{ request()->check_in ?? now()->toDateString() }}">
-                                    <input type="hidden" name="check_out"
-                                           value="{{ request()->check_out ?? now()->addDay()->toDateString() }}">
-                                </td>
-                                <td class="text-center">
-                                    <button type="submit"
-                                            class="btn btn-sm btn-success px-3" {{ $cartItems->contains('room_id', $room->id) ? 'disabled' : '' }}>
-                                        Add to Cart
-                                    </button>
-                                </td>
-                            </form>
-                        </tr>
+                    @forelse($data['filteredRooms'] as $filteredRoomTypes)
+                        @foreach($filteredRoomTypes->rooms as $room)
+                            <tr>
+                                <form action="{{ route('admin.carts.store') }}" method="POST">
+                                    @csrf
+                                    <td>#{{ $room->room_no }}</td>
+                                    <td>{{ $room->roomType->name }}</td>
+                                    <td>{{ $room->roomType->capacity }}</td>
+                                    <td>
+                                        <input type="number"
+                                               name="occupants"
+                                               value="{{ $room->capacity }}"
+                                               min="1"
+                                               max="{{ $room->capacity }}"
+                                               class="form-control form-control-sm"
+                                               style="width: 80px;">
+                                        <input type="hidden" name="room_id" value="{{ $room->id }}">
+                                        <input type="hidden" name="check_in"
+                                               value="{{ request()->check_in ?? now()->toDateString() }}">
+                                        <input type="hidden" name="check_out"
+                                               value="{{ request()->check_out ?? now()->addDay()->toDateString() }}">
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="submit"
+                                                class="btn btn-sm btn-success px-3" {{ $cartItems->contains('room_id', $room->id) ? 'disabled' : '' }}>
+                                            Add to Cart
+                                        </button>
+                                    </td>
+                                </form>
+                            </tr>
+                        @endforeach
                     @empty
                         <tr>
                             <td colspan="5">No available rooms</td>

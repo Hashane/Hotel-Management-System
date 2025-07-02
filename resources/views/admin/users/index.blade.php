@@ -143,7 +143,7 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="roomType" class="form-label">Room Type</label>
-                                        <x-room-type-dropdown
+                                        <x-room-category-dropdown
                                                 :selected="$user->room->roomType->id ?? old('room_type_id')"
                                                 name="type"
                                                 class="custom-class"

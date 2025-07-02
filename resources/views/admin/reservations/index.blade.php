@@ -67,7 +67,7 @@
                             <th>Reservation ID</th>
                             <th>Name</th>
                             <th>Duration</th>
-                            <th>Room Type</th>
+                            <th>Room</th>
                             <th>Guests</th>
                             <th>Status</th>
                             <th>Actions</th>
@@ -85,7 +85,8 @@
                                     <td>{{ $reservation->customer->name }}</td>
                                 @endif
                                 <td>{{ $roomReservation->check_in }} to {{ $roomReservation->check_out }}</td>
-                                <td>{{ $roomReservation->room->roomType->name }}</td>
+                                <td>#{{$roomReservation->room->room_no}}
+                                    - {{ $roomReservation->room->roomType->name }}</td>
                                 <td>{{ $roomReservation->occupants }}</td>
                                 <td>
                                     @php
@@ -266,7 +267,7 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="roomType" class="form-label">Room Type</label>
-                                        <x-room-type-dropdown
+                                        <x-room-category-dropdown
                                                 :selected="$roomReservation->room->roomType->id ?? old('room_type_id')"
                                                 name="type"
                                                 class="custom-class"
