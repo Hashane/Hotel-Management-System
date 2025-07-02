@@ -35,15 +35,14 @@ class RoomController
             }
         }
 
-        $roomTypes = RoomType::withCount(['rooms as roomCount'])
-            ->filterBy($validated)->with([
-                'facilities',
-                'rateTypes' => function ($query) use ($rateTypeId) {
-                    if ($rateTypeId) {
-                        $query->where('rate_type_id', $rateTypeId);
-                    }
-                },
-            ])->paginate(10)->appends(request()->except('page'));
+        $roomTypes = RoomType::filterBy($validated)->with([
+            'facilities',
+            'rateTypes' => function ($query) use ($rateTypeId) {
+                if ($rateTypeId) {
+                    $query->where('rate_type_id', $rateTypeId);
+                }
+            },
+        ])->paginate(10)->appends(request()->except('page'));
 
         return view('customer.rooms.index', compact('roomTypes'));
     }
