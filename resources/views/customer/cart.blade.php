@@ -5,11 +5,37 @@
 @section('content')
     <!-- cart Section Begin -->
     {{-- <div class="container" style="margin-top: 40px", style="display: inline-flex" > --}}
+    @empty($items)
+        <div class="container mt-5 d-flex justify-content-center align-items-start gap-4">
+            <div class="col-md-8">
+
+                <div class="card shadow-sm border-0 w-100">
+                    <div class="card-header bg-white border-bottom-0">
+                        <h5 class="mb-0">Your Cart</h5>
+                    </div>
+
+                    <div class="card-body text-center">
+                        <img src="https://lizotel.pt/optimal-html/assets/images/sad-icon.png"
+                             alt="Empty Cart Illustration"
+                             class="img-fluid mb-4" style="max-width: 200px;">
+
+                        <h3 class="text-muted fw-bold">Your Cart is Empty</h3>
+                        <p class="text-secondary">Add something to make me happy 🙂</p>
+
+                        <a href="{{ route('rooms.index') }}" class="btn btn-primary mt-3 px-4">
+                            <i class="fas fa-arrow-left me-2"></i> Continue Shopping
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    @endempty
 
     <div class="container d-flex" style="gap: 20px; align-items: flex-start; margin-top: 40px;">
         <div style="width: 60%;">
             <div class="row">
-                @forelse($items as $key => $item)
+                @foreach($items as $key => $item)
                     <!-- room detail card section -->
                     <div class="col-lg-12">
                         <div class="room-item">
@@ -88,101 +114,98 @@
                             </div>
                         </div>
                     </div>
-                @empty
-                    <div class="row">
-                        <h2 class="text-center text-muted fst-italic">Cart Empty</h2>
-                    </div>
-
-                @endforelse
+                @endforeach
             </div>
         </div>
 
-        <div style="width: 35%; position: sticky; top: 40px; align-self: flex-start;">
-            <div class="row">
-                <div class="col-lg-12" style="position: sticky; top: 40px; align-self: flex-start; z-index: 100;">
+        @empty(!$items)
+            <div style="width: 35%; position: sticky; top: 40px; align-self: flex-start;">
+                <div class="row">
+                    <div class="col-lg-12" style="position: sticky; top: 40px; align-self: flex-start; z-index: 100;">
 
-                    <div class="row">
-                        <!-- payment section -->
-                        <div class="col-lg-12 payment-card">
-                            <div class="row">
-                                <h4>Payment Information</h4>
+                        <div class="row">
+                            <!-- payment section -->
+                            <div class="col-lg-12 payment-card">
+                                <div class="row">
+                                    <h4>Payment Information</h4>
+                                </div>
+                                <div class="row payment-detail-row">
+                                    <div class="col-lg-5">
+                                        <p>Total Room Cost</p>
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <h6 class="payment-price">Rs. {{$totalRoomCost}}.00</h6>
+                                    </div>
+                                </div>
+                                <div class="row payment-detail-row">
+                                    <div class="col-lg-5">
+                                        <p>Tax {{$taxPercentage}}%</p>
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <h6 class="payment-price">Rs. {{$tax}}.00</h6>
+                                    </div>
+                                </div>
+                                <div class="row payment-detail-row">
+                                    <div class="col-lg-5">
+                                        <p>Service Charges</p>
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <h6 class="payment-price">Rs. {{$serviceCharges}}.00</h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                        <h6 style="font-weight: bolder">Total Amount</h6>
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <h5 class="payment-price" style="font-size: larger">
+                                            Rs. {{ $totalAmount }}.00
+                                        </h5>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="row payment-detail-row">
-                                <div class="col-lg-5">
-                                    <p>Total Room Cost</p>
+                            <!-- end payment section -->
+                        </div>
+
+                        <!-- promotion section -->
+                        <div class="row" style="margin-top: 20px">
+                            <div class="col-lg-12 payment-card">
+                                <div class="row">
+                                    <h6 style="font-weight: bolder">APPLY COUPON</h6>
                                 </div>
-                                <div class="col-lg-7">
-                                    <h6 class="payment-price">Rs. {{$totalRoomCost}}.00</h6>
+
+                                <div class="row">
+                                    <p>Have a Coupon?</p>
                                 </div>
-                            </div>
-                            <div class="row payment-detail-row">
-                                <div class="col-lg-5">
-                                    <p>Tax {{$taxPercentage}}%</p>
-                                </div>
-                                <div class="col-lg-7">
-                                    <h6 class="payment-price">Rs. {{$tax}}.00</h6>
-                                </div>
-                            </div>
-                            <div class="row payment-detail-row">
-                                <div class="col-lg-5">
-                                    <p>Service Charges</p>
-                                </div>
-                                <div class="col-lg-7">
-                                    <h6 class="payment-price">Rs. {{$serviceCharges}}.00</h6>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-5">
-                                    <h6 style="font-weight: bolder">Total Amount</h6>
-                                </div>
-                                <div class="col-lg-7">
-                                    <h5 class="payment-price" style="font-size: larger">
-                                        Rs. {{ $totalAmount }}.00
-                                    </h5>
+
+                                <div class="row">
+                                    <div class="col-lg-7">
+                                        <button class="payment-btn-payment">
+                                        </button>
+                                    </div>
+
+                                    <div class="col-lg-5">
+                                        <button class="payment-btn-promotion">
+                                            Apply
+                                        </button>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- end payment section -->
+                        <!-- end of promotion section -->
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 ">
+                        <button class="proceed-btn btn-sm px-3 bg-primary mb-2 "
+                                onclick="window.location='{{ route('reservations.create') }}'">Proceed
+                        </button>
 
-                    <!-- promotion section -->
-                    <div class="row" style="margin-top: 20px">
-                        <div class="col-lg-12 payment-card">
-                            <div class="row">
-                                <h6 style="font-weight: bolder">APPLY COUPON</h6>
-                            </div>
-
-                            <div class="row">
-                                <p>Have a Coupon?</p>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-7">
-                                    <button class="payment-btn-payment">
-                                    </button>
-                                </div>
-
-                                <div class="col-lg-5">
-                                    <button class="payment-btn-promotion">
-                                        Apply
-                                    </button>
-
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                    <!-- end of promotion section -->
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12 ">
-                    <button class="proceed-btn btn-sm px-3 bg-primary mb-2 "
-                            onclick="window.location='{{ route('reservations.create') }}'">Proceed
-                    </button>
-
-                </div>
-            </div>
-        </div>
+        @endempty
     </div>
     <!-- cart Section End -->
 @endsection
