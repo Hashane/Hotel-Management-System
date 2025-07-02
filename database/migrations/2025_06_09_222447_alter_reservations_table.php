@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('reservations', function (Blueprint $table) {
-            $table->dropColumn(['check_in','check_out','checked_in_at','checked_out_at']);
+            $table->dropColumn(['check_in', 'check_out', 'checked_in_at', 'checked_out_at']);
         });
     }
 

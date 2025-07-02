@@ -5,8 +5,8 @@ namespace App\Enums;
 enum RateType: int
 {
     case PER_NIGHT = 1;
-    case WEEKLY= 2;
-    case MONTHLY= 3;
+    case WEEKLY = 2;
+    case MONTHLY = 3;
 
     public function label(): string
     {
