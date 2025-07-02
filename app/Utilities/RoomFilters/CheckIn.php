@@ -37,14 +37,16 @@ class CheckIn extends QueryFilter implements FilterContract
             });
         }]);
 
-        // Eager-load only available rooms (in order to show them in  blade)
-        $this->query->with(['rooms' => function ($roomQuery) use ($checkIn, $checkOut) {
-            $roomQuery->whereDoesntHave('roomReservations', function ($resQuery) use ($checkIn, $checkOut) {
-                $resQuery->where(function ($q) use ($checkIn, $checkOut) {
-                    $q->where('check_in', '<', $checkOut)
-                        ->where('check_out', '>', $checkIn);
+        if (auth()->check()) {
+            // Eager-load only available rooms (in order to show them in  blade)
+            $this->query->with(['rooms' => function ($roomQuery) use ($checkIn, $checkOut) {
+                $roomQuery->whereDoesntHave('roomReservations', function ($resQuery) use ($checkIn, $checkOut) {
+                    $resQuery->where(function ($q) use ($checkIn, $checkOut) {
+                        $q->where('check_in', '<', $checkOut)
+                            ->where('check_out', '>', $checkIn);
+                    });
                 });
-            });
-        }]);
+            }]);
+        }
     }
 }
