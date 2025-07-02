@@ -148,11 +148,13 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label class="col-sm-3 col-form-label">Room Type</label>
+                                        <label class="col-sm-3 col-form-label">Category</label>
                                         <div class="col-sm-9">
-                                            <x-room-type-dropdown
-                                                    selected="{{ old('room_type',request()->room_type) }}">
-                                            </x-room-type-dropdown>
+                                            <x-room-category-dropdown
+                                                    :selected="old('room_category',request()->room_category)"
+                                                    name="room_category"
+                                                    class="custom-class"
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -256,13 +258,13 @@
                                 @csrf
                                 <td>{{ $room->room_no }}</td>
                                 <td>{{ $room->check_in ?? '2025-06-10' }} to {{ $room->check_out ?? '2025-06-14' }}</td>
-                                <td>{{ $room->roomType->name }}</td>
+                                <td>{{ $room->name }}</td>
                                 <td>
                                     <input type="number"
                                            name="occupants"
-                                           value="{{ $room->roomType->capacity }}"
+                                           value="{{ $room->capacity }}"
                                            min="1"
-                                           max="{{ $room->roomType->capacity }}"
+                                           max="{{ $room->capacity }}"
                                            class="form-control form-control-sm"
                                            style="width: 80px;">
                                     <input type="hidden" name="room_id" value="{{ $room->id }}">

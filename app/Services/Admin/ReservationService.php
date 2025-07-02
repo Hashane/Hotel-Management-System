@@ -8,15 +8,16 @@ use App\Helpers\Helper;
 use App\Models\Reservation;
 use App\Models\Room;
 use App\Models\RoomReservation;
+use App\Models\RoomType;
 use Carbon\Carbon;
 
 class ReservationService
 {
     public function __construct(private readonly \App\Services\Customer\ReservationService $customerReservationService) {}
 
-    public function getReservationData(array $validated)
+    public function getReservationData($validated)
     {
-        $query = Room::filterBy($validated)->with('roomType');
+        $query = RoomType::filterBy($validated)->with(['rooms']);
 
         $canBeOccupied = false;
         if (isset($validated['occupants'])) {

@@ -25,15 +25,32 @@ class FilterReservationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'room_type' => ['nullable', Rule::enum(RoomCategory::class)],
-            'check_in' => ['nullable', 'date'],
-            'check_out' => ['nullable', 'date', 'after_or_equal:check_in'],
             'occupants' => ['nullable', 'integer', 'min:1'],
+            'room_category' => [
+                'nullable',
+                'string',
+                Rule::in(array_merge(['any'], array_column(RoomCategory::cases(), 'value'))),
+            ],
+            'check_in' => [
+                'sometimes',
+                'required_with:check_out',
+                'date_format:Y-m-d',
+                'before:check_out',
+            ],
+            'check_out' => [
+                'sometimes',
+                'required_with:check_in',
+                'date_format:Y-m-d',
+                'after:check_in',
+            ],
         ];
     }
 
     protected function prepareForValidation(): void
     {
-        $this->merge(['check_in' => $this->check_in ?? now()->format('Y-m-d')]);
+        $this->merge([
+            'check_in' => $this->check_in ?? now()->format('Y-m-d'),
+            'check_out' => $this->check_out ?? now()->addDay()->format('Y-m-d'),
+        ]);
     }
 }

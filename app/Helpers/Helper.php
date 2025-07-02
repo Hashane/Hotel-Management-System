@@ -23,11 +23,11 @@ class Helper
         return Setting::whereIn('key', $keys)->pluck('value', 'key')->toArray();
     }
 
-    public static function checkIfAbleToOccupy(collection $rooms, int $occupancy): bool
+    public static function checkIfAbleToOccupy(collection $roomTypes, int $occupancy): bool
     {
         $totalRoomCapacity = 0;
-        foreach ($rooms as $room) {
-            $totalRoomCapacity += $room->roomType->capacity;
+        foreach ($roomTypes as $roomType) {
+            $totalRoomCapacity += $roomType->capacity;
         }
         if ($totalRoomCapacity < $occupancy) {
             return false;
