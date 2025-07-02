@@ -17,7 +17,7 @@ class ReservationService
 
     public function getReservationData($validated)
     {
-        $query = RoomType::filterBy($validated)->with(['rooms']);
+        $query = RoomType::filterBy($validated);
 
         $canBeOccupied = false;
         if (isset($validated['occupants'])) {
