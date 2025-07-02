@@ -27,7 +27,7 @@ class Helper
     {
         $totalRoomCapacity = 0;
         foreach ($roomTypes as $roomType) {
-            $totalRoomCapacity += $roomType->capacity;
+            $totalRoomCapacity += $roomType->capacity * $roomType->available_rooms_count;
         }
         if ($totalRoomCapacity < $occupancy) {
             return false;
