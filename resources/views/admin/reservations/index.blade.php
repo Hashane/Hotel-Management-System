@@ -67,7 +67,7 @@
                             <th>Reservation ID</th>
                             <th>Name</th>
                             <th>Duration</th>
-                            <th>Room Type</th>
+                            <th>Room</th>
                             <th>Guests</th>
                             <th>Status</th>
                             <th>Actions</th>
@@ -85,7 +85,8 @@
                                     <td>{{ $reservation->customer->name }}</td>
                                 @endif
                                 <td>{{ $roomReservation->check_in }} to {{ $roomReservation->check_out }}</td>
-                                <td>{{ $roomReservation->room->roomType->name }}</td>
+                                <td>#{{$roomReservation->room->room_no}}
+                                    - {{ $roomReservation->room->roomType->name }}</td>
                                 <td>{{ $roomReservation->occupants }}</td>
                                 <td>
                                     @php
