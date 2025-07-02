@@ -1,4 +1,4 @@
-@php use App\Enums\RoomType;use Spatie\Permission\Models\Role; @endphp
+@php use App\Enums\RoomCategory;use Spatie\Permission\Models\Role; @endphp
 
 @extends('admin.layouts.admin')
 

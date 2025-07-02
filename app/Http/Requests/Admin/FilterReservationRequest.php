@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
-use App\Enums\RoomType;
+use App\Enums\RoomCategory;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -25,7 +25,7 @@ class FilterReservationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'room_type' => ['nullable', Rule::enum(RoomType::class)],
+            'room_type' => ['nullable', Rule::enum(RoomCategory::class)],
             'check_in' => ['nullable', 'date'],
             'check_out' => ['nullable', 'date', 'after_or_equal:check_in'],
             'occupants' => ['nullable', 'integer', 'min:1'],
