@@ -25,7 +25,7 @@ class RoomRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'room_category' => ['nullable', 'int', Rule::Enum(RoomCategory::class)],
+            'room_category' => ['nullable', 'string', Rule::in(array_merge(['any'], array_column(RoomCategory::cases(), 'value')))],
             'check_in' => ['sometimes', 'required_with:check_out', 'date_format:Y-m-d', 'before:check_out'],
             'check_out' => ['sometimes', 'required_with:check_in', 'date_format:Y-m-d', 'after:check_in'],
         ];

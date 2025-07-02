@@ -712,13 +712,13 @@ ol {
 /*------------------------
   Home Page Room Section
 -------------------------*/
-.room-img{
+/* .room-img{
     object-fit: cover;
-    max-height: 600px;
+    max-height: 200px;
     max-width: 100%;
 
 
-}
+} */
 
 .hp-room-items {
     margin-left: -15px;
@@ -788,7 +788,7 @@ ol {
 
 .room-img{
     object-fit: cover;
-    height: 600px;
+    height: 200px;
     max-height: 600px;
     max-width: 100%;
 }
@@ -889,7 +889,7 @@ ol {
     border: 1px solid #dfa974;
     color: #dfa974;
     padding: 8px 16px;
-    font-size: 16px;
+    font-size: 14px;
     border-radius: 4px;
     appearance: none;
     -webkit-appearance: none;   /* Safari */
@@ -1373,9 +1373,10 @@ height: 350px;
     margin-bottom: 18px;
 }
 .room-item .ri-text table tbody tr td {
-    font-size: 16px;
+    font-size: 14px;
     color: #707079;
-    line-height: 36px;
+    letter-spacing: 0.5px;
+    /* line-height: 36px; */
 }
 .room-item .ri-text table tbody tr td.r-o {
     width: 125px;
@@ -1675,8 +1676,8 @@ height: 350px;
 }
 /* @media only screen and (min-width: 1200px) { */
 .container {
-    max-width: 90% !important;
-    width: 90% !important;
+    max-width: 95% !important;
+    width: 95% !important;
   }
 
 
