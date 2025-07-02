@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -50,11 +49,15 @@ class RoomTypeFacilitySeeder extends Seeder
 
         foreach ($assignments as $roomTypeName => $facilityNames) {
             $roomType = DB::table('room_types')->where('name', $roomTypeName)->first();
-            if (!$roomType) continue;
+            if (! $roomType) {
+                continue;
+            }
 
             foreach ($facilityNames as $facilityName) {
                 $facility = DB::table('facilities')->where('name', $facilityName)->first();
-                if (!$facility) continue;
+                if (! $facility) {
+                    continue;
+                }
 
                 // Avoid duplicates
                 DB::table('room_type_facilities')->updateOrInsert([

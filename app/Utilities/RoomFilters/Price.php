@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Utilities\RoomFilters;
+
 use App\Utilities\FilterContract;
 use App\Utilities\QueryFilter;
 
 class Price extends QueryFilter implements FilterContract
 {
-    public function handle($value ='asc'): void
+    public function handle($value = 'asc'): void
     {
         $direction = strtolower($value) === 'desc' ? 'desc' : 'asc';
 

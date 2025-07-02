@@ -4,6 +4,7 @@ namespace App\Utilities\RoomFilters;
 
 use App\Utilities\FilterContract;
 use App\Utilities\QueryFilter;
+
 class RoomType extends QueryFilter implements FilterContract
 {
     public function handle($value): void
