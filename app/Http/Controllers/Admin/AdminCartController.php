@@ -72,7 +72,7 @@ class AdminCartController
     {
         $this->adminCartService->book();
 
-        return redirect()->back()->with('success', 'Booked rooms successfully');
+        return redirect()->route('admin.carts.index')->with('success', 'Booked rooms successfully');
     }
 
     /**
