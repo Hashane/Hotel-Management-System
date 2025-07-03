@@ -13,11 +13,34 @@
     width: 95%;                  */
   }
 
-  .custom-table th,
+  .custom-table th
+   {
+    vertical-align: middle;     /* Center vertically */
+    font-size: small;
+    /* font-weight: 600; */
+
+  }
+
+
+ 
   .custom-table td {
     vertical-align: middle;     /* Center vertically */
     font-size: small;
   }
+
+
+  .custom-table .badge {
+    vertical-align: middle;     /* Center vertically */
+    font-size: small;
+    font-weight: 500;
+
+  }
+
+
+  .custom-table .btn {
+    font-size: small;
+  }
+
 
   .custom-table th {
     background-color: #f8f9fa;  /* Light header */
@@ -30,7 +53,7 @@
   }
 
   .custom-table .btn i {
-    font-size: 0.85rem;
+    /* font-size: 0.85rem; */
   }
 
 
