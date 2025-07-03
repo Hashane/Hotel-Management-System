@@ -1,5 +1,36 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 
+
+
 .main-sidebar {
     min-height: 100%;
 }
+
+.custom-table {
+    font-size: 0.85rem;         /* Adjust font size here */
+    color: #343a40;             /* Font color (dark gray) */
+    /* margin: 30px auto;          
+    width: 95%;                  */
+  }
+
+  .custom-table th,
+  .custom-table td {
+    vertical-align: middle;     /* Center vertically */
+    font-size: small;
+  }
+
+  .custom-table th {
+    background-color: #f8f9fa;  /* Light header */
+    font-weight: 600;
+  }
+
+  .custom-table img {
+    border-radius: 4px;
+    object-fit: cover;
+  }
+
+  .custom-table .btn i {
+    font-size: 0.85rem;
+  }
+
+  
