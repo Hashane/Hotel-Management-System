@@ -4,7 +4,10 @@
 
 ![Hotel Management System](logo.png)
 
-[![License](https://img.shields.io/github/license/your-repo/hrms.svg)](LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/Hashane/Hotel-Management-System)](https://github.com/Hashane/Hotel-Management-System/commits)
+[![Stars](https://img.shields.io/github/stars/Hashane/Hotel-Management-System?style=social)](https://github.com/Hashane/Hotel-Management-System/stargazers)
+[![Forks](https://img.shields.io/github/forks/Hashane/Hotel-Management-System?style=social)](https://github.com/Hashane/Hotel-Management-System/network/members)
+[![Issues](https://img.shields.io/github/issues/Hashane/Hotel-Management-System)](https://github.com/Hashane/Hotel-Management-System/issues)
 
 ---
 
