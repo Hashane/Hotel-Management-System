@@ -63,7 +63,7 @@
 
 
     <div class="card-body">
-        <table id="reservations" class="table table-bordered table-striped">
+        <table id="reservations" class="table table-bordered table-striped custom-table">
             <thead>
                 <tr>
                     <th>Reservation ID</th>
