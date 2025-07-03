@@ -162,6 +162,6 @@ Pull requests and suggestions are welcome. New features or improvements are enco
 
 ## 📬 Contact
 
-Maintained by [Jude Hashane](https://www.linkedin.com/in/judehashane)
+Maintained by [Jude Hashane](https://www.linkedin.com/in/judehashane) & [Sheron Christeen](https://www.linkedin.com/in/sheronc03)
 
 > **“Booking simplified. Hotel management redefined.”**
