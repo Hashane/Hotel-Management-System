@@ -33,7 +33,7 @@ class ReservationService
             'rooms' => $rooms,
             'totalRoomsCount' => $rooms->count(),
             'availableRoomsCount' => $rooms->where('status', 1)->count(),
-            'partiallyAvailableRoomsCount' => $rooms->filter(fn ($room) => $room->roomReservations->contains('status', ReservationStatus::BOOKED->value)
+            'partiallyAvailableRoomsCount' => $rooms->filter(fn ($room) => $room->roomReservations->contains('status', ReservationStatus::PENDING->value)
             )->count(),
             'confirmedBookingsCount' => $rooms->filter(fn ($room) => $room->roomReservations->contains('status', ReservationStatus::CONFIRMED->value)
             )->count(),

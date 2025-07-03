@@ -35,7 +35,7 @@ class AutoCancelAndChargeReservations extends Command
         RoomReservation::whereDate('check_in', $today)
             ->whereNull('checked_in_at')
             ->where('status', ReservationStatus::PENDING->value)
-            ->whereHas('reservation', fn ($q) => $q->where('status', ReservationStatus::BOOKED->value))
+            ->whereHas('reservation', fn ($q) => $q->where('status', ReservationStatus::PENDING->value))
             ->get()
             ->each(function ($roomReservation) {
 

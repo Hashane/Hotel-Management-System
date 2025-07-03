@@ -40,7 +40,7 @@ class Helper
     {
         return Reservation::create([
             'customer_id' => $customer->id,
-            'status' => ReservationStatus::BOOKED->value,
+            'status' => ReservationStatus::PENDING->value,
             'amount' => $totalAmount,
             'booking_number' => $bookingNumber,
         ]);
@@ -55,7 +55,7 @@ class Helper
                 'check_in' => $roomDataMap[$room->id]['check_in'],
                 'check_out' => $roomDataMap[$room->id]['check_out'],
                 'occupants' => $roomDataMap[$room->id]['occupants'],
-                'status' => ReservationStatus::BOOKED->value,
+                'status' => ReservationStatus::PENDING->value,
             ]);
         }
     }
