@@ -28,6 +28,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::controller(AdminReservationController::class)->prefix('reservations')->name('reservations.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
+        // Route::get('/room', 'create')->name('room');
         Route::post('/{reservation}/check-in', 'checkIn')->name('check-in');
         Route::post('/{reservation}/check-out', 'checkOut')->name('check-out');
         Route::post('/{reservation}/add-charges', 'addCharges')->name('add-charges');
