@@ -93,11 +93,11 @@
                     <div class="col-md-3 mb-2 mb-md-0">
                         <h5 class="mb-0">Customer</h5>
                     </div>
-                
+
                     <!-- Search & Action Buttons -->
                     <div class="col-md-9">
                         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2">
-                
+
                             <!-- Search Form -->
                             <form action="#" method="GET" class="d-flex align-items-center gap-2">
                                 @csrf
@@ -107,20 +107,20 @@
                                        style="min-width: 220px;">
                                 <button type="submit" class="btn btn-primary">Search</button>
                             </form>
-                
+
                             <!-- OR text -->
                             <span>or</span>
-                
+
                             <!-- Add Customer Button -->
                             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
                                 Add Customer
                             </button>
                         </div>
                     </div>
-                
+
                 </div>
-                
-                
+
+
             </div>
             <div class="card-body">
                 <table class="table table-bordered table-striped">
@@ -172,60 +172,38 @@
                         <h5 class="modal-title fw-bold" id="addCustomerModalLabel">Add Customer</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-
-                    <div class="modal-body">
-                        <!-- Customer Info -->
-                        <h6 class="fw-semibold mb-3">Customer Information</h6>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label">First Name</label>
-                                <input type="text" class="form-control" placeholder="John">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Last Name</label>
-                                <input type="text" class="form-control" placeholder="Doe">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Email</label>
-                                <input type="email" class="form-control" placeholder="john@example.com">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Phone Number</label>
-                                <input type="text" class="form-control" placeholder="+1 234 567 8901">
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label">Special Notes</label>
-                                <textarea class="form-control" rows="3" placeholder="Any additional info..."></textarea>
-                            </div>
-                        </div>
-
-                        <!-- Card Info -->
-                        <h6 class="fw-semibold mt-5 mb-3">Card Details <small class="text-muted">(optional)</small></h6>
-                        <div class="row g-3 align-items-end">
-                            <div class="col-md-3">
-                                <label class="form-label">Full Name on Card</label>
-                                <input type="text" class="form-control" placeholder="John Doe">
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">Card Number</label>
-                                <input type="text" class="form-control" placeholder="1234 5678 9012 3456">
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">Expiration Date</label>
-                                <input type="text" class="form-control" placeholder="MM/YY">
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">CVC</label>
-                                <input type="text" class="form-control" placeholder="123">
+                    <form id="assign-form" action="{{ route('admin.customers.store') }}" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <!-- Customer Info -->
+                            <h6 class="fw-semibold mb-3">Customer Information</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" class="form-control" placeholder="John" name="name">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" placeholder="john@example.com"
+                                           name="email">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="text" class="form-control" placeholder="+1 234 567 8901" name="phone">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Special Notes</label>
+                                    <textarea class="form-control" rows="3"
+                                              placeholder="Any additional info..." name="notes"></textarea>
+                                </div>
                             </div>
                         </div>
 
-                    </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Add Customer</button>
+                        </div>
 
-                    <div class="modal-footer">
-                        <button class="btn btn-primary">Add Customer</button>
-                    </div>
-
+                    </form>
                 </div>
             </div>
         </div>
