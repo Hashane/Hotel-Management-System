@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ReportsController;
 use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,11 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::put('/{reservation}', 'update')->name('update');
         Route::delete('/{reservation}', 'destroy')->name('destroy');
     });
+
+    Route::controller(RoomController::class)->prefix('rooms')->name('rooms.')->group(function () {
+        Route::get('/', 'index')->name('index');
+    });
+
 
     Route::controller(CustomerController::class)->name('customers.')->group(function () {
         Route::get('/', 'index')->name('index');
