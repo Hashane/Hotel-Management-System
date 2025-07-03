@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Facades\JitTransaction;
+use App\Http\Requests\Admin\CustomerRequest;
 use App\Models\Customer;
 use App\Services\Admin\CustomerService;
 use Illuminate\Http\Request;
@@ -29,9 +31,19 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $response = JitTransaction::run(function () use ($validated) {
+            $this->customerService->store($validated);
+        });
+
+        if (! $response['success']) {
+            return back()->withErrors($response['message']);
+        }
+
+        return redirect()->route('admin.carts.index')->with('success', $response['message']);
+
     }
 
     /**
