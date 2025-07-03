@@ -16,7 +16,7 @@ class JitTransactionService
             return [
                 'success' => true,
                 'data' => $result,
-                'message' => 'Transaction completed successfully.',
+                'message' => 'Completed successfully.',
             ];
 
         } catch (Throwable $e) {
@@ -25,7 +25,7 @@ class JitTransactionService
             return [
                 'success' => false,
                 'data' => null,
-                'message' => 'Something went wrong during transaction.',
+                'message' => 'Something went wrong.',
                 'error' => $e->getMessage(),
             ];
         }
