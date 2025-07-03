@@ -91,27 +91,19 @@
                                 <td>
                                     @php
                                         $status = $reservation->status;
+
+                                        $statusLabels = [
+                                            1 => ['label' => 'Confirmed', 'class' => 'primary'],
+                                            2 => ['label' => 'Cancelled', 'class' => 'danger'],
+                                            3 => ['label' => 'Pending Payment', 'class' => 'warning'],
+                                            4 => ['label' => 'Checked In', 'class' => 'success'],
+                                            5 => ['label' => 'Checked Out', 'class' => 'secondary'],
+                                        ];
                                     @endphp
 
-                                    @if($status === 0)
-                                        {{-- PENDING --}}
-                                        <i class="fas fa-hourglass-half text-warning" title="Pending"></i>
-                                    @elseif($status === 1)
-                                        {{-- CONFIRMED --}}
-                                        <i class="fas fa-check-circle text-primary" title="Confirmed"></i>
-                                    @elseif($status === 2)
-                                        {{-- CANCELLED --}}
-                                        <i class="fas fa-times-circle text-danger" title="Cancelled"></i>
-                                    @elseif($status === 3)
-                                        {{-- BOOKED --}}
-                                        <i class="fas fa-book text-info" title="Booked (Pending Payment)"></i>
-                                    @elseif($status === 4)
-                                        {{-- CHECKED IN --}}
-                                        <i class="fas fa-door-open text-success" title="Checked In"></i>
-                                    @elseif($status === 5)
-                                        {{-- CHECKED OUT --}}
-                                        <i class="fas fa-door-closed text-secondary" title="Checked Out"></i>
-                                    @endif
+                                    <span class="badge bg-{{ $statusLabels[$status]['class'] }}">
+                                        {{ $statusLabels[$status]['label'] }}
+                                    </span>
                                 </td>
                                 <td class="text-center">
                                     <div class="d-flex justify-content-center align-items-center gap-3 py-1">

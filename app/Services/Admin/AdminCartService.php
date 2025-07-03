@@ -2,7 +2,6 @@
 
 namespace App\Services\Admin;
 
-use App\Enums\RoomStatus;
 use App\Helpers\Helper;
 use App\Models\Cart;
 use App\Models\Customer;
@@ -29,12 +28,6 @@ class AdminCartService
 
     public function book(): void
     {
-        $cartItems = Cart::all();
-        $roomIds = $cartItems->pluck('room_id')->unique();
-
-        Room::whereIn('id', $roomIds)
-            ->update(['status' => RoomStatus::RESERVED->value]);
-
         Cart::query()->update(['status' => 'confirmed']);
     }
 
@@ -69,9 +62,6 @@ class AdminCartService
 
     public function destroy(Cart $cart): void
     {
-        Room::firstWhere('id', $cart->room_id)
-            ->update(['status' => RoomStatus::AVAILABLE->value]);
-
         $cart->delete();
     }
 }

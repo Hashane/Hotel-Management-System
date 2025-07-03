@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\Customer\CartService;
+use App\Services\JitTransactionService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;
@@ -16,7 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton('jit_transaction', function ($app) {
+            return new JitTransactionService;
+        });
     }
 
     /**

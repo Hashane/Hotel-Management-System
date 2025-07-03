@@ -33,7 +33,7 @@ class ReservationService
             'rooms' => $rooms,
             'totalRoomsCount' => $rooms->count(),
             'availableRoomsCount' => $rooms->where('status', 1)->count(),
-            'partiallyAvailableRoomsCount' => $rooms->filter(fn ($room) => $room->roomReservations->contains('status', ReservationStatus::BOOKED->value)
+            'partiallyAvailableRoomsCount' => $rooms->filter(fn ($room) => $room->roomReservations->contains('status', ReservationStatus::PENDING->value)
             )->count(),
             'confirmedBookingsCount' => $rooms->filter(fn ($room) => $room->roomReservations->contains('status', ReservationStatus::CONFIRMED->value)
             )->count(),
@@ -55,11 +55,6 @@ class ReservationService
         $roomReservation->update([
             'checked_in_at' => now(),
         ]);
-
-        // Mark room as occupied
-        $roomReservation->room->update([
-            'status' => RoomStatus::OCCUPIED->value,
-        ]);
     }
 
     public function update(array $data, Reservation $reservation): void
@@ -78,10 +73,6 @@ class ReservationService
         $roomReservation->update([
             'check_out' => $checkoutDateTime->toDateString(),
             'checked_out_at' => $checkoutDateTime,
-        ]);
-
-        $roomReservation->room->update([
-            'status' => RoomStatus::AVAILABLE->value,
         ]);
 
         $reservation->update([
