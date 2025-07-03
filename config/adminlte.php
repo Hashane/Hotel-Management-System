@@ -329,8 +329,32 @@ return [
             'icon' => 'fas fa-users-cog',
             'can' => 'create reservations',
         ],
+        ['header' => 'HOTEL CATALOG'],
         [
-            'text' => 'Reports',
+            'text' => 'Catalog',
+            'icon' => 'fas fa-boxes',
+            'submenu' => [
+                [
+                    'text' => 'Manage Room Types',
+                    'route' => 'admin.rooms.index',
+                    'icon' => 'fas fa-bed',
+                ],
+                [
+                    'text' => 'Manage Services',
+                    'route' => '',
+                    'icon' => 'fas fa-concierge-bell',
+                ],
+                [
+                    'text' => 'Facilities',
+                    'route' => '',
+                    'icon' => 'fas fa-wifi',
+                ],
+            ],
+            'can' => 'create users',
+        ],
+        ['header' => 'REPORTS'],
+        [
+            'text' => 'General Reports',
             'route' => 'admin.reports.daily',
             'icon' => 'fas fa-fw fa-book',
             'can' => 'view-reports',
