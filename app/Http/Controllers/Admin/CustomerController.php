@@ -39,7 +39,9 @@ class CustomerController extends Controller
         });
 
         if (! $response['success']) {
-            return back()->withErrors($response['message']);
+            return back()
+                ->withInput()
+                ->withErrors(['transaction' => $response['message']]);
         }
 
         return redirect()->route('admin.carts.index')->with('success', $response['message']);
