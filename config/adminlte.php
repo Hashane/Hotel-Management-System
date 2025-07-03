@@ -324,9 +324,9 @@ return [
             'can' => 'create reservations',
         ],
         [
-            'text' => 'Cart',
+            'text' => 'Guest Allocation',
             'route' => 'admin.carts.index',
-            'icon' => 'fas fa-fw fa-shopping-cart',
+            'icon' => 'fas fa-users-cog',
             'can' => 'create reservations',
         ],
         [
