@@ -36,8 +36,6 @@ class ReservationService
         $roomDataMap = Helper::mapRoomToData($cartItems);
         Helper::makeRoomReservation($rooms, $reservation, $roomDataMap);
 
-        $rooms->each->update(['status' => RoomStatus::RESERVED->value]);
-
         $this->cartService->clear();
 
         return $reservation;
@@ -71,7 +69,7 @@ class ReservationService
         ]);
 
         $roomType = RoomType::where('id', $data['type'])->first();
-        $room = Room::where('room_type_id', $roomType->id)->where('status', RoomStatus::AVAILABLE->value)->first();
+        $room = Room::where('room_type_id', $roomType->id)->where('status', RoomStatus::AVAILABLE)->first();
 
         $perNightCost = $room->default_rate->pivot->price;
         $totalRoomCost = Helper::calculateRoomCost(

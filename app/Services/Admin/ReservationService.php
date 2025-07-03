@@ -55,11 +55,6 @@ class ReservationService
         $roomReservation->update([
             'checked_in_at' => now(),
         ]);
-
-        // Mark room as occupied
-        $roomReservation->room->update([
-            'status' => RoomStatus::OCCUPIED->value,
-        ]);
     }
 
     public function update(array $data, Reservation $reservation): void
@@ -78,10 +73,6 @@ class ReservationService
         $roomReservation->update([
             'check_out' => $checkoutDateTime->toDateString(),
             'checked_out_at' => $checkoutDateTime,
-        ]);
-
-        $roomReservation->room->update([
-            'status' => RoomStatus::AVAILABLE->value,
         ]);
 
         $reservation->update([
