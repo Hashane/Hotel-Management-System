@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Room;
+use App\Models\RoomType;
 use Illuminate\Http\Request;
 
 class RoomController
@@ -10,9 +11,14 @@ class RoomController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.rooms.index');
+        $roomTypes = RoomType::with(['rateTypes'])
+            ->withCount(['rooms as roomCount'])
+            ->paginate(10)
+            ->appends($request->except('page'));
+
+        return view('admin.rooms.index', compact('roomTypes'));
     }
 
     /**
