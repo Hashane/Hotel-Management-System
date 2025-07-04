@@ -11,11 +11,7 @@ class CheckIn extends QueryFilter implements FilterContract
     public function handle($value): void
     {
         $checkIn = Carbon::parse($value);
-        $checkOut = request('check_out') ? Carbon::parse(request('check_out')) : null;
-
-        if (! $checkOut) {
-            return;
-        }
+        $checkOut = request('check_out') ? Carbon::parse(request('check_out')) : $checkIn->addDay();
 
         // Filter to only RoomTypes with at least one available room
         $this->query->whereHas('rooms', function ($roomQuery) use ($checkIn, $checkOut) {
