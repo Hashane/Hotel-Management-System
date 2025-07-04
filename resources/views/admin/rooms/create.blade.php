@@ -19,90 +19,107 @@
 <div class="alert alert-success">{{ session('success') }}</div>
 @endif
 
-
-<div class="card shadow-sm mt-4">
+{{-- <div class="card shadow-sm mt-4">
   <div class="card-header">
     <h5 class="card-title mb-0">Room Types</h5>
   </div>
+  <div class="card shadow-sm mt-4">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12">
+          <!-- Add New Room Modal -->
+          <div class="container mt-4">
+            <h4 class="mb-4">Room Type Information</h4>
+            <form action="#" method="POST">
+              @csrf
+              <div class="row g-3">
+
+                <div class="col-md-6">
+                  <label class="form-label">Room Type Name</label>
+                  <input type="text" name="room_type_name" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Status</label>
+                  <select name="status" class="form-select" required>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="maintenance">Maintenance</option>
+                  </select>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label">Description</label>
+                  <textarea name="description" class="form-control" rows="4"
+                    placeholder="Enter room details..."></textarea>
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label">Size (sq ft)</label>
+                  <input type="number" name="size" class="form-control" required>
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label">Occupancy</label>
+                  <input type="number" name="occupancy" class="form-control" required>
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label">Bed Type</label>
+                  <select name="bed" class="form-select" required>
+                    <option value="single">Single</option>
+                    <option value="double">Double</option>
+                    <option value="queen">Queen</option>
+                    <option value="king">King</option>
+                  </select>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label d-block mb-2">Services</label>
+                  <div class="row">
+                    @php
+                    $services = [
+                    'Wi-Fi', 'Air Conditioning', 'Television', 'Mini Bar',
+                    'Room Service', 'Laundry', 'Pool Access', 'Gym Access',
+                    'Private Balcony', 'Sea View', 'Complimentary Breakfast', 'Safe Box'
+                    ];
+                    @endphp
+
+                    @foreach($services as $service)
+                    <div class="col-md-4 mb-2">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="services[]"
+                          value="{{ strtolower(str_replace(' ', '_', $service)) }}" id="service_{{ $loop->index }}">
+                        <label class="form-check-label" for="service_{{ $loop->index }}">
+                          {{ $service }}
+                        </label>
+                      </div>
+                    </div>
+                    @endforeach
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-4">
+                <button type="submit" class="btn btn-primary">Save Room</button>
+                <a href="#" class="btn btn-secondary">Cancel</a>
+              </div>
+            </form>
+          </div>
+        </div>
 
 
-</div>
-
-
-
-<div class="card shadow-sm mt-4">
-  <div class="card-header">
-    <h5 class="card-title mb-0">Room Types</h5>
+      </div>
+    </div>
   </div>
-
-  <div class=" d-flex justify-content-end align-items-center">
-
-    <button type=" button" class="add-room-button btn btn-success"
-      onclick="window.location='{{ route('admin.rooms.create') }}'">
-      <i class="fas fa-plus-circle me-1"></i> Add New Room Type
-    </button>
-  </div>
-
-
-  <div class="card-body">
-
-    <table class="table table-bordered table-striped custom-table">
-      <thead class="table-light">
-        <tr>
-          <th>ID</th>
-          <th>Image</th>
-          <th>Name</th>
-          <th>Adults</th>
-          <th>Total Rooms</th>
-          <th>Basic Price (LKR)</th>
-          {{-- <th>Status</th>--}}
-          {{-- <th>Payment Type</th>--}}
-          <th class="text-center">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        @forelse($roomTypes as $roomType)
-        <tr>
-          <td>{{ $roomType->id }}</td>
-          <td>{{ $roomType->name }}</td>
-          <td>{{ $roomType->name }}</td>
-          <td>{{ $roomType->capacity }}</td>
-          <td>{{ $roomType->roomCount }}</td>
-          <td>{{ $roomType->rateTypes[0]->pivot->price }}</td>
-          <td class="text-center">
-            <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-            <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
-            <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
-          </td>
-        </tr>
-        @empty
-        <tr>No Rooms</tr>
-        @endforelse
-      </tbody>
-    </table>
-
-  </div>
-
-
-
-</div>
-
-</div>
-
-
-
-
+</div> --}}
 
 <div class="content">
   <div class="container-fluid">
     <div class="row">
       <div class="col-3">
-        <table class="table table-bordered table-striped custom-table">
-          <thead class="table-light">
-            <tr>
-              <th>New Room Type</th>
-            </tr>
-          </thead>
+        <table class="table table-bordered table-striped custom-table mt-4">
+
           <tbody>
             <tr>
               <td>
@@ -116,6 +133,11 @@
               </td>
             </tr>
 
+            <tr>
+              <td>
+                Information
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -123,12 +145,15 @@
       <div class="col-9">
         {{-- *** INFORMATION *** --}}
         <div class="card shadow-sm mt-4">
+          <div class="card-header">
+            <h5 class="card-title mb-0">Room Type Information</h5>
+          </div>
           <div class="card-body">
             <div class="row">
               <div class="col-12">
                 <!-- Add New Room Modal -->
-                <div class="container mt-4">
-                  <h4 class="mb-4">Room Type Information</h4>
+                <div class="container mt-2">
+                  {{-- <h4 class="mb-4">Room Type Information</h4> --}}
                   <form action="#" method="POST">
                     @csrf
                     <div class="row g-3">
@@ -216,12 +241,14 @@
 
         {{-- *** PAYMENT *** --}}
         <div class="card shadow-sm mt-4">
+          <div class="card-header">
+            <h5 class="card-title mb-0">Room Type Prices</h5>
+          </div>
           <div class="card-body">
             <div class="row">
               <div class="col-12">
                 <!-- Add New Room Modal -->
-                <div class="container mt-4">
-                  <h4 class="mb-4">Room Type Prices</h4>
+                <div class="container mt-2">
                   <form action="#" method="POST">
                     @csrf
 
@@ -277,12 +304,15 @@
 
         {{-- *** SEO *** --}}
         <div class="card shadow-sm mt-4">
+          <div class="card-header">
+            <h5 class="card-title mb-0">Room Type SEO</h5>
+          </div>
+
           <div class="card-body">
             <div class="row">
               <div class="col-12">
                 <!-- Add New Room Modal -->
-                <div class="container mt-4">
-                  <h4 class="mb-4">Room Type SEO</h4>
+                <div class="container mt-2">
                   <form action="#" method="POST">
                     @csrf
 
@@ -329,6 +359,9 @@
                   <button type="submit" class="btn btn-primary">Save Room</button>
                   <a href="#" class="btn btn-secondary">Cancel</a>
                 </div>
+
+
+
                 </form>
               </div>
             </div>
@@ -342,36 +375,48 @@
 
         {{-- *** FEATURES *** --}}
         <div class="card shadow-sm mt-4">
+          <div class="card-header">
+            <h5 class="card-title mb-0">Assign Features to this Room Type</h5>
+          </div>
           <div class="card-body">
+
             <div class="row">
               <div class="col-12">
-                <!-- Add New Room Modal -->
-                <div class="container mt-4">
-                  <h4 class="mb-4">Assign Features to this Room Type</h4>
+                <div class="container mt-2">
+                  <div class="callout callout-info">
+                    <div class="d-flex align-items-start">
+                      <i class="icon fas fa-info fa-lg text-info me-3 mt-1"></i>
+                      <div>
+                        <h6 class="mb-0">
+                          You can specify a value for each relevant feature regarding this room type. Empty fields
+                          will not be displayed.
+                          You can either create a specific value, or select among the existing pre-defined values
+                          you've previously added.
+                        </h6>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-12">
+
+                <div class="container mt-2">
+
+                  {{-- Paragraph --}}
+
+                  {{-- Feature Form --}}
                   <form action="#" method="POST">
                     @csrf
 
-
-                    <div class="callout callout-info">
-                      <div class="d-flex align-items-start">
-                        <i class="icon fas fa-info fa-lg text-info me-3 mt-1"></i>
-                        <div>
-                          <h6 class="mb-0">
-                            You can specify a value for each relevant feature regarding this room type. Empty fields
-                            will not be displayed.
-                            You can either create a specific value, or select among the existing pre-defined values
-                            you've previously added.
-                          </h6>
-                        </div>
-                      </div>
-                    </div>
-
-
-
-                    <div class="row mb-3">
-
-                      {{-- Header Row --}}
-                      <div class="row fw-bold border-bottom pb-2 mb-3">
+                    {{-- Header Row --}}
+                    <div class="container pt-2">
+                      <div class="row fw-bold border-bottom">
                         <div class="col-md-3 text-center">
                           <h6>Select</h6>
                         </div>
@@ -383,7 +428,6 @@
                         </div>
                       </div>
 
-                      {{-- Define features --}}
                       @php
                       $features = [
                       ['name' => 'Wi‑Fi', 'image' => 'wifi.png'],
@@ -393,24 +437,22 @@
                       ['name' => 'Mini Bar', 'image' => 'minibar.png'],
                       ];
                       @endphp
+                    </div>
 
-                      {{-- Loop through features --}}
+
+
+                    <div class="container">
                       @foreach ($features as $index => $feature)
-                      <div class="row align-items-center mb-2">
-                        {{-- Checkbox --}}
-                        <div class="col-md-3 d-flex justify-content-center align-items-center">
+                      <div class="row align-items-center border-bottom mt-2 pb-2">
+                        <div class="col-md-3 d-flex justify-content-center align-items-center ">
                           <input class="form-check-input" type="checkbox" name="features[]"
                             value="{{ strtolower(str_replace(' ', '_', $feature['name'])) }}" id="feature_{{ $index }}">
                         </div>
-
-                        {{-- Feature Name --}}
                         <div class="col-md-5">
                           <label class="form-check-label h6 mb-0" for="feature_{{ $index }}">
                             {{ $feature['name'] }}
                           </label>
                         </div>
-
-                        {{-- Feature Image --}}
                         <div class="col-md-4">
                           <h6 class="mb-0">
                             <img src="{{ asset('images/features/' . $feature['image']) }}" width="50"
@@ -419,57 +461,52 @@
                         </div>
                       </div>
                       @endforeach
-
-
-                      {{-- + Add New Feature link (bottom-right) --}}
-                      <div class="row">
-                        <div class="col-12 text-end">
-                          <a href="#"
-                            class="fw-bold text-primary text-decoration-none d-inline-flex align-items-center add-feature-link">
-                            <i class="fas fa-plus me-2"></i> Add New Feature
-                          </a>
-                        </div>
-                      </div>
-
                     </div>
+                  </form>
+                </div>
 
-
-
-
-                    <div class="alert alert-info alert-dismissible fade show" role="alert">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                      <h5 class="mb-2">
-                        <i class="icon fas fa-info"></i> Alert!
-                      </h5>
-
-                      <h6 class="mb-1 ms-4">The product link will look like this:</h6>
-                      <h6 class="ms-4 fw-bold">
-                        https://demo.qloapps.com/112-134-132-181/en/the-hotel-prime/15-xbfb.html
+                {{-- + Add New Feature link (bottom-right) --}}
+                <div class="container mt-2">
+                  <div class="row">
+                    <div class="col-12 text-end">
+                      <h6><a href="#"
+                          class="fw-bold text-primary text-decoration-none d-inline-flex align-items-center add-feature-link">
+                          <i class="fas fa-plus me-2"></i> Add New Feature
+                        </a>
                       </h6>
+
                     </div>
+                  </div>
 
-
-
+                  <div class="mt-4">
+                    <button type="submit" class="btn btn-primary">Save Room</button>
+                    <a href="#" class="btn btn-secondary">Cancel</a>
+                  </div>
                 </div>
 
-                <div class="mt-4">
-                  <button type="submit" class="btn btn-primary">Save Room</button>
-                  <a href="#" class="btn btn-secondary">Cancel</a>
-                </div>
-                </form>
+
               </div>
             </div>
-
 
           </div>
         </div>
 
 
       </div>
+
+
+      </form>
     </div>
   </div>
+
+
+</div>
+</div>
+
+
+</div>
+</div>
+</div>
 
 </div>
 

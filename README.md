@@ -1,61 +1,167 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Hotel Reservation & Management System (HRMS)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> A comprehensive web-based solution for hotel operations, built with Laravel and Bootstrap.
 
-## About Laravel
+![Hotel Management System](logo.png)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+[![Last Commit](https://img.shields.io/github/last-commit/Hashane/Hotel-Management-System)](https://github.com/Hashane/Hotel-Management-System/commits)
+[![Stars](https://img.shields.io/github/stars/Hashane/Hotel-Management-System?style=social)](https://github.com/Hashane/Hotel-Management-System/stargazers)
+[![Forks](https://img.shields.io/github/forks/Hashane/Hotel-Management-System?style=social)](https://github.com/Hashane/Hotel-Management-System/network/members)
+[![Issues](https://img.shields.io/github/issues/Hashane/Hotel-Management-System)](https://github.com/Hashane/Hotel-Management-System/issues)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ✨ Overview
 
-## Learning Laravel
+The **Hotel Reservation and Management System (HRMS)** is a web-based platform developed for managing the full cycle of hotel operations. Designed for single-hotel setups, it offers features for:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+* Room reservations and availability
+* Check-ins and check-outs
+* Billing and invoice generation
+* Multi-role access and dashboards
+* Travel company group bookings
+* Long-term suite bookings (weekly/monthly)
+* Detailed reporting for revenue and occupancy
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Supported roles:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+* **Customer** – Browses and books rooms
+* **Clerk** – Manages check-ins/outs and assigns rooms
+* **Manager** – Accesses reports and controls operations
+* **Travel Company** – Makes group reservations with automated discounts
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🔑 Key Features
 
-### Premium Partners
+### 🛏️ Reservation Module
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+* Room browsing by category/sub-category
+* Online bookings with optional credit card
+* Mandatory upfront payment for confirmation
+* Automated cancellation of no-shows (non-refundable)
 
-## Contributing
+### 🧾 Check-In / Check-Out
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+* Real-time room assignment on check-in
+* Check-in allowed only for fully paid reservations
+* Additional charges added during checkout
 
-## Code of Conduct
+### 💵 Billing System
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+* Itemized invoices auto-generated
+* Travel companies receive grouped billing for reservations
 
-## Security Vulnerabilities
+### 📈 Reporting Module
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+* Occupancy and revenue reports by date
+* Export in PDF/CSV formats for audits and presentations
 
-## License
+### 🏠 Residential Suites
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+* Custom logic for long-term suite rentals
+* Supports weekly and monthly billing cycles
+
+### 🔐 Role-Based Access Control
+
+* Secure login and route permissions per user role
+* Clerks and managers have access to internal tools
+* Customers access only their data
+
+---
+
+## 🧱 System Design
+
+### Architecture
+
+* **MVC Three-Tier**
+
+  * UI: Blade with Bootstrap
+  * Logic: Laravel Controllers, Services
+  * Database: MySQL with Eloquent ORM
+
+### Design Principles
+
+* SOLID principles and DRY code
+* Modular Services (e.g. `ReservationService`, `InvoiceService`)
+* Enums for business logic (`BookingStatus`, `RoomType`)
+* Helpers for common utilities and validation
+
+### Visual Modeling
+
+* Use Case Diagrams
+* ER Diagrams, Class Diagrams, Flowcharts
+* Gantt Charts for timeline planning
+* SWOT analysis to refine scope
+
+---
+
+## ⚙️ Tech Stack
+
+| Layer    | Technology          |
+| -------- | ------------------- |
+| Backend  | Laravel 12 (PHP)    |
+| Frontend | Blade, Bootstrap 5  |
+| Database | MySQL 8             |
+| Tools    | PhpStorm,Git, Figma, Postman |
+
+---
+
+## 🚀 Getting Started
+
+### Installation
+
+```bash
+git clone /Hashane/Hotel-Management-System.git
+cd Hotel-Management-System
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate --seed
+php artisan serve
+npm run dev
+```
+
+### Seeding Demo Data
+
+```bash
+php artisan db:seed
+```
+
+---
+
+## 🧪 Example Use Cases
+
+* Grouped room browsing (e.g. "Deluxe – King Lake View")
+* One card per room group with count of available rooms
+* Detailed view and booking form shown upon selection
+* Admin dashboard with metrics on revenue, occupancy, etc.
+* Cron job detects and cancels no-shows nightly
+
+---
+
+## 👤 Target Users
+
+* Small hotel and resort owners
+* Travel agencies booking on behalf of clients
+* Front-desk clerks and hotel managers
+
+---
+
+## 📘 License
+
+Licensed under the [MIT License](LICENSE).
+
+---
+
+## 🤝 Contributing
+
+Pull requests and suggestions are welcome. New features or improvements are encouraged!
+
+---
+
+## 📬 Contact
+
+Maintained by [Jude Hashane](https://www.linkedin.com/in/judehashane) & [Sheron Christeen](https://www.linkedin.com/in/sheronc03)
+
+> **“Booking simplified. Hotel management redefined.”**
