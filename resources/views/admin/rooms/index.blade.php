@@ -37,8 +37,8 @@
 
   <div class=" d-flex justify-content-end align-items-center">
 
-    <button type=" button" class="add-room-button btn btn-success" data-bs-toggle="modal"
-      data-bs-target="#addRoomModal">
+    <button type=" button" class="add-room-button btn btn-success"
+      onclick="window.location='{{ route('admin.rooms.create') }}'">
       <i class="fas fa-plus-circle me-1"></i> Add New Room Type
     </button>
   </div>
