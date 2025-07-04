@@ -144,7 +144,7 @@
 
       <div class="col-9">
         {{-- *** INFORMATION *** --}}
-        <div class="card shadow-sm mt-4">
+        <div class="card card-info shadow-sm mt-4">
           <div class="card-header">
             <h5 class="card-title mb-0">Room Type Information</h5>
           </div>
@@ -225,7 +225,7 @@
                       </div>
                     </div>
 
-                    <div class="mt-4">
+                    <div class="mt-4 text-end">
                       <button type="submit" class="btn btn-primary">Save Room</button>
                       <a href="#" class="btn btn-secondary">Cancel</a>
                     </div>
@@ -240,7 +240,7 @@
 
 
         {{-- *** PAYMENT *** --}}
-        <div class="card shadow-sm mt-4">
+        <div class="card card-info shadow-sm mt-4">
           <div class="card-header">
             <h5 class="card-title mb-0">Room Type Prices</h5>
           </div>
@@ -289,7 +289,7 @@
 
                 </div>
 
-                <div class="mt-4">
+                <div class="mt-4 text-end">
                   <button type="submit" class="btn btn-primary">Save Room</button>
                   <a href="#" class="btn btn-secondary">Cancel</a>
                 </div>
@@ -303,7 +303,7 @@
 
 
         {{-- *** SEO *** --}}
-        <div class="card shadow-sm mt-4">
+        <div class="card card-info shadow-sm mt-4">
           <div class="card-header">
             <h5 class="card-title mb-0">Room Type SEO</h5>
           </div>
@@ -355,7 +355,7 @@
 
                 </div>
 
-                <div class="mt-4">
+                <div class="mt-4 text-end">
                   <button type="submit" class="btn btn-primary">Save Room</button>
                   <a href="#" class="btn btn-secondary">Cancel</a>
                 </div>
@@ -374,7 +374,7 @@
 
 
         {{-- *** FEATURES *** --}}
-        <div class="card shadow-sm mt-4">
+        <div class="card card-info shadow-sm mt-4">
           <div class="card-header">
             <h5 class="card-title mb-0">Assign Features to this Room Type</h5>
           </div>
@@ -478,7 +478,98 @@
                     </div>
                   </div>
 
-                  <div class="mt-4">
+                  <div class="mt-4 text-end">
+                    <button type="submit" class="btn btn-primary">Save Room</button>
+                    <a href="#" class="btn btn-secondary">Cancel</a>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        {{-- *** ADD ROOMS *** --}}
+        <div class="card card-info shadow-sm mt-4">
+          <div class="card-header">
+            <h5 class="card-title mb-0">Rooms</h5>
+          </div>
+          <div class="card-body">
+
+
+
+
+            <div class="row">
+              <div class="col-12">
+
+                <div class="container mt-2">
+
+                  <div class="row fw-bold border-bottom pb-2">
+                    <div class="col-md-2">
+                      <h6>Room No.</h6>
+                    </div>
+                    <div class="col-md-2">
+                      <h6>Floor</h6>
+                    </div>
+                    <div class="col-md-2">
+                      <h6>Status</h6>
+                    </div>
+                    <div class="col-md-4">
+                      <h6>Extra Information</h6>
+                    </div>
+                    <div class="col-md-2 text-center">
+                      <h6>Action</h6>
+                    </div>
+                  </div>
+
+                  {{-- Example Room Row --}}
+                  <div class="row align-items-center border-bottom py-2">
+                    <div class="col-md-2">
+                      <input type="text" name="room_no[]" class="form-control" placeholder="E.g. 101">
+                    </div>
+                    <div class="col-md-2">
+                      <input type="number" name="floor[]" class="form-control" placeholder="1">
+                    </div>
+                    <div class="col-md-2">
+                      <select name="status[]" class="form-select" style="font-size: small">
+                        <option value="available">Available</option>
+                        <option value="occupied">Occupied</option>
+                        <option value="maintenance">Maintenance</option>
+
+                      </select>
+
+                      </h6>
+
+                    </div>
+                    <div class="col-md-4">
+                      <input type="text" name="extra_info[]" class="form-control" placeholder="Any notes...">
+                    </div>
+                    <div class="col-md-2 text-center">
+                      {{-- <a href="#" class="text-primary me-2" title="Edit"><i class="fas fa-edit"></i></a> --}}
+                      <a href="#" class="text-danger" title="Delete"><i class="fas fa-trash-alt"></i></a>
+                    </div>
+                  </div>
+
+                  {{-- Add more rows as needed --}}
+                </div>
+
+                {{-- + Add New Feature link (bottom-right) --}}
+                <div class="container mt-2">
+                  <div class="row">
+                    <div class="col-12 text-end">
+                      <h6><a href="#"
+                          class="fw-bold text-primary text-decoration-none d-inline-flex align-items-center add-feature-link">
+                          <i class="fas fa-plus me-2"></i> Add More Rooms
+                        </a>
+                      </h6>
+
+                    </div>
+                  </div>
+
+                  <div class="mt-4 text-end">
                     <button type="submit" class="btn btn-primary">Save Room</button>
                     <a href="#" class="btn btn-secondary">Cancel</a>
                   </div>
