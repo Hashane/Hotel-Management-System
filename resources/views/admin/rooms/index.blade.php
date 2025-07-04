@@ -121,13 +121,14 @@
       </div>
 
       <div class="col-9">
+        {{-- *** INFORMATION *** --}}
         <div class="card shadow-sm mt-4">
           <div class="card-body">
             <div class="row">
               <div class="col-12">
                 <!-- Add New Room Modal -->
                 <div class="container mt-4">
-                  <h4 class="mb-4">Add New Room</h4>
+                  <h4 class="mb-4">Room Type Information</h4>
                   <form action="#" method="POST">
                     @csrf
                     <div class="row g-3">
@@ -197,43 +198,6 @@
                           @endforeach
                         </div>
                       </div>
-
-
-                      <div class="row mb-3">
-                        <div class="col-md-6 d-flex align-items-center">
-                          <label class="form-label me-3 mb-0" style="min-width: 180px;">Pre Tax Operating Cost</label>
-                          <input type="number" name="basic_price" class="form-control" required>
-                        </div>
-                      </div>
-
-                      <div class="row mb-3">
-                        <div class="col-md-6 d-flex align-items-center">
-                          <label class="form-label me-3 mb-0" style="min-width: 180px;">Pre Tax Retail Price</label>
-                          <input type="number" name="basic_price" class="form-control" required>
-                        </div>
-                      </div>
-
-                      <div class="row mb-3">
-                        <div class="col-md-6 d-flex align-items-center">
-                          <label class="form-label me-3 mb-0" style="min-width: 180px;">Tax Rule</label>
-                          <input type="number" name="basic_price" class="form-control" required>
-                        </div>
-                      </div>
-
-                      <div class="row mb-3">
-                        <div class="col-md-6 d-flex align-items-center">
-                          <label class="form-label me-3 mb-0" style="min-width: 180px;">Retail Price with Tax</label>
-                          <input type="number" name="basic_price" class="form-control" required>
-                        </div>
-                      </div>
-
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="onSaleCheckbox" name="on_sale">
-                        <label class="form-check-label" for="onSaleCheckbox">
-                          Display the "On Sale" icon on the Room Type page and within the Room Type listing text.
-                        </label>
-                      </div>
-
                     </div>
 
                     <div class="mt-4">
@@ -248,10 +212,266 @@
             </div>
           </div>
         </div>
+
+
+        {{-- *** PAYMENT *** --}}
+        <div class="card shadow-sm mt-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12">
+                <!-- Add New Room Modal -->
+                <div class="container mt-4">
+                  <h4 class="mb-4">Room Type Prices</h4>
+                  <form action="#" method="POST">
+                    @csrf
+
+                    <div class="row mb-3">
+                      <div class="col-md-6 d-flex align-items-center">
+                        <label class="form-label me-3 mb-0" style="min-width: 180px;">Pre Tax Operating Cost</label>
+                        <input type="number" name="basic_price" class="form-control" required>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <div class="col-md-6 d-flex align-items-center">
+                        <label class="form-label me-3 mb-0" style="min-width: 180px;">Pre Tax Retail Price</label>
+                        <input type="number" name="basic_price" class="form-control" required>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <div class="col-md-6 d-flex align-items-center">
+                        <label class="form-label me-3 mb-0" style="min-width: 180px;">Tax Rule</label>
+                        <input type="number" name="basic_price" class="form-control" required>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <div class="col-md-6 d-flex align-items-center">
+                        <label class="form-label me-3 mb-0" style="min-width: 180px;">Retail Price with Tax</label>
+                        <input type="number" name="basic_price" class="form-control" required>
+                      </div>
+                    </div>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="onSaleCheckbox" name="on_sale">
+                      <label class="form-check-label" for="onSaleCheckbox">
+                        Display the "On Sale" icon on the Room Type page and within the Room Type listing text.
+                      </label>
+                    </div>
+
+                </div>
+
+                <div class="mt-4">
+                  <button type="submit" class="btn btn-primary">Save Room</button>
+                  <a href="#" class="btn btn-secondary">Cancel</a>
+                </div>
+                </form>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+
+        {{-- *** SEO *** --}}
+        <div class="card shadow-sm mt-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12">
+                <!-- Add New Room Modal -->
+                <div class="container mt-4">
+                  <h4 class="mb-4">Room Type SEO</h4>
+                  <form action="#" method="POST">
+                    @csrf
+
+                    <div class="row mb-3">
+                      <div class="col-md-6 d-flex align-items-center">
+                        <label class="form-label me-3 mb-0" style="min-width: 180px;">Meta Title</label>
+                        <input type="number" name="basic_price" class="form-control" required>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <div class="col-md-6 d-flex align-items-center">
+                        <label class="form-label me-3 mb-0" style="min-width: 180px;">Meta Discription</label>
+                        <input type="number" name="basic_price" class="form-control" required>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <div class="col-md-6 d-flex align-items-center">
+                        <label class="form-label me-3 mb-0" style="min-width: 180px;">Friendly URL</label>
+                        <input type="number" name="basic_price" class="form-control" required>
+                      </div>
+                    </div>
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+
+                      <h5 class="mb-2">
+                        <i class="icon fas fa-info"></i> Alert!
+                      </h5>
+
+                      <h6 class="mb-1 ms-4">The product link will look like this:</h6>
+                      <h6 class="ms-4 fw-bold">
+                        https://demo.qloapps.com/112-134-132-181/en/the-hotel-prime/15-xbfb.html
+                      </h6>
+                    </div>
+
+
+
+                </div>
+
+                <div class="mt-4">
+                  <button type="submit" class="btn btn-primary">Save Room</button>
+                  <a href="#" class="btn btn-secondary">Cancel</a>
+                </div>
+                </form>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+
+
+
+        {{-- *** FEATURES *** --}}
+        <div class="card shadow-sm mt-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12">
+                <!-- Add New Room Modal -->
+                <div class="container mt-4">
+                  <h4 class="mb-4">Assign Features to this Room Type</h4>
+                  <form action="#" method="POST">
+                    @csrf
+
+
+                    <div class="callout callout-info">
+                      <div class="d-flex align-items-start">
+                        <i class="icon fas fa-info fa-lg text-info me-3 mt-1"></i>
+                        <div>
+                          <h6 class="mb-0">
+                            You can specify a value for each relevant feature regarding this room type. Empty fields
+                            will not be displayed.
+                            You can either create a specific value, or select among the existing pre-defined values
+                            you've previously added.
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                    <div class="row mb-3">
+
+                      {{-- Header Row --}}
+                      <div class="row fw-bold border-bottom pb-2 mb-3">
+                        <div class="col-md-3 text-center">
+                          <h6>Select</h6>
+                        </div>
+                        <div class="col-md-5">
+                          <h6>Feature</h6>
+                        </div>
+                        <div class="col-md-4">
+                          <h6>Feature Image</h6>
+                        </div>
+                      </div>
+
+                      {{-- Define features --}}
+                      @php
+                      $features = [
+                      ['name' => 'Wi‑Fi', 'image' => 'wifi.png'],
+                      ['name' => 'Fridge', 'image' => 'fridge.png'],
+                      ['name' => 'Air Conditioner','image' => 'ac.png'],
+                      ['name' => 'Television', 'image' => 'tv.png'],
+                      ['name' => 'Mini Bar', 'image' => 'minibar.png'],
+                      ];
+                      @endphp
+
+                      {{-- Loop through features --}}
+                      @foreach ($features as $index => $feature)
+                      <div class="row align-items-center mb-2">
+                        {{-- Checkbox --}}
+                        <div class="col-md-3 d-flex justify-content-center align-items-center">
+                          <input class="form-check-input" type="checkbox" name="features[]"
+                            value="{{ strtolower(str_replace(' ', '_', $feature['name'])) }}" id="feature_{{ $index }}">
+                        </div>
+
+                        {{-- Feature Name --}}
+                        <div class="col-md-5">
+                          <label class="form-check-label h6 mb-0" for="feature_{{ $index }}">
+                            {{ $feature['name'] }}
+                          </label>
+                        </div>
+
+                        {{-- Feature Image --}}
+                        <div class="col-md-4">
+                          <h6 class="mb-0">
+                            <img src="{{ asset('images/features/' . $feature['image']) }}" width="50"
+                              alt="{{ $feature['name'] }}">
+                          </h6>
+                        </div>
+                      </div>
+                      @endforeach
+
+
+                      {{-- + Add New Feature link (bottom-right) --}}
+                      <div class="row">
+                        <div class="col-12 text-end">
+                          <a href="#"
+                            class="fw-bold text-primary text-decoration-none d-inline-flex align-items-center add-feature-link">
+                            <i class="fas fa-plus me-2"></i> Add New Feature
+                          </a>
+                        </div>
+                      </div>
+
+                    </div>
+
+
+
+
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      <h5 class="mb-2">
+                        <i class="icon fas fa-info"></i> Alert!
+                      </h5>
+
+                      <h6 class="mb-1 ms-4">The product link will look like this:</h6>
+                      <h6 class="ms-4 fw-bold">
+                        https://demo.qloapps.com/112-134-132-181/en/the-hotel-prime/15-xbfb.html
+                      </h6>
+                    </div>
+
+
+
+                </div>
+
+                <div class="mt-4">
+                  <button type="submit" class="btn btn-primary">Save Room</button>
+                  <a href="#" class="btn btn-secondary">Cancel</a>
+                </div>
+                </form>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+
       </div>
     </div>
-
   </div>
+
+</div>
 
 </div>
 

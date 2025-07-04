@@ -1,6 +1,25 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 
 
+h1 {
+    font-size: 70px;
+}
+h2 {
+    font-size: 36px;
+}
+h3 {
+    font-size: 30px;
+}
+h4 {
+    font-size: 24px;
+}
+h5 {
+    font-size: 18px;
+}
+h6 {
+    font-size: small;
+}
+
 
 .main-sidebar {
     min-height: 100%;
@@ -62,4 +81,14 @@
    margin-top: 16px;
    margin-right: 16px;
   }
+  
+
+
+
+
+  .form-label, ::placeholder, .form-check-label{
+    vertical-align: middle;     /* Center vertically */
+    font-size: small;
+  }
+
   
