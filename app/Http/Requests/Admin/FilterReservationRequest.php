@@ -51,6 +51,8 @@ class FilterReservationRequest extends FormRequest
         $this->merge([
             'check_in' => $this->check_in ?? now()->format('Y-m-d'),
             'check_out' => $this->check_out ?? now()->addDay()->format('Y-m-d'),
+            'room_category' => $this->room_category ?? 'any',
+            'occupants' => $this->occupants ?? 2,
         ]);
     }
 }
