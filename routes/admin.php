@@ -40,6 +40,10 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::controller(RoomController::class)->prefix('rooms')->name('rooms.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
+        Route::get('/services', 'services')->name('services');
+        Route::get('/facilities', 'facilities')->name('facilities');
+        Route::get('/extra_facilities', 'extra_facilities')->name('extra_facilities');
+
 
     });
 

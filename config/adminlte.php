@@ -341,14 +341,21 @@ return [
                 ],
                 [
                     'text' => 'Manage Services',
-                    'route' => '',
+                    'route' => 'admin.rooms.services',
                     'icon' => 'fas fa-concierge-bell',
                 ],
                 [
-                    'text' => 'Facilities',
-                    'route' => '',
+                    'text' => 'facilities',
+                    'route' => 'admin.rooms.facilities',
                     'icon' => 'fas fa-wifi',
                 ],
+                [
+                    'text' => 'Additional Facilities',
+                    'route' => 'admin.rooms.extra_facilities',
+                    'icon' => 'fas fa-wifi',
+                ],
+
+        
             ],
             'can' => 'create users',
         ],
