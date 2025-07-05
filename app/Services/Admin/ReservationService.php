@@ -3,6 +3,7 @@
 namespace App\Services\Admin;
 
 use App\Enums\ReservationStatus;
+use App\Enums\RoomReservationStatus;
 use App\Enums\RoomStatus;
 use App\Helpers\Helper;
 use App\Models\Reservation;
@@ -25,7 +26,7 @@ class ReservationService
             $canBeOccupied = Helper::checkIfAbleToOccupy($roomsForCheck, $validated['occupants']);
         }
 
-        $rooms = Room::with('roomReservations')->get();
+        $rooms = Room::with('roomReservations', 'reservations')->get();
 
         return [
             'filteredRooms' => $query->paginate(10)->appends(request()->except('page')),
@@ -33,11 +34,11 @@ class ReservationService
             'rooms' => $rooms,
             'totalRoomsCount' => $rooms->count(),
             'availableRoomsCount' => $rooms->where('status', 1)->count(),
-            'partiallyAvailableRoomsCount' => $rooms->filter(fn ($room) => $room->roomReservations->contains('status', ReservationStatus::PENDING->value)
+            'partiallyAvailableRoomsCount' => $rooms->filter(fn ($room) => $room->reservations->contains('status', ReservationStatus::PENDING->value)
             )->count(),
             'confirmedBookingsCount' => $rooms->filter(fn ($room) => $room->roomReservations->contains('status', ReservationStatus::CONFIRMED->value)
             )->count(),
-            'checkedInRoomsCount' => $rooms->filter(fn ($room) => $room->roomReservations->contains('status', ReservationStatus::CHECKED_IN->value)
+            'checkedInRoomsCount' => $rooms->filter(fn ($room) => $room->roomReservations->contains('status', RoomReservationStatus::CHECKED_IN->value)
             )->count(),
             'underMaintenanceRoomsCount' => $rooms->where('status', RoomStatus::MAINTENANCE->value)->count(),
         ];
@@ -73,10 +74,19 @@ class ReservationService
         $roomReservation->update([
             'check_out' => $checkoutDateTime->toDateString(),
             'checked_out_at' => $checkoutDateTime,
+            'status' => RoomReservationStatus::CHECKED_OUT->value,
         ]);
 
-        $reservation->update([
-            'status' => ReservationStatus::CHECKED_OUT,
-        ]);
+        // Go through all room_reservations and check if all have been checked out
+        $reservation->load('roomReservations');
+        $allReservationsCheckedIn = $reservation->roomReservations->every(function ($roomReservation) {
+            return $roomReservation->status === RoomReservationStatus::CHECKED_OUT->value;
+        });
+
+        if ($allReservationsCheckedIn) {
+            $reservation->update([
+                'status' => ReservationStatus::COMPLETED,
+            ]);
+        }
     }
 }
