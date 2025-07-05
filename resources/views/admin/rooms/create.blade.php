@@ -382,16 +382,6 @@
 
                     {{-- + Add New Feature link (bottom-right) --}}
                     <div class="container mt-2">
-                      <div class="row">
-                        <div class="col-12 text-end">
-                          <h6><a href="#"
-                              class="fw-bold text-primary text-decoration-none d-inline-flex align-items-center add-feature-link">
-                              <i class="fas fa-plus me-2"></i> Add New Feature
-                            </a>
-                          </h6>
-
-                        </div>
-                      </div>
 
                       <div class="mt-4 text-end">
                         <button type="submit" class="btn btn-primary">Save Room</button>
@@ -607,19 +597,8 @@
                           @endforeach
                         </div>
 
-                        {{-- Add Feature Link and Submit --}}
+                        {{-- buttons --}}
                         <div class="container mt-3">
-                          <div class="row">
-                            <div class="col-12 text-end">
-                              <h6>
-                                <a href="#"
-                                  class="fw-bold text-primary text-decoration-none d-inline-flex align-items-center add-feature-link">
-                                  <i class="fas fa-plus me-2"></i> Add New Service
-                                </a>
-                              </h6>
-                            </div>
-                          </div>
-
                           <div class="mt-4 text-end">
                             <button type="submit" class="btn btn-primary">Save Room</button>
                             <a href="#" class="btn btn-secondary">Cancel</a>
@@ -751,16 +730,6 @@
                     </div>
 
                     <div class="container mt-3">
-                      <div class="row">
-                        <div class="col-12 text-end">
-                          <h6>
-                            <a href="#"
-                              class="fw-bold text-primary text-decoration-none d-inline-flex align-items-center add-feature-link">
-                              <i class="fas fa-plus me-2"></i> Add New Service
-                            </a>
-                          </h6>
-                        </div>
-                      </div>
 
                       <div class="mt-4 text-end">
                         <button type="submit" class="btn btn-primary">Save Room</button>
