@@ -1,4 +1,4 @@
-@php use App\Enums\RoomCategory; @endphp
+@php use App\Enums\ReservationStatus;use App\Enums\RoomCategory;use App\Enums\RoomReservationStatus; @endphp
 
 @extends('admin.layouts.admin')
 
@@ -74,89 +74,79 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($reservations as $reservation)
-                            <tr>
-                                <td>{{ $reservation->booking_number }}</td>
-                                <td>{{ $reservation->customer->name }}</td>
+                        @forelse($reservations as $reservation)
                             @foreach($reservation->roomReservations as $index => $roomReservation)
-                                @if($index === 1)
-                                    <tr></tr>
-                                    <td>{{ $reservation->booking_number }}</td>
-                                    <td>{{ $reservation->customer->name }}</td>
-                                @endif
-                                <td>{{ $roomReservation->check_in }} to {{ $roomReservation->check_out }}</td>
-                                <td>#{{$roomReservation->room->room_no}}
-                                    - {{ $roomReservation->room->roomType->name }}</td>
-                                <td>{{ $roomReservation->occupants }}</td>
-                                <td>
-                                    @php
-                                        $status = $reservation->status;
+                                <tr>
+                                    {{-- Only show booking number and customer name in the first roomReservation row --}}
+                                    @if($index === 0)
+                                        <td rowspan="{{ $reservation->roomReservations->count() }}">{{ $reservation->booking_number }}</td>
+                                        <td rowspan="{{ $reservation->roomReservations->count() }}">{{ $reservation->customer->name }}</td>
+                                    @endif
 
-                                        $statusLabels = [
-                                            1 => ['label' => 'Confirmed', 'class' => 'primary'],
-                                            2 => ['label' => 'Cancelled', 'class' => 'danger'],
-                                            3 => ['label' => 'Pending Payment', 'class' => 'warning'],
-                                            4 => ['label' => 'Checked In', 'class' => 'success'],
-                                            5 => ['label' => 'Checked Out', 'class' => 'secondary'],
-                                        ];
-                                    @endphp
+                                    <td>{{ $roomReservation->check_in }} to {{ $roomReservation->check_out }}</td>
+                                    <td>#{{ $roomReservation->room->room_no }}
+                                        - {{ $roomReservation->room->roomType->name }}</td>
+                                    <td>{{ $roomReservation->occupants }}</td>
+                                    <td>
+                    <span class="badge bg-{{ RoomReservationStatus::tryFrom($roomReservation->status)?->color() }}">
+                        {{ RoomReservationStatus::tryFrom($roomReservation->status)?->label() }}
+                    </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center align-items-center gap-3 py-1">
+                                            @if(!$roomReservation->checked_in_at)
+                                                <button type="button"
+                                                        class="btn btn-sm btn-success px-3 w-50"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#checkInModal"
+                                                        data-bs-reservation="{{ $reservation->id }}">
+                                                    Check In
+                                                </button>
+                                            @elseif($roomReservation->checked_in_at && !$roomReservation->checked_out_at)
+                                                <button type="button"
+                                                        class="btn btn-sm btn-danger px-3 w-50"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#checkOutModal"
+                                                        data-bs-reservation="{{ $reservation->id }}">
+                                                    Check Out
+                                                </button>
+                                            @else
+                                                <button type="button"
+                                                        class="btn btn-sm btn-secondary px-3 w-50"
+                                                        disabled>
+                                                    Checked Out
+                                                </button>
+                                            @endif
 
-                                    <span class="badge bg-{{ $statusLabels[$status]['class'] }}">
-                                        {{ $statusLabels[$status]['label'] }}
-                                    </span>
-                                </td>
-                                <td class="text-center">
-                                    <div class="d-flex justify-content-center align-items-center gap-3 py-1">
-                                        @if(!$roomReservation->checked_in_at)
-                                            <!-- Not checked in yet -->
-                                            <button type="button"
-                                                    class="btn btn-sm btn-success px-3 w-100" style="max-width: 160px;"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#checkInModal"
-                                                    data-bs-reservation="{{ $reservation->id }}">
-                                                <i class="fas fa-door-open me-1"></i> Check In
-                                            </button>
+                                            <i class="fas fa-pencil-alt text-primary fs-5" data-bs-toggle="modal"
+                                               data-bs-target="#editReservationModal"
+                                               style="cursor: pointer;"
+                                               data-id="{{ $reservation->booking_number }}"
+                                               data-roomRes="{{ $roomReservation->id }}"
+                                               data-name="{{ $reservation->customer->name }}"
+                                               data-checkin="{{ $roomReservation->check_in }}"
+                                               data-checkout="{{ $roomReservation->check_out }}"
+                                               data-roomtype="{{ $roomReservation->room->roomType->id }}"
+                                               data-guests="{{ $roomReservation->occupants }}">
+                                            </i>
 
-                                        @elseif($roomReservation->checked_in_at && !$roomReservation->checked_out_at)
-                                            <!-- Checked in but not yet checked out -->
-                                            <button type="button"
-                                                    class="btn btn-sm btn-danger px-3 w-100" style="max-width: 160px;"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#checkOutModal"
-                                                    data-bs-reservation="{{ $reservation->id }}">
-                                                <i class="fas fa-door-closed me-1"></i> Check Out
-                                            </button>
-
-                                        @else
-                                            <!-- Already checked out -->
-                                            <button type="button"
-                                                    class="btn btn-sm btn-secondary px-3 w-100"
-                                                    style="max-width: 160px;" disabled>
-                                                <i class="fas fa-door-closed me-1"></i> Checked Out
-                                            </button>
-                                        @endif
-
-                                        <i class="fas fa-pencil-alt text-primary fs-5" data-bs-toggle="modal"
-                                           data-bs-target="#editReservationModal"
-                                           style="cursor: pointer;"
-                                           data-id="{{ $reservation->booking_number }}"
-                                           data-roomRes="{{ $roomReservation->id }}"
-                                           data-name="{{ $reservation->customer->name }}"
-                                           data-checkin="{{ $roomReservation->check_in }}"
-                                           data-checkout="{{ $roomReservation->check_out }}"
-                                           data-roomtype="{{ $roomReservation->room->roomType->id}}"
-                                           data-guests="{{ $roomReservation->occupants }}">
-                                        </i>
-                                        <i class="fas fa-plus text-success fs-5" data-bs-toggle="modal"
-                                           data-bs-target="#addChargesModal"
-                                           data-bs-reservation="{{ $reservation->id }}"
-                                           style="cursor: pointer;"></i>
-                                    </div>
-                                </td>
-                                @endforeach
+                                            <i class="fas fa-plus text-success fs-5" data-bs-toggle="modal"
+                                               data-bs-target="#addChargesModal"
+                                               data-bs-reservation="{{ $reservation->id }}"
+                                               style="cursor: pointer;"></i>
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="7" class="text-center text-muted py-4">
+                                    No Reservations at the moment.
+                                </td>
+                            </tr>
+                        @endforelse
                         </tbody>
+
                     </table>
                 </div>
             </div>
@@ -232,6 +222,9 @@
                                 aria-label="Close"></button>
                     </div>
 
+                    @php
+                        $reservation = $reservation ?? null;
+                    @endphp
                     <form method="POST"
                           action="{{ $reservation ? route('admin.reservations.update', ['reservation' => $reservation]) : '#' }}"
                           id="editReservationForm">
