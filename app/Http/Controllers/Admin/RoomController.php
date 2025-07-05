@@ -30,6 +30,12 @@ class RoomController
 
     }
 
+    public function services()
+    {
+              return view('admin.rooms.services');
+
+    }
+
     /**
      * Store a newly created resource in storage.
      */
