@@ -26,7 +26,7 @@ class RoomController
      */
     public function create()
     {
-              return view('admin.rooms.create');
+        return view('admin.rooms.create');
 
     }
 
