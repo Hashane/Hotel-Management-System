@@ -33,7 +33,7 @@ class Room extends Model
 
     public function reservations()
     {
-        return $this->belongsToMany(Reservation::class, 'room_reservation')
+        return $this->belongsToMany(Reservation::class, 'room_reservations')
             ->withPivot('price')
             ->withTimestamps();
     }
