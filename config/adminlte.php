@@ -318,6 +318,12 @@ return [
             'can' => 'view reservations',
         ],
         [
+            'text' => 'Check In Reservations',
+            'route' => 'admin.roomReservations.index',
+            'icon' => 'far fa-fw fa-calendar',
+            'can' => 'view reservations',
+        ],
+        [
             'text' => 'Add Reservation',
             'route' => 'admin.reservations.create',
             'icon' => 'fas fa-fw fa-plus',
@@ -355,7 +361,6 @@ return [
                     'icon' => 'fas fa-wifi',
                 ],
 
-        
             ],
             'can' => 'create users',
         ],

@@ -5,9 +5,10 @@ use App\Http\Controllers\Admin\BillController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ReportsController;
-use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
+use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\RoomController;
+use App\Http\Controllers\Admin\RoomReservationController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,15 +27,18 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::delete('/profile', 'destroy')->name('destroy');
     });
 
-    Route::controller(AdminReservationController::class)->prefix('reservations')->name('reservations.')->group(function () {
+    Route::controller(ReservationController::class)->prefix('reservations')->name('reservations.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
-        // Route::get('/room', 'create')->name('room');
-        Route::post('/{reservation}/check-in', 'checkIn')->name('check-in');
-        Route::post('/{reservation}/check-out', 'checkOut')->name('check-out');
-        Route::post('/{reservation}/add-charges', 'addCharges')->name('add-charges');
         Route::put('/{reservation}', 'update')->name('update');
         Route::delete('/{reservation}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(RoomReservationController::class)->prefix('roomReservations')->name('roomReservations.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/{roomReservation}/check-in', 'checkIn')->name('check-in');
+        Route::post('/{roomReservation}/check-out', 'checkOut')->name('check-out');
+        Route::post('/{roomReservation}/add-charges', 'addCharges')->name('add-charges');
     });
 
     Route::controller(RoomController::class)->prefix('rooms')->name('rooms.')->group(function () {
@@ -43,7 +47,6 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/services', 'services')->name('services');
         Route::get('/facilities', 'facilities')->name('facilities');
         Route::get('/extra_facilities', 'extra_facilities')->name('extra_facilities');
-
 
     });
 
