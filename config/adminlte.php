@@ -355,7 +355,6 @@ return [
                     'icon' => 'fas fa-wifi',
                 ],
 
-        
             ],
             'can' => 'create users',
         ],

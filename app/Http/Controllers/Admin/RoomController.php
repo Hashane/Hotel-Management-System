@@ -32,23 +32,21 @@ class RoomController
 
     public function services()
     {
-              return view('admin.rooms.services');
+        return view('admin.rooms.services');
 
     }
 
-
-public function facilities()
+    public function facilities()
     {
-              return view('admin.rooms.facilities');
+        return view('admin.rooms.facilities');
 
     }
 
     public function extra_facilities()
     {
-              return view('admin.rooms.extra_facilities');
+        return view('admin.rooms.extra_facilities');
 
     }
-
 
     /**
      * Store a newly created resource in storage.

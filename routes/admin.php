@@ -44,7 +44,6 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/facilities', 'facilities')->name('facilities');
         Route::get('/extra_facilities', 'extra_facilities')->name('extra_facilities');
 
-
     });
 
     Route::controller(CustomerController::class)->name('customers.')->group(function () {
