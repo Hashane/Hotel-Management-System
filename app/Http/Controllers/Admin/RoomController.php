@@ -36,6 +36,20 @@ class RoomController
 
     }
 
+
+public function facilities()
+    {
+              return view('admin.rooms.facilities');
+
+    }
+
+    public function extra_facilities()
+    {
+              return view('admin.rooms.extra_facilities');
+
+    }
+
+
     /**
      * Store a newly created resource in storage.
      */
