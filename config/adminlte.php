@@ -347,7 +347,7 @@ return [
                 ],
                 [
                     'text' => 'Manage Services',
-                    'route' => 'admin.rooms.services',
+                    'route' => 'admin.services.index',
                     'icon' => 'fas fa-concierge-bell',
                 ],
                 [
