@@ -539,10 +539,10 @@
                               <h6>Feature Name</h6>
                             </div>
                             <div class="col-md-2">
-                              <h6>Price</h6>
+                              <h6>Base Price</h6>
                             </div>
                             <div class="col-md-2">
-                              <h6>Tax Rule</h6>
+                              <h6>Final Price</h6>
                             </div>
                             <div class="col-md-3">
                               <h6>Feature Image</h6>
@@ -554,11 +554,11 @@
                         <div class="container">
                           @php
                           $features = [
-                          ['name' => 'Wi‑Fi', 'image' => 'wifi.png'],
-                          ['name' => 'Fridge', 'image' => 'fridge.png'],
-                          ['name' => 'Air Conditioner','image' => 'ac.png'],
-                          ['name' => 'Television', 'image' => 'tv.png'],
-                          ['name' => 'Mini Bar', 'image' => 'minibar.png'],
+                          ['name' => 'Wi‑Fi', 'image' => 'wifi.png', 'base' => '5.00', 'final' => '6.50'],
+                          ['name' => 'Fridge', 'image' => 'fridge.png', 'base' => '10.00', 'final' => '12.00'],
+                          ['name' => 'Air Conditioner', 'image' => 'ac.png', 'base' => '15.00', 'final' => '18.50'],
+                          ['name' => 'Television', 'image' => 'tv.png', 'base' => '8.00', 'final' => '9.50'],
+                          ['name' => 'Mini Bar', 'image' => 'minibar.png', 'base' => '12.00', 'final' => '14.00'],
                           ];
                           @endphp
 
@@ -578,14 +578,14 @@
                               </label>
                             </div>
 
-                            {{-- Price --}}
+                            {{-- Base Price --}}
                             <div class="col-md-2">
-                              <input type="number" name="feature_price[]" class="form-control" placeholder="0.00">
+                              <h6 class="mb-0">{{ $feature['base'] }}</h6>
                             </div>
 
-                            {{-- Tax Rule --}}
+                            {{-- Final Price --}}
                             <div class="col-md-2">
-                              <input type="number" name="feature_tax[]" class="form-control" placeholder="%">
+                              <h6 class="mb-0">{{ $feature['final'] }}</h6>
                             </div>
 
                             {{-- Feature Image --}}
