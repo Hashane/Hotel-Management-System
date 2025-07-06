@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\RoomReservationController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ServiceController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('admin/', function () {
@@ -44,11 +45,20 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::controller(RoomController::class)->prefix('rooms')->name('rooms.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
-        Route::get('/services', 'services')->name('services');
+        // Route::get('/services', 'services')->name('services');
         Route::get('/facilities', 'facilities')->name('facilities');
         Route::get('/extra_facilities', 'extra_facilities')->name('extra_facilities');
 
     });
+
+    Route::controller(ServiceController::class)->prefix('services')->name('services.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        // Route::get('/create', 'create')->name('create');
+        
+
+    });
+
+
 
     Route::controller(CustomerController::class)->name('customers.')->group(function () {
         Route::get('/', 'index')->name('index');

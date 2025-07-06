@@ -20,28 +20,12 @@
 @endif
 
 
-<div class="card shadow-sm mt-4">
+
+<div class="card card-info shadow-sm mt-4">
   <div class="card-header">
     <h5 class="card-title mb-0">Room Types</h5>
   </div>
 
-
-</div>
-
-
-
-<div class="card shadow-sm mt-4">
-  <div class="card-header">
-    <h5 class="card-title mb-0">Room Types</h5>
-  </div>
-
-  <div class=" d-flex justify-content-end align-items-center">
-
-    <button type=" button" class="add-room-button btn btn-success"
-      onclick="window.location='{{ route('admin.rooms.create') }}'">
-      <i class="fas fa-plus-circle me-1"></i> Add New Room Type
-    </button>
-  </div>
 
 
   <div class="card-body">
@@ -70,16 +54,35 @@
           <td>{{ $roomType->roomCount }}</td>
           <td>{{ $roomType->rateTypes[0]->pivot->price }}</td>
           <td class="text-center">
-            <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-            <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
-            <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
+            <i class="far fa-eye text-primary me-2" title="View"></i>
+            <i class="far fa-edit text-success me-2" title="Edit"></i>
+            <i class="far fa-trash-alt text-danger" title="Delete"></i>
           </td>
         </tr>
         @empty
         <tr>No Rooms</tr>
         @endforelse
+
       </tbody>
+
     </table>
+
+
+
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col-12 text-end">
+          <h6>
+            <a href="#"
+              class="fw-bold text-primary text-decoration-none d-inline-flex align-items-center add-feature-link"
+              onclick="window.location='{{ route('admin.rooms.create') }}'">
+              <i class="fas fa-plus me-2"></i> Add New Room Type
+            </a>
+          </h6>
+        </div>
+      </div>
+
+    </div>
 
   </div>
 
@@ -187,6 +190,8 @@
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
           <button type="submit" class="btn btn-primary">Save Room</button>
         </div>
+
+
       </form>
     </div>
   </div>

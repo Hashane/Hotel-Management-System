@@ -69,10 +69,10 @@
                       <h6>Feature Name</h6>
                     </div>
                     <div class="col-md-2">
-                      <h6>Price</h6>
+                      <h6>Base Price</h6>
                     </div>
                     <div class="col-md-2">
-                      <h6>Tax Rule</h6>
+                      <h6>Final Price</h6>
                     </div>
                     <div class="col-md-2">
                       <h6>Feature Image</h6>
@@ -87,11 +87,12 @@
                 <div class="container">
                   @php
                   $features = [
-                  ['name' => 'Wi‑Fi', 'image' => 'wifi.png'],
-                  ['name' => 'Fridge', 'image' => 'fridge.png'],
-                  ['name' => 'Air Conditioner','image' => 'ac.png'],
-                  ['name' => 'Television', 'image' => 'tv.png'],
-                  ['name' => 'Mini Bar', 'image' => 'minibar.png'],
+                  ['name' => 'Wi‑Fi', 'image' => 'wifi.png', 'base_price' => '100.00', 'final_price' => '110.00'],
+                  ['name' => 'Fridge', 'image' => 'fridge.png', 'base_price' => '150.00', 'final_price' => '165.00'],
+                  ['name' => 'Air Conditioner','image' => 'ac.png', 'base_price' => '200.00', 'final_price' =>
+                  '220.00'],
+                  ['name' => 'Television', 'image' => 'tv.png', 'base_price' => '120.00', 'final_price' => '132.00'],
+                  ['name' => 'Mini Bar', 'image' => 'minibar.png', 'base_price' => '180.00', 'final_price' => '198.00'],
                   ];
                   @endphp
 
@@ -110,30 +111,30 @@
                       </label>
                     </div>
 
-                    {{-- Price --}}
+                    {{-- Base Price --}}
                     <div class="col-md-2">
-                      <input type="number" name="feature_price[]" class="form-control" placeholder="0.00">
+                      <h6 class="mb-0">{{ $feature['base_price'] }}</h6>
                     </div>
 
-                    {{-- Tax Rule --}}
+                    {{-- Final Price --}}
                     <div class="col-md-2">
-                      <input type="number" name="feature_tax[]" class="form-control" placeholder="%">
+                      <h6 class="mb-0">{{ $feature['final_price'] }}</h6>
                     </div>
 
-                    {{-- Feature Image --}}
+                    {{-- Feature Image (only image shown) --}}
                     <div class="col-md-2">
                       <h6 class="mb-0">
-                        <img src="{{ asset('images/features/' . $feature['image']) }}" width="50"
+                        <img src="{{ asset('images/features/' . $feature['image']) }}" width="40"
                           alt="{{ $feature['name'] }}">
                       </h6>
                     </div>
 
+                    {{-- Action Icons --}}
                     <div class="col-md-2">
                       <i class="far fa-eye text-primary me-2" title="View"></i>
                       <i class="far fa-edit text-success me-2" title="Edit"></i>
                       <i class="far fa-trash-alt text-danger" title="Delete"></i>
                     </div>
-
                   </div>
                   @endforeach
                 </div>
@@ -156,6 +157,7 @@
                     <a href="#" class="btn btn-secondary">Cancel</a>
                   </div>
                 </div>
+
 
               </form>
             </div>

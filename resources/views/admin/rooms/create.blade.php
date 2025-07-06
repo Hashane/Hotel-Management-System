@@ -41,6 +41,8 @@
           <a class="nav-link" id="vert-tabs-additional_features-tab" data-toggle="pill"
             href="#vert-tabs-additional_features" role="tab" aria-controls="vert-tabs-additional_features"
             aria-selected="false">Additional Facilities</a>
+          <a class="nav-link" id="vert-tabs-images-tab" data-toggle="pill" href="#vert-tabs-images" role="tab"
+            aria-controls="vert-tabs-images" aria-selected="false">Images</a>
         </div>
       </div>
 
@@ -106,7 +108,7 @@
                             </select>
                           </div>
 
-                          <div class="col-12">
+                          {{-- <div class="col-12">
                             <label class="form-label d-block mb-2">Services</label>
                             <div class="row">
                               @php
@@ -130,7 +132,7 @@
                               </div>
                               @endforeach
                             </div>
-                          </div>
+                          </div> --}}
                         </div>
 
                         <div class="mt-4 text-end">
@@ -537,10 +539,10 @@
                               <h6>Feature Name</h6>
                             </div>
                             <div class="col-md-2">
-                              <h6>Price</h6>
+                              <h6>Base Price</h6>
                             </div>
                             <div class="col-md-2">
-                              <h6>Tax Rule</h6>
+                              <h6>Final Price</h6>
                             </div>
                             <div class="col-md-3">
                               <h6>Feature Image</h6>
@@ -552,11 +554,11 @@
                         <div class="container">
                           @php
                           $features = [
-                          ['name' => 'Wi‑Fi', 'image' => 'wifi.png'],
-                          ['name' => 'Fridge', 'image' => 'fridge.png'],
-                          ['name' => 'Air Conditioner','image' => 'ac.png'],
-                          ['name' => 'Television', 'image' => 'tv.png'],
-                          ['name' => 'Mini Bar', 'image' => 'minibar.png'],
+                          ['name' => 'Wi‑Fi', 'image' => 'wifi.png', 'base' => '5.00', 'final' => '6.50'],
+                          ['name' => 'Fridge', 'image' => 'fridge.png', 'base' => '10.00', 'final' => '12.00'],
+                          ['name' => 'Air Conditioner', 'image' => 'ac.png', 'base' => '15.00', 'final' => '18.50'],
+                          ['name' => 'Television', 'image' => 'tv.png', 'base' => '8.00', 'final' => '9.50'],
+                          ['name' => 'Mini Bar', 'image' => 'minibar.png', 'base' => '12.00', 'final' => '14.00'],
                           ];
                           @endphp
 
@@ -576,14 +578,14 @@
                               </label>
                             </div>
 
-                            {{-- Price --}}
+                            {{-- Base Price --}}
                             <div class="col-md-2">
-                              <input type="number" name="feature_price[]" class="form-control" placeholder="0.00">
+                              <h6 class="mb-0">{{ $feature['base'] }}</h6>
                             </div>
 
-                            {{-- Tax Rule --}}
+                            {{-- Final Price --}}
                             <div class="col-md-2">
-                              <input type="number" name="feature_tax[]" class="form-control" placeholder="%">
+                              <h6 class="mb-0">{{ $feature['final'] }}</h6>
                             </div>
 
                             {{-- Feature Image --}}
@@ -612,7 +614,6 @@
               </div>
             </div>
           </div>
-
 
 
 
@@ -745,17 +746,129 @@
           </div>
 
 
+          {{-- *** IMAGES *** --}}
+          <div class="tab-pane fade" id="vert-tabs-images" role="tabpanel" aria-labelledby="vert-tabs-images-tab">
+            <div class="card card-info shadow-sm mt-4">
+              <div class="card-header">
+                <h5 class="card-title mb-0">Images</h5>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="container mt-2">
+                      <form action="#" method="POST">
+                        @csrf
+
+
+                        <div class="row g-3 mb-4">
+
+                          <div class="col-md-6">
+                            <label class="form-label">Room Type Name</label>
+
+                            <form action="#" method="POST" enctype="multipart/form-data">
+                              @csrf
+                              <input type="file" id="fileInput" name="file" class="d-none ">
+                              <button type="button"
+                                class="btn btn-outline-primary d-inline-flex align-items-center ms-4"
+                                onclick="document.getElementById('fileInput').click();">
+                                <h6 class="mb-0"><i class="fas fa-file m-0"></i> Add File </h6>
+                              </button>
+                            </form>
+
+                          </div>
+
+                        </div>
+
+
+
+                        {{-- image Form --}}
+                        <div class="container">
+
+                          <form action="#" method="POST">
+                            @csrf
+
+                            {{-- Header Row --}}
+                            <div class="container pt-2">
+                              <div class="row fw-bold border-bottom">
+                                <div class="col-md-4">
+                                  <h6>Feature Image</h6>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                  <h6>Cover</h6>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                  <h6>Action</h6>
+                                </div>
+                              </div>
+                            </div>
+
+                            @php
+                            $features = [
+                            ['name' => 'Wi‑Fi', 'image' => 'wifi.png'],
+                            ['name' => 'Fridge', 'image' => 'fridge.png'],
+                            ['name' => 'Air Conditioner', 'image' => 'ac.png'],
+                            ['name' => 'Television', 'image' => 'tv.png'],
+                            ['name' => 'Mini Bar', 'image' => 'minibar.png'],
+                            ];
+                            @endphp
+
+                            {{-- Feature Rows --}}
+                            <div class="container">
+                              @foreach ($features as $index => $feature)
+                              <div class="row align-items-center border-bottom mt-2 pb-2">
+                                {{-- Image --}}
+                                <div class="col-md-4">
+                                  <h6 class="mb-0">
+                                    <img src="{{ asset('images/features/' . $feature['image']) }}" width="50"
+                                      alt="{{ $feature['name'] }}">
+                                  </h6>
+                                </div>
+
+                                {{-- Cover Checkbox --}}
+                                <div class="col-md-4 d-flex justify-content-center align-items-center">
+                                  <input class="form-check-input" type="checkbox" name="features[]"
+                                    value="{{ strtolower(str_replace(' ', '_', $feature['name'])) }}"
+                                    id="feature_{{ $index }}">
+                                </div>
+
+                                {{-- Action (Delete Icon) --}}
+                                <div class="col-md-4 text-center">
+                                  <button type="button" class="btn btn-link text-danger p-0" title="Delete">
+                                    <i class="fas fa-trash-alt"></i>
+                                  </button>
+                                </div>
+                              </div>
+                              @endforeach
+                            </div>
+
+                            <div class="container mt-3">
+
+                              <div class="mt-4 text-end">
+                                <button type="submit" class="btn btn-primary">Save Room</button>
+                                <a href="#" class="btn btn-secondary">Cancel</a>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
+
+
+
+
     </div>
 
 
-
-
   </div>
-
-
-</div>
 </div>
 
 
