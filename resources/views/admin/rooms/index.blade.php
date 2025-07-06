@@ -19,9 +19,16 @@
 <div class="alert alert-success">{{ session('success') }}</div>
 @endif
 
+<div class="text-end">
+  <button type="button" class="btn btn-primary" onclick="window.location='{{ route('admin.rooms.create') }}'">
+    <h6 class="mb-0"><i class="fas fa-plus me-1"></i> Add New Rooms Type</h6>
+  </button>
+</div>
 
 
-<div class="card card-info shadow-sm mt-4">
+
+
+<div class="card card-info shadow-sm mt-2">
   <div class="card-header">
     <h5 class="card-title mb-0">Room Types</h5>
   </div>
@@ -69,20 +76,7 @@
 
 
 
-    <div class="container mt-3">
-      <div class="row">
-        <div class="col-12 text-end">
-          <h6>
-            <a href="#"
-              class="fw-bold text-primary text-decoration-none d-inline-flex align-items-center add-feature-link"
-              onclick="window.location='{{ route('admin.rooms.create') }}'">
-              <i class="fas fa-plus me-2"></i> Add New Room Type
-            </a>
-          </h6>
-        </div>
-      </div>
 
-    </div>
 
   </div>
 
