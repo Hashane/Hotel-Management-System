@@ -84,9 +84,13 @@
 
                           <div class="col-12">
                             <label class="form-label">Description</label>
+                            <textarea name="description" class="form-control mb-2" rows="1"
+                              placeholder="Enter title..."></textarea>
                             <textarea name="description" class="form-control" rows="4"
                               placeholder="Enter room details..."></textarea>
                           </div>
+
+
 
                           <div class="col-md-4">
                             <label class="form-label">Size (sq ft)</label>
