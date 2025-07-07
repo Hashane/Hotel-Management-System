@@ -139,7 +139,8 @@
                     data-bs-target="#viewFeatureModal"></i>
                   <i class="far fa-edit text-success me-2" data-bs-toggle="modal" data-bs-target="#editFeatureModal"
                     title="Edit"></i>
-
+                  <i class="far fa-trash-alt text-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                    title="Delete"></i>
 
                 </div>
               </div>
@@ -480,7 +481,35 @@
   </div>
 </div>
 
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
 
+      <div class="modal-header bg-light border-bottom">
+        <h6 class="modal-title fw-bold" id="confirmDeleteModalLabel">Confirm Delete</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <p>Are you sure you want to delete this item? This action cannot be undone.</p>
+          </div>
+          <div class="modal-footer border-top">
+            <button type="button" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+
+
+      </form>
+
+
+    </div>
+  </div>
+</div>
 
 @endsection
 @push('scripts')
