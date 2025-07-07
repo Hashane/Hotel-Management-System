@@ -62,7 +62,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     Route::controller(FeatureController::class)->prefix('features')->name('features.')->group(function () {
         Route::get('/', 'index')->name('index');
-        // Route::get('/create', 'create')->name('create');
+        Route::get('/create', 'create')->name('create');
 
     });
 
