@@ -211,10 +211,10 @@
           <h5 class="fw-bold text-dark mb-2">Rooms</h5>
           <div class="bg-body-tertiary p-4 rounded mb-4">
             <div class="row fw-bold border-bottom pb-2">
-              <div class="col-md-1">
+              <div class="col-md-2">
                 <h6>Room No.</h6>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-2">
                 <h6>Floor</h6>
               </div>
               <div class="col-md-2">
@@ -242,7 +242,7 @@
                   <option value="maintenance">Maintenance</option>
                 </select>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-5">
                 <input type="text" name="extra_info[]" class="form-control" placeholder="Any notes...">
               </div>
               <div class="col-md-1 text-center">
