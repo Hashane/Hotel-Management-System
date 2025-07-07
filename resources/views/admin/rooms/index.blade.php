@@ -62,8 +62,8 @@
           <td>{{ $roomType->rateTypes[0]->pivot->price }}</td>
           <td class="text-center">
             <i class="far fa-eye text-primary me-2" title="View"></i>
-            <i class="far fa-edit text-success me-2" title="Edit"></i>
-            <i class="far fa-trash-alt text-danger" title="Delete"></i>
+            <i class="far fa-edit text-success me-2" data-bs-toggle="modal" data-bs-target="#editRoomTypeModal"
+              title="Edit Room Type" role="button"></i> <i class="far fa-trash-alt text-danger" title="Delete"></i>
           </td>
         </tr>
         @empty
@@ -84,13 +84,380 @@
 
 </div>
 
+<!-- Edit Room Type Modal -->
+<div class="modal fade" id="editRoomTypeModal" tabindex="-1" aria-labelledby="editRoomTypeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header bg-light border-bottom">
+        <h5 class="modal-title fw-bold text-dark" id="editRoomTypeModalLabel">
+          <i class="fas fa-bed me-2"></i>Edit Room Type
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="container-fluid">
+
+          <!-- General Information -->
+          <h5 class="fw-bold text-dark mb-2">General Information</h5>
+          <div class="bg-body-tertiary p-4 rounded mb-4">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label h6">Name</label>
+                <input type="text" name="name" class="form-control" value="">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label h6">Status</label>
+                <select name="status" class="form-select">
+                  <option selected>Active</option>
+                  <option>Inactive</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-12">
+                <label class="form-label h6">Description</label>
+                <textarea name="description" class="form-control" rows="3"></textarea>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-4">
+                <label class="form-label h6">Size (sq ft)</label>
+                <input type="number" name="size" class="form-control" value="">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label h6">Occupancy</label>
+                <input type="number" name="occupancy" class="form-control" value="">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label h6">Bed Type</label>
+                <input type="text" name="bed_type" class="form-control" value="">
+              </div>
+            </div>
+          </div>
+
+          <!-- Pricing Details -->
+          <h5 class="fw-bold text-dark mb-2">Pricing Details</h5>
+          <div class="bg-body-tertiary p-4 rounded mb-4">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label h6">Pre-Tax Operating Cost</label>
+                <input type="number" name="pre_tax_operating" class="form-control" value="">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label h6">Pre-Tax Retail Price</label>
+                <input type="number" name="pre_tax_retail" class="form-control" value="">
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label h6">Tax Rule (%)</label>
+                <input type="number" name="tax_rule" class="form-control" value="">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label h6">Retail Price (Incl. Tax)</label>
+                <input type="number" name="retail_price_with_tax" class="form-control" value="">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 d-flex align-items-center pt-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="on_sale_icon" id="onSaleIconCheckbox">
+                  <label class="form-check-label h6" for="onSaleIconCheckbox">
+                    Display the "On Sale" icon on the Room Type page and within the Room Type listing text.
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SEO -->
+          <h5 class="fw-bold text-dark mb-2">SEO</h5>
+          <div class="bg-body-tertiary p-4 rounded mb-4">
+            <div class="mb-3">
+              <label class="form-label h6">Meta Title</label>
+              <input type="text" name="meta_title" class="form-control" value="">
+            </div>
+            <div class="mb-3">
+              <label class="form-label h6">Meta Description</label>
+              <textarea name="meta_description" class="form-control" rows="3"></textarea>
+            </div>
+            <div>
+              <label class="form-label h6">Friendly URL</label>
+              <input type="text" name="friendly_url" class="form-control" value="">
+            </div>
+          </div>
+
+          <!-- Features -->
+          <h5 class="fw-bold text-dark mb-2">Features</h5>
+          <div class="bg-body-tertiary p-4 rounded mb-4">
+            <div class="row fw-bold border-bottom">
+              <div class="col-md-3 text-center">
+                <h6>Select</h6>
+              </div>
+              <div class="col-md-4">
+                <h6>Name</h6>
+              </div>
+              <div class="col-md-3">
+                <h6>Logo</h6>
+              </div>
+            </div>
+            <!-- Feature loop assumed to be inserted here -->
+          </div>
+
+          <!-- Rooms -->
+          <h5 class="fw-bold text-dark mb-2">Rooms</h5>
+          <div class="bg-body-tertiary p-4 rounded mb-4">
+            <div class="row fw-bold border-bottom pb-2">
+              <div class="col-md-1">
+                <h6>Room No.</h6>
+              </div>
+              <div class="col-md-1">
+                <h6>Floor</h6>
+              </div>
+              <div class="col-md-2">
+                <h6>Status</h6>
+              </div>
+              <div class="col-md-5">
+                <h6>Extra Info</h6>
+              </div>
+              <div class="col-md-1 text-center">
+                <h6>Action</h6>
+              </div>
+            </div>
+
+            <div class="row align-items-center border-bottom py-2">
+              <div class="col-md-2">
+                <input type="text" name="room_no[]" class="form-control" placeholder="E.g. 101">
+              </div>
+              <div class="col-md-2">
+                <input type="number" name="floor[]" class="form-control" placeholder="1">
+              </div>
+              <div class="col-md-2">
+                <select name="status[]" class="form-select">
+                  <option value="available">Available</option>
+                  <option value="occupied">Occupied</option>
+                  <option value="maintenance">Maintenance</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <input type="text" name="extra_info[]" class="form-control" placeholder="Any notes...">
+              </div>
+              <div class="col-md-1 text-center">
+                <a href="#" class="text-danger" title="Delete">
+                  <i class="fas fa-trash-alt"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Services Section -->
+          <h5 class="fw-bold text-dark mb-3">Services</h5>
+          <div class="bg-body-tertiary p-4 rounded mb-4">
+            <div class="container pt-2">
+              <div class="row fw-bold border-bottom">
+                <div class="col-md-1 text-center">
+                  <h6>Select</h6>
+                </div>
+                <div class="col-md-3">
+                  <h6>Name</h6>
+                </div>
+                <div class="col-md-2">
+                  <h6>Base Price</h6>
+                </div>
+                <div class="col-md-2">
+                  <h6>Final Price</h6>
+                </div>
+                <div class="col-md-2">
+                  <h6>Feature Image</h6>
+                </div>
+              </div>
+
+              @php
+              $services = [
+              ['name' => 'Wi‑Fi', 'image' => 'wifi.png', 'base_price' => '100.00', 'final_price' => '110.00'],
+              ['name' => 'Fridge', 'image' => 'fridge.png', 'base_price' => '150.00', 'final_price' => '165.00'],
+              ['name' => 'Air Conditioner', 'image' => 'ac.png', 'base_price' => '200.00', 'final_price' => '220.00'],
+              ['name' => 'Television', 'image' => 'tv.png', 'base_price' => '120.00', 'final_price' => '132.00'],
+              ['name' => 'Mini Bar', 'image' => 'minibar.png', 'base_price' => '180.00', 'final_price' => '198.00'],
+              ];
+              @endphp
+
+              <div class="container">
+                @foreach ($services as $index => $service)
+                <div class="row align-items-center border-bottom mt-2 pb-2">
+                  <div class="col-md-1 d-flex justify-content-center align-items-center">
+                    <input class="form-check-input" type="checkbox" name="services[]"
+                      value="{{ strtolower(str_replace(' ', '_', $service['name'])) }}" id="service_{{ $index }}">
+                  </div>
+                  <div class="col-md-3">
+                    <label class="form-check-label h6 mb-0" for="service_{{ $index }}">
+                      {{ $service['name'] }}
+                    </label>
+                  </div>
+                  <div class="col-md-2">
+                    <h6 class="mb-0">{{ $service['base_price'] }}</h6>
+                  </div>
+                  <div class="col-md-2">
+                    <h6 class="mb-0">{{ $service['final_price'] }}</h6>
+                  </div>
+                  <div class="col-md-2">
+                    <h6 class="mb-0">
+                      <img src="{{ asset('images/features/' . $service['image']) }}" width="40"
+                        alt="{{ $service['name'] }}">
+                    </h6>
+                  </div>
+                </div>
+                @endforeach
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Additional Facilities -->
+          <h5 class="fw-bold text-dark mb-3">Additional Facilities</h5>
+          <div class="bg-body-tertiary p-4 rounded mb-4">
+            <div class="container mt-2">
+
+              <div class="row fw-bold border-bottom pb-2">
+                <div class="col-md-2 text-center">
+                  <h6>Select</h6>
+                </div>
+                <div class="col-md-4">
+                  <h6>Name</h6>
+                </div>
+                <div class="col-md-3">
+                  <h6>Base Price</h6>
+                </div>
+                <div class="col-md-3">
+                  <h6>Final Price</h6>
+                </div>
+              </div>
+
+              @php
+              $facilities = [
+              ['name' => 'Single Bed', 'base_price' => '100.00', 'final_price' => '110.00'],
+              ['name' => 'Parking', 'base_price' => '150.00', 'final_price' => '165.00'],
+              ['name' => 'Air Conditioner', 'base_price' => '200.00', 'final_price' => '220.00'],
+              ['name' => 'Television', 'base_price' => '120.00', 'final_price' => '132.00'],
+              ['name' => 'Mini Bar', 'base_price' => '180.00', 'final_price' => '198.00'],
+              ];
+              @endphp
+
+              @foreach ($facilities as $index => $facility)
+              <div class="row align-items-center border-bottom mt-2 pb-2">
+                <div class="col-md-2 d-flex justify-content-center align-items-center">
+                  <input class="form-check-input" type="checkbox" name="additional_facilities[]"
+                    value="{{ strtolower(str_replace(' ', '_', $facility['name'])) }}" id="facility_{{ $index }}">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-check-label h6 mb-0" for="facility_{{ $index }}">
+                    {{ $facility['name'] }}
+                  </label>
+                </div>
+                <div class="col-md-3">
+                  <h6 class="mb-0">{{ $facility['base_price'] }}</h6>
+                </div>
+                <div class="col-md-3">
+                  <h6 class="mb-0">{{ $facility['final_price'] }}</h6>
+                </div>
+              </div>
+              @endforeach
+
+            </div>
+          </div>
+
+          <!-- iamges Section -->
+          <h5 class="fw-bold text-dark mb-3">Visual Representation</h5>
+          <div class="bg-body-tertiary p-4 rounded mb-4">
+            <div class="row mb-3">
+              <div class="col-12">
+                <div class="container mt-2">
+
+                  <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                      <label class="form-label h6">Add Image</label>
+                      <input type="file" id="fileInput" name="file" class="d-none">
+                      <button type="button" class="btn btn-outline-primary d-inline-flex align-items-center ms-4"
+                        onclick="document.getElementById('fileInput').click();">
+                        <i class="fas fa-file me-2"></i> Add File
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Image List Header -->
+                  <div class="container pt-2">
+                    <div class="row fw-bold border-bottom">
+                      <div class="col-md-4">
+                        <h6>Feature Image</h6>
+                      </div>
+                      <div class="col-md-4 text-center">
+                        <h6>Cover</h6>
+                      </div>
+                      <div class="col-md-4 text-center">
+                        <h6>Action</h6>
+                      </div>
+                    </div>
+                  </div>
+
+                  @php
+                  $features = [
+                  ['name' => 'Wi‑Fi', 'image' => 'wifi.png'],
+                  ['name' => 'Fridge', 'image' => 'fridge.png'],
+                  ['name' => 'Air Conditioner', 'image' => 'ac.png'],
+                  ['name' => 'Television', 'image' => 'tv.png'],
+                  ['name' => 'Mini Bar', 'image' => 'minibar.png'],
+                  ];
+                  @endphp
+
+                  <!-- Feature Image Rows -->
+                  <div class="container">
+                    @foreach ($features as $index => $feature)
+                    <div class="row align-items-center border-bottom mt-2 pb-2">
+                      <div class="col-md-4">
+                        <h6 class="mb-0">
+                          <img src="{{ asset('images/features/' . $feature['image']) }}" width="50"
+                            alt="{{ $feature['name'] }}">
+                        </h6>
+                      </div>
+                      <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <input class="form-check-input" type="checkbox" name="cover_image"
+                          value="{{ strtolower(str_replace(' ', '_', $feature['name'])) }}" id="cover_{{ $index }}">
+                      </div>
+                      <div class="col-md-4 text-center">
+                        <button type="button" class="btn btn-link text-danger p-0" title="Delete">
+                          <i class="fas fa-trash-alt"></i>
+                        </button>
+                      </div>
+                    </div>
+                    @endforeach
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="modal-footer border-top">
+        <button type="button" class="btn btn-success">Save Room</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 
 
 
 
 <!-- Add New Room Modal -->
-<div class="modal fade" id="addRoomModal" tabindex="-1" aria-labelledby="addRoomModalLabel" aria-hidden="true">
+{{-- <div class="modal fade" id="addRoomModal" tabindex="-1" aria-labelledby="addRoomModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <form action="#" method="POST">
@@ -191,7 +558,7 @@
   </div>
 
 
-</div>
+</div> --}}
 @endsection
 @push('scripts')
 @endpush
