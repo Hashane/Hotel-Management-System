@@ -352,12 +352,12 @@ return [
                 ],
                 [
                     'text' => 'facilities',
-                    'route' => 'admin.rooms.facilities',
+                    'route' => 'admin.features.index',
                     'icon' => 'fas fa-wifi',
                 ],
                 [
                     'text' => 'Additional Facilities',
-                    'route' => 'admin.rooms.extra_facilities',
+                    'route' => 'admin.additionalFacilities.index',
                     'icon' => 'fas fa-wifi',
                 ],
 
