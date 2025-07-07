@@ -135,7 +135,8 @@
 
                 {{-- Action Icons --}}
                 <div class="col-md-2">
-                  <i class="far fa-eye text-primary me-2" title="View"></i>
+                  <i class="far fa-eye text-primary me-2" title="View" role="button" data-bs-toggle="modal"
+                    data-bs-target="#viewFeatureModal"></i>
                   <i class="far fa-edit text-success me-2" title="Edit"></i>
                   <i class="far fa-trash-alt text-danger" title="Delete"></i>
                 </div>
@@ -158,7 +159,101 @@
   </div>
 </div>
 
+<!-- View Feature Modal -->
+<div class="modal fade" id="viewFeatureModal" tabindex="-1" aria-labelledby="viewFeatureModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-light border-bottom">
+        <h5 class="modal-title fw-bold text-dark" id="viewFeatureModalLabel">Feature Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
 
+      <div class="modal-body">
+        <div class="container-fluid">
+
+          {{-- General Information --}}
+          <h5 class="fw-bold text-dark mb-2">General Information</h5>
+          <div class="bg-body-tertiary p-4 rounded mb-4">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label h6">Feature Name</label>
+                <p class="form-control-plaintext h6">Wi‑Fi</p>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label h6">Status</label>
+                <p class="form-control-plaintext h6">Active</p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12">
+                <label class="form-label h6">Description</label>
+                <p class="form-control-plaintext h6">
+                  High-speed wireless internet access available in all rooms and public areas.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {{-- Pricing Details --}}
+          <h5 class="fw-bold text-dark mb-2">Pricing Details</h5>
+          <div class="bg-body-tertiary p-4 rounded mb-4">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label h6">Pre-Tax Operating Cost</label>
+                <p class="form-control-plaintext h6">Rs. 100.00</p>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label h6">Pre-Tax Retail Price</label>
+                <p class="form-control-plaintext h6">Rs. 120.00</p>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label h6">Tax Rule</label>
+                <p class="form-control-plaintext h6">10%</p>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label h6">Retail Price (Incl. Tax)</label>
+                <p class="form-control-plaintext h6">Rs. 132.00</p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label h6">Price Calculation Method</label>
+                <p class="form-control-plaintext h6">Per Day</p>
+              </div>
+            </div>
+          </div>
+
+          {{-- Visuals --}}
+          <h5 class="fw-bold text-dark mb-2">Visual Representation</h5>
+          <div class="bg-body-tertiary p-4 rounded">
+            <div class="row align-items-center">
+              <div class="col-md-6 mb-3">
+                <label class="form-label h6">Feature Image</label>
+                <div class="border p-2 rounded" style="max-width: 150px;">
+                  <img src="{{ asset('images/features/wifi.png') }}" alt="Wi‑Fi" class="img-fluid rounded">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label h6">Cover Image</label>
+                <p class="form-control-plaintext h6">Yes</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="modal-footer border-top">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 @endsection
 @push('scripts')
