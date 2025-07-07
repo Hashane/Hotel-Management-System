@@ -61,7 +61,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     Route::controller(AdditionalFacilitiesController::class)->prefix('additionalFacilities')->name('additionalFacilities.')->group(function () {
         Route::get('/', 'index')->name('index');
-        // Route::get('/create', 'create')->name('create');
+        Route::get('/create', 'create')->name('create');
 
     });
 
