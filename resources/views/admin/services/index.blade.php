@@ -137,8 +137,10 @@
                 <div class="col-md-2">
                   <i class="far fa-eye text-primary me-2" title="View" role="button" data-bs-toggle="modal"
                     data-bs-target="#viewFeatureModal"></i>
-                  <i class="far fa-edit text-success me-2" title="Edit"></i>
-                  <i class="far fa-trash-alt text-danger" title="Delete"></i>
+                  <i class="far fa-edit text-success me-2" data-bs-toggle="modal" data-bs-target="#editFeatureModal"
+                    title="Edit"></i>
+
+
                 </div>
               </div>
               @endforeach
@@ -195,6 +197,38 @@
             </div>
           </div>
 
+          {{-- SEO --}}
+          <h5 class="fw-bold text-dark mb-3 mt-4">SEO</h5>
+          <div class="bg-body-tertiary p-4 rounded mb-4">
+
+            {{-- Meta Title --}}
+            <div class="row mb-3">
+              <div class="col-12">
+                <label class="form-label h6 mb-1">Meta Title</label>
+                <p class="form-control-plaintext h6 mb-0">Free Wi‑Fi Access in Every Room</p>
+              </div>
+            </div>
+
+            {{-- Meta Description --}}
+            <div class="row mb-3">
+              <div class="col-12">
+                <label class="form-label h6 mb-1">Meta Description</label>
+                <p class="form-control-plaintext h6 mb-0">
+                  Enjoy complimentary high-speed internet in all guest rooms and public areas during your stay.
+                </p>
+              </div>
+            </div>
+
+            {{-- Friendly URL --}}
+            <div class="row">
+              <div class="col-12">
+                <label class="form-label h6 mb-1">Friendly URL</label>
+                <p class="form-control-plaintext h6 mb-0">https://yourhotel.com/room-type/free-wifi</p>
+              </div>
+            </div>
+
+          </div>
+
           {{-- Pricing Details --}}
           <h5 class="fw-bold text-dark mb-2">Pricing Details</h5>
           <div class="bg-body-tertiary p-4 rounded mb-4">
@@ -246,14 +280,207 @@
           </div>
 
         </div>
+
+        <div class="modal-footer border-top mt-4">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
       </div>
 
-      <div class="modal-footer border-top">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
+
     </div>
   </div>
 </div>
+
+<!-- Edit Feature Modal -->
+<div class="modal fade" id="editFeatureModal" tabindex="-1" aria-labelledby="editFeatureModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-light border-bottom">
+        <h6 class="modal-title fw-bold text-dark" id="editFeatureModalLabel">Edit Feature</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form action="#" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="modal-body">
+          <div class="container-fluid">
+
+            {{-- General Information --}}
+            <h5 class="fw-bold text-dark mb-2">General Information</h5>
+            <div class="bg-body-tertiary p-4 rounded mb-4">
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label h6">Feature Name</label>
+                  <input type="text" name="feature_name" class="form-control" value="Wi‑Fi">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label h6">Status</label>
+                  <select name="status" class="form-select">
+                    <option selected>Active</option>
+                    <option>Inactive</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <label class="form-label h6">Description</label>
+                  <textarea name="description" class="form-control"
+                    rows="3">High-speed wireless internet access available in all rooms and public areas.</textarea>
+                </div>
+              </div>
+            </div>
+
+            {{-- SEO --}}
+            <h5 class="fw-bold text-dark mb-3 mt-4">SEO</h5>
+            <div class="bg-body-tertiary p-4 rounded mb-4">
+              <div class="row mb-3">
+                <div class="col-12">
+                  <label class="form-label h6">Meta Title</label>
+                  <input type="text" name="meta_title" class="form-control" value="Free Wi‑Fi Access in Every Room">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-12">
+                  <label class="form-label h6">Meta Description</label>
+                  <textarea name="meta_description" class="form-control"
+                    rows="3">Enjoy complimentary high-speed internet in all guest rooms and public areas during your stay.</textarea>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <label class="form-label h6">Friendly URL</label>
+                  <input type="text" name="friendly_url" class="form-control"
+                    value="https://yourhotel.com/room-type/free-wifi">
+                </div>
+              </div>
+            </div>
+
+            {{-- Pricing Details --}}
+            <h5 class="fw-bold text-dark mb-2">Pricing Details</h5>
+            <div class="bg-body-tertiary p-4 rounded mb-4">
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label h6">Pre-Tax Operating Cost</label>
+                  <input type="number" name="pre_tax_operating" class="form-control" value="100.00">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label h6">Pre-Tax Retail Price</label>
+                  <input type="number" name="pre_tax_retail" class="form-control" value="120.00">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label h6">Tax Rule (%)</label>
+                  <input type="number" name="tax_rule" class="form-control" value="10">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label h6">Retail Price (Incl. Tax)</label>
+                  <input type="number" name="retail_price_with_tax" class="form-control" value="132.00">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <label class="form-label h6">Price Calculation Method</label>
+                  <select name="price_calculation_method" class="form-select">
+                    <option selected>Per Day</option>
+                    <option>Per Booking</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            {{-- *** IMAGES *** --}}
+            <h5 class="fw-bold text-dark mb-2">Pricing Details</h5>
+            <div class="bg-body-tertiary p-4 rounded mb-4">
+              <div class="row mb-3">
+                <div class="col-12">
+                  <div class="container mt-2">
+
+                    <div class="row g-3 mb-4">
+                      <div class="col-md-6">
+                        <label class="form-label h6">Room Type Name</label>
+                        <input type="file" id="fileInput" name="file" class="d-none">
+                        <button type="button" class="btn btn-outline-primary d-inline-flex align-items-center ms-4"
+                          onclick="document.getElementById('fileInput').click();">
+                          <h6 class="mb-0"><i class="fas fa-file m-0"></i> Add File </h6>
+                        </button>
+                      </div>
+                    </div>
+
+                    {{-- image Form --}}
+                    <div class="container">
+                      {{-- Header Row --}}
+                      <div class="container pt-2">
+                        <div class="row fw-bold border-bottom">
+                          <div class="col-md-4">
+                            <h6>Feature Image</h6>
+                          </div>
+                          <div class="col-md-4 text-center">
+                            <h6>Cover</h6>
+                          </div>
+                          <div class="col-md-4 text-center">
+                            <h6>Action</h6>
+                          </div>
+                        </div>
+                      </div>
+
+                      @php
+                      $features = [
+                      ['name' => 'Wi‑Fi', 'image' => 'wifi.png'],
+                      ['name' => 'Fridge', 'image' => 'fridge.png'],
+                      ['name' => 'Air Conditioner', 'image' => 'ac.png'],
+                      ['name' => 'Television', 'image' => 'tv.png'],
+                      ['name' => 'Mini Bar', 'image' => 'minibar.png'],
+                      ];
+                      @endphp
+
+                      {{-- Feature Rows --}}
+                      <div class="container">
+                        @foreach ($features as $index => $feature)
+                        <div class="row align-items-center border-bottom mt-2 pb-2">
+                          <div class="col-md-4">
+                            <h6 class="mb-0">
+                              <img src="{{ asset('images/features/' . $feature['image']) }}" width="50"
+                                alt="{{ $feature['name'] }}">
+                            </h6>
+                          </div>
+                          <div class="col-md-4 d-flex justify-content-center align-items-center">
+                            <input class="form-check-input" type="checkbox" name="features[]"
+                              value="{{ strtolower(str_replace(' ', '_', $feature['name'])) }}"
+                              id="feature_{{ $index }}">
+                          </div>
+                          <div class="col-md-4 text-center">
+                            <button type="button" class="btn btn-link text-danger p-0" title="Delete">
+                              <i class="fas fa-trash-alt"></i>
+                            </button>
+                          </div>
+                        </div>
+                        @endforeach
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer border-top">
+            <button type="submit" class="btn btn-success">Save Changes</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
 
 @endsection
 @push('scripts')
