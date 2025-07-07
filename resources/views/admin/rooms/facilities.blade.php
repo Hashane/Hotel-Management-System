@@ -69,7 +69,7 @@
                   <h6>Select</h6>
                 </div>
                 <div class="col-md-4">
-                  <h6>Feature</h6>
+                  <h6>Name</h6>
                 </div>
                 <div class="col-md-3">
                   <h6>Logo</h6>

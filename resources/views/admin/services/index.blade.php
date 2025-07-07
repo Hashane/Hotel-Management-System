@@ -70,7 +70,7 @@
                   <h6>Select</h6>
                 </div>
                 <div class="col-md-3">
-                  <h6>Feature Name</h6>
+                  <h6>Name</h6>
                 </div>
                 <div class="col-md-2">
                   <h6>Base Price</h6>
