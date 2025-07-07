@@ -190,64 +190,65 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-12">
-                    <!-- Add New Room Modal -->
                     <div class="container mt-2">
                       <form action="#" method="POST">
                         @csrf
 
+                        {{-- Meta Title --}}
                         <div class="row mb-3">
-                          <div class="col-md-6 d-flex align-items-center">
-                            <label class="form-label me-3 mb-0" style="min-width: 180px;">Meta Title</label>
-                            <input type="number" name="basic_price" class="form-control" required>
+                          <div class="col-md-4">
+                            <label class="form-label mb-0">Meta Title</label>
+                          </div>
+                          <div class="col-md-4">
+                            <input type="text" name="meta_title" class="form-control" required>
                           </div>
                         </div>
 
+                        {{-- Meta Description --}}
                         <div class="row mb-3">
-                          <div class="col-md-6 d-flex align-items-center">
-                            <label class="form-label me-3 mb-0" style="min-width: 180px;">Meta Discription</label>
-                            <input type="number" name="basic_price" class="form-control" required>
+                          <div class="col-md-4">
+                            <label class="form-label mb-0">Meta Description</label>
+                          </div>
+                          <div class="col-md-4">
+                            <input type="text" name="meta_description" class="form-control" required>
                           </div>
                         </div>
 
+                        {{-- Friendly URL --}}
                         <div class="row mb-3">
-                          <div class="col-md-6 d-flex align-items-center">
-                            <label class="form-label me-3 mb-0" style="min-width: 180px;">Friendly URL</label>
-                            <input type="number" name="basic_price" class="form-control" required>
+                          <div class="col-md-4">
+                            <label class="form-label mb-0">Friendly URL</label>
+                          </div>
+                          <div class="col-md-4">
+                            <input type="text" name="friendly_url" class="form-control" required>
                           </div>
                         </div>
-                        <div class="alert alert-info alert-dismissible fade show" role="alert">
-                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
+
+                        {{-- Info Alert --}}
+                        <div class="alert alert-info alert-dismissible fade show mt-3" role="alert">
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
                           <h5 class="mb-2">
                             <i class="icon fas fa-info"></i> Alert!
                           </h5>
-
                           <h6 class="mb-1 ms-4">The product link will look like this:</h6>
                           <h6 class="ms-4 fw-bold">
                             https://demo.qloapps.com/112-134-132-181/en/the-hotel-prime/15-xbfb.html
                           </h6>
                         </div>
 
+                        {{-- Submit Buttons --}}
+                        <div class="row">
+                          <div class="col-12 text-end mt-4">
+                            <button type="submit" class="btn btn-primary">Save Room</button>
+                            <a href="#" class="btn btn-secondary">Cancel</a>
+                          </div>
+                        </div>
 
-
+                      </form>
                     </div>
-
-                    <div class="container mt-3">
-                      <div class="mt-4 text-end">
-                        <button type="submit" class="btn btn-primary">Save Room</button>
-                        <a href="#" class="btn btn-secondary">Cancel</a>
-                      </div>
-                    </div>
-
-
-
-                    </form>
                   </div>
                 </div>
-
-
               </div>
             </div>
           </div>
