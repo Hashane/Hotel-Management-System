@@ -21,7 +21,8 @@ class FeatureController
      */
     public function create()
     {
-        //
+        return view('admin.features.create');
+
     }
 
     /**
