@@ -352,7 +352,7 @@ return [
                 ],
                 [
                     'text' => 'facilities',
-                    'route' => 'admin.rooms.facilities',
+                    'route' => 'admin.features.index',
                     'icon' => 'fas fa-wifi',
                 ],
                 [
