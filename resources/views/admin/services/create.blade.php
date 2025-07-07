@@ -142,9 +142,11 @@
 
                     </div>
 
-                    <div class="mt-4 text-end">
-                      <button type="submit" class="btn btn-primary">Save Room</button>
-                      <a href="#" class="btn btn-secondary">Cancel</a>
+                    <div class="container mt-3">
+                      <div class="mt-4 text-end">
+                        <button type="submit" class="btn btn-primary">Save Room</button>
+                        <a href="#" class="btn btn-secondary">Cancel</a>
+                      </div>
                     </div>
                     </form>
                   </div>
@@ -210,9 +212,11 @@
 
                     </div>
 
-                    <div class="mt-4 text-end">
-                      <button type="submit" class="btn btn-primary">Save Room</button>
-                      <a href="#" class="btn btn-secondary">Cancel</a>
+                    <div class="container mt-3">
+                      <div class="mt-4 text-end">
+                        <button type="submit" class="btn btn-primary">Save Room</button>
+                        <a href="#" class="btn btn-secondary">Cancel</a>
+                      </div>
                     </div>
 
 
@@ -321,14 +325,15 @@
                               @endforeach
                             </div>
 
-                            <div class="container mt-3">
 
-                              <div class="mt-4 text-end">
-                                <button type="submit" class="btn btn-primary">Save Room</button>
-                                <a href="#" class="btn btn-secondary">Cancel</a>
-                              </div>
-                            </div>
                           </form>
+
+                        </div>
+                        <div class="container mt-3">
+                          <div class="mt-4 text-end">
+                            <button type="submit" class="btn btn-primary">Save Room</button>
+                            <a href="#" class="btn btn-secondary">Cancel</a>
+                          </div>
                         </div>
                     </div>
 
