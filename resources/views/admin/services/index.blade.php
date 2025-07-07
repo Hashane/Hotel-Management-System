@@ -403,7 +403,7 @@
 
 
             {{-- *** IMAGES *** --}}
-            <h5 class="fw-bold text-dark mb-2">Pricing Details</h5>
+            <h5 class="fw-bold text-dark mb-2">Visual Representation</h5>
             <div class="bg-body-tertiary p-4 rounded mb-4">
               <div class="row mb-3">
                 <div class="col-12">
