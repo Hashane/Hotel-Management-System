@@ -20,132 +20,6 @@
 @endif
 
 
-{{-- onclick="window.location='{{ route('admin.services.create') }}'" --}}
-<div class="text-end">
-  <button type="button" class="btn btn-primary">
-    <h6 class="mb-0"><i class="fas fa-plus me-1"></i> Add New Facility</h6>
-  </button>
-</div>
-
-
-<div class="card card-info shadow-sm mt-2">
-  <div class="card-header">
-    <h5 class="card-title mb-0">Additional Facilities</h5>
-  </div>
-  <div class="card-body">
-
-    {{-- Info Callout --}}
-    <div class="row">
-      <div class="col-12">
-        <div class="container mt-2">
-          <div class="callout callout-info">
-            <div class="d-flex align-items-start">
-              <i class="icon fas fa-info fa-lg text-info me-3 mt-1"></i>
-              <div>
-                <h6 class="mb-0">
-                  You can specify a value for each relevant feature regarding this room type. Empty fields
-                  will not be
-                  displayed.
-                  You can either create a specific value, or select among the existing pre-defined values
-                  you've
-                  previously added.
-                </h6>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    {{-- Feature Form --}}
-    <div class="row">
-      <div class="col-12">
-        <div class="container mt-2">
-          <form action="#" method="POST">
-            @csrf
-
-            {{-- Header Row --}}
-            <div class="container pt-2">
-              <div class="row fw-bold border-bottom">
-                <div class="col-md-1 text-center">
-                  <h6>Select</h6>
-                </div>
-                <div class="col-md-3">
-                  <h6>Name</h6>
-                </div>
-                <div class="col-md-3">
-                  <h6>Base Price</h6>
-                </div>
-                <div class="col-md-3">
-                  <h6>Final Price</h6>
-                </div>
-                <div class="col-md-2">
-                  <h6>Action</h6>
-                </div>
-              </div>
-            </div>
-
-            {{-- Feature Rows --}}
-            <div class="container">
-              @php
-              $features = [
-              ['name' => 'Sigle Bed', 'base_price' => '100.00', 'final_price' => '110.00'],
-              ['name' => 'Parking', 'base_price' => '150.00', 'final_price' => '165.00'],
-              ['name' => 'Air Conditioner', 'base_price' => '200.00', 'final_price' => '220.00'],
-              ['name' => 'Television', 'base_price' => '120.00', 'final_price' => '132.00'],
-              ['name' => 'Mini Bar', 'base_price' => '180.00', 'final_price' => '198.00'],
-              ];
-              @endphp
-
-              @foreach ($features as $index => $feature)
-              <div class="row align-items-center border-bottom mt-2 pb-2">
-                {{-- Select --}}
-                <div class="col-md-1 d-flex justify-content-center align-items-center">
-                  <input class="form-check-input" type="checkbox" name="features[]"
-                    value="{{ strtolower(str_replace(' ', '_', $feature['name'])) }}" id="feature_{{ $index }}">
-                </div>
-
-                {{-- Feature Name --}}
-                <div class="col-md-3">
-                  <label class="form-check-label h6 mb-0" for="feature_{{ $index }}">
-                    {{ $feature['name'] }}
-                  </label>
-                </div>
-
-                {{-- Base Price --}}
-                <div class="col-md-3">
-                  <h6 class="mb-0">{{ $feature['base_price'] }}</h6>
-                </div>
-
-                {{-- Final Price --}}
-                <div class="col-md-3">
-                  <h6 class="mb-0">{{ $feature['final_price'] }}</h6>
-                </div>
-
-                {{-- Action Icons --}}
-                <div class="col-md-2">
-                  <i class="far fa-eye text-primary me-2" title="View"></i>
-                  <i class="far fa-edit text-success me-2" title="Edit"></i>
-                  <i class="far fa-trash-alt text-danger" title="Delete"></i>
-                </div>
-              </div>
-              @endforeach
-            </div>
-
-            {{-- Submit --}}
-            <div class="container mt-3">
-              <div class="mt-4 text-end">
-                <button type="submit" class="btn btn-primary">Save Room</button>
-                <a href="#" class="btn btn-secondary">Cancel</a>
-              </div>
-            </div>
-
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <div class="content">
   <div class="container-fluid">
@@ -158,6 +32,8 @@
             aria-controls="vert-tabs-prices" aria-selected="false">Prices</a>
           <a class="nav-link" id="vert-tabs-seo-tab" data-toggle="pill" href="#vert-tabs-seo" role="tab"
             aria-controls="vert-tabs-seo" aria-selected="false">SEO</a>
+          <a class="nav-link" id="vert-tabs-images-tab" data-toggle="pill" href="#vert-tabs-images" role="tab"
+            aria-controls="vert-tabs-images" aria-selected="false">Images</a>
         </div>
       </div>
 
@@ -171,7 +47,7 @@
             aria-labelledby="vert-tabs-info-tab">
             <div class="card card-info shadow-sm mt-4">
               <div class="card-header">
-                <h5 class="card-title mb-0">Facility Information</h5>
+                <h5 class="card-title mb-0">Service Information</h5>
               </div>
               <div class="card-body">
                 <div class="row">
@@ -184,7 +60,7 @@
                         <div class="row g-3">
 
                           <div class="col-md-6">
-                            <label class="form-label">Facility Name</label>
+                            <label class="form-label">Service Name</label>
                             <input type="text" name="room_type_name" class="form-control" required>
                           </div>
 
@@ -376,23 +252,131 @@
               </div>
             </div>
           </div>
+
+          {{-- *** IMAGES *** --}}
+          <div class="tab-pane fade" id="vert-tabs-images" role="tabpanel" aria-labelledby="vert-tabs-images-tab">
+            <div class="card card-info shadow-sm mt-4">
+              <div class="card-header">
+                <h5 class="card-title mb-0">Images</h5>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="container mt-2">
+                      <form action="#" method="POST">
+                        @csrf
+
+
+                        <div class="row g-3 mb-4">
+
+                          <div class="col-md-6">
+                            <label class="form-label">Room Type Name</label>
+
+                            <form action="#" method="POST" enctype="multipart/form-data">
+                              @csrf
+                              <input type="file" id="fileInput" name="file" class="d-none ">
+                              <button type="button"
+                                class="btn btn-outline-primary d-inline-flex align-items-center ms-4"
+                                onclick="document.getElementById('fileInput').click();">
+                                <h6 class="mb-0"><i class="fas fa-file m-0"></i> Add File </h6>
+                              </button>
+                            </form>
+
+                          </div>
+
+                        </div>
+
+
+
+                        {{-- image Form --}}
+                        <div class="container">
+
+                          <form action="#" method="POST">
+                            @csrf
+
+                            {{-- Header Row --}}
+                            <div class="container pt-2">
+                              <div class="row fw-bold border-bottom">
+                                <div class="col-md-4">
+                                  <h6>Feature Image</h6>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                  <h6>Cover</h6>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                  <h6>Action</h6>
+                                </div>
+                              </div>
+                            </div>
+
+                            @php
+                            $features = [
+                            ['name' => 'Wi‑Fi', 'image' => 'wifi.png'],
+                            ['name' => 'Fridge', 'image' => 'fridge.png'],
+                            ['name' => 'Air Conditioner', 'image' => 'ac.png'],
+                            ['name' => 'Television', 'image' => 'tv.png'],
+                            ['name' => 'Mini Bar', 'image' => 'minibar.png'],
+                            ];
+                            @endphp
+
+                            {{-- Feature Rows --}}
+                            <div class="container">
+                              @foreach ($features as $index => $feature)
+                              <div class="row align-items-center border-bottom mt-2 pb-2">
+                                {{-- Image --}}
+                                <div class="col-md-4">
+                                  <h6 class="mb-0">
+                                    <img src="{{ asset('images/features/' . $feature['image']) }}" width="50"
+                                      alt="{{ $feature['name'] }}">
+                                  </h6>
+                                </div>
+
+                                {{-- Cover Checkbox --}}
+                                <div class="col-md-4 d-flex justify-content-center align-items-center">
+                                  <input class="form-check-input" type="checkbox" name="features[]"
+                                    value="{{ strtolower(str_replace(' ', '_', $feature['name'])) }}"
+                                    id="feature_{{ $index }}">
+                                </div>
+
+                                {{-- Action (Delete Icon) --}}
+                                <div class="col-md-4 text-center">
+                                  <button type="button" class="btn btn-link text-danger p-0" title="Delete">
+                                    <i class="fas fa-trash-alt"></i>
+                                  </button>
+                                </div>
+                              </div>
+                              @endforeach
+                            </div>
+
+
+                          </form>
+
+                        </div>
+                        <div class="container mt-3">
+                          <div class="mt-4 text-end">
+                            <button type="submit" class="btn btn-primary">Save Room</button>
+                            <a href="#" class="btn btn-secondary">Cancel</a>
+                          </div>
+                        </div>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
 
 
 
 
-
     </div>
+
+
   </div>
-
-
-
-
-</div>
-
-
-</div>
 </div>
 
 
