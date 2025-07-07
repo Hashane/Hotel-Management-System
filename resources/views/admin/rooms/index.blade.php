@@ -61,7 +61,8 @@
           <td>{{ $roomType->roomCount }}</td>
           <td>{{ $roomType->rateTypes[0]->pivot->price }}</td>
           <td class="text-center">
-            <i class="far fa-eye text-primary me-2" title="View"></i>
+            <i class="far fa-eye text-primary me-2" data-bs-toggle="modal" data-bs-target="#viewRoomTypeModal"
+              title="View"></i>
             <i class="far fa-edit text-success me-2" data-bs-toggle="modal" data-bs-target="#editRoomTypeModal"
               title="Edit Room Type" role="button"></i> <i class="far fa-trash-alt text-danger" title="Delete"></i>
           </td>
@@ -453,7 +454,253 @@
 </div>
 
 
+<!-- View Room Type Modal -->
+<div class="modal fade" id="viewRoomTypeModal" tabindex="-1" aria-labelledby="viewRoomTypeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
 
+      <div class="modal-header bg-light border-bottom">
+        <h6 class="modal-title fw-bold text-dark" id="viewRoomTypeModalLabel">Room Type Details</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="container-fluid">
+
+          <!-- General Information -->
+          <h5 class="fw-bold text-dark mb-2">General Information</h5>
+          <div class="bg-body-tertiary p-4 rounded mb-4">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label h6">Name</label>
+                <p class="form-control-plaintext h6">Deluxe Room</p>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label h6">Status</label>
+                <p class="form-control-plaintext h6">Active</p>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label h6">Description</label>
+              <p class="form-control-plaintext h6">Spacious room with sea view and modern furnishings.</p>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label class="form-label h6">Size (sq ft)</label>
+                <p class="form-control-plaintext h6">400</p>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label h6">Occupancy</label>
+                <p class="form-control-plaintext h6">2 Adults</p>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label h6">Bed Type</label>
+                <p class="form-control-plaintext h6">King Size</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pricing Details -->
+          <h5 class="fw-bold text-dark mb-2">Pricing Details</h5>
+          <div class="bg-body-tertiary p-4 rounded mb-4">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label h6">Pre-Tax Operating Cost</label>
+                <p class="form-control-plaintext h6">Rs. 5,000</p>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label h6">Pre-Tax Retail Price</label>
+                <p class="form-control-plaintext h6">Rs. 7,000</p>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label h6">Tax Rule (%)</label>
+                <p class="form-control-plaintext h6">15%</p>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label h6">Retail Price (Incl. Tax)</label>
+                <p class="form-control-plaintext h6">Rs. 8,050</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label h6">On Sale Icon</label>
+                <p class="form-control-plaintext h6">Yes</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- SEO -->
+          <h5 class="fw-bold text-dark mb-3">SEO</h5>
+          <div class="bg-body-tertiary p-4 rounded mb-4">
+            <div class="mb-3">
+              <label class="form-label h6">Meta Title</label>
+              <p class="form-control-plaintext h6">Deluxe Sea View Room</p>
+            </div>
+            <div class="mb-3">
+              <label class="form-label h6">Meta Description</label>
+              <p class="form-control-plaintext h6">Experience luxury in our deluxe room with a panoramic sea view.</p>
+            </div>
+            <div>
+              <label class="form-label h6">Friendly URL</label>
+              <p class="form-control-plaintext h6">/room-types/deluxe-room</p>
+            </div>
+          </div>
+
+          <!-- Features -->
+          <h5 class="fw-bold text-dark mb-2">Features</h5>
+          <div class="bg-body-tertiary p-4 rounded mb-4">
+            <div class="row fw-bold border-bottom">
+              <div class="col-md-4 text-center">
+                <h6>Select</h6>
+              </div>
+              <div class="col-md-4">
+                <h6>Name</h6>
+              </div>
+              <div class="col-md-4">
+                <h6>Logo</h6>
+              </div>
+            </div>
+            <div class="row align-items-center border-bottom py-2">
+              <div class="col-md-4 text-center mb-4"><input class="form-check-input" type="checkbox" checked disabled>
+              </div>
+              <div class="col-md-4">
+                <p class="form-control-plaintext h6">Wi-Fi</p>
+              </div>
+              <div class="col-md-4"><img src="{{ asset('images/features/wifi.png') }}" width="40"></div>
+            </div>
+          </div>
+
+          <!-- Rooms -->
+          <h5 class="fw-bold text-dark mb-2">Rooms</h5>
+          <div class="bg-body-tertiary p-4 rounded mb-4">
+            <div class="row fw-bold border-bottom pb-2">
+              <div class="col-md-2">
+                <h6>Room No.</h6>
+              </div>
+              <div class="col-md-2">
+                <h6>Floor</h6>
+              </div>
+              <div class="col-md-3">
+                <h6>Status</h6>
+              </div>
+              <div class="col-md-5">
+                <h6>Extra Info</h6>
+              </div>
+            </div>
+            <div class="row border-bottom py-2">
+              <div class="col-md-2">
+                <p class="form-control-plaintext">101</p>
+              </div>
+              <div class="col-md-2">
+                <p class="form-control-plaintext">1</p>
+              </div>
+              <div class="col-md-3">
+                <p class="form-control-plaintext">Available</p>
+              </div>
+              <div class="col-md-5">
+                <p class="form-control-plaintext">Near elevator</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Services -->
+          <h5 class="fw-bold text-dark mb-3">Services</h5>
+          <div class="bg-body-tertiary p-4 rounded mb-4">
+            <div class="row fw-bold border-bottom pb-2">
+              <div class="col-md-1 text-center">
+                <h6>Select</h6>
+              </div>
+              <div class="col-md-3">
+                <h6>Name</h6>
+              </div>
+              <div class="col-md-3">
+                <h6>Base Price</h6>
+              </div>
+              <div class="col-md-3">
+                <h6>Final Price</h6>
+              </div>
+              <div class="col-md-2">
+                <h6>Feature Image</h6>
+              </div>
+            </div>
+            <div class="row align-items-center border-bottom mt-2 pb-2">
+              <div class="col-md-1 text-center mb-4"><input class="form-check-input" type="checkbox" checked disabled>
+              </div>
+              <div class="col-md-3">
+                <p class="form-control-plaintext h6">Wi-Fi</p>
+              </div>
+              <div class="col-md-3">
+                <p class="form-control-plaintext h6">100.00</p>
+              </div>
+              <div class="col-md-3">
+                <p class="form-control-plaintext h6">110.00</p>
+              </div>
+              <div class="col-md-2"><img src="{{ asset('images/features/wifi.png') }}" width="40"></div>
+            </div>
+          </div>
+
+          <!-- Additional Facilities -->
+          <h5 class="fw-bold text-dark mb-3">Additional Facilities</h5>
+          <div class="bg-body-tertiary p-4 rounded mb-4">
+            <div class="row fw-bold border-bottom pb-2">
+              <div class="col-md-2 text-center">
+                <h6>Select</h6>
+              </div>
+              <div class="col-md-4">
+                <h6>Name</h6>
+              </div>
+              <div class="col-md-3">
+                <h6>Base Price</h6>
+              </div>
+              <div class="col-md-3">
+                <h6>Final Price</h6>
+              </div>
+            </div>
+            <div class="row align-items-center border-bottom mt-2 pb-2">
+              <div class="col-md-2 text-center mb-4"><input class="form-check-input" type="checkbox" checked disabled>
+              </div>
+              <div class="col-md-4">
+                <p class="form-control-plaintext h6">Parking</p>
+              </div>
+              <div class="col-md-3">
+                <p class="form-control-plaintext h6">150.00</p>
+              </div>
+              <div class="col-md-3">
+                <p class="form-control-plaintext h6">165.00</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Visual Representation -->
+          <h5 class="fw-bold text-dark mb-2">Visual Representation</h5>
+          <div class="bg-body-tertiary p-4 rounded">
+            <div class="row align-items-center">
+              <div class="col-md-6 mb-3">
+                <label class="form-label h6">Feature Image</label>
+                <div class="border p-2 rounded" style="max-width: 150px;">
+                  <img src="{{ asset('images/features/sample-room.jpg') }}" alt="Room" class="img-fluid rounded">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label h6">Cover Image</label>
+                <p class="form-control-plaintext h6">Yes</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="modal-footer border-top mt-4">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 
 <!-- Add New Room Modal -->
