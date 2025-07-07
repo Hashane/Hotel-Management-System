@@ -21,7 +21,7 @@ class ServiceController
      */
     public function create()
     {
-        //
+        return view('admin.services.create');
     }
 
     /**
