@@ -9,8 +9,9 @@ use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\RoomReservationController;
-use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\SeasonController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('admin/', function () {
@@ -54,11 +55,14 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::controller(ServiceController::class)->prefix('services')->name('services.')->group(function () {
         Route::get('/', 'index')->name('index');
         // Route::get('/create', 'create')->name('create');
-        
 
     });
 
-
+    Route::controller(SeasonController::class)->prefix('seasons')->name('seasons.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::delete('/{season}', 'destroy')->name('destroy');
+    });
 
     Route::controller(CustomerController::class)->name('customers.')->group(function () {
         Route::get('/', 'index')->name('index');
