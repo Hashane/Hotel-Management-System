@@ -357,7 +357,7 @@ return [
                 ],
                 [
                     'text' => 'Additional Facilities',
-                    'route' => 'admin.rooms.extra_facilities',
+                    'route' => 'admin.additionalFacilities.index',
                     'icon' => 'fas fa-wifi',
                 ],
 
