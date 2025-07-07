@@ -167,7 +167,7 @@
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-light border-bottom">
-        <h5 class="modal-title fw-bold text-dark" id="viewFeatureModalLabel">Feature Details</h5>
+        <h6 class="modal-title fw-bold text-dark" id="viewFeatureModalLabel">Feature Details</h6>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
@@ -196,38 +196,6 @@
                 </p>
               </div>
             </div>
-          </div>
-
-          {{-- SEO --}}
-          <h5 class="fw-bold text-dark mb-3 mt-4">SEO</h5>
-          <div class="bg-body-tertiary p-4 rounded mb-4">
-
-            {{-- Meta Title --}}
-            <div class="row mb-3">
-              <div class="col-12">
-                <label class="form-label h6 mb-1">Meta Title</label>
-                <p class="form-control-plaintext h6 mb-0">Free Wi‑Fi Access in Every Room</p>
-              </div>
-            </div>
-
-            {{-- Meta Description --}}
-            <div class="row mb-3">
-              <div class="col-12">
-                <label class="form-label h6 mb-1">Meta Description</label>
-                <p class="form-control-plaintext h6 mb-0">
-                  Enjoy complimentary high-speed internet in all guest rooms and public areas during your stay.
-                </p>
-              </div>
-            </div>
-
-            {{-- Friendly URL --}}
-            <div class="row">
-              <div class="col-12">
-                <label class="form-label h6 mb-1">Friendly URL</label>
-                <p class="form-control-plaintext h6 mb-0">https://yourhotel.com/room-type/free-wifi</p>
-              </div>
-            </div>
-
           </div>
 
           {{-- Pricing Details --}}
@@ -262,6 +230,41 @@
               </div>
             </div>
           </div>
+
+
+          {{-- SEO --}}
+          <h5 class="fw-bold text-dark mb-3 mt-4">SEO</h5>
+          <div class="bg-body-tertiary p-4 rounded mb-4">
+
+            {{-- Meta Title --}}
+            <div class="row mb-3">
+              <div class="col-12">
+                <label class="form-label h6 mb-1">Meta Title</label>
+                <p class="form-control-plaintext h6 mb-0">Free Wi‑Fi Access in Every Room</p>
+              </div>
+            </div>
+
+            {{-- Meta Description --}}
+            <div class="row mb-3">
+              <div class="col-12">
+                <label class="form-label h6 mb-1">Meta Description</label>
+                <p class="form-control-plaintext h6 mb-0">
+                  Enjoy complimentary high-speed internet in all guest rooms and public areas during your stay.
+                </p>
+              </div>
+            </div>
+
+            {{-- Friendly URL --}}
+            <div class="row">
+              <div class="col-12">
+                <label class="form-label h6 mb-1">Friendly URL</label>
+                <p class="form-control-plaintext h6 mb-0">https://yourhotel.com/room-type/free-wifi</p>
+              </div>
+            </div>
+
+          </div>
+
+
 
           {{-- Visuals --}}
           <h5 class="fw-bold text-dark mb-2">Visual Representation</h5>
@@ -332,32 +335,6 @@
               </div>
             </div>
 
-            {{-- SEO --}}
-            <h5 class="fw-bold text-dark mb-3 mt-4">SEO</h5>
-            <div class="bg-body-tertiary p-4 rounded mb-4">
-              <div class="row mb-3">
-                <div class="col-12">
-                  <label class="form-label h6">Meta Title</label>
-                  <input type="text" name="meta_title" class="form-control" value="Free Wi‑Fi Access in Every Room">
-                </div>
-              </div>
-
-              <div class="row mb-3">
-                <div class="col-12">
-                  <label class="form-label h6">Meta Description</label>
-                  <textarea name="meta_description" class="form-control"
-                    rows="3">Enjoy complimentary high-speed internet in all guest rooms and public areas during your stay.</textarea>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-12">
-                  <label class="form-label h6">Friendly URL</label>
-                  <input type="text" name="friendly_url" class="form-control"
-                    value="https://yourhotel.com/room-type/free-wifi">
-                </div>
-              </div>
-            </div>
 
             {{-- Pricing Details --}}
             <h5 class="fw-bold text-dark mb-2">Pricing Details</h5>
@@ -394,6 +371,36 @@
                 </div>
               </div>
             </div>
+
+
+            {{-- SEO --}}
+            <h5 class="fw-bold text-dark mb-3 mt-4">SEO</h5>
+            <div class="bg-body-tertiary p-4 rounded mb-4">
+              <div class="row mb-3">
+                <div class="col-12">
+                  <label class="form-label h6">Meta Title</label>
+                  <input type="text" name="meta_title" class="form-control" value="Free Wi‑Fi Access in Every Room">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-12">
+                  <label class="form-label h6">Meta Description</label>
+                  <textarea name="meta_description" class="form-control"
+                    rows="3">Enjoy complimentary high-speed internet in all guest rooms and public areas during your stay.</textarea>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <label class="form-label h6">Friendly URL</label>
+                  <input type="text" name="friendly_url" class="form-control"
+                    value="https://yourhotel.com/room-type/free-wifi">
+                </div>
+              </div>
+            </div>
+
+
 
             {{-- *** IMAGES *** --}}
             <h5 class="fw-bold text-dark mb-2">Pricing Details</h5>
