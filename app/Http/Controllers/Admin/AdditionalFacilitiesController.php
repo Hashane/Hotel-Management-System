@@ -22,7 +22,8 @@ class AdditionalFacilitiesController
      */
     public function create()
     {
-        //
+        return view('admin.additionalFacilities.create');
+
     }
 
     /**
