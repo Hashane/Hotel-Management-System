@@ -3,6 +3,7 @@
 namespace App\Services\Admin;
 
 use App\Models\LosPrice;
+use App\Models\Promotion;
 use App\Models\RatePlan;
 use App\Models\RoomRate;
 use App\Models\Season;
@@ -12,11 +13,13 @@ use Carbon\CarbonPeriod;
 
 class RateEngineService
 {
+    protected ?string $promoCode = null;
+
     public function __construct(
         protected int $roomTypeId,
         protected int $ratePlanId,
         protected Carbon $checkIn,
-        protected Carbon $checkOut,
+        protected Carbon $checkOut
     ) {}
 
     public static function for(int $roomTypeId, int $ratePlanId, Carbon $checkIn, Carbon $checkOut): self
@@ -24,7 +27,14 @@ class RateEngineService
         return new self($roomTypeId, $ratePlanId, $checkIn, $checkOut);
     }
 
-    public function total()
+    public function withPromoCode(?string $code): self
+    {
+        $this->promoCode = $code;
+
+        return $this;
+    }
+
+    public function total(): float
     {
         $nights = $this->checkIn->diffInDays($this->checkOut);
 
@@ -34,7 +44,7 @@ class RateEngineService
             ->where('length_of_stay', $nights)
             ->first();
         if ($los) {
-            return (float) $los->price;
+            return $this->applyPromotion($los->price);
         }
 
         // 2. Daily pricing with season or base fallback
@@ -45,7 +55,24 @@ class RateEngineService
             $total += $this->getRateForDate($date);
         }
 
-        return $total;
+        return $this->applyPromotion($total);
+    }
+
+    protected function applyPromotion(float $amount): float
+    {
+        if (! $this->promoCode) {
+            return $amount;
+        }
+
+        $promo = Promotion::where('code', $this->promoCode)
+            ->where('rate_plan_id', $this->ratePlanId)
+            ->first();
+
+        if ($promo && $promo->isValid()) {
+            return round($amount * (1 - ($promo->discount_percent / 100)), 2);
+        }
+
+        return $amount;
     }
 
     protected function getRateForDate(Carbon $date): float
