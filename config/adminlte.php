@@ -351,7 +351,7 @@ return [
                     'icon' => 'fas fa-concierge-bell',
                 ],
                 [
-                    'text' => 'facilities',
+                    'text' => 'Features',
                     'route' => 'admin.features.index',
                     'icon' => 'fas fa-wifi',
                 ],
