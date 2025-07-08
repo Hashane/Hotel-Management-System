@@ -118,7 +118,6 @@
         <div class="row">
             <div class="col-xl-4">
 
-
                 <div class="row">
                     <div class="col-lg-12" style="padding: 0;">
                         <div class="booking-form" style="border: 1px solid #ebebeb; padding: 30px 40px 30px 40px;">
@@ -234,63 +233,85 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="col-8">
-                <p class="" style="color: black">
-                    Our Deluxe Ocean View Rooms offer stylish comfort with expansive views over the Indian Ocean from
-                    floor-to-ceiling
-                    windows. A calming space filled with shades of soft grey, off-white and azure blue, these rooms draw
-                    the beauty of Sri
-                    Lanka's natural environment in.
-                </p>
 
-                <div class="bg-body-tertiary p-4 rounded mb-4">
-                    <h5 class="fw-bold text-dark mb-3">Room Details</h5>
+        <div class="col-8">
+            <div class="row">
+                <div class="col-12">
+                    <p style="color: black; letter-spacing: 0.05em; line-height: 1.8;">
+                        Our Deluxe Ocean View Rooms offer stylish comfort with expansive views over the Indian Ocean
+                        from floor-to-ceiling windows. A calming space filled with shades of soft grey, off-white
+                        and azure blue,
+                        these
+                        rooms draw the beauty of Sri Lanka's natural environment in.
+                    </p>
+                </div>
+            </div>
 
-                    <div class="row mb-3">
-                        <div class="col-md-3">
-                            <label class="form-label h6">Size</label>
-                        </div>
-                        <div class="col-md-9">
-                            <p class="form-control-plaintext h6">{{ $roomType->size ?? '30 ft' }}</p>
-                        </div>
-                    </div>
 
-                    <div class="row mb-3">
-                        <div class="col-md-3">
-                            <label class="form-label h6">Capacity</label>
-                        </div>
-                        <div class="col-md-9">
-                            <p class="form-control-plaintext h6">Max person {{ $roomType->capacity ?? 2 }}</p>
-                        </div>
-                    </div>
+            <div class="row mt-4">
+                <div class="col-12">
+                    {{-- <div class="bg-body-tertiary p-4 rounded mb-4"> --}}
 
-                    <div class="row mb-3">
-                        <div class="col-md-3">
-                            <label class="form-label h6">Bed</label>
-                        </div>
-                        <div class="col-md-9">
-                            <p class="form-control-plaintext h6">{{ $roomType->bed_type ?? 'King Beds' }}</p>
-                        </div>
-                    </div>
 
-                    <div class="row mb-3">
-                        <div class="col-md-3">
-                            <label class="form-label h6">Facilities</label>
+                        <div class="row mb-2">
+                            <div class="col-md-12 d-flex align-items-center">
+                                <p class="mb-0 fw-semibold me-2 text-dark">Size:</p>
+                                <p class="form-control-plaintext mb-0" style="width: auto;">
+                                    {{ $roomType->size ?? '30 ft' }}
+                                </p>
+                            </div>
                         </div>
-                        <div class="col-md-9">
-                            <p class="form-control-plaintext h6">
-                                {{
-                                isset($roomType) && $roomType->facilities()->exists()
-                                ? implode(', ', json_decode($roomType->facilities()->pluck('name'), true))
-                                : 'Wifi, Television, Bathroom,...'
-                                }}
-                            </p>
+
+                        <div class="row mb-2">
+                            <div class="col-md-12 d-flex align-items-center">
+                                <p class="mb-0 fw-semibold me-2 text-dark">Capacity:</p>
+                                <p class="form-control-plaintext mb-0" style="width: auto;">
+                                    Max person {{ $roomType->capacity ?? 2 }}
+                                </p>
+                            </div>
                         </div>
+
+                        <div class="row mb-2">
+                            <div class="col-md-12 d-flex align-items-center">
+                                <p class="mb-0 fw-semibold me-2 text-dark">Bed:</p>
+                                <p class="form-control-plaintext mb-0" style="width: auto;">
+                                    {{ $roomType->bed_type ?? 'King Beds' }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-md-12 d-flex align-items-start">
+                                <p class="mb-0 fw-semibold me-2 text-dark">Facilities:</p>
+                                <div class="d-flex flex-wrap gap-3">
+                                    @php
+                                    // Fallback sample facilities if none exist
+                                    $facilityList = $roomType->facilities ?? ['Wi‑Fi', 'Television', 'Bathroom'];
+                                    @endphp
+
+                                    <div class="d-flex flex-wrap gap-3">
+                                        @foreach ($facilityList as $facility)
+                                        @php
+                                        $name = is_object($facility) ? $facility->name : $facility;
+                                        $iconFile = strtolower(str_replace(' ', '_', $name)) . '.png';
+                                        @endphp
+                                        <img src="{{ asset('images/features/' . $iconFile) }}" alt="{{ $name }}"
+                                            width="24" height="24" title="{{ $name }}" style="cursor: default;">
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
+
+
         </div>
+    </div>
 
 
     </div>
