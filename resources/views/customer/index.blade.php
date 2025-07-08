@@ -87,54 +87,169 @@
 
 
     {{-- **** ROOM PAGE **** --}}
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-4">
-                <div class="booking-form" style="padding: 30px 40px 50px 40px;">
-                    <h3>Booking Your Hotel</h3>
-                    <form action="{{ route('rooms.index') }}" method="GET">
-                        <div class="select-option">
-                            <label for="room_type">Accommodation Type:</label>
-                            <select id="room_type" name="room_type" class="r-o-select">
-                                <option value="any" {{ request('room_type')=='' ? 'selected' : '' }}>Any</option>
-                                <option value="1" {{ request('room_type')=='1' ? 'selected' : '' }}>Standard
-                                </option>
-                                <option value="2" {{ request('room_type')=='2' ? 'selected' : '' }}>Deluxe
-                                </option>
-                                <option value="3" {{ request('room_type')=='3' ? 'selected' : '' }}>Suite</option>
-                            </select>
-                        </div>
+    <div class="container mt-4">
+        <section class="hero-section">
 
-                        <div class="check-date">
-                            <label for="date-in">Check In:</label>
-                            <input type="date" class="date-input" id="date-in" name="check_in"
-                                value="{{ request()->check_in ?? now()->toDateString() }}">
-                            <i class="icon_calendar"></i>
-                        </div>
+            <div x-data="{ active: 0, slides: ['{{ asset('images/hero/hero-2.jpg') }}', '{{ asset('images/hero/hero-3.jpg') }}'] }"
+                x-init="setInterval(() => active = (active + 1) % slides.length, 5000)" class="hero-slider">
 
-                        <div class="check-date">
-                            <label for="date-out">Check Out:</label>
-                            <input type="date" class="date-input" id="date-out" name="check_out"
-                                value="{{ request()->check_out ?? now()->addDay()->toDateString() }}">
-                            <i class="icon_calendar"></i>
-                        </div>
+                <!-- Slides -->
+                <template x-for="(slide, index) in slides" :key="index">
+                    <div x-show="active === index" x-transition:enter="transition-opacity duration-1000"
+                        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                        class="absolute inset-0 bg-cover bg-center" :style="'background-image: url(' + slide + ')'">
+                    </div>
+                </template>
 
-                        <button type="submit">Check Availability</button>
-                    </form>
+                <!-- Controls -->
+                <div class="absolute inset-x-0 bottom-4 flex justify-center space-x-3 z-10">
+                    <template x-for="(slide, index) in slides" :key="'dot-' + index">
+                        <button @click="active = index" :class="active === index ? 'bg-white' : 'bg-gray-400'"
+                            class="w-3 h-3 rounded-full"></button>
+                    </template>
                 </div>
             </div>
 
-            <div class="col-8">
-                <p class="">
-                    Our Deluxe Ocean View Rooms offer stylish comfort with expansive views over the Indian Ocean from
-                    floor-to-ceiling
-                    windows. A calming space filled with shades of soft grey, off-white and azure blue, these rooms draw
-                    the beauty of Sri
-                    Lanka's natural environment in.
-                </p>
-            </div>
+        </section>
+    </div>
 
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-4">
+
+
+                <div class="row">
+                    <div class="col-lg-12" style="padding: 0;">
+                        <div class="booking-form" style="border: 1px solid #ebebeb; padding: 30px 40px 30px 40px;">
+                            <h3>Booking Your Hotel</h3>
+                            <form action="{{ route('rooms.index') }}" method="GET">
+
+
+                                <div class="check-date">
+                                    <label for="date-in">Check In:</label>
+                                    <input type="date" class="date-input" id="date-in" name="check_in"
+                                        value="{{ request()->check_in ?? now()->toDateString() }}">
+                                    <i class="icon_calendar"></i>
+                                </div>
+
+                                <div class="check-date">
+                                    <label for="date-out">Check Out:</label>
+                                    <input type="date" class="date-input" id="date-out" name="check_out"
+                                        value="{{ request()->check_out ?? now()->addDay()->toDateString() }}">
+                                    <i class="icon_calendar"></i>
+                                </div>
+
+
+                                <div class="select-option">
+                                    <label for="date-out">Guest Count</label>
+                                    <select name="occupants" class="r-o-select w-100" required>
+                                        <option value="">GUEST COUNT</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- payment section -->
+                <div class="row">
+                    <div class="col-lg-12"
+                        style="border: 1px solid #ebebeb; padding: 30px 40px 30px 40px; margin-top: 20px">
+
+                        <div class="row">
+                            <h4>Payment Information</h4>
+                        </div>
+                        <div class="row payment-detail-row">
+                            <div class="col-lg-5">
+                                <p>Total Room Cost</p>
+                            </div>
+                            <div class="col-lg-7">
+                                <h6 class="payment-price form-control-plaintext">Rs. 12,500.00</h6>
+                            </div>
+                        </div>
+
+                        <div class="row payment-detail-row">
+                            <div class="col-lg-5">
+                                <p>Service Charges</p>
+                            </div>
+                            <div class="col-lg-7">
+                                <h6 class="payment-price form-control-plaintext">Rs. 750.00</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <h6 style="font-weight: bolder">Total Amount</h6>
+                            </div>
+                            <div class="col-lg-7">
+                                <h5 class="payment-price form-control-plaintext" style="font-size: larger">
+                                    Rs. 14,250.00
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end payment section -->
+
+                <!-- promotion section -->
+                <div class="row" style="margin-top: 20px">
+                    <div class="col-lg-12 payment-card">
+                        <div class="row">
+                            <h6 style="font-weight: bolder">APPLY COUPON</h6>
+                        </div>
+
+                        <div class="row">
+                            <p>Have a Coupon?</p>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <button class="payment-btn-payment">
+                                </button>
+                            </div>
+
+                            <div class="col-lg-5">
+                                <button class="payment-btn-promotion">
+                                    Apply
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end of promotion section -->
+                <div class="row">
+                    <div class="col-lg-12 ">
+                        <button class="proceed-btn btn-sm px-3 bg-primary mb-2 ">Proceed
+                        </button>
+
+                    </div>
+                </div>
+            </div>
         </div>
+
+
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <div class="col-8">
+        <p class="">
+            Our Deluxe Ocean View Rooms offer stylish comfort with expansive views over the Indian Ocean from
+            floor-to-ceiling
+            windows. A calming space filled with shades of soft grey, off-white and azure blue, these rooms draw
+            the beauty of Sri
+            Lanka's natural environment in.
+        </p>
+    </div>
+
+    </div>
+
+
     </div>
 
     <!-- About Us Section Begin -->
