@@ -135,9 +135,12 @@
 
                                 <div class="check-date">
                                     <label for="date-out">Check Out:</label>
-                                    <input type="date" class="date-input" id="date-out" name="check_out"
-                                        value="{{ request()->check_out ?? now()->addDay()->toDateString() }}">
-                                    <i class="icon_calendar"></i>
+                                    <p>
+                                        <input type="date" class="date-input" id="date-out" name="check_out"
+                                            value="{{ request()->check_out ?? now()->addDay()->toDateString() }}">
+                                        <i class="icon_calendar"></i>
+                                    </p>
+
                                 </div>
 
 
@@ -155,13 +158,15 @@
                     </div>
                 </div>
 
+
+
                 <!-- payment section -->
                 <div class="row">
                     <div class="col-lg-12"
                         style="border: 1px solid #ebebeb; padding: 30px 40px 30px 40px; margin-top: 20px">
 
                         <div class="row">
-                            <h4>Payment Information</h4>
+                            <h3>Payment Information</h3>
                         </div>
                         <div class="row payment-detail-row">
                             <div class="col-lg-5">
@@ -229,6 +234,62 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-8">
+                <p class="" style="color: black">
+                    Our Deluxe Ocean View Rooms offer stylish comfort with expansive views over the Indian Ocean from
+                    floor-to-ceiling
+                    windows. A calming space filled with shades of soft grey, off-white and azure blue, these rooms draw
+                    the beauty of Sri
+                    Lanka's natural environment in.
+                </p>
+
+                <div class="bg-body-tertiary p-4 rounded mb-4">
+                    <h5 class="fw-bold text-dark mb-3">Room Details</h5>
+
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <label class="form-label h6">Size</label>
+                        </div>
+                        <div class="col-md-9">
+                            <p class="form-control-plaintext h6">{{ $roomType->size ?? '30 ft' }}</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <label class="form-label h6">Capacity</label>
+                        </div>
+                        <div class="col-md-9">
+                            <p class="form-control-plaintext h6">Max person {{ $roomType->capacity ?? 2 }}</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <label class="form-label h6">Bed</label>
+                        </div>
+                        <div class="col-md-9">
+                            <p class="form-control-plaintext h6">{{ $roomType->bed_type ?? 'King Beds' }}</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <label class="form-label h6">Facilities</label>
+                        </div>
+                        <div class="col-md-9">
+                            <p class="form-control-plaintext h6">
+                                {{
+                                isset($roomType) && $roomType->facilities()->exists()
+                                ? implode(', ', json_decode($roomType->facilities()->pluck('name'), true))
+                                : 'Wifi, Television, Bathroom,...'
+                                }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
 
@@ -237,15 +298,7 @@
     </div>
     </div>
 
-    <div class="col-8">
-        <p class="">
-            Our Deluxe Ocean View Rooms offer stylish comfort with expansive views over the Indian Ocean from
-            floor-to-ceiling
-            windows. A calming space filled with shades of soft grey, off-white and azure blue, these rooms draw
-            the beauty of Sri
-            Lanka's natural environment in.
-        </p>
-    </div>
+
 
     </div>
 
