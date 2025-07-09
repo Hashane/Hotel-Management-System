@@ -66,10 +66,12 @@ class RoomController
     /**
      * Display the specified resource.
      */
-    public function show(Room $room)
+    public function show()
     {
-        return view('customer.rooms.show', compact('room'));
+        return view('customer.rooms.show');
     }
+
+   
 
     /**
      * Show the form for editing the specified resource.
