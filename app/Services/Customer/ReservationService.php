@@ -10,7 +10,7 @@ use App\Models\Reservation;
 use App\Models\Room;
 use App\Models\RoomReservation;
 use App\Models\RoomType;
-use App\Services\CartCostCalculator;
+use App\Services\ReservationCostService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
 use RuntimeException;
@@ -105,7 +105,7 @@ class ReservationService
         $cartItems = $this->getCartItems();
         $rooms = $this->getRoomsFromCart($cartItems);
 
-        return app(CartCostCalculator::class)->calculate($cartItems, $rooms, false);
+        return app(ReservationCostService::class)->calculateReservationTotal($cartItems, $rooms, false);
     }
 
     public function destroy($data, Reservation $reservation): void
