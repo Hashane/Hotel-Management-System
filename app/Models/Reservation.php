@@ -52,6 +52,11 @@ class Reservation extends Model
             ->withTimestamps();
     }
 
+    public function isPaid(): bool
+    {
+        return $this->payments()->where('status', 'paid')->sum('amount') >= $this->amount;
+    }
+
     public function payments()
     {
         return $this->hasMany(Payment::class);
