@@ -763,6 +763,9 @@ ol {
     -o-transition: all 0.2s;
     transition: all 0.2s;
 }
+ 
+
+
 .hp-room-items .hp-room-item .hr-text h2 span {
     font-family: "Cabin", sans-serif;
     font-size: 16px;
@@ -1387,17 +1390,8 @@ height: 350px;
     /* border-top: none; */
     padding: 24px 24px 30px 28px;
 }
-.room-item .ri-text h4 {
-    color: #19191a;
-    margin-bottom: 17px;
-}
-.room-item .ri-text h3 {
-    color: #dfa974;
-    font-weight: 700;
-    margin-bottom: 14px;
-}
+
 .room-item .ri-text h3 span {
-    font-family: "Cabin", sans-serif;
     font-size: 14px;
     font-weight: 400;
     color: #19191a;
@@ -1409,7 +1403,6 @@ height: 350px;
     font-size: 14px;
     color: #707079;
     letter-spacing: 0.5px;
-    /* line-height: 36px; */
 }
 .room-item .ri-text table tbody tr td.r-o {
     width: 125px;
