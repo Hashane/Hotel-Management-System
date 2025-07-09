@@ -5,6 +5,7 @@ namespace App\Helpers;
 use App\Enums\ReservationStatus;
 use App\Models\Customer;
 use App\Models\Reservation;
+use App\Models\RoomRate;
 use App\Models\Setting;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -83,5 +84,17 @@ class Helper
         }
 
         return $map;
+    }
+
+    public static function ratesFullyDefinedForRange(int $roomTypeId, int $ratePlanId, $checkIn, $checkOut): bool
+    {
+        $expectedCount = Carbon::parse($checkIn)->diffInDays(Carbon::parse($checkOut));
+
+        $actualCount = RoomRate::where('room_type_id', $roomTypeId)
+            ->where('rate_plan_id', $ratePlanId)
+            ->whereBetween('date', [Carbon::parse($checkIn), Carbon::parse($checkOut)->copy()->subDay()])
+            ->count();
+
+        return $actualCount == $expectedCount;
     }
 }
