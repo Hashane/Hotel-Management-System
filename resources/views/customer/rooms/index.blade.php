@@ -96,7 +96,11 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <a href="#" class="primary-btn mb-3">More Details</a>
+
+
+
+                            <a href="#" class="primary-btn mb-3"
+                                onclick="window.location='{{ route('rooms.show') }}'">More Details</a>
                             <div class="row">
                                 <form action="{{ route('cart.add', ['roomType' => $roomType]) }}" method="POST"
                                     class="d-flex justify-content-between w-100 gap-3">
