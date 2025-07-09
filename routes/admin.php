@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\AdditionalFacilitiesController;
 use App\Http\Controllers\Admin\AdminCartController;
 use App\Http\Controllers\Admin\BillController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RateCalendarController;
 use App\Http\Controllers\Admin\ReportsController;
@@ -12,8 +14,6 @@ use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\RoomReservationController;
 use App\Http\Controllers\Admin\SeasonController;
 use App\Http\Controllers\Admin\ServiceController;
-use App\Http\Controllers\Admin\FeatureController;
-use App\Http\Controllers\Admin\AdditionalFacilitiesController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
