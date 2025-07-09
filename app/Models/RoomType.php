@@ -62,4 +62,14 @@ class RoomType extends Model
     {
         return $this->hasMany(RateRestriction::class);
     }
+
+    public function getSeasonalRoomRate($seasonId)
+    {
+        return $this->seasonalRoomRates()->where('season_id', $seasonId)->value('price');
+    }
+
+    public function seasonalRoomRates()
+    {
+        return $this->hasMany(SeasonRoomRate::class);
+    }
 }

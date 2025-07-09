@@ -81,8 +81,6 @@ class RoomController
         return view('customer.rooms.show');
     }
 
-   
-
     /**
      * Show the form for editing the specified resource.
      */

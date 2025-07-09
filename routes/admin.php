@@ -1,19 +1,21 @@
 <?php
 
+use App\Http\Controllers\Admin\AdditionalFacilitiesController;
 use App\Http\Controllers\Admin\AdminCartController;
 use App\Http\Controllers\Admin\BillController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RateCalendarController;
+use App\Http\Controllers\Admin\RateRestrictionController;
 use App\Http\Controllers\Admin\ReportsController;
 use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\RoomReservationController;
 use App\Http\Controllers\Admin\SeasonController;
+use App\Http\Controllers\Admin\SeasonRoomRateController;
 use App\Http\Controllers\Admin\ServiceController;
-use App\Http\Controllers\Admin\FeatureController;
-use App\Http\Controllers\Admin\AdditionalFacilitiesController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -81,6 +83,16 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/', 'store')->name('store');
         Route::delete('/{season}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(SeasonRoomRateController::class)->prefix('seasonal-room-rates')->name('seasonal-room-rates.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+    });
+
+    Route::controller(RateRestrictionController::class)->prefix('rate-restrictions')->name('rate-restrictions.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
     });
 
     Route::controller(CustomerController::class)->name('customers.')->group(function () {
