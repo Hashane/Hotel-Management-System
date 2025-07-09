@@ -3,181 +3,314 @@
 @section('title', 'About Us')
 
 @section('content')
-    <!-- Breadcrumb Section Begin -->
-    <div class="breadcrumb-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb-text">
-                        <h2>Our Rooms</h2>
-                        <div class="bt-option">
-                            <a href="{{ route('home')}}">Home</a>
-                            <span>Rooms</span>
-                        </div>
+<!-- Breadcrumb Section Begin -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <h2>Our Rooms</h2>
+                    <div class="bt-option">
+                        <a href="{{ route('home')}}">Home</a>
+                        <span>Rooms</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Breadcrumb Section End -->
+</div>
+<!-- Breadcrumb Section End -->
 
-    <!-- Room Details Section Begin -->
-    <section class="room-details-section spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="room-details-item">
-                        <img src="img/room/room-details.jpg" alt="">
-                        <div class="rd-text">
-                            <div class="rd-title">
-                                <h3>Premium King Room</h3>
-                                <div class="rdt-right">
-                                    <div class="rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star-half_alt"></i>
-                                    </div>
-                                    <a href="#">Booking Now</a>
-                                </div>
-                            </div>
-                            <h2>159$<span>/Pernight</span></h2>
-                            <table>
-                                <tbody>
-                                <tr>
-                                    <td class="r-o">Size:</td>
-                                    <td>30 ft</td>
-                                </tr>
-                                <tr>
-                                    <td class="r-o">Capacity:</td>
-                                    <td>Max persion 5</td>
-                                </tr>
-                                <tr>
-                                    <td class="r-o">Bed:</td>
-                                    <td>King Beds</td>
-                                </tr>
-                                <tr>
-                                    <td class="r-o">Services:</td>
-                                    <td>Wifi, Television, Bathroom,...</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <p class="f-para">Motorhome or Trailer that is the question for you. Here are some of the
-                                advantages and disadvantages of both, so you will be confident when purchasing an RV.
-                                When comparing Rvs, a motorhome or a travel trailer, should you buy a motorhome or fifth
-                                wheeler? The advantages and disadvantages of both are studied so that you can make your
-                                choice wisely when purchasing an RV. Possessing a motorhome or fifth wheel is an
-                                achievement of a lifetime. It can be similar to sojourning with your residence as you
-                                search the various sites of our great land, America.</p>
-                            <p>The two commonly known recreational vehicle classes are the motorized and towable.
-                                Towable rvs are the travel trailers and the fifth wheel. The rv travel trailer or fifth
-                                wheel has the attraction of getting towed by a pickup or a car, thus giving the
-                                adaptability of possessing transportation for you when you are parked at your campsite.
-                            </p>
+
+
+<body>
+
+
+    {{-- **** ROOM PAGE **** --}}
+    <div class="container">
+        <div class="container justify-content-center mt-4" style="padding: 0">
+            <section class="hero-section">
+
+                <div x-data="{ active: 0, slides: ['{{ asset('images/hero/hero-2.jpg') }}', '{{ asset('images/hero/hero-3.jpg') }}'] }"
+                    x-init="setInterval(() => active = (active + 1) % slides.length, 5000)" class="hero-slider">
+
+                    <!-- Slides -->
+                    <template x-for="(slide, index) in slides" :key="index">
+                        <div x-show="active === index" x-transition:enter="transition-opacity duration-1000"
+                            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                            class="absolute inset-0 bg-cover bg-center" :style="'background-image: url(' + slide + ')'">
                         </div>
-                    </div>
-                    <div class="rd-reviews">
-                        <h4>Reviews</h4>
-                        <div class="review-item">
-                            <div class="ri-pic">
-                                <img src="img/room/avatar/avatar-1.jpg" alt="">
-                            </div>
-                            <div class="ri-text">
-                                <span>27 Aug 2019</span>
-                                <div class="rating">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star-half_alt"></i>
-                                </div>
-                                <h5>Brandon Kelley</h5>
-                                <p>Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                                    adipisci velit, sed quia non numquam eius modi tempora. incidunt ut labore et dolore
-                                    magnam.</p>
-                            </div>
-                        </div>
-                        <div class="review-item">
-                            <div class="ri-pic">
-                                <img src="img/room/avatar/avatar-2.jpg" alt="">
-                            </div>
-                            <div class="ri-text">
-                                <span>27 Aug 2019</span>
-                                <div class="rating">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star-half_alt"></i>
-                                </div>
-                                <h5>Brandon Kelley</h5>
-                                <p>Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                                    adipisci velit, sed quia non numquam eius modi tempora. incidunt ut labore et dolore
-                                    magnam.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review-add">
-                        <h4>Add Review</h4>
-                        <form action="#" class="ra-form">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <input type="text" placeholder="Name*">
-                                </div>
-                                <div class="col-lg-6">
-                                    <input type="text" placeholder="Email*">
-                                </div>
-                                <div class="col-lg-12">
-                                    <div>
-                                        <h5>You Rating:</h5>
-                                        <div class="rating">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star-half_alt"></i>
-                                        </div>
-                                    </div>
-                                    <textarea placeholder="Your Review"></textarea>
-                                    <button type="submit">Submit Now</button>
-                                </div>
-                            </div>
-                        </form>
+                    </template>
+
+                    <!-- Controls -->
+                    <div class="absolute inset-x-0 bottom-4 flex justify-center space-x-3 z-10">
+                        <template x-for="(slide, index) in slides" :key="'dot-' + index">
+                            <button @click="active = index" :class="active === index ? 'bg-white' : 'bg-gray-400'"
+                                class="w-3 h-3 rounded-full"></button>
+                        </template>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="room-booking">
-                        <h3>Your Reservation</h3>
-                        <form action="#">
-                            <div class="check-date">
-                                <label for="date-in">Check In:</label>
-                                <input type="text" class="date-input" id="date-in">
-                                <i class="icon_calendar"></i>
+
+            </section>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="container">
+        <div class="container d-flex justify-content-center">
+            <div class="w-100">
+                <div class="row mt-4">
+                    <div class="col-xl-4">
+
+                        <!-- Booking section -->
+                        <div class="row ms-2 me-2">
+                            <div class="col-lg-12" style="padding: 0;">
+                                <div class="booking-form"
+                                    style="border: 1px solid #ebebeb; padding: 20px 30px 20px 30px;">
+                                    <h4>Booking Your Hotel</h4>
+                                    <form action="{{ route('rooms.index') }}" method="GET">
+
+
+                                        <div class="check-date">
+                                            <label for="date-in">Check In:</label>
+                                            <input type="date" class="date-input" id="date-in" name="check_in"
+                                                value="{{ request()->check_in ?? now()->toDateString() }}">
+                                            <i class="icon_calendar"></i>
+                                        </div>
+
+                                        <div class="check-date">
+                                            <label for="date-out">Check Out:</label>
+                                            <p>
+                                                <input type="date" class="date-input" id="date-out" name="check_out"
+                                                    value="{{ request()->check_out ?? now()->addDay()->toDateString() }}">
+                                                <i class="icon_calendar"></i>
+                                            </p>
+
+                                        </div>
+
+
+                                        <div class="select-option">
+                                            <label for="date-out">Guest Count</label>
+                                            <select name="occupants" class="r-o-select w-100" required>
+                                                <option value="">GUEST COUNT</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                            <div class="check-date">
-                                <label for="date-out">Check Out:</label>
-                                <input type="text" class="date-input" id="date-out">
-                                <i class="icon_calendar"></i>
+                        </div>
+                        <!-- Booking section -->
+
+                        <!-- payment section -->
+                        <div class="row ms-2 me-2">
+                            <div class="col-lg-12"
+                                style="border: 1px solid #ebebeb; padding: 20px 30px 20px 30px; margin-top: 20px">
+
+                                <div class="row">
+                                    <h4>Payment Information</h4>
+                                </div>
+                                <div class="row payment-detail-row">
+                                    <div class="col-lg-5">
+                                        <p>Total Room Cost</p>
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <h6 class="payment-price form-control-plaintext">Rs. 12,500.00</h6>
+                                    </div>
+                                </div>
+
+                                <div class="row payment-detail-row">
+                                    <div class="col-lg-5">
+                                        <p>Service Charges</p>
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <h6 class="payment-price form-control-plaintext">Rs. 750.00</h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                        <h6 style="font-weight: bolder">Total Amount</h6>
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <h5 class="payment-price form-control-plaintext" style="font-size: larger">
+                                            Rs. 14,250.00
+                                        </h5>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="select-option">
-                                <label for="guest">Guests:</label>
-                                <select id="guest">
-                                    <option value="">3 Adults</option>
-                                </select>
+                        </div>
+                        <!-- end payment section -->
+
+                        <!-- promotion section -->
+                        <div class="row ms-2 me-2" style="margin-top: 20px">
+                            <div class="col-lg-12 payment-card">
+                                <div class="row">
+                                    <h6 style="font-weight: bolder">APPLY COUPON</h6>
+                                </div>
+
+                                <div class="row">
+                                    <p>Have a Coupon?</p>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-7">
+                                        <button class="payment-btn-payment">
+                                        </button>
+                                    </div>
+
+                                    <div class="col-lg-5">
+                                        <button class="payment-btn-promotion">
+                                            Apply
+                                        </button>
+
+                                    </div>
+                                </div>
                             </div>
-                            <div class="select-option">
-                                <label for="room">Room:</label>
-                                <select id="room">
-                                    <option value="">1 Room</option>
-                                </select>
+                        </div>
+                        <!-- end of promotion section -->
+
+                        <div class="row ms-2 me-2">
+                            <div class="col-lg-12 mt-4" style="padding:0">
+                                <button class="proceed-btn mb-2 ">Proceed
+                                </button>
+
                             </div>
-                            <button type="submit">Check Availability</button>
-                        </form>
+                        </div>
                     </div>
+
+                    <div class="col-8">
+
+                        <!-- room Discip. section -->
+                        <div class="row">
+                            <div class="col-12">
+                                <p style="color: black; letter-spacing: 0.05em; line-height: 1.8;">
+                                    Our Deluxe Ocean View Rooms offer stylish comfort with expansive views over the
+                                    Indian
+                                    Ocean
+                                    from floor-to-ceiling windows. A calming space filled with shades of soft grey,
+                                    off-white
+                                    and azure blue,
+                                    these
+                                    rooms draw the beauty of Sri Lanka's natural environment in.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- end room Discip. section -->
+
+                        <!-- Room Details Section -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+
+                                <div class="row mb-2">
+                                    <div class="col-md-12">
+                                        <p style="letter-spacing: 0.05em; line-height: 1.8;">
+                                            <span class="me-2 fw-semibold">Size:</span>{{ $roomType->size ?? '30 ft' }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-2">
+                                    <div class="col-md-12">
+                                        <p style="letter-spacing: 0.05em; line-height: 1.8;">
+                                            <span class="me-2 fw-semibold">Capacity:</span>Max person {{
+                                            $roomType->capacity ?? 2 }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-2">
+                                    <div class="col-md-12">
+                                        <p style="letter-spacing: 0.05em; line-height: 1.8;">
+                                            <span class="me-2 fw-semibold">Bed:</span>{{ $roomType->bed_type ?? 'King
+                                            Beds' }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-2">
+                                    <div class="col-md-12">
+                                        @php
+                                        $facilityList = $roomType->facilities ?? ['Wi‑Fi', 'Television', 'Bathroom'];
+                                        $facilitiesText = implode(', ', collect($facilityList)->map(function($f) {
+                                        return is_object($f) ? $f->name : $f;
+                                        })->toArray());
+                                        @endphp
+                                        <p style="letter-spacing: 0.05em; line-height: 1.8;">
+                                            <span class="me-2 fw-semibold">Features:</span>{{ $facilitiesText }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div><!-- end room details card-->
+
+                        <!-- service section card -->
+
+                        <div class="row mt-4 ms-2 me-2"
+                            style="border: 1px solid #ebebeb; padding: 20px 10px 20px 10px;">
+                            <div class="col-2 d-flex justify-content-center ">
+                                <img class="service-img" src="images/hero/hero-2.jpg" alt="">
+                            </div>
+
+                            <div class="col-10 ps-2">
+                                <div class="col-lg-12">
+
+                                    <div class="row">
+                                        <h6>Serive Name</h6>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <p style="color: black; letter-spacing: 0.05em; line-height: 1.8;">
+                                                Our Deluxe Ocean View Rooms offer stylish comfort with expansive
+                                                views
+                                                over
+                                                the
+                                                Indian
+                                                Ocean
+                                                from
+                                                floor-to-ceiling windows. </p>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="row">
+                                        <div class="col-lg-7 d-flex align-items-center">
+                                            <h4>Rs. 1500.00</h4>
+                                            <h6>/Per night</h6>
+                                        </div>
+                                        <div class="col-5 text-end">
+                                            <button class="select-btn   ">Select </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- end service section card-->
+
+                    </div>
+
+
+
+
+
+
                 </div>
             </div>
         </div>
-    </section>
-    <!-- Room Details Section End -->
+    </div>
+
+
+
+
+
+
+</body>
 @endsection
