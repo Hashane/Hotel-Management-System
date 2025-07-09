@@ -358,7 +358,35 @@ return [
                 [
                     'text' => 'Additional Facilities',
                     'route' => 'admin.rooms.extra_facilities',
-                    'icon' => 'fas fa-wifi',
+                    'icon' => 'fas fa-toolbox',
+                ],
+
+            ],
+            'can' => 'create users',
+        ],
+        [
+            'text' => 'Pricing & Availability',
+            'icon' => 'fas fa-calendar-alt me-2',
+            'submenu' => [
+                [
+                    'text' => 'Rate Calendar',
+                    'route' => 'admin.rate-calendar.index',
+                    'icon' => 'fas fa-calendar-alt',
+                ],
+                [
+                    'text' => 'Manage Services',
+                    'route' => 'admin.seasons.index',
+                    'icon' => 'fas fa-cloud-sun',
+                ],
+                [
+                    'text' => 'Promotions',
+                    'route' => 'admin.reservations.create',
+                    'icon' => 'fas fa-tags',
+                ],
+                [
+                    'text' => 'Rate Plans',
+                    'route' => 'admin.reservations.create',
+                    'icon' => 'fas fa-money-bill',
                 ],
 
             ],
