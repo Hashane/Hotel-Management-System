@@ -114,217 +114,279 @@
     </div>
 
 
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-4">
-
-                <div class="row">
-                    <div class="col-lg-12" style="padding: 0;">
-                        <div class="booking-form" style="border: 1px solid #ebebeb; padding: 30px 40px 30px 40px;">
-                            <h3>Booking Your Hotel</h3>
-                            <form action="{{ route('rooms.index') }}" method="GET">
-
-
-                                <div class="check-date">
-                                    <label for="date-in">Check In:</label>
-                                    <input type="date" class="date-input" id="date-in" name="check_in"
-                                        value="{{ request()->check_in ?? now()->toDateString() }}">
-                                    <i class="icon_calendar"></i>
-                                </div>
-
-                                <div class="check-date">
-                                    <label for="date-out">Check Out:</label>
-                                    <p>
-                                        <input type="date" class="date-input" id="date-out" name="check_out"
-                                            value="{{ request()->check_out ?? now()->addDay()->toDateString() }}">
-                                        <i class="icon_calendar"></i>
-                                    </p>
-
-                                </div>
-
-
-                                <div class="select-option">
-                                    <label for="date-out">Guest Count</label>
-                                    <select name="occupants" class="r-o-select w-100" required>
-                                        <option value="">GUEST COUNT</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                    </select>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
 
 
 
-                <!-- payment section -->
-                <div class="row">
-                    <div class="col-lg-12"
-                        style="border: 1px solid #ebebeb; padding: 30px 40px 30px 40px; margin-top: 20px">
-
-                        <div class="row">
-                            <h3>Payment Information</h3>
-                        </div>
-                        <div class="row payment-detail-row">
-                            <div class="col-lg-5">
-                                <p>Total Room Cost</p>
-                            </div>
-                            <div class="col-lg-7">
-                                <h6 class="payment-price form-control-plaintext">Rs. 12,500.00</h6>
-                            </div>
-                        </div>
-
-                        <div class="row payment-detail-row">
-                            <div class="col-lg-5">
-                                <p>Service Charges</p>
-                            </div>
-                            <div class="col-lg-7">
-                                <h6 class="payment-price form-control-plaintext">Rs. 750.00</h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-5">
-                                <h6 style="font-weight: bolder">Total Amount</h6>
-                            </div>
-                            <div class="col-lg-7">
-                                <h5 class="payment-price form-control-plaintext" style="font-size: larger">
-                                    Rs. 14,250.00
-                                </h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end payment section -->
-
-                <!-- promotion section -->
-                <div class="row" style="margin-top: 20px">
-                    <div class="col-lg-12 payment-card">
-                        <div class="row">
-                            <h6 style="font-weight: bolder">APPLY COUPON</h6>
-                        </div>
-
-                        <div class="row">
-                            <p>Have a Coupon?</p>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-7">
-                                <button class="payment-btn-payment">
-                                </button>
-                            </div>
-
-                            <div class="col-lg-5">
-                                <button class="payment-btn-promotion">
-                                    Apply
-                                </button>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end of promotion section -->
-                <div class="row">
-                    <div class="col-lg-12 ">
-                        <button class="proceed-btn btn-sm px-3 bg-primary mb-2 ">Proceed
-                        </button>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-8">
+    <div class="container d-flex justify-content-center">
+        <div class="w-100">
             <div class="row">
-                <div class="col-12">
-                    <p style="color: black; letter-spacing: 0.05em; line-height: 1.8;">
-                        Our Deluxe Ocean View Rooms offer stylish comfort with expansive views over the Indian Ocean
-                        from floor-to-ceiling windows. A calming space filled with shades of soft grey, off-white
-                        and azure blue,
-                        these
-                        rooms draw the beauty of Sri Lanka's natural environment in.
-                    </p>
+                <div class="col-xl-4">
+
+                    <!-- Booking section -->
+                    <div class="row">
+                        <div class="col-lg-12" style="padding: 0;">
+                            <div class="booking-form" style="border: 1px solid #ebebeb; padding: 30px 40px 30px 40px;">
+                                <h3>Booking Your Hotel</h3>
+                                <form action="{{ route('rooms.index') }}" method="GET">
+
+
+                                    <div class="check-date">
+                                        <label for="date-in">Check In:</label>
+                                        <input type="date" class="date-input" id="date-in" name="check_in"
+                                            value="{{ request()->check_in ?? now()->toDateString() }}">
+                                        <i class="icon_calendar"></i>
+                                    </div>
+
+                                    <div class="check-date">
+                                        <label for="date-out">Check Out:</label>
+                                        <p>
+                                            <input type="date" class="date-input" id="date-out" name="check_out"
+                                                value="{{ request()->check_out ?? now()->addDay()->toDateString() }}">
+                                            <i class="icon_calendar"></i>
+                                        </p>
+
+                                    </div>
+
+
+                                    <div class="select-option">
+                                        <label for="date-out">Guest Count</label>
+                                        <select name="occupants" class="r-o-select w-100" required>
+                                            <option value="">GUEST COUNT</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Booking section -->
+
+                    <!-- payment section -->
+                    <div class="row">
+                        <div class="col-lg-12"
+                            style="border: 1px solid #ebebeb; padding: 30px 40px 30px 40px; margin-top: 20px">
+
+                            <div class="row">
+                                <h3>Payment Information</h3>
+                            </div>
+                            <div class="row payment-detail-row">
+                                <div class="col-lg-5">
+                                    <p>Total Room Cost</p>
+                                </div>
+                                <div class="col-lg-7">
+                                    <h6 class="payment-price form-control-plaintext">Rs. 12,500.00</h6>
+                                </div>
+                            </div>
+
+                            <div class="row payment-detail-row">
+                                <div class="col-lg-5">
+                                    <p>Service Charges</p>
+                                </div>
+                                <div class="col-lg-7">
+                                    <h6 class="payment-price form-control-plaintext">Rs. 750.00</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <h6 style="font-weight: bolder">Total Amount</h6>
+                                </div>
+                                <div class="col-lg-7">
+                                    <h5 class="payment-price form-control-plaintext" style="font-size: larger">
+                                        Rs. 14,250.00
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end payment section -->
+
+                    <!-- promotion section -->
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-lg-12 payment-card">
+                            <div class="row">
+                                <h6 style="font-weight: bolder">APPLY COUPON</h6>
+                            </div>
+
+                            <div class="row">
+                                <p>Have a Coupon?</p>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-7">
+                                    <button class="payment-btn-payment">
+                                    </button>
+                                </div>
+
+                                <div class="col-lg-5">
+                                    <button class="payment-btn-promotion">
+                                        Apply
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end of promotion section -->
+
+                    <div class="row">
+                        <div class="col-lg-12 ">
+                            <button class="proceed-btn btn-sm px-3 bg-primary mb-2 ">Proceed
+                            </button>
+
+                        </div>
+                    </div>
                 </div>
-            </div>
 
+                <div class="col-8">
 
-            <div class="row mt-4">
-                <div class="col-12">
-                    {{-- <div class="bg-body-tertiary p-4 rounded mb-4"> --}}
+                    <!-- room Discip. section -->
+                    <div class="row">
+                        <div class="col-12">
+                            <p style="color: black; letter-spacing: 0.05em; line-height: 1.8;">
+                                Our Deluxe Ocean View Rooms offer stylish comfort with expansive views over the Indian
+                                Ocean
+                                from floor-to-ceiling windows. A calming space filled with shades of soft grey,
+                                off-white
+                                and azure blue,
+                                these
+                                rooms draw the beauty of Sri Lanka's natural environment in.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- end room Discip. section -->
 
+                    <!-- service section card -->
 
-                        <div class="row mb-2">
-                            <div class="col-md-12 d-flex align-items-center">
-                                <p class="mb-0 fw-semibold me-2 text-dark">Size:</p>
-                                <p class="form-control-plaintext mb-0" style="width: auto;">
-                                    {{ $roomType->size ?? '30 ft' }}
-                                </p>
-                            </div>
+                    <div class="row" style="border: 1px solid #ebebeb; padding: 30px 30px 30px 30px; margin-top: 20px">
+
+                        <div class="col-2 d-flex justify-content-center ">
+
+                            <img class="service-img" src="images/hero/hero-2.jpg" alt="">
                         </div>
 
-                        <div class="row mb-2">
-                            <div class="col-md-12 d-flex align-items-center">
-                                <p class="mb-0 fw-semibold me-2 text-dark">Capacity:</p>
-                                <p class="form-control-plaintext mb-0" style="width: auto;">
-                                    Max person {{ $roomType->capacity ?? 2 }}
-                                </p>
-                            </div>
-                        </div>
+                        <div class="col-10">
+                            <div class="col-lg-12">
 
-                        <div class="row mb-2">
-                            <div class="col-md-12 d-flex align-items-center">
-                                <p class="mb-0 fw-semibold me-2 text-dark">Bed:</p>
-                                <p class="form-control-plaintext mb-0" style="width: auto;">
-                                    {{ $roomType->bed_type ?? 'King Beds' }}
-                                </p>
-                            </div>
-                        </div>
+                                <div class="row">
+                                    <h6>Serive Name</h6>
+                                </div>
 
-                        <div class="row mb-2">
-                            <div class="col-md-12 d-flex align-items-start">
-                                <p class="mb-0 fw-semibold me-2 text-dark">Facilities:</p>
-                                <div class="d-flex flex-wrap gap-3">
-                                    @php
-                                    // Fallback sample facilities if none exist
-                                    $facilityList = $roomType->facilities ?? ['Wi‑Fi', 'Television', 'Bathroom'];
-                                    @endphp
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p style="color: black; letter-spacing: 0.05em; line-height: 1.8;">
+                                            Our Deluxe Ocean View Rooms offer stylish comfort with expansive
+                                            views
+                                            over
+                                            the
+                                            Indian
+                                            Ocean
+                                            from
+                                            floor-to-ceiling windows. </p>
+                                    </div>
+                                </div>
 
-                                    <div class="d-flex flex-wrap gap-3">
-                                        @foreach ($facilityList as $facility)
-                                        @php
-                                        $name = is_object($facility) ? $facility->name : $facility;
-                                        $iconFile = strtolower(str_replace(' ', '_', $name)) . '.png';
-                                        @endphp
-                                        <img src="{{ asset('images/features/' . $iconFile) }}" alt="{{ $name }}"
-                                            width="24" height="24" title="{{ $name }}" style="cursor: default;">
-                                        @endforeach
+
+
+                                <div class="row">
+                                    <div class="col-lg-7 d-flex align-items-center">
+                                        <h4>Rs. 1500.00</h4>
+                                        <h6>/Per night</h6>
+                                    </div>
+                                    <div class="col-5 text-end">
+                                        <button class="select-btn   ">Select </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
+                    <!-- end service section card-->
+
+
+
+
+                </div>
+
+
+
+
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        {{-- <div class="bg-body-tertiary p-4 rounded mb-4"> --}}
+
+
+                            <div class="row mb-2">
+                                <div class="col-md-12 d-flex align-items-center">
+                                    <p class="mb-0 fw-semibold me-2 text-dark">Size:</p>
+                                    <p class="form-control-plaintext mb-0" style="width: auto;">
+                                        {{ $roomType->size ?? '30 ft' }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <div class="col-md-12 d-flex align-items-center">
+                                    <p class="mb-0 fw-semibold me-2 text-dark">Capacity:</p>
+                                    <p class="form-control-plaintext mb-0" style="width: auto;">
+                                        Max person {{ $roomType->capacity ?? 2 }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <div class="col-md-12 d-flex align-items-center">
+                                    <p class="mb-0 fw-semibold me-2 text-dark">Bed:</p>
+                                    <p class="form-control-plaintext mb-0" style="width: auto;">
+                                        {{ $roomType->bed_type ?? 'King Beds' }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <div class="col-md-12 d-flex align-items-start">
+                                    <p class="mb-0 fw-semibold me-2 text-dark">Facilities:</p>
+                                    <div class="d-flex flex-wrap gap-3">
+                                        @php
+                                        // Fallback sample facilities if none exist
+                                        $facilityList = $roomType->facilities ?? ['Wi‑Fi', 'Television',
+                                        'Bathroom'];
+                                        @endphp
+
+                                        <div class="d-flex flex-wrap gap-3">
+                                            @foreach ($facilityList as $facility)
+                                            @php
+                                            $name = is_object($facility) ? $facility->name : $facility;
+                                            $iconFile = strtolower(str_replace(' ', '_', $name)) . '.png';
+                                            @endphp
+                                            <img src="{{ asset('images/features/' . $iconFile) }}" alt="{{ $name }}"
+                                                width="24" height="24" title="{{ $name }}" style="cursor: default;">
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
+
+
             </div>
-
-
         </div>
     </div>
 
 
-    </div>
-    </div>
-    </div>
-    </div>
-
 
 
     </div>
 
 
-    </div>
+
+
+
 
     <!-- About Us Section Begin -->
     <section class="aboutus-section spad">
