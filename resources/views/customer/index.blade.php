@@ -115,8 +115,6 @@
 
 
 
-
-
     <div class="container d-flex justify-content-center">
         <div class="w-100">
             <div class="row">
@@ -257,60 +255,7 @@
                     </div>
                     <!-- end room Discip. section -->
 
-                    <!-- service section card -->
-
-                    <div class="row" style="border: 1px solid #ebebeb; padding: 30px 30px 30px 30px; margin-top: 20px">
-
-                        <div class="col-2 d-flex justify-content-center ">
-
-                            <img class="service-img" src="images/hero/hero-2.jpg" alt="">
-                        </div>
-
-                        <div class="col-10">
-                            <div class="col-lg-12">
-
-                                <div class="row">
-                                    <h6>Serive Name</h6>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        <p style="color: black; letter-spacing: 0.05em; line-height: 1.8;">
-                                            Our Deluxe Ocean View Rooms offer stylish comfort with expansive
-                                            views
-                                            over
-                                            the
-                                            Indian
-                                            Ocean
-                                            from
-                                            floor-to-ceiling windows. </p>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="row">
-                                    <div class="col-lg-7 d-flex align-items-center">
-                                        <h4>Rs. 1500.00</h4>
-                                        <h6>/Per night</h6>
-                                    </div>
-                                    <div class="col-5 text-end">
-                                        <button class="select-btn   ">Select </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- end service section card-->
-
-
-
-
                 </div>
-
-
-
 
 
                 <div class="row mt-4">
@@ -377,13 +322,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-    </div>
-
-
 
 
 
