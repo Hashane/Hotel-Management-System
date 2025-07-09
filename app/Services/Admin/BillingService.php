@@ -9,7 +9,7 @@ use App\Models\Payment;
 use App\Models\Reservation;
 use App\Models\Room;
 use App\Models\RoomReservation;
-use App\Services\CartCostCalculator;
+use App\Services\ReservationCostService;
 use Carbon\Carbon;
 
 class BillingService
@@ -52,7 +52,7 @@ class BillingService
         }
         $rooms = Room::whereIn('id', $roomIds)->get();
 
-        $result = app(CartCostCalculator::class)->calculate($data, $rooms, true, 0, $lateCheckoutFee);
+        $result = app(ReservationCostService::class)->calculateReservationTotal($data, $rooms, true, 0, $lateCheckoutFee);
         $result['reservation_id'] = $reservation->id;
 
         return $this->saveBill($result);

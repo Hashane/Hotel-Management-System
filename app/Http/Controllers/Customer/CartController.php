@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Customer;
 
 use App\Models\Room;
 use App\Models\RoomType;
-use App\Services\CartCostCalculator;
 use App\Services\Customer\CartService;
+use App\Services\ReservationCostService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
@@ -32,7 +32,7 @@ class CartController
             ->whereIn('id', $roomIds)
             ->get();
 
-        $result = app(CartCostCalculator::class)->calculate($cartItems, $rooms, true);
+        $result = app(ReservationCostService::class)->calculateReservationTotal($cartItems, $rooms, true);
 
         return view('customer.cart', $result);
     }

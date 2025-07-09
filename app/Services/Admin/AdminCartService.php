@@ -6,7 +6,7 @@ use App\Helpers\Helper;
 use App\Models\Cart;
 use App\Models\Customer;
 use App\Models\Room;
-use App\Services\CartCostCalculator;
+use App\Services\ReservationCostService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
@@ -57,7 +57,7 @@ class AdminCartService
             ->whereIn('id', $roomIds)
             ->get();
 
-        return app(CartCostCalculator::class)->calculate($cartItems, $rooms, true);
+        return app(ReservationCostService::class)->calculateReservationTotal($cartItems, $rooms, true);
     }
 
     public function destroy(Cart $cart): void

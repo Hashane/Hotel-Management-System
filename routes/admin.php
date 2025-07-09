@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminCartController;
 use App\Http\Controllers\Admin\BillController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\RateCalendarController;
 use App\Http\Controllers\Admin\ReportsController;
 use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\RoleController;
@@ -52,6 +53,10 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/facilities', 'facilities')->name('facilities');
         Route::get('/extra_facilities', 'extra_facilities')->name('extra_facilities');
 
+    });
+    Route::controller(RateCalendarController::class)->prefix('rate-calendar')->name('rate-calendar.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::put('/', 'update')->name('update');
     });
 
     Route::controller(ServiceController::class)->prefix('services')->name('services.')->group(function () {

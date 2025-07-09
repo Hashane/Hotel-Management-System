@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Enums\RateType;
+use App\Helpers\Helper;
 use App\Http\Requests\Customer\RoomRequest;
 use App\Models\Room;
 use App\Models\RoomType;
@@ -43,6 +44,15 @@ class RoomController
                 }
             },
         ])->paginate(10)->appends(request()->except('page'));
+
+        if (! Helper::ratesFullyDefinedForRange($rateTypeId, 1, Carbon::parse($checkIn), Carbon::parse($checkOut))) {
+
+            return view('customer.rooms.index', [
+                'roomTypes' => collect(),
+                'message' => 'No rooms are available for the selected dates.',
+            ]);
+
+        }
 
         return view('customer.rooms.index', compact('roomTypes'));
     }

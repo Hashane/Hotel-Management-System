@@ -46,4 +46,20 @@ class RoomType extends Model
     {
         return $this->belongsToMany(RateType::class, 'room_type_rate_types')->withPivot('price');
     }
+
+    // New
+    public function roomRates(): HasMany
+    {
+        return $this->hasMany(RoomRate::class);
+    }
+
+    public function losPrices(): HasMany
+    {
+        return $this->hasMany(LOSPrice::class);
+    }
+
+    public function restrictions(): HasMany
+    {
+        return $this->hasMany(RateRestriction::class);
+    }
 }

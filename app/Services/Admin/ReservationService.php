@@ -16,7 +16,7 @@ class ReservationService
 {
     public function __construct(private readonly \App\Services\Customer\ReservationService $customerReservationService) {}
 
-    public function getReservationData($validated)
+    public function getReservationData($validated): array
     {
         $query = RoomType::filterBy($validated);
 
