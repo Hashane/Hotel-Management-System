@@ -374,9 +374,25 @@ return [
                     'icon' => 'fas fa-calendar-alt',
                 ],
                 [
-                    'text' => 'Manage Services',
-                    'route' => 'admin.seasons.index',
+                    'text' => 'Seasonal Rates',
                     'icon' => 'fas fa-cloud-sun',
+                    'submenu' => [
+                        [
+                            'text' => 'Seasons',
+                            'route' => 'admin.seasons.index',
+                            'icon' => 'fas fa-cloud-sun',
+                        ],
+                        [
+                            'text' => 'Seasonal Room, Rates',
+                            'route' => 'admin.seasonal-room-rates.index',
+                            'icon' => 'fas fa-dollar-sign',
+                        ],
+                    ],
+                ],
+                [
+                    'text' => 'Rate Restrictions',
+                    'route' => 'admin.rate-restrictions.index',
+                    'icon' => 'fas fa-flag-swallowtail',
                 ],
                 [
                     'text' => 'Promotions',
