@@ -351,13 +351,13 @@ return [
                     'icon' => 'fas fa-concierge-bell',
                 ],
                 [
-                    'text' => 'facilities',
-                    'route' => 'admin.rooms.facilities',
+                    'text' => 'Features',
+                    'route' => 'admin.features.index',
                     'icon' => 'fas fa-wifi',
                 ],
                 [
                     'text' => 'Additional Facilities',
-                    'route' => 'admin.rooms.extra_facilities',
+                    'route' => 'admin.additionalFacilities.index',
                     'icon' => 'fas fa-toolbox',
                 ],
 

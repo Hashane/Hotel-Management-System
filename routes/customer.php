@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('web')->group(function () {
     Route::controller(RoomController::class)->group(function () {
         Route::get('/rooms', 'index')->name('rooms.index');
-        Route::view('/rooms/{room}', 'customer.rooms.show')->name('rooms.show');
+        Route::get('/room', 'show')->name('rooms.show');
+
     });
 
     Route::view('/', 'customer.index')->name('home');

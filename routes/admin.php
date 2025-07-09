@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\RoomReservationController;
 use App\Http\Controllers\Admin\SeasonController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\FeatureController;
+use App\Http\Controllers\Admin\AdditionalFacilitiesController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -58,6 +60,18 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     });
 
     Route::controller(ServiceController::class)->prefix('services')->name('services.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+
+    });
+
+    Route::controller(FeatureController::class)->prefix('features')->name('features.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+
+    });
+
+    Route::controller(AdditionalFacilitiesController::class)->prefix('additionalFacilities')->name('additionalFacilities.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
 
