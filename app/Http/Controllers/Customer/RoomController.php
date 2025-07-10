@@ -19,21 +19,19 @@ class RoomController
     {
         $validated = $request->validated();
 
-        $checkIn = $validated['check_in'] ?? now()->toDateString();
-        $checkOut = $validated['check_out'] ?? now()->addDay()->toDateString();
+        $validated['check_in'] = $validated['check_in'] ?? now()->toDateString();
+        $validated['check_out'] = $validated['check_out'] ?? now()->addDay()->toDateString();
 
         $rateTypeId = RateType::PER_NIGHT->value;
 
-        if ($checkIn && $checkOut) {
-            $startDate = Carbon::parse($checkIn);
-            $endDate = Carbon::parse($checkOut);
-            $dateCount = $startDate->diffInDays($endDate);
+        $startDate = Carbon::parse($validated['check_in']);
+        $endDate = Carbon::parse($validated['check_out']);
+        $dateCount = $startDate->diffInDays($endDate);
 
-            if ($dateCount >= 7 && $dateCount < 14) {
-                $rateTypeId = RateType::WEEKLY->value;
-            } elseif ($dateCount >= 14) {
-                $rateTypeId = RateType::MONTHLY->value;
-            }
+        if ($dateCount >= 7 && $dateCount < 14) {
+            $rateTypeId = RateType::WEEKLY->value;
+        } elseif ($dateCount >= 14) {
+            $rateTypeId = RateType::MONTHLY->value;
         }
 
         $roomTypes = RoomType::filterBy($validated)->with([
@@ -45,7 +43,7 @@ class RoomController
             },
         ])->paginate(10)->appends(request()->except('page'));
 
-        if (! Helper::ratesFullyDefinedForRange($rateTypeId, 1, Carbon::parse($checkIn), Carbon::parse($checkOut))) {
+        if (! Helper::ratesFullyDefinedForRange($rateTypeId, 1, Carbon::parse($validated['check_in']), Carbon::parse($validated['check_out']))) {
 
             return view('customer.rooms.index', [
                 'roomTypes' => collect(),
