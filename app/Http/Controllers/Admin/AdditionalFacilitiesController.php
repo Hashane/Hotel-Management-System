@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\StoreAdditionalFacilitiesRequest;
 use App\Http\Requests\UpdateAdditionalFacilitiesRequest;
-use App\Models\AdditionalFacilities;
+use App\Models\AdditionalFacility;
 
 class AdditionalFacilitiesController
 {
@@ -37,7 +37,7 @@ class AdditionalFacilitiesController
     /**
      * Display the specified resource.
      */
-    public function show(AdditionalFacilities $additionalFacilities)
+    public function show(AdditionalFacility $additionalFacilities)
     {
         //
     }
@@ -45,7 +45,7 @@ class AdditionalFacilitiesController
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(AdditionalFacilities $additionalFacilities)
+    public function edit(AdditionalFacility $additionalFacilities)
     {
         //
     }
@@ -53,7 +53,7 @@ class AdditionalFacilitiesController
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAdditionalFacilitiesRequest $request, AdditionalFacilities $additionalFacilities)
+    public function update(UpdateAdditionalFacilitiesRequest $request, AdditionalFacility $additionalFacilities)
     {
         //
     }
@@ -61,7 +61,7 @@ class AdditionalFacilitiesController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AdditionalFacilities $additionalFacilities)
+    public function destroy(AdditionalFacility $additionalFacilities)
     {
         //
     }
