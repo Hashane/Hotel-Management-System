@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\Facades\JitTransaction;
 use App\Models\Room;
 use App\Models\RoomType;
 use App\Services\Customer\CartService;
@@ -50,11 +51,19 @@ class CartController
 
     public function add(RoomType $roomType, Request $request)
     {
-        $occupants = $request->input('occupants', 1);
-        $checkIn = $request->input('check_in') ?? Carbon::now()->format('Y-m-d');
-        $checkOut = $request->input('check_out') ?? Carbon::now()->addDay()->format('Y-m-d');
 
-        $this->cart->add($roomType, $occupants, $checkIn, $checkOut);
+        $response = JitTransaction::run(function () use ($roomType, $request) {
+            $occupants = $request->input('occupants', 1);
+            $checkIn = $request->input('check_in') ?? Carbon::now()->format('Y-m-d');
+            $checkOut = $request->input('check_out') ?? Carbon::now()->addDay()->format('Y-m-d');
+
+            $this->cart->add($roomType, $occupants, $checkIn, $checkOut);
+
+        });
+
+        if (! $response['success']) {
+            return redirect()->back()->withInput()->with(['error' => $response['error']]);
+        }
 
         return redirect()->back()->withInput()->with('success', 'Room added to cart!');
 
